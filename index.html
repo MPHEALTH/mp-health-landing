@@ -1194,6 +1194,19 @@
 
 
   <script>
+    /* ── Scroll to Calendly widget exactly, below sticky nav ── */
+    document.querySelectorAll('a[href="#calendly"]').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        var widget = document.querySelector('.cal-widget-wrap');
+        var nav    = document.querySelector('.nav');
+        if (!widget) return;
+        var navH = nav ? nav.getBoundingClientRect().height : 0;
+        var top  = widget.getBoundingClientRect().top + window.pageYOffset - navH - 12;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      });
+    });
+
     /* ── FAQ accordion ── */
     document.querySelectorAll('.faq-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
