@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Análisis Inicial Gratuito | Michelle Peiret Health</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:      #0d1b2e;
+      --navy2:     #13223a;
+      --navy3:     #08111e;
+      --teal:      #00c9a7;
+      --teal-dk:   #00a88c;
+      --teal-lt:   rgba(0,201,167,0.12);
+      --cream:     #f7f5f0;
+      --cream2:    #edeae2;
+      --white:     #ffffff;
+      --text:      #1a2332;
+      --muted:     #6b7a8d;
+      --border:    rgba(0,201,167,0.2);
+      --border2:   rgba(255,255,255,0.08);
+      --font-body: 'Inter', -apple-system, sans-serif;
+      --font-serif:'Cormorant Garamond', Georgia, serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); color: var(--text); background: var(--cream); -webkit-font-smoothing: antialiased; }
+
+    /* ── REUSABLE ── */
+    .btn {
+      display: inline-block;
+      background: var(--teal); color: var(--navy);
+      font-family: var(--font-body); font-weight: 700;
+      font-size: 0.9rem; letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 15px 34px; border-radius: 4px;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 22px rgba(0,201,167,0.3);
+    }
+    .btn:hover { background: var(--teal-dk); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,201,167,0.4); }
+    .btn-lg { font-size: 1rem; padding: 18px 42px; }
+
+    .section-label {
+      display: block; font-size: 0.7rem; letter-spacing: 3.5px;
+      text-transform: uppercase; color: var(--teal); font-weight: 700; margin-bottom: 10px;
+    }
+    .section-h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 3.2vw, 3rem);
+      font-weight: 600; line-height: 1.15; color: var(--navy);
+      margin-bottom: 14px;
+    }
+    .section-h2-light { color: var(--white); }
+    .section-intro {
+      font-size: 1rem; color: var(--muted); max-width: 560px;
+      line-height: 1.75; margin-bottom: 48px; font-weight: 300;
+    }
+    .section-intro-light { color: rgba(255,255,255,0.5); }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(8,17,30,0.96);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { height: 130px; width: auto; mix-blend-mode: screen; }
+    .nav-center {
+      font-size: 0.68rem; letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(255,255,255,0.3); font-weight: 400;
+    }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .nav-phone {
+      font-size: 0.8rem; color: rgba(255,255,255,0.5);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-phone:hover { color: var(--teal); }
+    .nav-cta { font-size: 0.78rem; padding: 9px 20px; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--navy3);
+      display: grid; grid-template-columns: 55% 45%;
+      min-height: 94vh; overflow: hidden; position: relative;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 90% at -5% 50%, rgba(0,201,167,0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-left {
+      padding: 80px 56px 80px 72px;
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; z-index: 2;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.68rem; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--teal); font-weight: 700; margin-bottom: 26px;
+    }
+    .hero-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--teal); }
+    .hero-h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.8rem, 4.2vw, 4.2rem);
+      font-weight: 600; line-height: 1.1; color: var(--white);
+      margin-bottom: 6px;
+    }
+    .hero-h1 em { font-style: italic; color: var(--teal); }
+    .hero-sub {
+      font-size: 1.05rem; line-height: 1.75;
+      color: rgba(255,255,255,0.65);
+      max-width: 500px; margin-bottom: 44px; font-weight: 300;
+    }
+    .hero-stats { display: flex; gap: 36px; margin-bottom: 46px; }
+    .hero-stat { border-left: 2px solid var(--teal); padding-left: 16px; }
+    .hero-stat-num {
+      display: block; font-size: 1.9rem; font-weight: 800;
+      color: var(--white); line-height: 1; margin-bottom: 5px;
+    }
+    .hero-stat-label {
+      font-size: 0.68rem; letter-spacing: 0.6px;
+      color: rgba(255,255,255,0.45); text-transform: uppercase;
+    }
+    .hero-trust { display: flex; align-items: center; gap: 10px; margin-top: 18px; }
+    .hero-trust svg { color: var(--teal); flex-shrink: 0; }
+    .hero-trust-text { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+
+    .hero-right { position: relative; overflow: hidden; }
+    .hero-img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      filter: brightness(0.78) contrast(1.06) saturate(0.95);
+    }
+    .hero-gradient {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, var(--navy3) 0%, rgba(8,17,30,0.4) 20%, transparent 50%, rgba(8,17,30,0.3) 100%);
+    }
+    .hero-badge {
+      position: absolute; bottom: 32px; right: 32px; left: 32px;
+      background: rgba(8,17,30,0.88);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 16px 20px;
+      backdrop-filter: blur(12px);
+    }
+    .hero-badge-row { display: flex; align-items: center; gap: 12px; }
+    .hero-badge-dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: var(--teal); flex-shrink: 0;
+      animation: livepulse 2s ease-in-out infinite;
+    }
+    @keyframes livepulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(0,201,167,0.5); }
+      50%      { box-shadow: 0 0 0 7px rgba(0,201,167,0); }
+    }
+    .hero-badge-text { font-size: 0.76rem; color: rgba(255,255,255,0.8); font-weight: 500; }
+    .hero-badge-text strong { color: var(--teal); display: block; font-size: 0.85rem; }
+
+    /* ── PROOF BAR ── */
+    .proof-bar {
+      background: var(--navy2);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 22px 72px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; flex-wrap: wrap;
+    }
+    .proof-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 6px 36px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .proof-item:last-child { border-right: none; }
+    .proof-num { font-size: 1.35rem; font-weight: 800; color: var(--teal); white-space: nowrap; }
+    .proof-label { font-size: 0.72rem; letter-spacing: 0.5px; color: rgba(255,255,255,0.45); text-transform: uppercase; line-height: 1.35; }
+
+    /* ── URGENCY ── */
+    .urgency {
+      background: var(--teal); padding: 14px 72px;
+      display: flex; align-items: center; justify-content: center; gap: 14px;
+    }
+    .urgency-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--navy); flex-shrink: 0;
+      animation: blink 1.6s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
+    .urgency p { font-size: 0.84rem; font-weight: 700; color: var(--navy); }
+    .urgency span { font-weight: 400; }
+
+    /* ── PAIN POINTS ── */
+    .pain { background: var(--white); padding: 96px 72px; }
+    .pain-header { max-width: 580px; }
+    .pain-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 14px; max-width: 800px; margin-bottom: 44px;
+    }
+    .pain-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 16px 20px;
+      border: 1px solid var(--cream2); border-radius: 6px;
+      background: var(--cream);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .pain-item:hover { border-color: var(--teal); background: rgba(0,201,167,0.04); }
+    .pain-check {
+      width: 21px; height: 21px; border-radius: 50%;
+      border: 1.5px solid var(--teal);
+      background: rgba(0,201,167,0.1);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .pain-check svg { width: 10px; color: var(--teal); }
+    .pain-text { font-size: 0.88rem; color: var(--text); line-height: 1.5; }
+    .pain-cta-block {
+      display: flex; align-items: center; gap: 24px;
+      padding: 28px 34px;
+      background: var(--navy); border-radius: 8px;
+      max-width: 800px;
+    }
+    .pain-cta-block p { font-size: 1rem; color: rgba(255,255,255,0.85); flex: 1; line-height: 1.6; }
+    .pain-cta-block p strong { color: var(--teal); }
+
+    /* ── PROCESS ── */
+    .process {
+      background: var(--cream); padding: 96px 72px;
+      position: relative; overflow: hidden;
+    }
+    .process::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url('images/pawel-czerwinski-LyZLaA5jtiY-unsplash.jpg') center/cover;
+      opacity: 0.03; pointer-events: none;
+    }
+    .process-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 20px; margin-top: 60px; position: relative;
+    }
+    .process-step {
+      border-radius: 10px; overflow: hidden;
+      background: var(--white);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .process-step:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(0,0,0,0.12); }
+    .process-step-img {
+      width: 100%; height: 200px;
+      object-fit: cover; display: block;
+      filter: brightness(0.88) contrast(1.05);
+    }
+    .process-step-body { padding: 24px 22px 28px; }
+    .process-num {
+      font-family: var(--font-serif);
+      font-size: 2.8rem; font-weight: 300;
+      color: rgba(0,201,167,0.28); line-height: 1; margin-bottom: 10px;
+    }
+    .process-title {
+      font-size: 0.85rem; font-weight: 700;
+      color: var(--navy); text-transform: uppercase;
+      letter-spacing: 0.8px; margin-bottom: 10px;
+    }
+    .process-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.65; font-weight: 300; }
+
+    /* ── SERVICES ── */
+    .services { background: var(--navy3); padding: 96px 72px; }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px; margin-top: 56px;
+    }
+    .service-card {
+      border-radius: 8px; overflow: hidden; position: relative;
+      aspect-ratio: 4/5; background: var(--navy2);
+    }
+    .service-card-img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s ease;
+      filter: brightness(0.7) contrast(1.05);
+    }
+    .service-card:hover .service-card-img { transform: scale(1.04); }
+    .service-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,17,30,0.95) 0%, rgba(8,17,30,0.2) 55%, transparent 100%);
+    }
+    .service-card-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 28px 24px; }
+    .service-tag {
+      display: inline-block;
+      font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--teal); font-weight: 700;
+      background: rgba(0,201,167,0.12);
+      border: 1px solid var(--border);
+      border-radius: 2px; padding: 4px 10px; margin-bottom: 10px;
+    }
+    .service-title { font-size: 1.1rem; font-weight: 700; color: var(--white); line-height: 1.3; margin-bottom: 8px; }
+    .service-desc { font-size: 0.78rem; color: rgba(255,255,255,0.6); line-height: 1.55; font-weight: 300; }
+
+    /* ── CLINIC GALLERY ── */
+    .gallery { background: var(--white); padding: 80px 72px; }
+    .gallery-header { max-width: 560px; margin-bottom: 48px; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      grid-template-rows: 280px 280px;
+      gap: 12px;
+    }
+    .gallery-item { overflow: hidden; border-radius: 8px; position: relative; }
+    .gallery-item.tall { grid-row: 1 / 3; }
+    .gallery-img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.5s ease;
+    }
+    .gallery-item:hover .gallery-img { transform: scale(1.04); }
+    .gallery-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 14px 18px;
+      background: linear-gradient(to top, rgba(8,17,30,0.82), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .gallery-item:hover .gallery-caption { opacity: 1; }
+    .gallery-caption span { font-size: 0.74rem; color: rgba(255,255,255,0.9); font-weight: 600; letter-spacing: 0.5px; }
+
+    /* ── ABOUT ── */
+    .about {
+      background: var(--navy2); padding: 96px 72px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 72px; align-items: center;
+    }
+    .about-img-wrap { position: relative; }
+    .about-img {
+      width: 100%; display: block; border-radius: 8px;
+      filter: brightness(0.9) contrast(1.05) saturate(0.95);
+    }
+    .about-frame {
+      position: absolute; inset: -14px -14px 14px 14px;
+      border: 1px solid var(--border); border-radius: 8px;
+      pointer-events: none;
+    }
+    .about-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.68rem; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--teal); font-weight: 700; margin-bottom: 14px;
+    }
+    .about-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--teal); }
+    .about-name {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      font-weight: 600; color: var(--white); line-height: 1.2; margin-bottom: 24px;
+    }
+    .about-bio {
+      font-size: 0.92rem; color: rgba(255,255,255,0.6);
+      line-height: 1.8; margin-bottom: 30px; font-weight: 300;
+    }
+    .about-bio strong { color: rgba(255,255,255,0.9); font-weight: 600; }
+    .about-creds { display: flex; flex-direction: column; gap: 9px; margin-bottom: 32px; }
+    .cred { display: flex; align-items: center; gap: 11px; font-size: 0.83rem; color: rgba(255,255,255,0.65); }
+    .cred-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+    .about-nums { display: flex; gap: 32px; padding-top: 28px; border-top: 1px solid var(--border2); }
+    .about-num-val { display: block; font-size: 1.9rem; font-weight: 800; color: var(--teal); line-height: 1; margin-bottom: 4px; }
+    .about-num-lbl { font-size: 0.68rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      background: var(--cream); padding: 96px 72px;
+      position: relative; overflow: hidden;
+    }
+    .testimonials::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url('images/flyd-NFtyWc2NSTA-unsplash.jpg') center/cover;
+      opacity: 0.04; pointer-events: none;
+    }
+    .testi-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 24px; margin-top: 56px; position: relative;
+    }
+    .testi-card {
+      background: var(--white); border-radius: 8px; padding: 36px 32px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+      display: flex; flex-direction: column;
+    }
+    .testi-stars { color: #f4b942; font-size: 0.82rem; letter-spacing: 1px; margin-bottom: 14px; }
+    .testi-quote {
+      font-family: var(--font-serif); font-size: 3.2rem; color: var(--teal);
+      line-height: 0.4; opacity: 0.4; margin-bottom: 18px;
+    }
+    .testi-text { font-size: 0.9rem; color: var(--text); line-height: 1.8; font-weight: 400; flex: 1; margin-bottom: 26px; }
+    .testi-text strong { color: var(--navy); font-weight: 700; }
+    .testi-footer {
+      display: flex; align-items: center; gap: 14px;
+      padding-top: 20px; border-top: 1px solid var(--cream2);
+    }
+    .testi-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--navy));
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-serif); font-size: 1.1rem;
+      color: var(--white); font-weight: 600; flex-shrink: 0;
+    }
+    .testi-name { display: block; font-size: 0.86rem; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+    .testi-meta { font-size: 0.73rem; color: var(--muted); }
+
+    /* ── TEAM ── */
+    .team { background: var(--white); padding: 80px 72px; }
+    .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 52px; }
+    .team-card {
+      padding: 24px 20px;
+      border: 1px solid var(--cream2); border-radius: 6px;
+      background: var(--cream); transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: default;
+    }
+    .team-card:hover { border-color: var(--teal); box-shadow: 0 4px 20px rgba(0,201,167,0.08); }
+    .team-icon {
+      width: 36px; height: 36px; margin-bottom: 14px; display: block;
+      color: var(--teal);
+    }
+    .team-role { font-size: 0.78rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .team-spec { font-size: 0.78rem; color: var(--muted); line-height: 1.55; font-weight: 300; }
+
+    /* ── FAQ ── */
+    .faq { background: var(--cream); padding: 80px 72px; }
+    .faq-list {
+      max-width: 720px; margin: 52px auto 0;
+      border: 1px solid var(--cream2); border-radius: 10px; overflow: hidden;
+    }
+    .faq-item { border-bottom: 1px solid var(--cream2); background: var(--white); }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-btn {
+      width: 100%; text-align: left;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 28px; gap: 16px;
+      background: none; border: none; cursor: pointer;
+      font-family: var(--font-body);
+    }
+    .faq-btn:hover { background: rgba(0,201,167,0.03); }
+    .faq-q { font-size: 0.92rem; font-weight: 700; color: var(--navy); line-height: 1.4; text-align: left; }
+    .faq-q::before { content: '— '; color: var(--teal); }
+    .faq-icon {
+      width: 26px; height: 26px; border-radius: 50%;
+      border: 1.5px solid var(--cream2);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: transform 0.25s, border-color 0.25s, color 0.25s;
+      font-size: 1.1rem; color: var(--muted); line-height: 1;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); border-color: var(--teal); color: var(--teal); }
+    .faq-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .faq-item.open .faq-body { max-height: 400px; }
+    .faq-a { font-size: 0.87rem; color: var(--muted); line-height: 1.75; font-weight: 300; padding: 0 28px 24px; }
+
+    /* ── CALENDLY ── */
+    .calendly-section {
+      background: var(--navy3); padding: 96px 72px;
+      display: grid; grid-template-columns: 1fr 1.4fr;
+      gap: 72px; align-items: start;
+    }
+    .cal-left .section-h2 { color: var(--white); }
+    .cal-intro { font-size: 0.95rem; color: rgba(255,255,255,0.5); line-height: 1.75; margin-bottom: 48px; font-weight: 300; }
+    .cal-steps { display: flex; flex-direction: column; gap: 28px; }
+    .cal-step { display: flex; gap: 18px; }
+    .cal-step-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--teal-lt); border: 1.5px solid var(--teal);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 700; color: var(--teal); flex-shrink: 0;
+    }
+    .cal-step-title { font-size: 0.88rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .cal-step-desc { font-size: 0.8rem; color: rgba(255,255,255,0.4); line-height: 1.6; font-weight: 300; }
+    .cal-trust { margin-top: 36px; padding: 20px; background: rgba(255,255,255,0.03); border: 1px solid var(--border2); border-radius: 6px; }
+    .cal-trust-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .cal-trust-item:last-child { margin-bottom: 0; }
+    .cal-trust-item svg { color: var(--teal); flex-shrink: 0; }
+    .cal-trust-text { font-size: 0.78rem; color: rgba(255,255,255,0.5); }
+    .cal-widget-wrap { background: var(--white); border-radius: 10px; overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,0.4); }
+    .cal-widget-wrap .calendly-inline-widget { min-width: 320px; height: 700px; display: block; }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--navy3);
+      border-top: 1px solid var(--border2);
+      padding: 44px 72px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo { height: 38px; opacity: 0.75; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-link { font-size: 0.73rem; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
+    .footer-link:hover { color: var(--teal); }
+    .footer-copy { font-size: 0.7rem; color: rgba(255,255,255,0.2); }
+
+    /* ── WHATSAPP FLOAT ── */
+    .whatsapp-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 500;
+      display: flex; align-items: center; gap: 10px;
+      background: #25D366; color: #fff;
+      border-radius: 50px; padding: 13px 20px 13px 14px;
+      text-decoration: none; font-size: 0.82rem; font-weight: 700;
+      box-shadow: 0 6px 28px rgba(37,211,102,0.5);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .whatsapp-float:hover { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(37,211,102,0.6); }
+    .whatsapp-float svg { flex-shrink: 0; }
+    .whatsapp-label { white-space: nowrap; }
+
+    /* ── CURSOR & INTERACTIVE ── */
+    .pain-item { cursor: default; }
+    .process-step { cursor: default; }
+    .gallery-item { cursor: pointer; }
+    .service-card { cursor: default; }
+    .testi-card { cursor: default; }
+
+    /* ── SCROLL FADE-IN ── */
+    .fade-in {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+    .fade-in-delay-1 { transition-delay: 0.1s; }
+    .fade-in-delay-2 { transition-delay: 0.2s; }
+    .fade-in-delay-3 { transition-delay: 0.3s; }
+    .fade-in-delay-4 { transition-delay: 0.4s; }
+
+    /* ── TOUCH: always show gallery caption on small screens ── */
+    @media (hover: none) {
+      .gallery-caption { opacity: 1; }
+    }
+
+    /* ── PREFERS REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      .fade-in { opacity: 1; transform: none; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-right { height: 420px; }
+      .hero-left { padding: 60px 40px; }
+      .about { grid-template-columns: 1fr; gap: 48px; }
+      .calendly-section { grid-template-columns: 1fr; gap: 48px; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .proof-bar { padding: 16px 24px; gap: 8px; }
+      .proof-item { padding: 6px 16px; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 220px 220px 220px; }
+      .gallery-item.tall { grid-row: 1 / 2; }
+    }
+    @media (max-width: 768px) {
+      .nav { padding: 12px 20px; }
+      .nav-center, .nav-phone { display: none; }
+      .pain, .process, .services, .about, .testimonials, .team,
+      .calendly-section, .faq, .gallery { padding: 60px 24px; }
+      .pain-grid { grid-template-columns: 1fr; }
+      .pain-cta-block { flex-direction: column; gap: 16px; }
+      .hero-left { padding: 48px 24px; }
+      .hero-stats { gap: 20px; flex-wrap: wrap; }
+      .services-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: 1fr 1fr; }
+      .faq-list { margin-left: 0; margin-right: 0; }
+      .footer { flex-direction: column; gap: 24px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+      .urgency { padding: 12px 24px; }
+      .gallery-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .gallery-item.tall { grid-row: auto; }
+      .gallery-item { height: 240px; }
+      .process-grid { grid-template-columns: 1fr 1fr; }
+      .whatsapp-label { display: none; }
+      .whatsapp-float { padding: 14px; border-radius: 50%; }
+    }
+    @media (max-width: 480px) {
+      .process-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ━━━ NAV ━━━ -->
+  <nav class="nav">
+    <img src="images/LOGO%20%2810%29.png" alt="Michelle Peiret Health" class="nav-logo">
+    <span class="nav-center">Nutrigenómica · Epigenética · Personalización</span>
+    <div class="nav-right">
+      <a href="tel:+17865365403" class="nav-phone">+1 (786) 536 5403</a>
+      <a href="#calendly" class="btn nav-cta">Agenda tu análisis →</a>
+    </div>
+  </nav>
+
+
+  <!-- ━━━ HERO ━━━ -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Análisis inicial gratuito sobre tu caso</div>
+      <h1 class="hero-h1">
+        Da el primer paso<br>
+        hacia tu <em>mejor versión</em>
+      </h1>
+      <p class="hero-sub">
+        Agenda tu análisis inicial gratuito y descubre el programa diseñado para
+        tu biología — transforma tu salud desde la raíz con ciencia real.
+      </p>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num">+7,000</span>
+          <span class="hero-stat-label">Personas<br>transformadas</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">+15 años</span>
+          <span class="hero-stat-label">Experiencia<br>clínica</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">Harvard</span>
+          <span class="hero-stat-label">Certificada<br>& EMA</span>
+        </div>
+      </div>
+
+      <a href="#calendly" class="btn btn-lg">Quiero mi análisis inicial gratuito →</a>
+
+      <div class="hero-trust">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span class="hero-trust-text">100% gratuito · Sin compromiso · Tu información es confidencial</span>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <img src="images/221MICHELLE%20PEIRET%20CUMPLE%20SUPLEMENTOS-Edit%20%281%29.jpg" alt="Michelle Peiret" class="hero-img">
+      <div class="hero-gradient"></div>
+      <div class="hero-badge">
+        <div class="hero-badge-row">
+          <div class="hero-badge-dot"></div>
+          <div class="hero-badge-text">
+            <strong>Cupos disponibles esta semana</strong>
+            Reserva tu lugar antes de que se llenen
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ━━━ PROOF BAR ━━━ -->
+  <div class="proof-bar">
+    <div class="proof-item">
+      <span class="proof-num" data-target="7000">+7,000</span>
+      <span class="proof-label">Personas<br>transformadas</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-num">+15 años</span>
+      <span class="proof-label">Experiencia<br>clínica</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-num">Harvard</span>
+      <span class="proof-label">Certificada<br>& EMA</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-num" data-target="11">+11</span>
+      <span class="proof-label">Estudios<br>epigenéticos</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-num" data-target="7">7</span>
+      <span class="proof-label">Especialistas<br>en tu equipo</span>
+    </div>
+  </div>
+
+
+  <!-- ━━━ URGENCY ━━━ -->
+  <div class="urgency">
+    <div class="urgency-dot"></div>
+    <p>Los cupos para esta semana son limitados — <span>reserva tu lugar ahora antes de que se llenen.</span></p>
+  </div>
+
+
+  <!-- ━━━ CALENDLY ━━━ -->
+  <section class="calendly-section" id="calendly">
+    <div class="cal-left">
+      <span class="section-label">Agenda tu análisis inicial</span>
+      <h2 class="section-h2 section-h2-light">
+        Un especialista<br>
+        <em style="font-family:var(--font-serif); font-style:italic; color:var(--teal);">está listo para ti</em>
+      </h2>
+      <p class="cal-intro">
+        Elige el horario que mejor te funcione. El análisis inicial es completamente
+        gratuito, sin compromiso y dura entre 20 y 30 minutos.
+      </p>
+
+      <div class="cal-steps">
+        <div class="cal-step">
+          <div class="cal-step-num">1</div>
+          <div>
+            <h4 class="cal-step-title">Elige tu horario</h4>
+            <p class="cal-step-desc">Selecciona el día y la hora que más te convenga en el calendario.</p>
+          </div>
+        </div>
+        <div class="cal-step">
+          <div class="cal-step-num">2</div>
+          <div>
+            <h4 class="cal-step-title">Confirmas tu lugar</h4>
+            <p class="cal-step-desc">Recibirás una confirmación automática con los detalles de tu análisis inicial.</p>
+          </div>
+        </div>
+        <div class="cal-step">
+          <div class="cal-step-num">3</div>
+          <div>
+            <h4 class="cal-step-title">Tu análisis inicial</h4>
+            <p class="cal-step-desc">Un análisis personalizado sobre tu caso. Sales con claridad y un plan de acción concreto.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cal-trust">
+        <div class="cal-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span class="cal-trust-text">Tu información es 100% confidencial y nunca será compartida</span>
+        </div>
+        <div class="cal-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <span class="cal-trust-text">Análisis inicial completamente gratuito — sin costo, sin compromiso</span>
+        </div>
+        <div class="cal-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span class="cal-trust-text">20–30 minutos · Un análisis real sobre tu caso</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-right">
+      <div class="cal-widget-wrap">
+        <div class="calendly-inline-widget"
+             data-url="https://calendly.com/nutrigenomica-michellepeiret/michellepeirethealth"
+             style="min-width:320px;height:700px;"></div>
+        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ━━━ PAIN POINTS ━━━ -->
+  <section class="pain">
+    <div class="pain-header">
+      <span class="section-label">¿Esto es para ti?</span>
+      <h2 class="section-h2">¿Reconoces alguno<br>de estos síntomas?</h2>
+      <p class="section-intro">
+        Muchas personas viven con estas señales durante años sin encontrar respuestas reales.
+        Tu cuerpo te está hablando — nosotros te ayudamos a escucharlo.
+      </p>
+    </div>
+
+    <div class="pain-grid">
+      <div class="pain-item">
+        <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
+        <span class="pain-text">Fatiga crónica que no mejora aunque descanses</span>
+      </div>
+      <div class="pain-item">
+        <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
+        <span class="pain-text">Metabolismo lento que no responde a dietas ni ejercicio</span>
+      </div>
+      <div class="pain-item">
+        <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
+        <span class="pain-text">Inflamación constante, acidez o molestias digestivas</span>
+      </div>
+      <div class="pain-item">
+        <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
+        <span class="pain-text">Migrañas recurrentes o dolores de cabeza frecuentes</span>
+      </div>
+      <div class="pain-item">
+        <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
+        <span class="pain-text">Desequilibrios hormonales: tiroides, menopausia, testosterona</span>
+      </div>
+      <div class="pain-item">
+        <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
+        <span class="pain-text">Ansiedad, depresión o problemas para dormir</span>
+      </div>
+      <div class="pain-item">
+        <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
+        <span class="pain-text">Dependencia de medicamentos que tratan síntomas, no la raíz</span>
+      </div>
+      <div class="pain-item">
+        <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
+        <span class="pain-text">Quieres optimizar tu salud, rendimiento o envejecimiento</span>
+      </div>
+    </div>
+
+    <div class="pain-cta-block">
+      <p>Si marcaste <strong>2 o más</strong>, este análisis inicial fue diseñado para ti. El primer paso siempre es entender <strong>por qué</strong> — y eso es exactamente lo que hacemos juntos.</p>
+      <a href="#calendly" class="btn" style="white-space:nowrap;">Quiero entender mi cuerpo →</a>
+    </div>
+  </section>
+
+
+  <!-- ━━━ PROCESO ━━━ -->
+  <section class="process">
+    <span class="section-label">Cómo funciona</span>
+    <h2 class="section-h2">El proceso del Método MP</h2>
+    <p class="section-intro">
+      Un proceso diseñado para ir más allá de los síntomas y entender tu cuerpo en profundidad —
+      para darte la estrategia correcta, no una solución genérica.
+    </p>
+
+    <div class="process-grid">
+      <div class="process-step fade-in fade-in-delay-1">
+        <img src="images/paso1-orientacion.jpg" alt="Orientación Inicial" loading="lazy" class="process-step-img">
+        <div class="process-step-body">
+          <div class="process-num">01</div>
+          <h3 class="process-title">Orientación Inicial</h3>
+          <p class="process-desc">Un análisis inicial gratuito con nuestro equipo clínico para evaluar tu situación y determinar si eres candidato/a para una evaluación integral personalizada.</p>
+        </div>
+      </div>
+      <div class="process-step fade-in fade-in-delay-2">
+        <img src="images/paso2-michelle-consulta.jpg" alt="Evaluación Integral" loading="lazy" class="process-step-img">
+        <div class="process-step-body">
+          <div class="process-num">02</div>
+          <h3 class="process-title">Evaluación Integral</h3>
+          <p class="process-desc">Análisis profundo de tu estilo de vida, historial médico, síntomas y objetivos. Incluye estudios epigenéticos de cabello (cientos de biomarcadores) y análisis de sangre.</p>
+        </div>
+      </div>
+      <div class="process-step fade-in fade-in-delay-3">
+        <img src="images/372michelle%20peiret%20oficina%202026%20.jpg" alt="Protocolo Personalizado" loading="lazy" class="process-step-img">
+        <div class="process-step-body">
+          <div class="process-num">03</div>
+          <h3 class="process-title">Protocolo Personalizado</h3>
+          <p class="process-desc">Desarrollamos tu protocolo integrando tu perfil biológico único con estrategias avanzadas: nutrición, suplementación, IV therapy, estudios y más.</p>
+        </div>
+      </div>
+      <div class="process-step fade-in fade-in-delay-4">
+        <img src="images/pilar3.jpg" alt="Acompañamiento Continuo" loading="lazy" class="process-step-img">
+        <div class="process-step-body">
+          <div class="process-num">04</div>
+          <h3 class="process-title">Acompañamiento Continuo</h3>
+          <p class="process-desc">Tu especialista asignado te acompaña en todo el proceso, ajustando tu protocolo en tiempo real según la respuesta de tu cuerpo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ━━━ SERVICIOS ━━━ -->
+  <section class="services">
+    <div style="max-width:600px;">
+      <span class="section-label">Nuestros tratamientos</span>
+      <h2 class="section-h2 section-h2-light">Un ecosistema<br>de salud integral</h2>
+      <p class="section-intro section-intro-light">
+        No somos una clínica tradicional. Somos una estrategia biológica
+        personalizada respaldada por ciencia genética real.
+      </p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card fade-in fade-in-delay-1">
+        <img src="images/372michelle%20peiret%20oficina%202026%20.jpg" alt="Estudios Epigenéticos" loading="lazy" class="service-card-img">
+        <div class="service-card-overlay"></div>
+        <div class="service-card-content">
+          <span class="service-tag">Nutrigenómica</span>
+          <h3 class="service-title">Estudios Epigenéticos</h3>
+          <p class="service-desc">Análisis de cabello que revela cómo tus genes expresan tu estado de salud. Medimos cientos de biomarcadores para diseñar la base de todo protocolo personalizado.</p>
+        </div>
+      </div>
+      <div class="service-card fade-in fade-in-delay-2">
+        <img src="images/pilar1.jpg" alt="Estudios de Salud Integral" loading="lazy" class="service-card-img">
+        <div class="service-card-overlay"></div>
+        <div class="service-card-content">
+          <span class="service-tag">Performance</span>
+          <h3 class="service-title">Estudios de Salud Integral</h3>
+          <p class="service-desc">VO2MAX, análisis de sangre, evaluación hormonal, metabólica y ecocardiograma. Datos reales para decisiones precisas.</p>
+        </div>
+      </div>
+      <div class="service-card fade-in fade-in-delay-3">
+        <img src="images/pilar2.jpg" alt="IV Therapy & Shots" loading="lazy" class="service-card-img">
+        <div class="service-card-overlay"></div>
+        <div class="service-card-content">
+          <span class="service-tag">Tratamientos</span>
+          <h3 class="service-title">IV Therapy & Shots</h3>
+          <p class="service-desc">Terapias intravenosas, vitamina C, B12, vitamina D, minerales y protocolos intramusculares. Resultados desde la primera sesión.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ━━━ GALERÍA DEL CENTRO ━━━ -->
+  <section class="gallery">
+    <div class="gallery-header">
+      <span class="section-label">Nuestro centro</span>
+      <h2 class="section-h2">Un espacio diseñado<br>para tu transformación</h2>
+      <p class="section-intro" style="margin-bottom:0;">
+        Tecnología de vanguardia, equipo multidisciplinario y un entorno pensado
+        para que tu proceso sea claro, cómodo y efectivo desde el primer día.
+      </p>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item tall">
+        <img src="images/WhatsApp%20Image%202026-02-28%20at%201.46.17%20PM%20%281%29.jpeg" alt="Consulta con Michelle Peiret" loading="lazy" class="gallery-img">
+        <div class="gallery-caption"><span>Consulta Personalizada</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="images/abstract_9.jpeg" alt="Sala de consulta Michelle Peiret" loading="lazy" class="gallery-img">
+        <div class="gallery-caption"><span>Sala de Consulta</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="images/127michelle%20peiret%20oficina%202026%20.jpg" alt="IV Therapy — Centro Michelle Peiret" loading="lazy" class="gallery-img">
+        <div class="gallery-caption"><span>IV Therapy</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="images/300michelle%20peiret%20oficina%202026%20.jpg" alt="Equipo del centro" loading="lazy" class="gallery-img">
+        <div class="gallery-caption"><span>Nuestro Equipo</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="images/239michelle%20peiret%20oficina%202026%20-Edit.jpg" alt="Tratamientos clínicos" loading="lazy" class="gallery-img">
+        <div class="gallery-caption"><span>Protocolos de Tratamiento</span></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ━━━ ABOUT ━━━ -->
+  <section class="about">
+    <div class="about-img-wrap">
+      <img src="images/246MICHELLE%20PEIRET%20CUMPLE%20SUPLEMENTOS-Edit%20%281%29.jpg" alt="Michelle Peiret - Especialista en Nutrigenómica" class="about-img">
+      <div class="about-frame"></div>
+    </div>
+    <div>
+      <span class="about-label">Nutrigenomic Specialist</span>
+      <h2 class="about-name">Michelle Peiret</h2>
+      <p class="about-bio">
+        Especialista en nutrigenómica con acreditaciones en
+        <strong>EMA, Universidad de Harvard, Instituto de Nutrigenómica</strong> e Instituto de Ciencias de Nutrición y Salud.
+        <br><br>
+        Con más de <strong>15 años de experiencia clínica</strong>, Michelle ha acompañado a más de 7,000 personas
+        en la recuperación de su salud — abordando desde la raíz condiciones como síndrome metabólico,
+        obesidad, desequilibrios de microbiota, problemas hormonales y más.
+        <br><br>
+        Su método integra <strong>regeneración celular, equilibrio intestinal y hábitos sostenibles</strong>,
+        con el objetivo de revertir el avance de enfermedades y alcanzar una longevidad plena y sin limitaciones.
+      </p>
+      <div class="about-creds">
+        <div class="cred"><div class="cred-dot"></div>Certificada por la Universidad de Harvard</div>
+        <div class="cred"><div class="cred-dot"></div>Diplomada en EMA — European Medicine Association</div>
+        <div class="cred"><div class="cred-dot"></div>Instituto de Nutrigenómica & Ciencias de la Salud</div>
+        <div class="cred"><div class="cred-dot"></div>Pionera en epigenética funcional integrativa</div>
+        <div class="cred"><div class="cred-dot"></div>Conferencias en España, EE.UU., Guatemala, Venezuela y más</div>
+      </div>
+      <div class="about-nums">
+        <div>
+          <span class="about-num-val">+7K</span>
+          <span class="about-num-lbl">Personas<br>transformadas</span>
+        </div>
+        <div>
+          <span class="about-num-val">15+</span>
+          <span class="about-num-lbl">Años de<br>experiencia</span>
+        </div>
+        <div>
+          <span class="about-num-val">+11</span>
+          <span class="about-num-lbl">Estudios<br>epigenéticos</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ━━━ TESTIMONIALS ━━━ -->
+  <section class="testimonials">
+    <span class="section-label">Testimonios reales</span>
+    <h2 class="section-h2">Lo que dicen quienes<br>ya dieron el paso</h2>
+    <p class="section-intro">
+      Resultados reales de personas que decidieron entender su cuerpo desde la ciencia.
+    </p>
+
+    <div class="testi-grid">
+      <div class="testi-card fade-in">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">
+          Comencé el programa con Michelle hace casi ya tres meses, me he sentido demasiado bien,
+          logré quitarme muchísima inflamación. <strong>Bajé de peso, recuperé mi energía completamente
+          y mi sueño es excelente.</strong> Es el mejor programa en el que he estado.
+        </p>
+        <div class="testi-footer">
+          <div class="testi-avatar">R</div>
+          <div>
+            <span class="testi-name">Romina Vicentini</span>
+            <span class="testi-meta">Programa Metabolismo · 3 meses</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card fade-in">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">
+          Llevo dos años en el programa. <strong>Se fueron mis alergias, la inflamación desapareció
+          y recuperé los 20 libras que había perdido.</strong> Fue un esfuerzo del equipo y un compromiso
+          personal que cambió todo para mí.
+        </p>
+        <div class="testi-footer">
+          <div class="testi-avatar">C</div>
+          <div>
+            <span class="testi-name">Carolina Galiache</span>
+            <span class="testi-meta">Programa Integral · 2 años</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card fade-in">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">
+          Tenía migrañas semanales durante años. <strong>Desde el tercer mes en el programa
+          las migrañas desaparecieron completamente.</strong> Nunca había encontrado algo que
+          realmente atacara la causa — no solo los síntomas.
+        </p>
+        <div class="testi-footer">
+          <div class="testi-avatar">C</div>
+          <div>
+            <span class="testi-name">Charles</span>
+            <span class="testi-meta">Protocolo Personalizado · 6 meses</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card fade-in">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">
+          Tenía crisis de ansiedad e inflamación sistémica. También uveítis en los ojos.
+          <strong>Todo desapareció.</strong> Lo que más valoro es que finalmente alguien se tomó
+          el tiempo de entender mi cuerpo completo, no solo un síntoma.
+        </p>
+        <div class="testi-footer">
+          <div class="testi-avatar">J</div>
+          <div>
+            <span class="testi-name">Jorge</span>
+            <span class="testi-meta">Programa Ansiedad & Inflamación</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ━━━ TEAM ━━━ -->
+  <section class="team">
+    <div style="text-align:center; max-width:580px; margin:0 auto;">
+      <span class="section-label" style="text-align:center;">Tu equipo</span>
+      <h2 class="section-h2">No trabajas con una persona.<br>Trabajas con un equipo.</h2>
+      <p class="section-intro" style="margin:0 auto;">
+        Cada paciente de MP Health tiene acceso a un equipo multidisciplinario de especialistas trabajando en conjunto.
+      </p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card fade-in fade-in-delay-1">
+        <svg class="team-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
+        </svg>
+        <h4 class="team-role">Microbiólogo Clínico</h4>
+        <p class="team-spec">Microbiota, inflamación y análisis del terreno intestinal</p>
+      </div>
+      <div class="team-card fade-in fade-in-delay-2">
+        <svg class="team-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+        <h4 class="team-role">Especialista Hormonal</h4>
+        <p class="team-spec">Balance hormonal, envejecimiento saludable y optimización metabólica</p>
+      </div>
+      <div class="team-card fade-in fade-in-delay-3">
+        <svg class="team-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12h8M12 8v8"/>
+        </svg>
+        <h4 class="team-role">Nutricionista Funcional</h4>
+        <p class="team-spec">Masa muscular, grasa corporal y composición corporal</p>
+      </div>
+      <div class="team-card fade-in fade-in-delay-4">
+        <svg class="team-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <circle cx="12" cy="5" r="1"/><path d="M12 6v6l3 3M5.6 10.6A7 7 0 1018.4 10.6"/>
+        </svg>
+        <h4 class="team-role">Especialista en Deporte</h4>
+        <p class="team-spec">Fisiología del ejercicio, biomecánica y optimización de rendimiento</p>
+      </div>
+      <div class="team-card fade-in">
+        <svg class="team-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+        </svg>
+        <h4 class="team-role">Psicóloga</h4>
+        <p class="team-spec">Apoyo emocional, manejo del estrés y sostenibilidad del cambio</p>
+      </div>
+      <div class="team-card fade-in fade-in-delay-1">
+        <svg class="team-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+        </svg>
+        <h4 class="team-role">Enfermería Clínica</h4>
+        <p class="team-spec">Soporte clínico, IV therapy y evaluaciones específicas</p>
+      </div>
+      <div class="team-card fade-in fade-in-delay-2">
+        <svg class="team-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+        </svg>
+        <h4 class="team-role">Especialista Óseo</h4>
+        <p class="team-spec">Salud ósea, densidad mineral y prevención</p>
+      </div>
+      <div class="team-card fade-in fade-in-delay-3" style="background:var(--navy); border-color:var(--border);">
+        <svg class="team-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+        </svg>
+        <h4 class="team-role" style="color:var(--teal);">+ Michelle Peiret</h4>
+        <p class="team-spec" style="color:rgba(255,255,255,0.5);">Dirección clínica, protocolo maestro y seguimiento de tu evolución</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ━━━ FAQ ━━━ -->
+  <section class="faq">
+    <div style="text-align:center;">
+      <span class="section-label">Preguntas frecuentes</span>
+      <h2 class="section-h2" style="max-width:400px; margin:0 auto;">Resolvemos<br>tus dudas</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-btn">
+          <span class="faq-q">¿El análisis inicial es realmente gratuito?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-body">
+          <p class="faq-a">Sí, 100%. El análisis inicial no tiene ningún costo y no existe compromiso de compra. Es una conversación real para entender tu situación y ver cómo podemos ayudarte.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn">
+          <span class="faq-q">¿Cuánto tiempo dura el análisis inicial?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-body">
+          <p class="faq-a">Entre 20 y 30 minutos. El tiempo necesario para entender tu historial, síntomas y objetivos — y darte claridad sobre los próximos pasos recomendados para tu caso específico.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn">
+          <span class="faq-q">¿Tengo que comprar algo después?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-body">
+          <p class="faq-a">No. El análisis inicial es sin presión. Si decides continuar con un programa, lo harás porque tiene sentido para ti — nunca porque se lo impusieron. La honestidad es parte de nuestro método.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn">
+          <span class="faq-q">¿Atienden de forma virtual o solo presencial?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-body">
+          <p class="faq-a">Atendemos en ambas modalidades. El análisis inicial puede realizarse virtualmente. Algunos estudios y tratamientos como IV Therapy o estudios epigenéticos requieren presencia en el centro. Tu especialista te indicará el mejor camino para tu caso.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn">
+          <span class="faq-q">¿Cuánto tiempo tarda en verse resultados?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-body">
+          <p class="faq-a">La mayoría de pacientes reportan mejoras significativas en energía, sueño e inflamación dentro de las primeras 4 a 8 semanas. Los resultados profundos — como reversión de condiciones crónicas — se consolidan entre los 3 y 6 meses del programa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ━━━ FOOTER ━━━ -->
+  <footer class="footer">
+    <img src="images/LOGO%20%2810%29.png" alt="Michelle Peiret Health" class="footer-logo" style="mix-blend-mode:screen;">
+    <div class="footer-links">
+      <a href="https://michellepeiret.com" class="footer-link" target="_blank">michellepeiret.com</a>
+      <a href="https://www.instagram.com/michellepeiret" class="footer-link" target="_blank">Instagram</a>
+      <a href="https://www.facebook.com/michellepeiret" class="footer-link" target="_blank">Facebook</a>
+      <a href="https://www.youtube.com/@michellepeiret" class="footer-link" target="_blank">YouTube</a>
+      <a href="https://www.tiktok.com/@michellepeiret" class="footer-link" target="_blank">TikTok</a>
+      <a href="tel:+17865365403" class="footer-link">+1 (786) 536 5403</a>
+    </div>
+    <span class="footer-copy">© 2025 Michelle Peiret Health · Todos los derechos reservados</span>
+  </footer>
+
+
+  <!-- ━━━ WHATSAPP FLOAT ━━━ -->
+  <a href="https://api.whatsapp.com/send/?phone=17864848729&text=Me%2Bgustaria%2Bsaber%2Bsobre%2Blos%2Banalisis%2Biniciales%2Bque%2Bhacen&type=phone_number&app_absent=0" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+    <span class="whatsapp-label">Escríbenos por WhatsApp</span>
+  </a>
+
+
+  <script>
+    /* ── FAQ accordion ── */
+    document.querySelectorAll('.faq-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = btn.closest('.faq-item');
+        var isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    /* ── Scroll fade-in observer ── */
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
+    } else {
+      document.querySelectorAll('.fade-in').forEach(function(el) { el.classList.add('visible'); });
+    }
+
+    /* ── Stat count-up animation ── */
+    function animateCount(el) {
+      var target = el.dataset.target;
+      var isNum = /^[\d,]+$/.test(target.replace(/[+K]/g, ''));
+      if (!isNum) return;
+      var num = parseInt(target.replace(/[^0-9]/g, ''));
+      var suffix = target.replace(/[0-9,]/g, '');
+      var start = 0; var duration = 1800; var startTime = null;
+      function step(ts) {
+        if (!startTime) startTime = ts;
+        var progress = Math.min((ts - startTime) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var current = Math.floor(eased * num);
+        el.textContent = (current >= 1000 ? current.toLocaleString() : current) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    var countObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { animateCount(e.target); countObserver.unobserve(e.target); }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-target]').forEach(function(el) { countObserver.observe(el); });
+  </script>
+
+</body>
+</html>
