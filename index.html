@@ -404,33 +404,67 @@
     .testi-meta { font-size: 0.73rem; color: var(--muted); }
 
     /* ── VIDEO TESTIMONIALS ── */
-    .video-testi { background: var(--navy3); padding: 96px 72px; }
-    .video-testi-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 22px; margin-top: 56px;
+    .video-testi { background: var(--navy3); padding: 96px 0; }
+    .video-testi-header { padding: 0 72px; text-align: center; max-width: 600px; margin: 0 auto; }
+
+    .video-carousel-outer { position: relative; margin-top: 56px; }
+    .video-carousel-viewport { overflow: hidden; padding: 0 72px; }
+    .video-carousel-track {
+      display: flex; gap: 16px;
+      transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
     }
     .video-testi-card {
-      background: var(--navy2); border-radius: 10px; overflow: hidden;
+      flex: 0 0 calc((100% - 3 * 16px) / 4);
+      background: var(--navy2); border-radius: 14px; overflow: hidden;
       border: 1px solid var(--border2);
-      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .video-testi-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
-    .video-testi-label { padding: 14px 16px 10px; }
+    .video-testi-label { padding: 12px 14px 10px; }
     .video-testi-tag {
-      display: inline-block; font-size: 0.65rem; font-weight: 700;
+      display: inline-block; font-size: 0.62rem; font-weight: 700;
       letter-spacing: 1px; text-transform: uppercase;
       color: var(--teal); background: rgba(0,201,167,0.1);
-      padding: 4px 11px; border-radius: 20px; border: 1px solid rgba(0,201,167,0.25);
+      padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(0,201,167,0.25);
     }
+    /* 9:16 vertical video */
     .video-embed-wrap {
-      position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+      position: relative; padding-bottom: 177.78%; height: 0; overflow: hidden;
     }
     .video-embed-wrap > div { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-    .video-embed-wrap iframe {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
+    .video-embed-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+    .carousel-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; border-radius: 50%; border: none; cursor: pointer;
+      background: white; color: var(--navy); font-size: 18px; line-height: 1;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, color 0.2s, opacity 0.2s; z-index: 10;
     }
-    @media (max-width: 1100px) { .video-testi-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 768px)  { .video-testi-grid { grid-template-columns: 1fr; } .video-testi { padding: 60px 24px; } }
+    .carousel-btn:hover { background: var(--teal); color: white; }
+    .carousel-btn:disabled { opacity: 0.25; pointer-events: none; }
+    .carousel-btn-prev { left: 16px; }
+    .carousel-btn-next { right: 16px; }
+
+    .carousel-dots { display: flex; justify-content: center; gap: 7px; margin-top: 28px; }
+    .carousel-dot {
+      width: 7px; height: 7px; border-radius: 4px; cursor: pointer;
+      background: rgba(255,255,255,0.25); border: none;
+      transition: background 0.2s, width 0.25s;
+    }
+    .carousel-dot.active { background: var(--teal); width: 22px; }
+
+    @media (max-width: 1100px) { .video-testi-card { flex: 0 0 calc((100% - 2 * 16px) / 3); } }
+    @media (max-width: 768px) {
+      .video-testi { padding: 60px 0; }
+      .video-testi-header { padding: 0 24px; }
+      .video-carousel-viewport { padding: 0 24px; }
+      .video-testi-card { flex: 0 0 calc((100% - 16px) / 2); }
+      .carousel-btn { width: 36px; height: 36px; font-size: 15px; }
+      .carousel-btn-prev { left: 8px; }
+      .carousel-btn-next { right: 8px; }
+    }
+    @media (max-width: 480px) { .video-testi-card { flex: 0 0 82%; } }
 
     /* ── TEAM ── */
     .team { background: var(--white); padding: 80px 72px; }
@@ -1386,95 +1420,110 @@
   <!-- ━━━ VIDEO TESTIMONIALS ━━━ -->
   <script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
   <section class="video-testi">
-    <div style="text-align:center; max-width:600px; margin:0 auto;">
+    <div class="video-testi-header">
       <span class="section-label">Testimonios en video</span>
       <h2 class="section-h2 section-h2-light">Resultados reales.<br><em style="font-family:var(--font-serif);font-style:italic;color:var(--teal);">En sus propias palabras.</em></h2>
       <p class="section-intro section-intro-light" style="margin:0 auto;">Pacientes reales que transformaron su salud con el Método MP.</p>
     </div>
-    <div class="video-testi-grid">
 
-      <div class="video-testi-card fade-in">
-        <div class="video-testi-label"><span class="video-testi-tag">Inflamación y alergias</span></div>
-        <div class="video-embed-wrap">
-          <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-            <div class="wistia_embed wistia_async_hp1ksw60e9 videoFoam=true" style="height:100%;position:relative;width:100%">&nbsp;</div>
+    <div class="video-carousel-outer">
+      <button class="carousel-btn carousel-btn-prev" id="carouselPrev" disabled aria-label="Anterior">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+
+      <div class="video-carousel-viewport">
+        <div class="video-carousel-track" id="videoCarouselTrack">
+
+          <div class="video-testi-card">
+            <div class="video-testi-label"><span class="video-testi-tag">Inflamación y alergias</span></div>
+            <div class="video-embed-wrap">
+              <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+                <div class="wistia_embed wistia_async_hp1ksw60e9" style="height:100%;position:relative;width:100%">&nbsp;</div>
+              </div>
+            </div>
           </div>
+
+          <div class="video-testi-card">
+            <div class="video-testi-label"><span class="video-testi-tag">Problemas de estómago y acidez</span></div>
+            <div class="video-embed-wrap">
+              <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+                <div class="wistia_embed wistia_async_yuslvdfjag" style="height:100%;position:relative;width:100%">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="video-testi-card">
+            <div class="video-testi-label"><span class="video-testi-tag">Inflamación y exceso de peso</span></div>
+            <div class="video-embed-wrap">
+              <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+                <div class="wistia_embed wistia_async_xohfjmh1ca" style="height:100%;position:relative;width:100%">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="video-testi-card">
+            <div class="video-testi-label"><span class="video-testi-tag">Fibromialgia</span></div>
+            <div class="video-embed-wrap">
+              <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+                <div class="wistia_embed wistia_async_rb1k7l7snh" style="height:100%;position:relative;width:100%">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="video-testi-card">
+            <div class="video-testi-label"><span class="video-testi-tag">Reflujo y problemas hormonales</span></div>
+            <div class="video-embed-wrap">
+              <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+                <div class="wistia_embed wistia_async_ey6q1ctue2" style="height:100%;position:relative;width:100%">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="video-testi-card">
+            <div class="video-testi-label"><span class="video-testi-tag">Dolores de articulación y musculares</span></div>
+            <div class="video-embed-wrap">
+              <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+                <div class="wistia_embed wistia_async_jk67r9d527" style="height:100%;position:relative;width:100%">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="video-testi-card">
+            <div class="video-testi-label"><span class="video-testi-tag">Ataques de ansiedad e inflamación</span></div>
+            <div class="video-embed-wrap">
+              <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+                <div class="wistia_embed wistia_async_6igqx70m1c" style="height:100%;position:relative;width:100%">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="video-testi-card">
+            <div class="video-testi-label"><span class="video-testi-tag">Osteoporosis</span></div>
+            <div class="video-embed-wrap">
+              <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+                <div class="wistia_embed wistia_async_i9gb0gge3k" style="height:100%;position:relative;width:100%">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="video-testi-card">
+            <div class="video-testi-label"><span class="video-testi-tag">Migraña y dolores de cabeza</span></div>
+            <div class="video-embed-wrap">
+              <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+                <div class="wistia_embed wistia_async_815i8svyrm" style="height:100%;position:relative;width:100%">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
-      <div class="video-testi-card fade-in fade-in-delay-1">
-        <div class="video-testi-label"><span class="video-testi-tag">Problemas de estómago y acidez</span></div>
-        <div class="video-embed-wrap">
-          <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-            <div class="wistia_embed wistia_async_yuslvdfjag videoFoam=true" style="height:100%;position:relative;width:100%">&nbsp;</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="video-testi-card fade-in fade-in-delay-2">
-        <div class="video-testi-label"><span class="video-testi-tag">Inflamación y exceso de peso</span></div>
-        <div class="video-embed-wrap">
-          <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-            <div class="wistia_embed wistia_async_xohfjmh1ca videoFoam=true" style="height:100%;position:relative;width:100%">&nbsp;</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="video-testi-card fade-in">
-        <div class="video-testi-label"><span class="video-testi-tag">Fibromialgia</span></div>
-        <div class="video-embed-wrap">
-          <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-            <div class="wistia_embed wistia_async_rb1k7l7snh videoFoam=true" style="height:100%;position:relative;width:100%">&nbsp;</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="video-testi-card fade-in fade-in-delay-1">
-        <div class="video-testi-label"><span class="video-testi-tag">Reflujo y problemas hormonales</span></div>
-        <div class="video-embed-wrap">
-          <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-            <div class="wistia_embed wistia_async_ey6q1ctue2 videoFoam=true" style="height:100%;position:relative;width:100%">&nbsp;</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="video-testi-card fade-in fade-in-delay-2">
-        <div class="video-testi-label"><span class="video-testi-tag">Dolores de articulación y musculares</span></div>
-        <div class="video-embed-wrap">
-          <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-            <div class="wistia_embed wistia_async_jk67r9d527 videoFoam=true" style="height:100%;position:relative;width:100%">&nbsp;</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="video-testi-card fade-in">
-        <div class="video-testi-label"><span class="video-testi-tag">Ataques de ansiedad e inflamación</span></div>
-        <div class="video-embed-wrap">
-          <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-            <div class="wistia_embed wistia_async_6igqx70m1c videoFoam=true" style="height:100%;position:relative;width:100%">&nbsp;</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="video-testi-card fade-in fade-in-delay-1">
-        <div class="video-testi-label"><span class="video-testi-tag">Osteoporosis</span></div>
-        <div class="video-embed-wrap">
-          <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-            <div class="wistia_embed wistia_async_i9gb0gge3k videoFoam=true" style="height:100%;position:relative;width:100%">&nbsp;</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="video-testi-card fade-in fade-in-delay-2">
-        <div class="video-testi-label"><span class="video-testi-tag">Migraña y dolores de cabeza</span></div>
-        <div class="video-embed-wrap">
-          <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-            <div class="wistia_embed wistia_async_815i8svyrm videoFoam=true" style="height:100%;position:relative;width:100%">&nbsp;</div>
-          </div>
-        </div>
-      </div>
-
+      <button class="carousel-btn carousel-btn-next" id="carouselNext" aria-label="Siguiente">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
     </div>
+
+    <div class="carousel-dots" id="carouselDots"></div>
   </section>
 
 
@@ -1873,6 +1922,63 @@
       });
     }, { threshold: 0.5 });
     document.querySelectorAll('[data-target]').forEach(function(el) { countObserver.observe(el); });
+
+    /* ── Video Carousel ── */
+    (function() {
+      var track    = document.getElementById('videoCarouselTrack');
+      var prevBtn  = document.getElementById('carouselPrev');
+      var nextBtn  = document.getElementById('carouselNext');
+      var dotsWrap = document.getElementById('carouselDots');
+      if (!track) return;
+
+      var cards = track.querySelectorAll('.video-testi-card');
+      var total = cards.length;
+      var current = 0;
+
+      function visible() {
+        var w = window.innerWidth;
+        if (w <= 480)  return 1;
+        if (w <= 768)  return 2;
+        if (w <= 1100) return 3;
+        return 4;
+      }
+      function maxIndex() { return Math.max(0, total - visible()); }
+
+      /* Build dots */
+      for (var d = 0; d < total; d++) {
+        var dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (d === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Ir al video ' + (d + 1));
+        (function(idx) { dot.addEventListener('click', function() { go(idx); }); })(d);
+        dotsWrap.appendChild(dot);
+      }
+
+      function go(idx) {
+        current = Math.max(0, Math.min(idx, maxIndex()));
+        var cardW = cards[0].getBoundingClientRect().width;
+        var gap   = 16;
+        track.style.transform = 'translateX(-' + (current * (cardW + gap)) + 'px)';
+        prevBtn.disabled = current === 0;
+        nextBtn.disabled = current >= maxIndex();
+        dotsWrap.querySelectorAll('.carousel-dot').forEach(function(dot, i) {
+          dot.classList.toggle('active', i === current);
+        });
+      }
+
+      prevBtn.addEventListener('click', function() { go(current - 1); });
+      nextBtn.addEventListener('click', function() { go(current + 1); });
+
+      /* Touch / swipe */
+      var touchStartX = 0;
+      track.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend', function(e) {
+        var dx = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(dx) > 40) go(dx > 0 ? current + 1 : current - 1);
+      });
+
+      window.addEventListener('resize', function() { go(Math.min(current, maxIndex())); });
+      go(0);
+    })();
   </script>
 
 </body>
