@@ -948,17 +948,26 @@
           <p class="form-step-sub">Ayúdanos a entender qué es más importante para ti en este momento.</p>
           <div class="form-field">
             <label class="form-label">¿Cuál es tu objetivo principal? *</label>
-            <select class="form-select" id="fieldGoal">
+            <select class="form-select" id="fieldGoal" onchange="toggleGoalOther(this.value)">
               <option value="">Selecciona...</option>
               <option value="weight">Bajar de peso y transformar mi composición corporal</option>
               <option value="energy">Mejorar energía y eliminar fatiga crónica</option>
-              <option value="hormones">Equilibrar hormonas (tiroides, cortisol, estrógenos)</option>
-              <option value="fitness">Optimizar mi rendimiento físico</option>
-              <option value="condition">Trabajar una condición de salud específica</option>
+              <option value="hormones">Equilibrar mis hormonas (tiroides, cortisol, estrógenos, menopausia)</option>
+              <option value="digestion">Mejorar mi digestión y salud intestinal</option>
+              <option value="inflammation">Reducir inflamación crónica</option>
+              <option value="autoimmune">Condición autoinmune (Hashimoto, lupus, artritis, fibromialgia)</option>
+              <option value="fitness">Optimizar mi rendimiento físico y recuperación</option>
+              <option value="sleep">Mejorar mi calidad de sueño</option>
+              <option value="mood">Manejo de ansiedad, depresión o estado de ánimo</option>
+              <option value="diabetes">Diabetes o resistencia a la insulina</option>
               <option value="longevity">Prevención y longevidad</option>
-              <option value="other">Otro objetivo</option>
+              <option value="fertility">Fertilidad y salud reproductiva</option>
+              <option value="cancer">Condición oncológica (apoyo complementario)</option>
+              <option value="other">Otro — escribe tu objetivo</option>
             </select>
             <div class="form-error" id="errGoal">Por favor selecciona una opción</div>
+            <input type="text" class="form-input" id="fieldGoalOther" placeholder="Describe tu objetivo..." style="display:none;margin-top:8px;">
+            <div class="form-error" id="errGoalOther">Por favor describe tu objetivo</div>
           </div>
           <div class="form-field">
             <label class="form-label">¿Con qué urgencia quieres empezar? *</label>
@@ -989,7 +998,7 @@
                 <span class="program-card-price">Desde $500 para comenzar</span>
               </div>
               <div class="program-card-duration">Mínimo 3 meses</div>
-              <div class="program-card-desc">Consulta mensual con especialista · Plan nutricional y suplementación ajustado semanalmente · Acceso a health coach por WhatsApp toda la semana</div>
+              <div class="program-card-desc">Estudio epigenético completo · Protocolo nutricional y de suplementación personalizado · Acceso a nuestras instalaciones, tratamientos y servicios · Atención directa con especialistas del equipo de Michelle</div>
               <div class="financing-badge" id="financingReset">✓ Financiamiento disponible</div>
             </div>
             <div class="program-card" id="cardIntegral" onclick="selectProgram('integral')">
@@ -999,7 +1008,7 @@
                 <span class="program-card-price">Desde $1,500 para comenzar</span>
               </div>
               <div class="program-card-duration">Mínimo 6 meses</div>
-              <div class="program-card-desc">Todo lo del Reset + Estudio epigenético completo (900+ biomarcadores) · Paneles de sangre avanzados · Acceso completo a terapias del centro</div>
+              <div class="program-card-desc">Estudio epigenético completo · Protocolo nutricional y de suplementación personalizado · Acceso a nuestras instalaciones, tratamientos y servicios · Atención directa con Michelle · Health coach asignado exclusivamente a tu caso con acceso directo</div>
               <div class="financing-badge" id="financingIntegral">✓ Financiamiento disponible</div>
             </div>
           </div>
@@ -1581,6 +1590,10 @@
         var goal = document.getElementById('fieldGoal').value;
         var tl = document.getElementById('fieldTimeline').value;
         if (!goal) { err('errGoal', true); valid = false; } else err('errGoal', false);
+        if (goal === 'other') {
+          var goalOther = document.getElementById('fieldGoalOther').value.trim();
+          if (!goalOther) { err('errGoalOther', true); valid = false; } else err('errGoalOther', false);
+        } else { err('errGoalOther', false); }
         if (!tl) { err('errTimeline', true); valid = false; } else err('errTimeline', false);
       }
       return valid;
@@ -1605,26 +1618,78 @@
       document.getElementById('errProgram').classList.remove('show');
     }
 
+    // Web3Forms access key — get yours free at web3forms.com by entering eabdou@michellepeiret.com
+    var WEB3FORMS_KEY = 'YOUR_ACCESS_KEY';
+
+    function toggleGoalOther(val) {
+      var otherInput = document.getElementById('fieldGoalOther');
+      otherInput.style.display = val === 'other' ? 'block' : 'none';
+      if (val !== 'other') document.getElementById('errGoalOther').classList.remove('show');
+    }
+
     function submitForm() {
       if (!selectedProgram) { document.getElementById('errProgram').classList.add('show'); return; }
+
+      var nameVal     = document.getElementById('fieldName').value.trim();
+      var emailVal    = document.getElementById('fieldEmail').value.trim();
+      var countryEl   = document.getElementById('fieldCountry');
+      var countryVal  = countryEl.options[countryEl.selectedIndex].text;
+      var occEl       = document.getElementById('fieldOccupation');
+      var occVal      = occEl.options[occEl.selectedIndex].text;
+      var challengeVal= document.getElementById('fieldChallenge').value.trim();
+      var durEl       = document.getElementById('fieldDuration');
+      var durVal      = durEl.options[durEl.selectedIndex].text;
+      var impactVal   = (selectedImpact || '—') + '/10';
+      var goalEl      = document.getElementById('fieldGoal');
+      var goalVal     = goalEl.value === 'other'
+                          ? document.getElementById('fieldGoalOther').value.trim()
+                          : goalEl.options[goalEl.selectedIndex].text;
+      var tlEl        = document.getElementById('fieldTimeline');
+      var tlVal       = tlEl.options[tlEl.selectedIndex].text;
+      var programMap  = { reset: 'Programa Reset', integral: 'Programa Integral', unsure: 'No está seguro/a', budget: 'Presupuesto diferente' };
+      var programVal  = programMap[selectedProgram] || selectedProgram;
+
+      // Send email notification (non-blocking)
+      if (WEB3FORMS_KEY !== 'YOUR_ACCESS_KEY') {
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            subject: '🔔 Nueva solicitud de Análisis Inicial — ' + nameVal,
+            from_name: 'Formulario MP Health',
+            message: [
+              'Nombre: ' + nameVal,
+              'Email: ' + emailVal,
+              'País: ' + countryVal,
+              'Ocupación: ' + occVal,
+              '---',
+              'Objetivo: ' + goalVal,
+              'Situación: ' + challengeVal,
+              'Duración: ' + durVal,
+              'Impacto en vida: ' + impactVal,
+              'Urgencia: ' + tlVal,
+              'Programa elegido: ' + programVal
+            ].join('\n')
+          })
+        }).catch(function() {});
+      }
+
       var form = document.getElementById('intakeForm');
-      var cal = document.getElementById('calendlyWidget');
-      var alt = document.getElementById('altOffer');
+      var cal  = document.getElementById('calendlyWidget');
+      var alt  = document.getElementById('altOffer');
       form.style.display = 'none';
+
       if (selectedProgram === 'budget') {
         alt.style.display = 'block';
         alt.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
         cal.style.display = 'block';
         cal.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        // Lazy-load Calendly widget
         Calendly.initInlineWidget({
           url: 'https://calendly.com/nutrigenomica-michellepeiret/michellepeirethealth',
           parentElement: document.getElementById('calendlyInline'),
-          prefill: {
-            name: document.getElementById('fieldName').value.trim(),
-            email: document.getElementById('fieldEmail').value.trim()
-          }
+          prefill: { name: nameVal, email: emailVal }
         });
       }
     }
