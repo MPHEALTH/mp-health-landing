@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Análisis Inicial | Michelle Peiret Health</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="https://assets.calendly.com/assets/external/widget.js" defer></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -474,6 +476,120 @@
     .cal-widget-wrap { background: var(--white); border-radius: 10px; overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,0.4); }
     .cal-widget-wrap .calendly-inline-widget { min-width: 320px; height: 700px; display: block; }
 
+    /* ── INTAKE FORM ── */
+    .intake-form {
+      background: var(--white); border-radius: 10px; overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4); padding: 36px 40px;
+    }
+    .form-progress-wrap { margin-bottom: 28px; }
+    .form-progress {
+      height: 3px; background: rgba(0,0,0,0.08); border-radius: 2px;
+      overflow: hidden; margin-bottom: 10px;
+    }
+    .form-progress-bar {
+      height: 100%; background: var(--teal); border-radius: 2px;
+      transition: width 0.4s ease; width: 25%;
+    }
+    .form-step-label {
+      font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--teal); font-weight: 700;
+    }
+    .form-step { display: none; }
+    .form-step.active { display: block; }
+    .form-step-title {
+      font-family: var(--font-serif); font-size: 1.55rem; font-weight: 600;
+      color: var(--navy); margin-bottom: 6px; line-height: 1.2;
+    }
+    .form-step-sub { font-size: 0.84rem; color: var(--muted); margin-bottom: 24px; line-height: 1.65; }
+    .form-field { margin-bottom: 16px; }
+    .form-label { display: block; font-size: 0.76rem; font-weight: 600; color: var(--navy); margin-bottom: 6px; letter-spacing: 0.2px; }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; padding: 11px 13px; border: 1.5px solid var(--cream2); border-radius: 6px;
+      font-family: var(--font-body); font-size: 0.88rem; color: var(--text);
+      background: var(--white); transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none; -webkit-appearance: none; appearance: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--teal); box-shadow: 0 0 0 3px rgba(0,201,167,0.1);
+    }
+    .form-textarea { resize: vertical; min-height: 88px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .impact-buttons { display: flex; gap: 5px; flex-wrap: wrap; }
+    .impact-btn {
+      width: 36px; height: 36px; border-radius: 6px; border: 1.5px solid var(--cream2);
+      background: var(--white); font-size: 0.82rem; font-weight: 600; color: var(--muted);
+      cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center;
+    }
+    .impact-btn:hover { border-color: var(--teal); color: var(--teal); }
+    .impact-btn.selected { background: var(--teal); border-color: var(--teal); color: var(--navy); }
+    .program-cards { display: flex; flex-direction: column; gap: 10px; margin-bottom: 8px; }
+    .program-card {
+      border: 2px solid var(--cream2); border-radius: 8px; padding: 16px 48px 16px 18px;
+      cursor: pointer; transition: all 0.2s; position: relative;
+    }
+    .program-card:hover { border-color: var(--teal); background: rgba(0,201,167,0.03); }
+    .program-card.selected { border-color: var(--teal); background: rgba(0,201,167,0.06); }
+    .program-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+    .program-card-name { font-size: 0.92rem; font-weight: 700; color: var(--navy); }
+    .program-card-price { font-size: 0.75rem; font-weight: 700; color: var(--teal); background: rgba(0,201,167,0.1); padding: 2px 9px; border-radius: 20px; }
+    .program-card-duration { font-size: 0.7rem; color: var(--muted); margin-bottom: 5px; font-weight: 500; }
+    .program-card-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.55; }
+    .program-card-radio {
+      position: absolute; top: 16px; right: 16px; width: 18px; height: 18px;
+      border-radius: 50%; border: 2px solid var(--cream2); transition: all 0.2s;
+    }
+    .program-card.selected .program-card-radio { border-color: var(--teal); background: var(--teal); box-shadow: inset 0 0 0 3px white; }
+    .financing-badge {
+      display: none; font-size: 0.68rem; color: var(--teal); font-weight: 600;
+      margin-top: 6px; padding: 3px 9px; background: rgba(0,201,167,0.08); border-radius: 20px; width: fit-content;
+    }
+    .financing-badge.visible { display: inline-block; }
+    .form-alt-options { display: flex; flex-direction: column; gap: 7px; margin-top: 10px; }
+    .form-alt-option {
+      border: 1.5px solid var(--cream2); border-radius: 6px; padding: 11px 14px;
+      cursor: pointer; transition: all 0.2s; font-size: 0.83rem; color: var(--muted);
+      text-align: left; background: none; width: 100%; display: flex; align-items: center; gap: 9px;
+      font-family: var(--font-body);
+    }
+    .form-alt-option:hover { border-color: #6b7a8d; color: var(--navy); }
+    .form-alt-option.selected { border-color: var(--navy); color: var(--navy); background: rgba(0,0,0,0.02); }
+    .form-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--cream2);
+    }
+    .form-btn-back {
+      background: none; border: none; color: var(--muted); font-size: 0.84rem;
+      cursor: pointer; font-family: var(--font-body); padding: 8px 0; transition: color 0.2s;
+    }
+    .form-btn-back:hover { color: var(--navy); }
+    .form-btn-next {
+      background: var(--teal); color: var(--navy); border: none; border-radius: 4px;
+      padding: 12px 26px; font-size: 0.84rem; font-weight: 700; letter-spacing: 0.05em;
+      text-transform: uppercase; cursor: pointer; font-family: var(--font-body);
+      transition: background 0.2s, transform 0.15s; box-shadow: 0 4px 16px rgba(0,201,167,0.3);
+    }
+    .form-btn-next:hover { background: var(--teal-dk); transform: translateY(-1px); }
+    .form-error { font-size: 0.73rem; color: #e53e3e; margin-top: 5px; display: none; }
+    .form-error.show { display: block; }
+    .alt-offer {
+      background: var(--white); border-radius: 10px; overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4); padding: 44px 40px; text-align: center;
+    }
+    .alt-offer-icon { font-size: 2.8rem; margin-bottom: 14px; }
+    .alt-offer-title {
+      font-family: var(--font-serif); font-size: 1.5rem; font-weight: 600;
+      color: var(--navy); margin-bottom: 10px; line-height: 1.25;
+    }
+    .alt-offer-sub { font-size: 0.87rem; color: var(--muted); line-height: 1.7; margin-bottom: 28px; max-width: 380px; margin-left: auto; margin-right: auto; }
+    .alt-offer-card {
+      background: var(--cream); border-radius: 8px; padding: 22px 26px;
+      margin-bottom: 22px; text-align: left;
+    }
+    .alt-offer-card-name { font-weight: 700; color: var(--navy); margin-bottom: 8px; font-size: 0.95rem; }
+    .alt-offer-card-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.65; margin-bottom: 14px; }
+    .alt-offer-card-price { font-size: 1.1rem; font-weight: 800; color: var(--teal); }
+    .alt-offer-back { background: none; border: none; color: var(--teal); cursor: pointer; font-size: 0.78rem; font-family: var(--font-body); text-decoration: underline; margin-top: 14px; display: block; }
+
     /* ── FOOTER ── */
     .footer {
       background: var(--navy3);
@@ -559,6 +675,9 @@
       .pain-grid { grid-template-columns: 1fr; }
       .pain-cta-block { flex-direction: column; gap: 16px; }
       .hero-left { padding: 48px 24px; }
+      .intake-form { padding: 28px 22px; }
+      .form-row { grid-template-columns: 1fr; }
+      .alt-offer { padding: 36px 22px; }
       .hero-stats { gap: 20px; flex-wrap: wrap; }
       .services-grid { grid-template-columns: 1fr; }
       .team-grid { grid-template-columns: 1fr 1fr; }
@@ -685,30 +804,30 @@
         <em style="font-family:var(--font-serif); font-style:italic; color:var(--teal);">está listo para ti</em>
       </h2>
       <p class="cal-intro">
-        Elige el horario que mejor te funcione. El análisis inicial es completamente
-        gratuito, sin compromiso y dura entre 20 y 30 minutos.
+        Completa el formulario en 2 minutos para que el equipo llegue preparado a tu sesión —
+        luego elige el día y la hora que mejor te funcione.
       </p>
 
       <div class="cal-steps">
         <div class="cal-step">
           <div class="cal-step-num">1</div>
           <div>
-            <h4 class="cal-step-title">Elige tu horario</h4>
-            <p class="cal-step-desc">Selecciona el día y la hora que más te convenga en el calendario.</p>
+            <h4 class="cal-step-title">Cuéntanos sobre ti</h4>
+            <p class="cal-step-desc">4 preguntas rápidas para que el equipo entienda tu caso antes de la sesión.</p>
           </div>
         </div>
         <div class="cal-step">
           <div class="cal-step-num">2</div>
           <div>
-            <h4 class="cal-step-title">Confirmas tu lugar</h4>
-            <p class="cal-step-desc">Recibirás una confirmación automática con los detalles de tu análisis inicial.</p>
+            <h4 class="cal-step-title">Elige tu horario</h4>
+            <p class="cal-step-desc">Selecciona el día y la hora que más te convenga — el equipo estará listo.</p>
           </div>
         </div>
         <div class="cal-step">
           <div class="cal-step-num">3</div>
           <div>
             <h4 class="cal-step-title">Tu análisis inicial</h4>
-            <p class="cal-step-desc">Un análisis personalizado sobre tu caso. Sales con claridad y un plan de acción concreto.</p>
+            <p class="cal-step-desc">20 minutos. Sales con claridad sobre tu situación y un plan de acción concreto.</p>
           </div>
         </div>
       </div>
@@ -720,22 +839,205 @@
         </div>
         <div class="cal-trust-item">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-          <span class="cal-trust-text">Análisis inicial completamente gratuito — sin costo, sin compromiso</span>
+          <span class="cal-trust-text">Análisis inicial sin costo — sin compromiso</span>
         </div>
         <div class="cal-trust-item">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <span class="cal-trust-text">20–30 minutos · Un análisis real sobre tu caso</span>
+          <span class="cal-trust-text">Modalidad online o presencial en Miami</span>
         </div>
       </div>
     </div>
 
     <div class="cal-right">
-      <div class="cal-widget-wrap">
-        <div class="calendly-inline-widget"
-             data-url="https://calendly.com/nutrigenomica-michellepeiret/michellepeirethealth"
-             style="min-width:320px;height:700px;"></div>
-        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+      <!-- ── MULTI-STEP INTAKE FORM ── -->
+      <div class="intake-form" id="intakeForm">
+        <div class="form-progress-wrap">
+          <div class="form-progress"><div class="form-progress-bar" id="progressBar"></div></div>
+          <div class="form-step-label" id="stepLabel">Paso 1 de 4</div>
+        </div>
+
+        <!-- Step 1 — Sobre ti -->
+        <div class="form-step active" id="step1">
+          <h3 class="form-step-title">Cuéntanos sobre ti</h3>
+          <p class="form-step-sub">Necesitamos algunos datos básicos para preparar tu sesión.</p>
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label">Nombre completo *</label>
+              <input type="text" class="form-input" id="fieldName" placeholder="Tu nombre completo">
+              <div class="form-error" id="errName">Por favor ingresa tu nombre</div>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Email *</label>
+              <input type="email" class="form-input" id="fieldEmail" placeholder="tu@email.com">
+              <div class="form-error" id="errEmail">Por favor ingresa un email válido</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label">¿Desde qué país nos escribes? *</label>
+              <select class="form-select" id="fieldCountry">
+                <option value="">Selecciona...</option>
+                <option value="us">Estados Unidos</option>
+                <option value="mx">México</option>
+                <option value="co">Colombia</option>
+                <option value="ar">Argentina</option>
+                <option value="ve">Venezuela</option>
+                <option value="es">España</option>
+                <option value="pe">Perú</option>
+                <option value="cl">Chile</option>
+                <option value="ec">Ecuador</option>
+                <option value="other">Otro país</option>
+              </select>
+              <div class="form-error" id="errCountry">Por favor selecciona tu país</div>
+            </div>
+            <div class="form-field">
+              <label class="form-label">¿A qué te dedicas? *</label>
+              <select class="form-select" id="fieldOccupation">
+                <option value="">Selecciona...</option>
+                <option value="entrepreneur">Empresario / Emprendedor</option>
+                <option value="executive">Ejecutivo / Gerente</option>
+                <option value="professional">Profesional independiente</option>
+                <option value="employee">Empleado</option>
+                <option value="other">Otro</option>
+              </select>
+              <div class="form-error" id="errOccupation">Por favor selecciona una opción</div>
+            </div>
+          </div>
+          <div class="form-nav">
+            <span></span>
+            <button class="form-btn-next" onclick="nextStep(1)">Continuar →</button>
+          </div>
+        </div>
+
+        <!-- Step 2 — Tu situación -->
+        <div class="form-step" id="step2">
+          <h3 class="form-step-title">Tu situación de salud</h3>
+          <p class="form-step-sub">Cuéntanos qué te trajo aquí — mientras más específico, mejor nos preparamos.</p>
+          <div class="form-field">
+            <label class="form-label">¿Cuál es el principal cambio que quieres lograr? *</label>
+            <textarea class="form-textarea" id="fieldChallenge" placeholder="Ej: Llevo 2 años con fatiga constante, he intentado cambiar mi dieta pero sin resultados reales..."></textarea>
+            <div class="form-error" id="errChallenge">Por favor cuéntanos un poco sobre tu situación</div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label">¿Hace cuánto tiempo lo experimentas? *</label>
+              <select class="form-select" id="fieldDuration">
+                <option value="">Selecciona...</option>
+                <option value="<6m">Menos de 6 meses</option>
+                <option value="6m-2y">6 meses – 2 años</option>
+                <option value=">2y">Más de 2 años</option>
+              </select>
+              <div class="form-error" id="errDuration">Por favor selecciona una opción</div>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Del 1 al 10, ¿cuánto afecta tu calidad de vida? *</label>
+              <div class="impact-buttons" id="impactButtons"></div>
+              <div class="form-error" id="errImpact">Por favor selecciona un nivel</div>
+            </div>
+          </div>
+          <div class="form-nav">
+            <button class="form-btn-back" onclick="prevStep(2)">← Atrás</button>
+            <button class="form-btn-next" onclick="nextStep(2)">Continuar →</button>
+          </div>
+        </div>
+
+        <!-- Step 3 — Tu objetivo -->
+        <div class="form-step" id="step3">
+          <h3 class="form-step-title">Tu objetivo</h3>
+          <p class="form-step-sub">Ayúdanos a entender qué es más importante para ti en este momento.</p>
+          <div class="form-field">
+            <label class="form-label">¿Cuál es tu objetivo principal? *</label>
+            <select class="form-select" id="fieldGoal">
+              <option value="">Selecciona...</option>
+              <option value="weight">Bajar de peso y transformar mi composición corporal</option>
+              <option value="energy">Mejorar energía y eliminar fatiga crónica</option>
+              <option value="hormones">Equilibrar hormonas (tiroides, cortisol, estrógenos)</option>
+              <option value="fitness">Optimizar mi rendimiento físico</option>
+              <option value="condition">Trabajar una condición de salud específica</option>
+              <option value="longevity">Prevención y longevidad</option>
+              <option value="other">Otro objetivo</option>
+            </select>
+            <div class="form-error" id="errGoal">Por favor selecciona una opción</div>
+          </div>
+          <div class="form-field">
+            <label class="form-label">¿Con qué urgencia quieres empezar? *</label>
+            <select class="form-select" id="fieldTimeline">
+              <option value="">Selecciona...</option>
+              <option value="now">Esta semana — quiero empezar ya</option>
+              <option value="month">Este mes</option>
+              <option value="3months">En los próximos 3 meses</option>
+              <option value="exploring">Solo estoy explorando por ahora</option>
+            </select>
+            <div class="form-error" id="errTimeline">Por favor selecciona una opción</div>
+          </div>
+          <div class="form-nav">
+            <button class="form-btn-back" onclick="prevStep(3)">← Atrás</button>
+            <button class="form-btn-next" onclick="nextStep(3)">Continuar →</button>
+          </div>
+        </div>
+
+        <!-- Step 4 — Programa -->
+        <div class="form-step" id="step4">
+          <h3 class="form-step-title">Elige tu programa</h3>
+          <p class="form-step-sub">Dos opciones de protocolo personalizado. Lee las dos y dinos cuál se acerca más a lo que buscas.</p>
+          <div class="program-cards">
+            <div class="program-card" id="cardReset" onclick="selectProgram('reset')">
+              <div class="program-card-radio" id="radioReset"></div>
+              <div class="program-card-header">
+                <span class="program-card-name">Programa Reset</span>
+                <span class="program-card-price">Desde $500/mes</span>
+              </div>
+              <div class="program-card-duration">Duración estimada: 3 meses</div>
+              <div class="program-card-desc">Consulta mensual con especialista · Plan nutricional y suplementación ajustado semanalmente · Acceso a health coach por WhatsApp toda la semana</div>
+              <div class="financing-badge" id="financingReset">✓ Financiamiento disponible</div>
+            </div>
+            <div class="program-card" id="cardIntegral" onclick="selectProgram('integral')">
+              <div class="program-card-radio" id="radioIntegral"></div>
+              <div class="program-card-header">
+                <span class="program-card-name">Programa Integral</span>
+                <span class="program-card-price">Desde $1,500/mes</span>
+              </div>
+              <div class="program-card-duration">Duración estimada: 6 meses</div>
+              <div class="program-card-desc">Todo lo del Reset + Estudio epigenético completo (900+ biomarcadores) · Paneles de sangre avanzados · Acceso completo a terapias del centro</div>
+              <div class="financing-badge" id="financingIntegral">✓ Financiamiento disponible</div>
+            </div>
+          </div>
+          <div class="form-alt-options">
+            <button class="form-alt-option" id="altUnsure" onclick="selectProgram('unsure')">
+              <span>🤔</span> No estoy seguro/a — prefiero discutirlo en el análisis inicial
+            </button>
+            <button class="form-alt-option" id="altBudget" onclick="selectProgram('budget')">
+              <span>💬</span> Mi presupuesto es diferente por ahora
+            </button>
+          </div>
+          <div class="form-error" id="errProgram" style="margin-top:8px">Por favor selecciona una opción</div>
+          <div class="form-nav">
+            <button class="form-btn-back" onclick="prevStep(4)">← Atrás</button>
+            <button class="form-btn-next" onclick="submitForm()">Ver disponibilidad →</button>
+          </div>
+        </div>
       </div>
+
+      <!-- ── CALENDLY (revealed after qualifying) ── -->
+      <div class="cal-widget-wrap" id="calendlyWidget" style="display:none">
+        <div id="calendlyInline" style="min-width:320px;height:700px;"></div>
+      </div>
+
+      <!-- ── ALT OFFER (budget different) ── -->
+      <div class="alt-offer" id="altOffer" style="display:none">
+        <div class="alt-offer-icon">🌿</div>
+        <h3 class="alt-offer-title">Tenemos algo ideal para ti ahora mismo</h3>
+        <p class="alt-offer-sub">Si el momento para un programa personalizado no es ahora, el Plan Antiinflamatorio de Michelle es el mejor primer paso — lo haces desde donde estés.</p>
+        <div class="alt-offer-card">
+          <div class="alt-offer-card-name">Plan Antiinflamatorio de 14 días</div>
+          <div class="alt-offer-card-desc">Un protocolo estructurado diseñado por Michelle. Trabaja la inflamación desde la base en dos semanas: alimentación, hábitos y sistema digestivo. Muchas personas ven cambios reales y mensurables en ese tiempo.</div>
+          <div class="alt-offer-card-price">$200 — acceso inmediato</div>
+        </div>
+        <a href="https://michellepeiret.com/producto/programa-antiinflamatorio/" target="_blank" rel="noopener" class="btn" style="width:100%;display:block;text-align:center;margin-bottom:16px;">Quiero el Plan Antiinflamatorio →</a>
+        <button class="alt-offer-back" onclick="showIntakeForm()">← Ver opciones de programa</button>
+      </div>
+
     </div>
   </section>
 
@@ -1194,18 +1496,147 @@
 
 
   <script>
-    /* ── Scroll to Calendly widget exactly, below sticky nav ── */
+    /* ── Scroll to form section ── */
     document.querySelectorAll('a[href="#calendly"]').forEach(function(a) {
       a.addEventListener('click', function(e) {
         e.preventDefault();
-        var widget = document.querySelector('.cal-widget-wrap');
-        var nav    = document.querySelector('.nav');
-        if (!widget) return;
+        var section = document.getElementById('calendly');
+        var nav = document.querySelector('.nav');
+        if (!section) return;
         var navH = nav ? nav.getBoundingClientRect().height : 0;
-        var top  = widget.getBoundingClientRect().top + window.pageYOffset - navH - 12;
+        var top = section.getBoundingClientRect().top + window.pageYOffset - navH - 12;
         window.scrollTo({ top: top, behavior: 'smooth' });
       });
     });
+
+    /* ── INTAKE FORM LOGIC ── */
+    var currentStep = 1;
+    var selectedImpact = null;
+    var selectedProgram = null;
+
+    // Build impact score buttons
+    (function() {
+      var wrap = document.getElementById('impactButtons');
+      if (!wrap) return;
+      for (var i = 1; i <= 10; i++) {
+        var btn = document.createElement('button');
+        btn.type = 'button'; btn.className = 'impact-btn';
+        btn.textContent = i; btn.dataset.val = i;
+        btn.onclick = (function(b, v) {
+          return function() {
+            selectedImpact = v;
+            document.querySelectorAll('.impact-btn').forEach(function(x) { x.classList.remove('selected'); });
+            b.classList.add('selected');
+            document.getElementById('errImpact').classList.remove('show');
+          };
+        })(btn, i);
+        wrap.appendChild(btn);
+      }
+    })();
+
+    function updateProgress(step) {
+      document.getElementById('progressBar').style.width = (step / 4 * 100) + '%';
+      document.getElementById('stepLabel').textContent = 'Paso ' + step + ' de 4';
+    }
+
+    function showStep(step) {
+      for (var i = 1; i <= 4; i++) {
+        var el = document.getElementById('step' + i);
+        if (el) el.classList.toggle('active', i === step);
+      }
+      currentStep = step;
+      updateProgress(step);
+      document.getElementById('intakeForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function validateStep(step) {
+      var valid = true;
+      function err(id, show) { document.getElementById(id).classList.toggle('show', show); }
+
+      if (step === 1) {
+        var name = document.getElementById('fieldName').value.trim();
+        var email = document.getElementById('fieldEmail').value.trim();
+        var country = document.getElementById('fieldCountry').value;
+        var occ = document.getElementById('fieldOccupation').value;
+        if (!name) { err('errName', true); valid = false; } else err('errName', false);
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err('errEmail', true); valid = false; } else err('errEmail', false);
+        if (!country) { err('errCountry', true); valid = false; } else err('errCountry', false);
+        if (!occ) { err('errOccupation', true); valid = false; } else err('errOccupation', false);
+        if (country === 'us') {
+          document.getElementById('financingReset').classList.add('visible');
+          document.getElementById('financingIntegral').classList.add('visible');
+        } else {
+          document.getElementById('financingReset').classList.remove('visible');
+          document.getElementById('financingIntegral').classList.remove('visible');
+        }
+      }
+      if (step === 2) {
+        var ch = document.getElementById('fieldChallenge').value.trim();
+        var dur = document.getElementById('fieldDuration').value;
+        if (!ch || ch.length < 10) { err('errChallenge', true); valid = false; } else err('errChallenge', false);
+        if (!dur) { err('errDuration', true); valid = false; } else err('errDuration', false);
+        if (!selectedImpact) { err('errImpact', true); valid = false; } else err('errImpact', false);
+      }
+      if (step === 3) {
+        var goal = document.getElementById('fieldGoal').value;
+        var tl = document.getElementById('fieldTimeline').value;
+        if (!goal) { err('errGoal', true); valid = false; } else err('errGoal', false);
+        if (!tl) { err('errTimeline', true); valid = false; } else err('errTimeline', false);
+      }
+      return valid;
+    }
+
+    function nextStep(from) {
+      if (!validateStep(from)) return;
+      if (from < 4) showStep(from + 1);
+    }
+
+    function prevStep(from) {
+      if (from > 1) showStep(from - 1);
+    }
+
+    function selectProgram(val) {
+      selectedProgram = val;
+      ['cardReset','cardIntegral','altUnsure','altBudget'].forEach(function(id) {
+        document.getElementById(id).classList.remove('selected');
+      });
+      var map = { reset: 'cardReset', integral: 'cardIntegral', unsure: 'altUnsure', budget: 'altBudget' };
+      if (map[val]) document.getElementById(map[val]).classList.add('selected');
+      document.getElementById('errProgram').classList.remove('show');
+    }
+
+    function submitForm() {
+      if (!selectedProgram) { document.getElementById('errProgram').classList.add('show'); return; }
+      var form = document.getElementById('intakeForm');
+      var cal = document.getElementById('calendlyWidget');
+      var alt = document.getElementById('altOffer');
+      form.style.display = 'none';
+      if (selectedProgram === 'budget') {
+        alt.style.display = 'block';
+        alt.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        cal.style.display = 'block';
+        cal.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Lazy-load Calendly widget
+        Calendly.initInlineWidget({
+          url: 'https://calendly.com/nutrigenomica-michellepeiret/michellepeirethealth',
+          parentElement: document.getElementById('calendlyInline'),
+          prefill: {
+            name: document.getElementById('fieldName').value.trim(),
+            email: document.getElementById('fieldEmail').value.trim()
+          }
+        });
+      }
+    }
+
+    function showIntakeForm() {
+      document.getElementById('altOffer').style.display = 'none';
+      document.getElementById('intakeForm').style.display = 'block';
+      selectedProgram = null;
+      ['cardReset','cardIntegral','altUnsure','altBudget'].forEach(function(id) {
+        document.getElementById(id).classList.remove('selected');
+      });
+    }
 
     /* ── FAQ accordion ── */
     document.querySelectorAll('.faq-btn').forEach(function(btn) {
