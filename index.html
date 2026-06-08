@@ -1084,7 +1084,7 @@
                 <span class="program-card-price">Desde $500 para comenzar</span>
               </div>
               <div class="program-card-duration">Mínimo 3 meses</div>
-              <div class="program-card-desc">Para quienes quieren perder peso, hacer un detox o reset, recuperar energía y sentirse y verse mejor en general. Tu proceso lo guía un especialista del equipo de Michelle, entrenado y supervisado directamente por ella bajo el mismo protocolo. Incluye estudio epigenético, plan nutricional y de suplementación, y acceso a los servicios e instalaciones del centro.</div>
+              <div class="program-card-desc">Para quienes quieren perder peso, hacer un detox o reset, recuperar energía y sentirse y verse mejor en general. Tu proceso lo guía un especialista del equipo de Michelle, entrenado y supervisado directamente por ella bajo el mismo protocolo. Incluye estudio epigenético y estudio de composición corporal, plan nutricional y de suplementación, y acceso a los servicios e instalaciones del centro.</div>
               <div class="financing-badge" id="financingReset">✓ Financiamiento disponible</div>
             </div>
             <div class="program-card" id="cardIntegral" onclick="selectProgram('integral')">
@@ -1094,7 +1094,7 @@
                 <span class="program-card-price">Desde $1,500 para comenzar</span>
               </div>
               <div class="program-card-duration">Mínimo 6 meses</div>
-              <div class="program-card-desc">Para personas con condiciones específicas o crónicas — diabetes, desbalances hormonales, autoinmunes, esclerosis múltiple, cáncer, problemas digestivos complejos, u otras situaciones que llevan años sin resolverse. Trabajas directamente con Michelle Peiret y un health coach dedicado a tu caso. Incluye estudio epigenético, plan nutricional y de suplementación, acceso a instalaciones y servicios, y precios exclusivos de miembro en tratamientos y productos del centro.</div>
+              <div class="program-card-desc">Para personas con condiciones específicas o crónicas — diabetes, desbalances hormonales, autoinmunes, esclerosis múltiple, cáncer, problemas digestivos complejos, u otras situaciones que llevan años sin resolverse. Trabajas directamente con Michelle Peiret y un health coach dedicado a tu caso. Incluye estudio epigenético, estudio de composición corporal y estudio VO2 max (que mide tu edad biológica real), plan nutricional y de suplementación, acceso a instalaciones y servicios, y precios exclusivos de miembro en tratamientos y productos del centro.</div>
               <div class="financing-badge" id="financingIntegral">✓ Financiamiento disponible</div>
             </div>
           </div>
@@ -1721,11 +1721,12 @@
     document.querySelectorAll('a[href="#calendly"]').forEach(function(a) {
       a.addEventListener('click', function(e) {
         e.preventDefault();
-        var section = document.getElementById('calendly');
+        var target = document.getElementById('intakeForm');
+        if (!target) target = document.getElementById('calendly');
         var nav = document.querySelector('.nav');
-        if (!section) return;
+        if (!target) return;
         var navH = nav ? nav.getBoundingClientRect().height : 0;
-        var top = section.getBoundingClientRect().top + window.pageYOffset - navH - 12;
+        var top = target.getBoundingClientRect().top + window.pageYOffset - navH - 12;
         window.scrollTo({ top: top, behavior: 'smooth' });
       });
     });
