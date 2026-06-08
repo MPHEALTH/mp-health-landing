@@ -539,13 +539,28 @@
     .cal-widget-wrap { background: var(--white); border-radius: 10px; overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,0.4); }
     .cal-widget-wrap .calendly-inline-widget { min-width: 320px; height: 700px; display: block; }
     .cal-booking-notice {
-      background: var(--teal); color: var(--navy); border-radius: 10px;
-      padding: 20px 24px; margin-bottom: 16px; display: none;
-      font-size: 0.88rem; font-weight: 600; line-height: 1.55;
-      box-shadow: 0 8px 28px rgba(0,201,167,0.35);
+      background: var(--white); border-radius: 10px;
+      padding: 40px 36px; display: none;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+      text-align: center;
     }
-    .cal-booking-notice-title { font-size: 1rem; font-weight: 800; margin-bottom: 6px; }
-    .cal-booking-notice-sub { font-weight: 400; opacity: 0.85; }
+    .cal-booking-notice-icon { font-size: 2.4rem; margin-bottom: 16px; }
+    .cal-booking-notice-title { font-size: 1.25rem; font-weight: 800; color: var(--navy); margin-bottom: 12px; }
+    .cal-booking-notice-sub { font-size: 0.88rem; color: var(--muted); line-height: 1.75; margin-bottom: 28px; }
+    .cal-booking-notice-sub strong { color: var(--navy); }
+    .cal-booking-notice-btn {
+      display: block; width: 100%; padding: 14px 24px;
+      background: var(--teal); color: var(--navy); border: none; border-radius: 6px;
+      font-size: 0.9rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+      cursor: pointer; font-family: var(--font-body);
+      transition: background 0.2s, transform 0.15s; box-shadow: 0 4px 16px rgba(0,201,167,0.3);
+      margin-bottom: 14px;
+    }
+    .cal-booking-notice-btn:hover { background: var(--teal-dk); transform: translateY(-1px); }
+    .cal-booking-back { background: none; border: none; color: var(--muted); font-size: 0.8rem; cursor: pointer; font-family: var(--font-body); }
+    .cal-booking-back:hover { color: var(--navy); }
+    .cal-widget-back { margin-bottom: 12px; background: none; border: none; color: var(--muted); font-size: 0.8rem; cursor: pointer; font-family: var(--font-body); padding: 0; }
+    .cal-widget-back:hover { color: var(--navy); }
 
     /* ── INTAKE FORM ── */
     .intake-form {
@@ -986,13 +1001,13 @@
           <h3 class="form-step-title">Tu situación de salud</h3>
           <p class="form-step-sub">Cuéntanos qué te trajo aquí — mientras más específico, mejor nos preparamos.</p>
           <div class="form-field">
-            <label class="form-label">¿Cuál es tu principal síntoma o situación de salud? *</label>
-            <textarea class="form-textarea" id="fieldChallenge" placeholder="Ej: Tengo fatiga constante, dificultad para bajar de peso, problemas digestivos... Describe lo que estás viviendo."></textarea>
+            <label class="form-label">¿Cuál es el principal cambio que quieres lograr? *</label>
+            <textarea class="form-textarea" id="fieldChallenge" placeholder="Ej: Quiero tener más energía, bajar de peso de forma definitiva, recuperar mi salud hormonal... Describe el resultado que buscas."></textarea>
             <div class="form-error" id="errChallenge">Por favor cuéntanos un poco sobre tu situación</div>
           </div>
           <div class="form-row">
             <div class="form-field">
-              <label class="form-label">¿Hace cuánto tiempo llevas con estos síntomas? *</label>
+              <label class="form-label">¿Hace cuánto tiempo llevas con esta situación? *</label>
               <select class="form-select" id="fieldDuration">
                 <option value="">Selecciona...</option>
                 <option value="<6m">Menos de 6 meses</option>
@@ -1016,24 +1031,24 @@
         <!-- Step 3 — Tu objetivo -->
         <div class="form-step" id="step3">
           <h3 class="form-step-title">Tu objetivo</h3>
-          <p class="form-step-sub">Ayúdanos a entender qué es más importante para ti en este momento.</p>
+          <p class="form-step-sub">Dinos qué resultado te haría decir que esto valió la pena.</p>
           <div class="form-field">
-            <label class="form-label">¿Cuál es tu objetivo principal? *</label>
+            <label class="form-label">¿Qué quieres lograr? *</label>
             <select class="form-select" id="fieldGoal" onchange="toggleGoalOther(this.value)">
               <option value="">Selecciona...</option>
-              <option value="weight">Bajar de peso y transformar mi composición corporal</option>
-              <option value="energy">Mejorar energía y eliminar fatiga crónica</option>
-              <option value="hormones">Equilibrar mis hormonas (tiroides, cortisol, estrógenos, menopausia)</option>
-              <option value="digestion">Mejorar mi digestión y salud intestinal</option>
-              <option value="inflammation">Reducir inflamación crónica</option>
-              <option value="autoimmune">Condición autoinmune (Hashimoto, lupus, artritis, fibromialgia)</option>
-              <option value="fitness">Optimizar mi rendimiento físico y recuperación</option>
-              <option value="sleep">Mejorar mi calidad de sueño</option>
-              <option value="mood">Manejo de ansiedad, depresión o estado de ánimo</option>
-              <option value="diabetes">Diabetes o resistencia a la insulina</option>
-              <option value="longevity">Prevención y longevidad</option>
-              <option value="fertility">Fertilidad y salud reproductiva</option>
-              <option value="cancer">Condición oncológica (apoyo complementario)</option>
+              <option value="weight">Bajar de peso y transformar mi cuerpo de forma definitiva</option>
+              <option value="energy">Recuperar mi energía y dejar atrás el cansancio constante</option>
+              <option value="hormones">Reequilibrar mis hormonas y sentirme yo de nuevo</option>
+              <option value="digestion">Tener una digestión sana y dejar el malestar intestinal</option>
+              <option value="inflammation">Eliminar la inflamación y sentirme más liviano/a</option>
+              <option value="autoimmune">Manejar mejor mi condición autoinmune (Hashimoto, lupus, artritis, fibromialgia)</option>
+              <option value="fitness">Mejorar mi rendimiento físico y recuperarme más rápido</option>
+              <option value="sleep">Dormir bien y despertar descansado/a</option>
+              <option value="mood">Recuperar mi bienestar emocional y estabilidad mental</option>
+              <option value="diabetes">Controlar mi diabetes o resistencia a la insulina</option>
+              <option value="longevity">Prevenir enfermedades y tener más años de salud plena</option>
+              <option value="fertility">Mejorar mi fertilidad y salud reproductiva</option>
+              <option value="cancer">Apoyo complementario en un proceso oncológico</option>
               <option value="other">Otro — escribe tu objetivo</option>
             </select>
             <div class="form-error" id="errGoal">Por favor selecciona una opción</div>
@@ -1069,7 +1084,7 @@
                 <span class="program-card-price">Desde $500 para comenzar</span>
               </div>
               <div class="program-card-duration">Mínimo 3 meses</div>
-              <div class="program-card-desc">Ideal si tu objetivo principal es perder peso, hacer un reset o detox en tu cuerpo, tener más energía y sentirte mejor en general. Guiado por los especialistas del equipo de Michelle — no es trabajo directo con ella. Incluye estudio epigenético, plan nutricional y de suplementación personalizado, y acceso a los servicios del centro.</div>
+              <div class="program-card-desc">Para quienes quieren perder peso, hacer un detox o reset, recuperar energía y verse y sentirse mejor en general. Tu proceso es guiado por los especialistas del equipo de Michelle — la consulta inicial no es directamente con ella. Incluye estudio epigenético, plan nutricional y de suplementación, y acceso a los servicios e instalaciones del centro.</div>
               <div class="financing-badge" id="financingReset">✓ Financiamiento disponible</div>
             </div>
             <div class="program-card" id="cardIntegral" onclick="selectProgram('integral')">
@@ -1079,7 +1094,7 @@
                 <span class="program-card-price">Desde $1,500 para comenzar</span>
               </div>
               <div class="program-card-duration">Mínimo 6 meses</div>
-              <div class="program-card-desc">Para personas con condiciones específicas o crónicas — diabetes, problemas hormonales severos, enfermedades autoinmunes, esclerosis múltiple, cáncer, problemas digestivos complejos, u otras condiciones que llevan años sin resolverse. Incluye trabajo directo con Michelle Peiret, un health coach exclusivo, protocolo completamente personalizado con estudio epigenético, y acceso sin restricciones a todos los servicios del centro.</div>
+              <div class="program-card-desc">Para personas con condiciones específicas o crónicas — diabetes, desbalances hormonales, autoinmunes, esclerosis múltiple, cáncer, problemas digestivos complejos, u otras situaciones que llevan años sin resolverse. Trabajas directamente con Michelle Peiret y un health coach dedicado a tu caso. Incluye estudio epigenético, plan nutricional y de suplementación, acceso a instalaciones y servicios, y precios exclusivos de miembro en tratamientos y productos del centro.</div>
               <div class="financing-badge" id="financingIntegral">✓ Financiamiento disponible</div>
             </div>
           </div>
@@ -1099,15 +1114,25 @@
         </div>
       </div>
 
-      <!-- ── BOOKING NOTICE (shown while Calendly loads) ── -->
+      <!-- ── BOOKING NOTICE (transition screen before Calendly) ── -->
       <div class="cal-booking-notice" id="bookingNotice">
-        <div class="cal-booking-notice-title">¡Formulario enviado! Un paso más 👇</div>
-        <div class="cal-booking-notice-sub">El calendario se está cargando — por favor espera un momento. <strong>Es importante que elijas un día y hora</strong> para confirmar tu análisis inicial. Sin eso, tu sesión no queda agendada.</div>
+        <div class="cal-booking-notice-icon">🎉</div>
+        <div class="cal-booking-notice-title">¡Formulario enviado! Falta un paso.</div>
+        <div class="cal-booking-notice-sub">
+          Para confirmar tu análisis inicial necesitas <strong>elegir el día y la hora</strong> de tu llamada.<br>
+          Sin seleccionar fecha y hora, tu sesión no queda agendada.<br><br>
+          El calendario puede tardar unos segundos en cargar — por favor espera.
+        </div>
+        <button class="cal-booking-notice-btn" onclick="openCalendly()">Elegir mi día y hora →</button>
+        <button class="cal-booking-back" onclick="showIntakeForm()">← Cambiar mis respuestas</button>
       </div>
 
-      <!-- ── CALENDLY (revealed after qualifying) ── -->
-      <div class="cal-widget-wrap" id="calendlyWidget" style="display:none">
-        <div id="calendlyInline" style="min-width:320px;height:700px;"></div>
+      <!-- ── CALENDLY (revealed after clicking notice) ── -->
+      <div id="calendlyWidget" style="display:none">
+        <button class="cal-widget-back" onclick="showIntakeForm()">← Cambiar mis respuestas</button>
+        <div class="cal-widget-wrap">
+          <div id="calendlyInline" style="min-width:320px;height:700px;"></div>
+        </div>
       </div>
 
       <!-- ── ALT OFFER (budget different) ── -->
@@ -1709,6 +1734,8 @@
     var currentStep = 1;
     var selectedImpact = null;
     var selectedProgram = null;
+    var pendingCalName = '';
+    var pendingCalEmail = '';
 
     // Build impact score buttons
     (function() {
@@ -1872,19 +1899,30 @@
         alt.style.display = 'block';
         alt.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
-        document.getElementById('bookingNotice').style.display = 'block';
-        cal.style.display = 'block';
-        document.getElementById('bookingNotice').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        Calendly.initInlineWidget({
-          url: 'https://calendly.com/nutrigenomica-michellepeiret/michellepeirethealth',
-          parentElement: document.getElementById('calendlyInline'),
-          prefill: { name: nameVal, email: emailVal }
-        });
+        pendingCalName  = nameVal;
+        pendingCalEmail = emailVal;
+        var notice = document.getElementById('bookingNotice');
+        notice.style.display = 'block';
+        notice.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
+    }
+
+    function openCalendly() {
+      document.getElementById('bookingNotice').style.display = 'none';
+      var cal = document.getElementById('calendlyWidget');
+      cal.style.display = 'block';
+      cal.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      Calendly.initInlineWidget({
+        url: 'https://calendly.com/nutrigenomica-michellepeiret/michellepeirethealth',
+        parentElement: document.getElementById('calendlyInline'),
+        prefill: { name: pendingCalName, email: pendingCalEmail }
+      });
     }
 
     function showIntakeForm() {
       document.getElementById('altOffer').style.display = 'none';
+      document.getElementById('bookingNotice').style.display = 'none';
+      document.getElementById('calendlyWidget').style.display = 'none';
       document.getElementById('intakeForm').style.display = 'block';
       selectedProgram = null;
       ['cardReset','cardIntegral','altUnsure','altBudget'].forEach(function(id) {
