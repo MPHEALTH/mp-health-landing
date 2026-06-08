@@ -538,6 +538,14 @@
     .cal-trust-text { font-size: 0.78rem; color: rgba(255,255,255,0.5); }
     .cal-widget-wrap { background: var(--white); border-radius: 10px; overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,0.4); }
     .cal-widget-wrap .calendly-inline-widget { min-width: 320px; height: 700px; display: block; }
+    .cal-booking-notice {
+      background: var(--teal); color: var(--navy); border-radius: 10px;
+      padding: 20px 24px; margin-bottom: 16px; display: none;
+      font-size: 0.88rem; font-weight: 600; line-height: 1.55;
+      box-shadow: 0 8px 28px rgba(0,201,167,0.35);
+    }
+    .cal-booking-notice-title { font-size: 1rem; font-weight: 800; margin-bottom: 6px; }
+    .cal-booking-notice-sub { font-weight: 400; opacity: 0.85; }
 
     /* ── INTAKE FORM ── */
     .intake-form {
@@ -978,13 +986,13 @@
           <h3 class="form-step-title">Tu situación de salud</h3>
           <p class="form-step-sub">Cuéntanos qué te trajo aquí — mientras más específico, mejor nos preparamos.</p>
           <div class="form-field">
-            <label class="form-label">¿Cuál es el principal cambio que quieres lograr? *</label>
-            <textarea class="form-textarea" id="fieldChallenge" placeholder="Ej: Llevo 2 años con fatiga constante, he intentado cambiar mi dieta pero sin resultados reales..."></textarea>
+            <label class="form-label">¿Cuál es tu principal síntoma o situación de salud? *</label>
+            <textarea class="form-textarea" id="fieldChallenge" placeholder="Ej: Tengo fatiga constante, dificultad para bajar de peso, problemas digestivos... Describe lo que estás viviendo."></textarea>
             <div class="form-error" id="errChallenge">Por favor cuéntanos un poco sobre tu situación</div>
           </div>
           <div class="form-row">
             <div class="form-field">
-              <label class="form-label">¿Hace cuánto tiempo lo experimentas? *</label>
+              <label class="form-label">¿Hace cuánto tiempo llevas con estos síntomas? *</label>
               <select class="form-select" id="fieldDuration">
                 <option value="">Selecciona...</option>
                 <option value="<6m">Menos de 6 meses</option>
@@ -1061,7 +1069,7 @@
                 <span class="program-card-price">Desde $500 para comenzar</span>
               </div>
               <div class="program-card-duration">Mínimo 3 meses</div>
-              <div class="program-card-desc">Protocolo personalizado guiado por especialistas del equipo de Michelle. Incluye estudio epigenético de tu perfil biológico, plan nutricional y de suplementación diseñado para tu caso, y acceso a los tratamientos y servicios del centro.</div>
+              <div class="program-card-desc">Ideal si tu objetivo principal es perder peso, hacer un reset o detox en tu cuerpo, tener más energía y sentirte mejor en general. Guiado por los especialistas del equipo de Michelle — no es trabajo directo con ella. Incluye estudio epigenético, plan nutricional y de suplementación personalizado, y acceso a los servicios del centro.</div>
               <div class="financing-badge" id="financingReset">✓ Financiamiento disponible</div>
             </div>
             <div class="program-card" id="cardIntegral" onclick="selectProgram('integral')">
@@ -1071,7 +1079,7 @@
                 <span class="program-card-price">Desde $1,500 para comenzar</span>
               </div>
               <div class="program-card-duration">Mínimo 6 meses</div>
-              <div class="program-card-desc">Trabajo directo con Michelle Peiret y un health coach asignado exclusivamente a tu proceso. Protocolo completamente personalizado con estudio epigenético, plan nutricional y de suplementación, y acceso sin restricciones a todas las instalaciones y servicios del centro.</div>
+              <div class="program-card-desc">Para personas con condiciones específicas o crónicas — diabetes, problemas hormonales severos, enfermedades autoinmunes, esclerosis múltiple, cáncer, problemas digestivos complejos, u otras condiciones que llevan años sin resolverse. Incluye trabajo directo con Michelle Peiret, un health coach exclusivo, protocolo completamente personalizado con estudio epigenético, y acceso sin restricciones a todos los servicios del centro.</div>
               <div class="financing-badge" id="financingIntegral">✓ Financiamiento disponible</div>
             </div>
           </div>
@@ -1089,6 +1097,12 @@
             <button class="form-btn-next" onclick="submitForm()">Ver disponibilidad →</button>
           </div>
         </div>
+      </div>
+
+      <!-- ── BOOKING NOTICE (shown while Calendly loads) ── -->
+      <div class="cal-booking-notice" id="bookingNotice">
+        <div class="cal-booking-notice-title">¡Formulario enviado! Un paso más 👇</div>
+        <div class="cal-booking-notice-sub">El calendario se está cargando — por favor espera un momento. <strong>Es importante que elijas un día y hora</strong> para confirmar tu análisis inicial. Sin eso, tu sesión no queda agendada.</div>
       </div>
 
       <!-- ── CALENDLY (revealed after qualifying) ── -->
@@ -1831,6 +1845,7 @@
             access_key: WEB3FORMS_KEY,
             subject: '🔔 Nueva solicitud de Análisis Inicial — ' + nameVal,
             from_name: 'Formulario MP Health',
+            cc: 'sauteri@michellepeiret.com',
             message: [
               'Nombre: ' + nameVal,
               'Email: ' + emailVal,
@@ -1857,8 +1872,9 @@
         alt.style.display = 'block';
         alt.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
+        document.getElementById('bookingNotice').style.display = 'block';
         cal.style.display = 'block';
-        cal.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.getElementById('bookingNotice').scrollIntoView({ behavior: 'smooth', block: 'start' });
         Calendly.initInlineWidget({
           url: 'https://calendly.com/nutrigenomica-michellepeiret/michellepeirethealth',
           parentElement: document.getElementById('calendlyInline'),
