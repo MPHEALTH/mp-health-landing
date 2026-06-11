@@ -7,6 +7,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   <script src="https://assets.calendly.com/assets/external/widget.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init('BtMZ2-aW-YNOwpn7f');</script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1896,6 +1898,13 @@
           })
         }).catch(function() {});
       }
+
+      // Send automated reminder email to the person who submitted
+      emailjs.send('service_1z0aof2', 'template_v6nfakb', {
+        name:          nameVal,
+        email:         emailVal,
+        calendly_link: 'https://calendly.com/nutrigenomica-michellepeiret/michellepeirethealth'
+      }).catch(function() {});
 
       var form = document.getElementById('intakeForm');
       var cal  = document.getElementById('calendlyWidget');
