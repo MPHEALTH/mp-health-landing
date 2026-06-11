@@ -8,7 +8,7 @@
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   <script src="https://assets.calendly.com/assets/external/widget.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>emailjs.init('BtMZ2-aW-YNOwpn7f');</script>
+  <script>emailjs.init({ publicKey: 'BtMZ2-aW-YNOwpn7f' });</script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1902,9 +1902,10 @@
       // Send automated reminder email to the person who submitted
       emailjs.send('service_1z0aof2', 'template_v6nfakb', {
         name:          nameVal,
+        to_email:      emailVal,
         email:         emailVal,
         calendly_link: 'https://calendly.com/nutrigenomica-michellepeiret/michellepeirethealth'
-      }).catch(function() {});
+      }).catch(function(err) { console.error('EmailJS error:', err); });
 
       var form = document.getElementById('intakeForm');
       var cal  = document.getElementById('calendlyWidget');
