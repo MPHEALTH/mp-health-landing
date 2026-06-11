@@ -1770,7 +1770,13 @@
       }
       currentStep = step;
       updateProgress(step);
-      document.getElementById('intakeForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Only scroll if the form top has drifted above the visible area
+      var form = document.getElementById('intakeForm');
+      var nav  = document.querySelector('.nav');
+      var navH = nav ? nav.getBoundingClientRect().height : 0;
+      if (form && form.getBoundingClientRect().top < navH + 8) {
+        window.scrollTo({ top: form.getBoundingClientRect().top + window.pageYOffset - navH - 12, behavior: 'smooth' });
+      }
     }
 
     function validateStep(step) {
@@ -1904,7 +1910,9 @@
         pendingCalEmail = emailVal;
         var notice = document.getElementById('bookingNotice');
         notice.style.display = 'block';
-        notice.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        var nav2 = document.querySelector('.nav');
+        var navH2 = nav2 ? nav2.getBoundingClientRect().height : 0;
+        window.scrollTo({ top: notice.getBoundingClientRect().top + window.pageYOffset - navH2 - 12, behavior: 'smooth' });
       }
     }
 
