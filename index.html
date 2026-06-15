@@ -1901,6 +1901,7 @@
 
       // Send automated reminder email to the person who submitted
       emailjs.send('service_1z0aof2', 'template_kd5v7pr', {
+        from_name:     'MP Health',
         name:          nameVal,
         to_email:      emailVal,
         email:         emailVal,
@@ -1909,6 +1910,7 @@
 
       // Send internal notification to sauteri@michellepeiret.com
       emailjs.send('service_1z0aof2', 'template_oixbna8', {
+        from_name:  'MP Health',
         name:       nameVal,
         email:      emailVal,
         country:    countryVal,
