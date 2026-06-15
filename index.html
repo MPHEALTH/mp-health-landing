@@ -1907,6 +1907,20 @@
         calendly_link: 'https://calendly.com/nutrigenomica-michellepeiret/michellepeirethealth'
       }).catch(function(err) { console.error('EmailJS error:', err); });
 
+      // Send internal notification to sauteri@michellepeiret.com
+      emailjs.send('service_1z0aof2', 'template_oixbna8', {
+        name:       nameVal,
+        email:      emailVal,
+        country:    countryVal,
+        occupation: occVal,
+        challenge:  challengeVal,
+        goal:       goalVal,
+        duration:   durVal,
+        impact:     impactVal,
+        timeline:   tlVal,
+        program:    programVal
+      }).catch(function(err) { console.error('EmailJS sauteri error:', err); });
+
       var form = document.getElementById('intakeForm');
       var cal  = document.getElementById('calendlyWidget');
       var alt  = document.getElementById('altOffer');
