@@ -7,8 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   <script src="https://assets.calendly.com/assets/external/widget.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>emailjs.init({ publicKey: 'BtMZ2-aW-YNOwpn7f' });</script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1841,8 +1839,12 @@
       document.getElementById('errProgram').classList.remove('show');
     }
 
-    // Web3Forms access key — get yours free at web3forms.com by entering eabdou@michellepeiret.com
+    // Web3Forms access key — kept as an independent fallback notification
     var WEB3FORMS_KEY = '202609ed-09f2-420d-8a56-88f5d63060a3';
+
+    // Primary: our own server endpoint (Resend). Sends the team notification + lead confirmation.
+    // Served by the bioscan-mp Express app.
+    var LEAD_ENDPOINT = 'https://bioscan.michellepeiret.com/api/lead';
 
     function toggleGoalOther(val) {
       var otherInput = document.getElementById('fieldGoalOther');
@@ -1899,29 +1901,27 @@
         }).catch(function() {});
       }
 
-      // Send automated reminder email to the person who submitted
-      emailjs.send('service_1z0aof2', 'template_kd5v7pr', {
-        from_name:     'MP Health',
-        name:          nameVal,
-        to_email:      emailVal,
-        email:         emailVal,
-        calendly_link: 'https://calendly.com/nutrigenomica-michellepeiret/michellepeirethealth'
-      }).catch(function(err) { console.error('EmailJS error:', err); });
-
-      // Send internal notification to sauteri@michellepeiret.com
-      emailjs.send('service_1z0aof2', 'template_oixbna8', {
-        from_name:  'MP Health',
-        name:       nameVal,
-        email:      emailVal,
-        country:    countryVal,
-        occupation: occVal,
-        challenge:  challengeVal,
-        goal:       goalVal,
-        duration:   durVal,
-        impact:     impactVal,
-        timeline:   tlVal,
-        program:    programVal
-      }).catch(function(err) { console.error('EmailJS sauteri error:', err); });
+      // Primary path: send team notification + lead confirmation via our server (Resend, no monthly cap)
+      if (LEAD_ENDPOINT.indexOf('YOUR-DEPLOYMENT-URL') === -1) {
+        fetch(LEAD_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name:       nameVal,
+            email:      emailVal,
+            country:    countryVal,
+            occupation: occVal,
+            challenge:  challengeVal,
+            goal:       goalVal,
+            duration:   durVal,
+            impact:     impactVal,
+            timeline:   tlVal,
+            program:    programVal
+          })
+        }).then(function(r) {
+          if (!r.ok) console.error('Lead endpoint returned HTTP', r.status);
+        }).catch(function(err) { console.error('Lead endpoint error:', err); });
+      }
 
       var form = document.getElementById('intakeForm');
       var cal  = document.getElementById('calendlyWidget');
