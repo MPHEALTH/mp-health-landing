@@ -7,6 +7,44 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   <script src="https://assets.calendly.com/assets/external/widget.js" defer></script>
+
+  <!-- ━━━ TRACKING CONFIG — pegar aquí los IDs ━━━ -->
+  <script>
+    window.TRACKING = {
+      GA4_ID: '',        // Google Analytics 4, ej. 'G-XXXXXXXXXX'
+      META_PIXEL_ID: ''  // Meta Pixel, ej. '1234567890123456'
+    };
+  </script>
+
+  <!-- GA4 (solo carga si hay ID) -->
+  <script>
+    (function() {
+      if (!window.TRACKING.GA4_ID) return;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.TRACKING.GA4_ID;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function() { dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', window.TRACKING.GA4_ID);
+    })();
+  </script>
+
+  <!-- Meta Pixel (solo carga si hay ID) -->
+  <script>
+    (function() {
+      if (!window.TRACKING.META_PIXEL_ID) return;
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+      document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', window.TRACKING.META_PIXEL_ID);
+      fbq('track', 'PageView');
+    })();
+  </script>
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1717,10 +1755,85 @@
 
 
   <script>
+    /* ━━━ TRACKING LAYER ━━━ */
+
+    // Captura UTMs en la primera visita y los persiste durante la sesión
+    var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    var attribution = (function() {
+      var stored = null;
+      try { stored = JSON.parse(sessionStorage.getItem('mp_attribution') || 'null'); } catch (e) {}
+      var params = new URLSearchParams(window.location.search);
+      var fresh = {};
+      var hasUtm = false;
+      UTM_KEYS.forEach(function(k) {
+        var v = params.get(k);
+        if (v) { fresh[k] = v; hasUtm = true; }
+      });
+      if (hasUtm || !stored) {
+        fresh.referrer = document.referrer || '';
+        fresh.landing_ts = new Date().toISOString();
+        try { sessionStorage.setItem('mp_attribution', JSON.stringify(fresh)); } catch (e) {}
+        return fresh;
+      }
+      return stored;
+    })();
+
+    // Texto legible del origen, para los emails de lead
+    function attributionLabel() {
+      var parts = [];
+      if (attribution.utm_source)   parts.push(attribution.utm_source);
+      if (attribution.utm_medium)   parts.push(attribution.utm_medium);
+      if (attribution.utm_campaign) parts.push(attribution.utm_campaign);
+      if (attribution.utm_content)  parts.push(attribution.utm_content);
+      if (parts.length) return parts.join(' / ');
+      if (attribution.referrer) return 'referral: ' + attribution.referrer;
+      return 'directo';
+    }
+
+    // Envía un evento a GA4 y Meta Pixel (si están cargados)
+    var FB_STANDARD = { form_submitted: 'Lead', booking_completed: 'Schedule', whatsapp_click: 'Contact' };
+    function track(name, params) {
+      params = params || {};
+      UTM_KEYS.forEach(function(k) { if (attribution[k]) params[k] = attribution[k]; });
+      try { if (window.gtag) gtag('event', name, params); } catch (e) {}
+      try {
+        if (window.fbq) {
+          if (FB_STANDARD[name]) fbq('track', FB_STANDARD[name], params);
+          else fbq('trackCustom', name, params);
+        }
+      } catch (e) {}
+    }
+
+    // Inicio del formulario: primera interacción con un campo
+    (function() {
+      var fired = false;
+      var formEl = document.getElementById('intakeForm');
+      if (!formEl) return;
+      formEl.addEventListener('focusin', function() {
+        if (fired) return;
+        fired = true;
+        track('form_start');
+      });
+    })();
+
+    // Clic en el botón flotante de WhatsApp
+    (function() {
+      var wa = document.querySelector('.whatsapp-float');
+      if (wa) wa.addEventListener('click', function() { track('whatsapp_click', { position: 'float' }); });
+    })();
+
+    // Eventos de Calendly (selección de horario y cita agendada)
+    window.addEventListener('message', function(e) {
+      if (!e.data || typeof e.data.event !== 'string' || e.data.event.indexOf('calendly.') !== 0) return;
+      if (e.data.event === 'calendly.date_and_time_selected') track('booking_time_selected');
+      if (e.data.event === 'calendly.event_scheduled')        track('booking_completed');
+    });
+
     /* ── Scroll to form section ── */
     document.querySelectorAll('a[href="#calendly"]').forEach(function(a) {
       a.addEventListener('click', function(e) {
         e.preventDefault();
+        track('cta_click', { cta_text: (a.textContent || '').trim().slice(0, 60) });
         var target = document.getElementById('intakeForm');
         if (!target) target = document.getElementById('calendly');
         var nav = document.querySelector('.nav');
@@ -1821,7 +1934,11 @@
     }
 
     function nextStep(from) {
-      if (!validateStep(from)) return;
+      if (!validateStep(from)) {
+        track('form_validation_error', { step: from });
+        return;
+      }
+      track('form_step_completed', { step: from });
       if (from < 4) showStep(from + 1);
     }
 
@@ -1837,6 +1954,7 @@
       var map = { reset: 'cardReset', integral: 'cardIntegral', unsure: 'altUnsure', budget: 'altBudget' };
       if (map[val]) document.getElementById(map[val]).classList.add('selected');
       document.getElementById('errProgram').classList.remove('show');
+      track('program_selected', { program: val });
     }
 
     // Web3Forms access key — kept as an independent fallback notification
@@ -1853,7 +1971,11 @@
     }
 
     function submitForm() {
-      if (!selectedProgram) { document.getElementById('errProgram').classList.add('show'); return; }
+      if (!selectedProgram) {
+        document.getElementById('errProgram').classList.add('show');
+        track('form_validation_error', { step: 4 });
+        return;
+      }
 
       var nameVal     = document.getElementById('fieldName').value.trim();
       var emailVal    = document.getElementById('fieldEmail').value.trim();
@@ -1873,6 +1995,9 @@
       var tlVal       = tlEl.options[tlEl.selectedIndex].text;
       var programMap  = { reset: 'Programa Reset', integral: 'Programa Integral', unsure: 'No está seguro/a', budget: 'Presupuesto diferente' };
       var programVal  = programMap[selectedProgram] || selectedProgram;
+      var sourceVal   = attributionLabel();
+
+      track('form_submitted', { program: selectedProgram });
 
       // Send email notification (non-blocking)
       if (WEB3FORMS_KEY !== 'YOUR_ACCESS_KEY') {
@@ -1895,7 +2020,8 @@
               'Duración: ' + durVal,
               'Impacto en vida: ' + impactVal,
               'Urgencia: ' + tlVal,
-              'Programa elegido: ' + programVal
+              'Programa elegido: ' + programVal,
+              'Origen: ' + sourceVal
             ].join('\n')
           })
         }).catch(function() {});
@@ -1916,7 +2042,8 @@
             duration:   durVal,
             impact:     impactVal,
             timeline:   tlVal,
-            program:    programVal
+            program:    programVal,
+            source:     sourceVal
           })
         }).then(function(r) {
           if (!r.ok) console.error('Lead endpoint returned HTTP', r.status);
@@ -1929,9 +2056,11 @@
       form.style.display = 'none';
 
       if (selectedProgram === 'budget') {
+        track('alt_offer_shown');
         alt.style.display = 'block';
         alt.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
+        track('booking_notice_shown');
         pendingCalName  = nameVal;
         pendingCalEmail = emailVal;
         var notice = document.getElementById('bookingNotice');
@@ -1943,6 +2072,7 @@
     }
 
     function openCalendly() {
+      track('calendly_opened');
       document.getElementById('bookingNotice').style.display = 'none';
       var cal = document.getElementById('calendlyWidget');
       cal.style.display = 'block';
