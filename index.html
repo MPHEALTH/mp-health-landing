@@ -2021,6 +2021,7 @@
       if (WEB3FORMS_KEY !== 'YOUR_ACCESS_KEY') {
         fetch('https://api.web3forms.com/submit', {
           method: 'POST',
+          keepalive: true,
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             access_key: WEB3FORMS_KEY,
@@ -2050,6 +2051,7 @@
       if (LEAD_ENDPOINT.indexOf('YOUR-DEPLOYMENT-URL') === -1) {
         fetch(LEAD_ENDPOINT, {
           method: 'POST',
+          keepalive: true,
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             name:       nameVal,
@@ -2062,6 +2064,7 @@
             impact:     impactVal,
             timeline:   tlVal,
             program:    programVal,
+            program_key: selectedProgram,
             source:     sourceVal,
             calendar:   calVal
           })
@@ -2076,9 +2079,11 @@
       form.style.display = 'none';
 
       if (selectedProgram === 'budget') {
-        track('alt_offer_shown');
-        alt.style.display = 'block';
-        alt.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Presupuesto diferente → escalera de valor: Estudio Epigenético (BioScan)
+        track('bioscan_redirect', { from: 'form_budget' });
+        setTimeout(function() {
+          window.location.href = 'https://bioscan.michellepeiret.com/?utm_source=analisis_landing&utm_medium=form_budget';
+        }, 400);
       } else {
         track('booking_notice_shown');
         pendingCalName  = nameVal;
