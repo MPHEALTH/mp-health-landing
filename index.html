@@ -1778,6 +1778,23 @@
       return stored;
     })();
 
+    /* ── Rotación de calendarios (test de formato de oferta) ── */
+    var CALENDLY_URLS = {
+      reps:   'https://calendly.com/nutrigenomica-michellepeiret/michellepeirethealth',
+      closer: 'https://calendly.com/nutrigenomica-michellepeiret/analisis-inicial-mp'
+    };
+    var CLOSER_SPLIT = 50; // % de leads asignados al calendario "closer"
+    var CAL_LABELS = { reps: 'Reps actuales (mañana/tarde)', closer: 'Closer nueva (initiation fee)' };
+    function calVariant() {
+      var v = null;
+      try { v = sessionStorage.getItem('mp_cal_variant'); } catch (e) {}
+      if (v !== 'reps' && v !== 'closer') {
+        v = (Math.random() * 100 < CLOSER_SPLIT) ? 'closer' : 'reps';
+        try { sessionStorage.setItem('mp_cal_variant', v); } catch (e) {}
+      }
+      return v;
+    }
+
     // Texto legible del origen, para los emails de lead
     function attributionLabel() {
       var parts = [];
@@ -1825,8 +1842,8 @@
     // Eventos de Calendly (selección de horario y cita agendada)
     window.addEventListener('message', function(e) {
       if (!e.data || typeof e.data.event !== 'string' || e.data.event.indexOf('calendly.') !== 0) return;
-      if (e.data.event === 'calendly.date_and_time_selected') track('booking_time_selected');
-      if (e.data.event === 'calendly.event_scheduled')        track('booking_completed');
+      if (e.data.event === 'calendly.date_and_time_selected') track('booking_time_selected', { calendar: calVariant() });
+      if (e.data.event === 'calendly.event_scheduled')        track('booking_completed', { calendar: calVariant() });
     });
 
     /* ── Scroll to form section ── */
@@ -1996,8 +2013,9 @@
       var programMap  = { reset: 'Programa Reset', integral: 'Programa Integral', unsure: 'No está seguro/a', budget: 'Presupuesto diferente' };
       var programVal  = programMap[selectedProgram] || selectedProgram;
       var sourceVal   = attributionLabel();
+      var calVal      = calVariant();
 
-      track('form_submitted', { program: selectedProgram });
+      track('form_submitted', { program: selectedProgram, calendar: calVal });
 
       // Send email notification (non-blocking)
       if (WEB3FORMS_KEY !== 'YOUR_ACCESS_KEY') {
@@ -2021,7 +2039,8 @@
               'Impacto en vida: ' + impactVal,
               'Urgencia: ' + tlVal,
               'Programa elegido: ' + programVal,
-              'Origen: ' + sourceVal
+              'Origen: ' + sourceVal,
+              'Calendario asignado: ' + (CAL_LABELS[calVal] || calVal)
             ].join('\n')
           })
         }).catch(function() {});
@@ -2043,7 +2062,8 @@
             impact:     impactVal,
             timeline:   tlVal,
             program:    programVal,
-            source:     sourceVal
+            source:     sourceVal,
+            calendar:   calVal
           })
         }).then(function(r) {
           if (!r.ok) console.error('Lead endpoint returned HTTP', r.status);
@@ -2072,13 +2092,14 @@
     }
 
     function openCalendly() {
-      track('calendly_opened');
+      var variant = calVariant();
+      track('calendly_opened', { calendar: variant });
       document.getElementById('bookingNotice').style.display = 'none';
       var cal = document.getElementById('calendlyWidget');
       cal.style.display = 'block';
       cal.scrollIntoView({ behavior: 'smooth', block: 'start' });
       Calendly.initInlineWidget({
-        url: 'https://calendly.com/nutrigenomica-michellepeiret/michellepeirethealth',
+        url: CALENDLY_URLS[variant] || CALENDLY_URLS.reps,
         parentElement: document.getElementById('calendlyInline'),
         prefill: { name: pendingCalName, email: pendingCalEmail }
       });
