@@ -35,10 +35,20 @@
     body { font-family: var(--font-body); background: var(--cream); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
     .topbar {
-      background: var(--navy); padding: 18px 24px; text-align: center;
+      background: var(--navy); padding: 16px 24px; text-align: center;
     }
-    .topbar-brand {
-      color: var(--teal); font-size: 12px; letter-spacing: 4px; text-transform: uppercase; font-weight: 700;
+    .topbar img { height: 42px; display: inline-block; }
+
+    .photo {
+      width: 100%; border-radius: 16px; display: block;
+      box-shadow: 0 2px 14px rgba(13,27,46,0.10); margin-bottom: 8px;
+    }
+    .photo-caption {
+      text-align: center; font-size: 0.8rem; color: var(--muted); margin-bottom: 18px;
+    }
+    .divider-img {
+      width: 100%; height: 72px; object-fit: cover; border-radius: 12px;
+      display: block; margin-bottom: 18px; opacity: 0.9;
     }
 
     .wrap { max-width: 680px; margin: 0 auto; padding: 40px 20px 70px; }
@@ -111,7 +121,7 @@
 </head>
 <body>
 
-  <div class="topbar"><div class="topbar-brand">Michelle Peiret Health</div></div>
+  <div class="topbar"><img src="images/logo-mp-white.png" alt="Michelle Peiret Health"></div>
 
   <div class="wrap">
 
@@ -133,14 +143,19 @@
       <ul>
         <li><span class="li-icon">🤫</span><div><strong>Un espacio tranquilo y sin ruido</strong> — sentado/a, sin manejar, con 30 minutos sin interrupciones. Audífonos ayudan mucho.</div></li>
         <li><span class="li-icon">📝</span><div><strong>Papel y lápiz</strong> — vas a recibir información específica sobre tu caso y querrás anotarla.</div></li>
-        <li><span class="li-icon">🧾</span><div><strong>Tus exámenes o estudios recientes a la mano</strong> (si los tienes) — ayudan al especialista a entender mejor tu punto de partida.</div></li>
+        <li><span class="li-icon">📶</span><div><strong>Buena conexión a internet</strong> — idealmente WiFi. Entra al Zoom 5 minutos antes para probar tu audio y video con calma.</div></li>
         <li><span class="li-icon">❓</span><div><strong>Tus preguntas anotadas</strong> — este es tu espacio para resolver todas tus dudas sobre tu salud y nuestros tratamientos.</div></li>
       </ul>
     </div>
 
+    <img class="divider-img" src="images/celulas-abstract.jpg" alt="">
+
     <div class="decision">
       <strong>Un consejo que hace una gran diferencia:</strong> si compartes tus decisiones importantes con alguien — tu pareja, un familiar — <strong>invítalo a estar contigo en la llamada</strong>. En la sesión se revisan el tratamiento indicado, los costos y el financiamiento, y tener a esa persona presente te permite decidir con calma y sin tener que "contarlo todo después". Cuatro oídos escuchan mejor que dos.
     </div>
+
+    <img class="photo" src="images/consulta-analisis.jpg" alt="Análisis Inicial con el equipo de Michelle Peiret Health">
+    <p class="photo-caption">Tu Análisis Inicial: una conversación uno a uno sobre tu caso</p>
 
     <div class="card">
       <div class="card-tag">Qué esperar</div>
@@ -152,6 +167,9 @@
         <li><span class="step-num"></span><div>Revisan juntos <strong>costos, financiamiento y siguientes pasos</strong> — sales con un plan claro.</div></li>
       </ol>
     </div>
+
+    <img class="photo" src="images/centro-miami.jpg" alt="Centro Michelle Peiret Health en Miami">
+    <p class="photo-caption">Nuestro centro en Miami, FL — el equipo que estará detrás de tu proceso</p>
 
     <div class="commitment">
       <p>Un especialista del equipo <strong>reservó este espacio exclusivamente para tu caso</strong>. Si te surge un imprevisto, por favor reagenda tu cita desde el email de confirmación — así ese espacio puede ayudar a otra persona.</p>
