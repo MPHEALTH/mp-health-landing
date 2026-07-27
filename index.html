@@ -1841,7 +1841,11 @@
     window.addEventListener('message', function(e) {
       if (!e.data || typeof e.data.event !== 'string' || e.data.event.indexOf('calendly.') !== 0) return;
       if (e.data.event === 'calendly.date_and_time_selected') track('booking_time_selected', { calendar: calVariant() });
-      if (e.data.event === 'calendly.event_scheduled')        track('booking_completed', { calendar: calVariant() });
+      if (e.data.event === 'calendly.event_scheduled') {
+        track('booking_completed', { calendar: calVariant() });
+        // Página de preparación para la llamada (reduce no-shows)
+        setTimeout(function() { window.location.href = '/gracias.html'; }, 1200);
+      }
     });
 
     /* ── Scroll to form section ── */

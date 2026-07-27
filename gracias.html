@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>¡Cita confirmada! — Michelle Peiret Health</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B7PSHFCHGY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B7PSHFCHGY');
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:  #0d1b2e;
+      --navy2: #13223a;
+      --teal:  #00c9a7;
+      --teal-lt: rgba(0,201,167,0.12);
+      --cream: #f7f5f0;
+      --white: #ffffff;
+      --text:  #1a2332;
+      --muted: #6b7a8d;
+      --amber: #f59e0b;
+      --amber-lt: #fff8e1;
+      --font-body: 'Inter', -apple-system, sans-serif;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+    }
+    body { font-family: var(--font-body); background: var(--cream); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    .topbar {
+      background: var(--navy); padding: 18px 24px; text-align: center;
+    }
+    .topbar-brand {
+      color: var(--teal); font-size: 12px; letter-spacing: 4px; text-transform: uppercase; font-weight: 700;
+    }
+
+    .wrap { max-width: 680px; margin: 0 auto; padding: 40px 20px 70px; }
+
+    .hero { text-align: center; margin-bottom: 34px; }
+    .hero-check {
+      width: 74px; height: 74px; border-radius: 50%; background: var(--teal);
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 18px;
+      font-size: 36px; color: var(--navy); box-shadow: 0 8px 30px rgba(0,201,167,0.35);
+    }
+    .hero h1 { font-family: var(--font-serif); font-size: clamp(1.9rem, 5vw, 2.6rem); color: var(--navy); font-weight: 700; line-height: 1.2; margin-bottom: 10px; }
+    .hero p { color: var(--muted); font-size: 1rem; max-width: 480px; margin: 0 auto; }
+    .hero p strong { color: var(--text); }
+
+    .card {
+      background: var(--white); border-radius: 16px; padding: 26px 24px; margin-bottom: 18px;
+      box-shadow: 0 2px 14px rgba(13,27,46,0.06);
+    }
+    .card-tag {
+      display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 8px;
+    }
+    .card h2 { font-family: var(--font-serif); font-size: 1.45rem; color: var(--navy); font-weight: 700; margin-bottom: 14px; line-height: 1.25; }
+    .card ul { list-style: none; }
+    .card li { display: flex; gap: 12px; align-items: flex-start; padding: 9px 0; font-size: 0.95rem; }
+    .card li + li { border-top: 1px solid rgba(13,27,46,0.06); }
+    .li-icon { flex-shrink: 0; font-size: 1.15rem; line-height: 1.5; }
+    .card li strong { color: var(--navy); }
+
+    .zoom-banner {
+      background: var(--navy); color: var(--white); border-radius: 16px; padding: 26px 24px; margin-bottom: 18px;
+    }
+    .zoom-banner .card-tag { color: var(--teal); }
+    .zoom-banner h2 { font-family: var(--font-serif); font-size: 1.45rem; font-weight: 700; margin-bottom: 10px; line-height: 1.25; }
+    .zoom-banner p { font-size: 0.95rem; color: rgba(255,255,255,0.82); }
+    .zoom-banner p strong { color: var(--teal); }
+
+    .steps { counter-reset: step; list-style: none; }
+    .steps li { display: flex; gap: 14px; padding: 10px 0; font-size: 0.95rem; align-items: flex-start; }
+    .steps li + li { border-top: 1px solid rgba(13,27,46,0.06); }
+    .step-num {
+      counter-increment: step; flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+      background: var(--teal-lt); color: var(--teal); font-weight: 800; font-size: 0.8rem;
+      display: flex; align-items: center; justify-content: center; margin-top: 2px;
+    }
+    .step-num::before { content: counter(step); }
+
+    .decision {
+      background: var(--amber-lt); border-left: 4px solid var(--amber); border-radius: 10px;
+      padding: 18px 20px; margin-bottom: 18px; font-size: 0.95rem;
+    }
+    .decision strong { color: var(--navy); }
+
+    .commitment {
+      text-align: center; padding: 26px 20px 6px; font-size: 0.95rem; color: var(--muted);
+    }
+    .commitment strong { color: var(--navy); }
+    .commitment .sig {
+      font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; color: var(--navy); margin-top: 14px;
+    }
+
+    .help {
+      text-align: center; margin-top: 26px; font-size: 0.88rem; color: var(--muted);
+    }
+    .help a { color: var(--teal); font-weight: 600; text-decoration: none; }
+
+    footer { background: var(--navy); text-align: center; padding: 22px; margin-top: 40px; }
+    footer p { color: rgba(255,255,255,0.45); font-size: 0.78rem; }
+  </style>
+</head>
+<body>
+
+  <div class="topbar"><div class="topbar-brand">Michelle Peiret Health</div></div>
+
+  <div class="wrap">
+
+    <div class="hero">
+      <div class="hero-check">✓</div>
+      <h1 id="heroTitle">¡Tu Análisis Inicial está confirmado!</h1>
+      <p>Ya recibiste un email con la confirmación y el <strong>enlace de Zoom</strong> para tu llamada. Si no lo ves, revisa tu carpeta de spam o promociones.</p>
+    </div>
+
+    <div class="zoom-banner">
+      <div class="card-tag">Importante</div>
+      <h2>Tu Análisis Inicial es una videollamada por Zoom</h2>
+      <p>No es una llamada telefónica que puedas tomar en el carro o caminando. Un especialista del equipo va a revisar tu caso contigo en pantalla — necesitas estar en un lugar donde puedas <strong>ver, escuchar y hablar con calma durante 30 minutos</strong>. El enlace para entrar está en tu email de confirmación, y alguien del equipo se comunicará contigo antes de la llamada.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-tag">Prepárate así</div>
+      <h2>4 cosas que harán tu sesión mucho más valiosa</h2>
+      <ul>
+        <li><span class="li-icon">🤫</span><div><strong>Un espacio tranquilo y sin ruido</strong> — sentado/a, sin manejar, con 30 minutos sin interrupciones. Audífonos ayudan mucho.</div></li>
+        <li><span class="li-icon">📝</span><div><strong>Papel y lápiz</strong> — vas a recibir información específica sobre tu caso y querrás anotarla.</div></li>
+        <li><span class="li-icon">🧾</span><div><strong>Tus exámenes o estudios recientes a la mano</strong> (si los tienes) — ayudan al especialista a entender mejor tu punto de partida.</div></li>
+        <li><span class="li-icon">❓</span><div><strong>Tus preguntas anotadas</strong> — este es tu espacio para resolver todas tus dudas sobre tu salud y nuestros tratamientos.</div></li>
+      </ul>
+    </div>
+
+    <div class="decision">
+      <strong>Un consejo que hace una gran diferencia:</strong> si compartes tus decisiones importantes con alguien — tu pareja, un familiar — <strong>invítalo a estar contigo en la llamada</strong>. En la sesión se revisan el tratamiento indicado, los costos y el financiamiento, y tener a esa persona presente te permite decidir con calma y sin tener que "contarlo todo después". Cuatro oídos escuchan mejor que dos.
+    </div>
+
+    <div class="card">
+      <div class="card-tag">Qué esperar</div>
+      <h2>Así será tu llamada, paso a paso</h2>
+      <ol class="steps">
+        <li><span class="step-num"></span><div>El especialista llega <strong>ya preparado con tu formulario</strong> — no empezarás de cero.</div></li>
+        <li><span class="step-num"></span><div>Profundiza contigo en tu situación: síntomas, historia, qué has intentado y qué no ha funcionado.</div></li>
+        <li><span class="step-num"></span><div>Te explica <strong>cómo trabajamos</strong> y cuál de nuestros tratamientos es el indicado para tu caso.</div></li>
+        <li><span class="step-num"></span><div>Revisan juntos <strong>costos, financiamiento y siguientes pasos</strong> — sales con un plan claro.</div></li>
+      </ol>
+    </div>
+
+    <div class="commitment">
+      <p>Un especialista del equipo <strong>reservó este espacio exclusivamente para tu caso</strong>. Si te surge un imprevisto, por favor reagenda tu cita desde el email de confirmación — así ese espacio puede ayudar a otra persona.</p>
+      <p class="sig">Nos vemos en tu llamada — Equipo Michelle Peiret Health</p>
+    </div>
+
+    <div class="help">
+      ¿Alguna duda antes de tu cita? Escríbenos por WhatsApp al <a href="https://wa.me/17869302544" target="_blank" rel="noopener">+1 (786) 930-2544</a>
+    </div>
+
+  </div>
+
+  <footer><p>© 2026 Michelle Peiret Health · Miami, FL · michellepeiret.com</p></footer>
+
+  <script>
+    // Si Calendly redirige con los datos del invitado, personaliza el saludo
+    (function() {
+      var name = new URLSearchParams(window.location.search).get('invitee_full_name');
+      if (name) {
+        var first = name.trim().split(' ')[0];
+        if (first) document.getElementById('heroTitle').textContent = '¡' + first + ', tu Análisis Inicial está confirmado!';
+      }
+    })();
+  </script>
+
+</body>
+</html>
