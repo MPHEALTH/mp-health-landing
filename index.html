@@ -1117,7 +1117,7 @@
               <div class="program-card-radio" id="radioReset"></div>
               <div class="program-card-header">
                 <span class="program-card-name">Programa Reset</span>
-                <span class="program-card-price">Desde $500 para comenzar</span>
+                <span class="program-card-price" id="priceReset">Inicial desde $500</span>
               </div>
               <div class="program-card-duration">Mínimo 3 meses</div>
               <div class="program-card-desc">Para quienes quieren perder peso, hacer un detox o reset, recuperar energía y sentirse y verse mejor en general. Tu proceso lo guía un especialista del equipo de Michelle, entrenado y supervisado directamente por ella bajo el mismo protocolo. Incluye estudio epigenético y estudio de composición corporal, plan nutricional y de suplementación, y acceso a los servicios e instalaciones del centro.</div>
@@ -1127,13 +1127,14 @@
               <div class="program-card-radio" id="radioIntegral"></div>
               <div class="program-card-header">
                 <span class="program-card-name">Programa Integral</span>
-                <span class="program-card-price">Desde $1,500 para comenzar</span>
+                <span class="program-card-price" id="priceIntegral">Inicial desde $1,500</span>
               </div>
               <div class="program-card-duration">Mínimo 6 meses</div>
               <div class="program-card-desc">Para personas con condiciones específicas o crónicas — diabetes, desbalances hormonales, autoinmunes, esclerosis múltiple, cáncer, problemas digestivos complejos, u otras situaciones que llevan años sin resolverse. Trabajas directamente con Michelle Peiret y un health coach dedicado a tu caso. Incluye estudio epigenético, estudio de composición corporal y estudio VO2 max (que mide tu edad biológica real), plan nutricional y de suplementación, acceso a instalaciones y servicios, y precios exclusivos de miembro en tratamientos y productos del centro.</div>
               <div class="financing-badge" id="financingIntegral">✓ Financiamiento disponible</div>
             </div>
           </div>
+          <p style="font-size:0.78rem;color:var(--muted);margin:12px 2px 4px;line-height:1.55;text-align:center;">Los montos indicados corresponden al <strong>pago inicial</strong> — el valor total de tu programa y las opciones de financiamiento se revisan en tu Análisis Inicial.</p>
           <div class="form-alt-options">
             <button class="form-alt-option" id="altUnsure" onclick="selectProgram('unsure')">
               <span>🤔</span> No estoy seguro/a — prefiero discutirlo en el análisis inicial
@@ -1793,6 +1794,19 @@
       return v;
     }
 
+    // Los precios iniciales del paso 4 se ajustan a la oferta de la vendedora asignada
+    var PLAN_INITIALS = {
+      reps:   { reset: '$500',   integral: '$1,500' },
+      closer: { reset: '$1,000', integral: '$2,000' }
+    };
+    (function() {
+      var p = PLAN_INITIALS[calVariant()] || PLAN_INITIALS.reps;
+      var r = document.getElementById('priceReset');
+      var g = document.getElementById('priceIntegral');
+      if (r) r.textContent = 'Inicial desde ' + p.reset;
+      if (g) g.textContent = 'Inicial desde ' + p.integral;
+    })();
+
     // Texto legible del origen, para los emails de lead
     function attributionLabel() {
       var parts = [];
@@ -1969,7 +1983,7 @@
       var map = { reset: 'cardReset', integral: 'cardIntegral', unsure: 'altUnsure', budget: 'altBudget' };
       if (map[val]) document.getElementById(map[val]).classList.add('selected');
       document.getElementById('errProgram').classList.remove('show');
-      track('program_selected', { program: val });
+      track('program_selected', { program: val, calendar: calVariant() });
     }
 
     // Web3Forms access key — kept as an independent fallback notification
