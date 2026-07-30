@@ -669,6 +669,9 @@
     }
     .financing-badge.visible { display: inline-block; }
     .form-alt-options { display: flex; flex-direction: column; gap: 7px; margin-top: 10px; }
+    .michelle-card { border: 2px solid #d4af37 !important; background: linear-gradient(135deg, #fffdf4, #fff7e0) !important; margin-top: 14px; }
+    .michelle-card .program-card-price { color: #a07800 !important; }
+    .michelle-card.selected { border-color: #b8860b !important; box-shadow: 0 6px 22px rgba(212,175,55,0.28) !important; }
     .form-alt-option {
       border: 1.5px solid var(--cream2); border-radius: 6px; padding: 11px 14px;
       cursor: pointer; transition: all 0.2s; font-size: 0.83rem; color: var(--muted);
@@ -1134,7 +1137,18 @@
               <div class="financing-badge" id="financingIntegral">✓ Financiamiento disponible</div>
             </div>
           </div>
-          <p style="font-size:0.78rem;color:var(--muted);margin:12px 2px 4px;line-height:1.55;text-align:center;">Los montos indicados corresponden al <strong>pago inicial</strong> — el valor total de tu programa y las opciones de financiamiento se revisan en tu Análisis Inicial.</p>
+          <p style="font-size:0.78rem;color:var(--muted);margin:12px 2px 4px;line-height:1.55;text-align:center;">Con los programas, tu <strong>Análisis Inicial es sin costo</strong> — los montos indicados son el pago inicial, y el valor total con financiamiento se revisa en tu llamada.</p>
+
+          <div class="program-card michelle-card" id="cardMichelle" onclick="selectProgram('michelle')">
+            <div class="program-card-radio" id="radioMichelle"></div>
+            <div class="program-card-header">
+              <span class="program-card-name">⭐ Consulta Privada con Michelle Peiret</span>
+              <span class="program-card-price">$700 USD · se abona al reservar</span>
+            </div>
+            <div class="program-card-duration">Acceso directo · sin llamada previa</div>
+            <div class="program-card-desc">¿Prefieres ir directo? Consulta 1 a 1 con Michelle: evaluación completa de tu caso y sales con la ruta exacta a seguir. Eliges tu horario y tu cupo se confirma con el pago al reservar. Michelle atiende un número limitado de casos nuevos por semana.</div>
+          </div>
+
           <div class="form-alt-options">
             <button class="form-alt-option" id="altUnsure" onclick="selectProgram('unsure')">
               <span>🤔</span> No estoy seguro/a — prefiero discutirlo en el análisis inicial
@@ -1162,6 +1176,25 @@
         </div>
         <button class="cal-booking-notice-btn" onclick="openCalendly()">Elegir mi día y hora →</button>
         <button class="cal-booking-back" onclick="showIntakeForm()">← Cambiar mis respuestas</button>
+      </div>
+
+      <!-- ── MICHELLE DIRECT CONSULT (paid booking via Zoho Bookings) ── -->
+      <div class="cal-booking-notice" id="michelleNotice">
+        <div class="cal-booking-notice-icon">⭐</div>
+        <div class="cal-booking-notice-title">¡Excelente decisión! Último paso: reserva tu consulta.</div>
+        <div class="cal-booking-notice-sub">
+          Elige el día y la hora de tu <strong>consulta privada con Michelle</strong>.<br>
+          Tu cupo se confirma con el pago de la consulta (<strong>$700 USD</strong>) al momento de reservar.<br><br>
+          El calendario puede tardar unos segundos en cargar — por favor espera.
+        </div>
+        <button class="cal-booking-notice-btn" onclick="openMichelleBooking()">Reservar mi consulta →</button>
+        <button class="cal-booking-back" onclick="showIntakeForm()">← Cambiar mis respuestas</button>
+      </div>
+      <div id="zohoWidget" style="display:none">
+        <button class="cal-widget-back" onclick="showIntakeForm()">← Cambiar mis respuestas</button>
+        <div class="cal-widget-wrap">
+          <div id="zohoInline" style="min-width:320px;"></div>
+        </div>
       </div>
 
       <!-- ── CALENDLY (revealed after clicking notice) ── -->
@@ -1783,7 +1816,7 @@
       closer: 'https://calendly.com/nutrigenomica-michellepeiret/analisis-inicial-mp'
     };
     var CLOSER_SPLIT = 50; // % de leads asignados al calendario "closer"
-    var CAL_LABELS = { reps: 'Samantha/Fauzi', closer: 'Genesis' };
+    var CAL_LABELS = { reps: 'Samantha/Fauzi', closer: 'Genesis', michelle: 'Consulta directa Michelle ($700)' };
     function calVariant() {
       var v = null;
       try { v = sessionStorage.getItem('mp_cal_variant'); } catch (e) {}
@@ -1977,10 +2010,10 @@
 
     function selectProgram(val) {
       selectedProgram = val;
-      ['cardReset','cardIntegral','altUnsure','altBudget'].forEach(function(id) {
+      ['cardReset','cardIntegral','cardMichelle','altUnsure','altBudget'].forEach(function(id) {
         document.getElementById(id).classList.remove('selected');
       });
-      var map = { reset: 'cardReset', integral: 'cardIntegral', unsure: 'altUnsure', budget: 'altBudget' };
+      var map = { reset: 'cardReset', integral: 'cardIntegral', michelle: 'cardMichelle', unsure: 'altUnsure', budget: 'altBudget' };
       if (map[val]) document.getElementById(map[val]).classList.add('selected');
       document.getElementById('errProgram').classList.remove('show');
       track('program_selected', { program: val, calendar: calVariant() });
@@ -2022,10 +2055,10 @@
                           : goalEl.options[goalEl.selectedIndex].text;
       var tlEl        = document.getElementById('fieldTimeline');
       var tlVal       = tlEl.options[tlEl.selectedIndex].text;
-      var programMap  = { reset: 'Programa Reset', integral: 'Programa Integral', unsure: 'No está seguro/a', budget: 'Presupuesto diferente' };
+      var programMap  = { reset: 'Programa Reset', integral: 'Programa Integral', michelle: 'Consulta directa con Michelle ($700)', unsure: 'No está seguro/a', budget: 'Presupuesto diferente' };
       var programVal  = programMap[selectedProgram] || selectedProgram;
       var sourceVal   = attributionLabel();
-      var calVal      = calVariant();
+      var calVal      = selectedProgram === 'michelle' ? 'michelle' : calVariant();
 
       track('form_submitted', { program: selectedProgram, calendar: calVal });
 
@@ -2090,7 +2123,15 @@
       var alt  = document.getElementById('altOffer');
       form.style.display = 'none';
 
-      if (selectedProgram === 'budget') {
+      if (selectedProgram === 'michelle') {
+        // Consulta pagada directa con Michelle → Zoho Bookings
+        track('michelle_booking_shown');
+        var mNotice = document.getElementById('michelleNotice');
+        mNotice.style.display = 'block';
+        var navM = document.querySelector('.nav');
+        var navMH = navM ? navM.getBoundingClientRect().height : 0;
+        window.scrollTo({ top: mNotice.getBoundingClientRect().top + window.pageYOffset - navMH - 12, behavior: 'smooth' });
+      } else if (selectedProgram === 'budget') {
         // Presupuesto diferente → escalera de valor: Estudio Epigenético (BioScan)
         track('bioscan_redirect', { from: 'form_budget' });
         setTimeout(function() {
@@ -2122,13 +2163,33 @@
       });
     }
 
+    function openMichelleBooking() {
+      track('michelle_widget_opened');
+      document.getElementById('michelleNotice').style.display = 'none';
+      var w = document.getElementById('zohoWidget');
+      w.style.display = 'block';
+      var holder = document.getElementById('zohoInline');
+      if (!holder.querySelector('iframe')) {
+        var f = document.createElement('iframe');
+        f.src = 'https://michellepeirethealth.zohobookings.com/portal-embed#/4177182000004591016';
+        f.style.width = '100%';
+        f.style.height = '750px';
+        f.style.border = '0';
+        f.setAttribute('allowfullscreen', '');
+        holder.appendChild(f);
+      }
+      w.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
     function showIntakeForm() {
       document.getElementById('altOffer').style.display = 'none';
       document.getElementById('bookingNotice').style.display = 'none';
+      document.getElementById('michelleNotice').style.display = 'none';
+      document.getElementById('zohoWidget').style.display = 'none';
       document.getElementById('calendlyWidget').style.display = 'none';
       document.getElementById('intakeForm').style.display = 'block';
       selectedProgram = null;
-      ['cardReset','cardIntegral','altUnsure','altBudget'].forEach(function(id) {
+      ['cardReset','cardIntegral','cardMichelle','altUnsure','altBudget'].forEach(function(id) {
         document.getElementById(id).classList.remove('selected');
       });
     }
