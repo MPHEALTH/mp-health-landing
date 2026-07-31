@@ -1893,11 +1893,10 @@
       if (e.data.event === 'calendly.date_and_time_selected') track('booking_time_selected', { calendar: ctx });
       if (e.data.event === 'calendly.event_scheduled') {
         track('booking_completed', { calendar: ctx });
-        // Página de preparación para la llamada (reduce no-shows) — solo para el Análisis;
-        // la consulta pagada con Michelle usa la confirmación propia de Calendly
-        if (ctx !== 'michelle') {
-          setTimeout(function() { window.location.href = '/gracias.html'; }, 1200);
-        }
+        // Página de preparación post-reserva (reduce no-shows):
+        // Análisis → gracias.html · Consulta pagada con Michelle → gracias-consulta.html (formulario de salud)
+        var dest = ctx === 'michelle' ? '/gracias-consulta.html' : '/gracias.html';
+        setTimeout(function() { window.location.href = dest; }, 1200);
       }
     });
 

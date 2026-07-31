@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>¡Consulta confirmada! — Michelle Peiret Health</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B7PSHFCHGY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B7PSHFCHGY');
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:  #0d1b2e;
+      --navy2: #13223a;
+      --teal:  #00c9a7;
+      --teal-lt: rgba(0,201,167,0.12);
+      --gold:  #d4af37;
+      --gold-dk: #a07800;
+      --gold-lt: #fff8e1;
+      --cream: #f7f5f0;
+      --white: #ffffff;
+      --text:  #1a2332;
+      --muted: #6b7a8d;
+      --font-body: 'Inter', -apple-system, sans-serif;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+    }
+    body { font-family: var(--font-body); background: var(--cream); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    .topbar { background: var(--navy); padding: 16px 24px; text-align: center; }
+    .topbar img { height: 126px; display: inline-block; max-width: 90%; object-fit: contain; }
+
+    .wrap { max-width: 680px; margin: 0 auto; padding: 40px 20px 70px; }
+
+    .hero { text-align: center; margin-bottom: 34px; }
+    .hero-check {
+      width: 74px; height: 74px; border-radius: 50%; background: var(--gold);
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 18px;
+      font-size: 34px; box-shadow: 0 8px 30px rgba(212,175,55,0.4);
+    }
+    .hero h1 { font-family: var(--font-serif); font-size: clamp(1.9rem, 5vw, 2.6rem); color: var(--navy); font-weight: 700; line-height: 1.2; margin-bottom: 10px; }
+    .hero p { color: var(--muted); font-size: 1rem; max-width: 500px; margin: 0 auto; }
+    .hero p strong { color: var(--text); }
+
+    .form-cta {
+      background: var(--navy); border: 2px solid var(--gold); border-radius: 18px;
+      padding: 30px 26px; margin-bottom: 22px; text-align: center;
+      box-shadow: 0 10px 36px rgba(13,27,46,0.25);
+    }
+    .form-cta .tag {
+      display: inline-block; background: var(--gold); color: var(--navy);
+      font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 100px; margin-bottom: 14px;
+    }
+    .form-cta h2 { font-family: var(--font-serif); font-size: 1.6rem; color: var(--white); font-weight: 700; line-height: 1.25; margin-bottom: 10px; }
+    .form-cta p { color: rgba(255,255,255,0.8); font-size: 0.95rem; max-width: 460px; margin: 0 auto 20px; }
+    .form-cta p strong { color: var(--gold); }
+    .form-cta a.btn {
+      display: block; background: var(--gold); color: var(--navy);
+      font-weight: 800; font-size: 1.02rem; text-decoration: none;
+      padding: 16px 24px; border-radius: 12px; letter-spacing: 0.3px;
+      box-shadow: 0 6px 22px rgba(212,175,55,0.4);
+    }
+    .form-cta .time-note { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin: 12px auto 0; }
+
+    .card {
+      background: var(--white); border-radius: 16px; padding: 26px 24px; margin-bottom: 18px;
+      box-shadow: 0 2px 14px rgba(13,27,46,0.06);
+    }
+    .card-tag {
+      display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 8px;
+    }
+    .card h2 { font-family: var(--font-serif); font-size: 1.45rem; color: var(--navy); font-weight: 700; margin-bottom: 14px; line-height: 1.25; }
+    .card ul { list-style: none; }
+    .card li { display: flex; gap: 12px; align-items: flex-start; padding: 9px 0; font-size: 0.95rem; }
+    .card li + li { border-top: 1px solid rgba(13,27,46,0.06); }
+    .li-icon { flex-shrink: 0; font-size: 1.15rem; line-height: 1.5; }
+    .card li strong { color: var(--navy); }
+
+    .photo {
+      width: 100%; border-radius: 16px; display: block;
+      box-shadow: 0 2px 14px rgba(13,27,46,0.10); margin-bottom: 8px;
+    }
+    .photo-caption { text-align: center; font-size: 0.8rem; color: var(--muted); margin-bottom: 18px; }
+
+    .steps { counter-reset: step; list-style: none; }
+    .steps li { display: flex; gap: 14px; padding: 10px 0; font-size: 0.95rem; align-items: flex-start; }
+    .steps li + li { border-top: 1px solid rgba(13,27,46,0.06); }
+    .step-num {
+      counter-increment: step; flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+      background: var(--gold-lt); color: var(--gold-dk); font-weight: 800; font-size: 0.8rem;
+      display: flex; align-items: center; justify-content: center; margin-top: 2px;
+    }
+    .step-num::before { content: counter(step); }
+
+    .decision {
+      background: var(--gold-lt); border-left: 4px solid var(--gold); border-radius: 10px;
+      padding: 18px 20px; margin-bottom: 18px; font-size: 0.95rem;
+    }
+    .decision strong { color: var(--navy); }
+
+    .commitment { text-align: center; padding: 26px 20px 6px; font-size: 0.95rem; color: var(--muted); }
+    .commitment strong { color: var(--navy); }
+    .commitment .sig { font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; color: var(--navy); margin-top: 14px; }
+
+    .help { text-align: center; margin-top: 26px; font-size: 0.88rem; color: var(--muted); }
+    .help a { color: var(--teal); font-weight: 600; text-decoration: none; }
+
+    footer { background: var(--navy); text-align: center; padding: 22px; margin-top: 40px; }
+    footer p { color: rgba(255,255,255,0.45); font-size: 0.78rem; }
+  </style>
+</head>
+<body>
+
+  <div class="topbar"><img src="images/logo-mp-white.png" alt="Michelle Peiret Health"></div>
+
+  <div class="wrap">
+
+    <div class="hero">
+      <div class="hero-check">⭐</div>
+      <h1 id="heroTitle">¡Tu Consulta Privada con Michelle está confirmada!</h1>
+      <p>Tu pago fue procesado y tu cupo está reservado. Recibirás la confirmación por email con los detalles de tu cita<strong> — revisa también spam o promociones.</strong></p>
+    </div>
+
+    <div class="form-cta">
+      <div class="tag">Paso obligatorio antes de tu consulta</div>
+      <h2>Completa tu Formulario de Salud y Hábitos</h2>
+      <p>Michelle <strong>estudia tu caso personalmente antes de la sesión</strong> con esta información: tu historia, tus síntomas, tu alimentación y tus hábitos. Sin el formulario, tu consulta pierde profundidad — con él, cada minuto de tu sesión se aprovecha en soluciones, no en preguntas básicas.</p>
+      <a class="btn" id="intakeFormBtn" href="https://forms.zohopublic.com/nutrigenomica/form/FormulariodeSaludyHbitosEnergyMPMichellePeiretv202/formperma/vQsDAVYeTe1c-g9AnSwYifUCs2nrzz6TdfQZLzuPC0s" target="_blank" rel="noopener">Completar mi formulario ahora →</a>
+      <p class="time-note">Toma unos minutos — complétalo hoy mismo, con calma y siendo lo más específico/a posible.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-tag">Tu cita</div>
+      <h2>Según la modalidad que elegiste</h2>
+      <ul>
+        <li><span class="li-icon">💻</span><div><strong>Si elegiste Zoom:</strong> el enlace está en tu email de confirmación. Conéctate 5 minutos antes desde un lugar tranquilo y sin ruido, sentado/a y con buena conexión — no desde el carro.</div></li>
+        <li><span class="li-icon">📍</span><div><strong>Si elegiste presencial:</strong> te esperamos en 760 NW 107th Ave, Suite #340, Miami, FL 33172. Llega 10 minutos antes.</div></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-tag">Prepárate así</div>
+      <h2>Para aprovechar tu sesión al máximo</h2>
+      <ul>
+        <li><span class="li-icon">📝</span><div><strong>Papel y lápiz</strong> — Michelle te dará indicaciones específicas para tu caso y querrás anotarlas.</div></li>
+        <li><span class="li-icon">🧾</span><div><strong>Exámenes o estudios recientes a la mano</strong> (si los tienes) — a diferencia de otras citas, aquí sí: Michelle puede interpretarlos en tu sesión.</div></li>
+        <li><span class="li-icon">❓</span><div><strong>Tus preguntas anotadas</strong> — es tu tiempo 1 a 1 con Michelle; llega con todo lo que quieras resolver.</div></li>
+      </ul>
+    </div>
+
+    <div class="decision">
+      <strong>Un consejo que hace una gran diferencia:</strong> si compartes tus decisiones importantes con alguien — tu pareja, un familiar — <strong>invítalo a acompañarte en la consulta</strong>. En la sesión Michelle te presentará la ruta a seguir para tu caso, y tener a esa persona contigo te permite decidir con calma. Cuatro oídos escuchan mejor que dos.
+    </div>
+
+    <img class="photo" src="images/consulta-analisis.jpg" alt="Consulta con Michelle Peiret">
+    <p class="photo-caption">Tu consulta: una evaluación 1 a 1 en profundidad con Michelle</p>
+
+    <div class="card">
+      <div class="card-tag">Qué esperar</div>
+      <h2>Así será tu consulta, paso a paso</h2>
+      <ol class="steps">
+        <li><span class="step-num"></span><div>Michelle llega <strong>habiendo estudiado tu formulario</strong> — tu caso ya está en su radar antes de empezar.</div></li>
+        <li><span class="step-num"></span><div>Profundiza contigo: síntomas, historia, hábitos, qué has intentado y qué no ha funcionado.</div></li>
+        <li><span class="step-num"></span><div>Te explica <strong>qué está pasando en tu cuerpo</strong> y el enfoque que tu caso necesita.</div></li>
+        <li><span class="step-num"></span><div>Sales con <strong>tu ruta exacta a seguir</strong> — incluyendo el tratamiento indicado, si aplica para ti.</div></li>
+      </ol>
+    </div>
+
+    <div class="commitment">
+      <p>Michelle <strong>reservó este espacio exclusivamente para tu caso</strong>. Si te surge un imprevisto, por favor reagenda tu cita desde el email de confirmación con la mayor anticipación posible.</p>
+      <p class="sig">Nos vemos en tu consulta — Michelle Peiret Health</p>
+    </div>
+
+    <div class="help">
+      ¿Alguna duda antes de tu cita? Escríbenos por WhatsApp al <a href="https://wa.me/17869302544" target="_blank" rel="noopener">+1 (786) 930-2544</a>
+    </div>
+
+  </div>
+
+  <footer><p>© 2026 Michelle Peiret · michellepeiret.com</p></footer>
+
+  <script>
+    // Personaliza el saludo si Calendly redirige con los datos del invitado
+    (function() {
+      var name = new URLSearchParams(window.location.search).get('invitee_full_name');
+      if (name) {
+        var first = name.trim().split(' ')[0];
+        if (first) document.getElementById('heroTitle').textContent = '¡' + first + ', tu Consulta Privada con Michelle está confirmada!';
+      }
+    })();
+    // Mide cuántos abren el formulario de salud
+    document.getElementById('intakeFormBtn').addEventListener('click', function() {
+      if (window.gtag) gtag('event', 'intake_form_click', { page: 'gracias-consulta' });
+    });
+  </script>
+
+</body>
+</html>
