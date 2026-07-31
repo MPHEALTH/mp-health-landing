@@ -92,6 +92,13 @@
     }
     .photo-caption { text-align: center; font-size: 0.8rem; color: var(--muted); margin-bottom: 18px; }
 
+    .video-block { margin-bottom: 24px; }
+    .video-block video {
+      width: 100%; max-height: 72vh; display: block; border-radius: 16px;
+      background: var(--navy); object-fit: contain;
+      box-shadow: 0 10px 36px rgba(13,27,46,0.25);
+    }
+
     .steps { counter-reset: step; list-style: none; }
     .steps li { display: flex; gap: 14px; padding: 10px 0; font-size: 0.95rem; align-items: flex-start; }
     .steps li + li { border-top: 1px solid rgba(13,27,46,0.06); }
@@ -131,6 +138,13 @@
       <p>Tu pago fue procesado y tu cupo está reservado. Recibirás la confirmación por email con los detalles de tu cita<strong> — revisa también spam o promociones.</strong></p>
     </div>
 
+    <div class="video-block">
+      <video id="presentVideo" controls preload="none" playsinline poster="images/michelle-retrato.jpg">
+        <source src="media/video-presentacion-citas.mp4" type="video/mp4">
+      </video>
+      <p class="photo-caption">▶ Un mensaje de bienvenida de Michelle — dale play antes de tu consulta</p>
+    </div>
+
     <div class="form-cta">
       <div class="tag">Paso obligatorio antes de tu consulta</div>
       <h2>Completa tu Formulario de Salud y Hábitos</h2>
@@ -147,6 +161,9 @@
         <li><span class="li-icon">📍</span><div><strong>Si elegiste presencial:</strong> te esperamos en 760 NW 107th Ave, Suite #340, Miami, FL 33172. Llega 10 minutos antes.</div></li>
       </ul>
     </div>
+
+    <img class="photo" src="images/centro-equipo.jpg" alt="Equipo del centro Michelle Peiret Health en Miami">
+    <p class="photo-caption">Nuestro centro en Miami — el equipo que te recibirá si eliges presencial</p>
 
     <div class="card">
       <div class="card-tag">Prepárate así</div>
@@ -176,6 +193,9 @@
       </ol>
     </div>
 
+    <img class="photo" src="images/centro-vo2max.jpg" alt="Prueba metabólica VO2 Max en el centro">
+    <p class="photo-caption">Ciencia real: nuestras pruebas y estudios en el centro de Miami</p>
+
     <div class="commitment">
       <p>Michelle <strong>reservó este espacio exclusivamente para tu caso</strong>. Si te surge un imprevisto, por favor reagenda tu cita desde el email de confirmación con la mayor anticipación posible.</p>
       <p class="sig">Nos vemos en tu consulta — Michelle Peiret Health</p>
@@ -201,6 +221,11 @@
     // Mide cuántos abren el formulario de salud
     document.getElementById('intakeFormBtn').addEventListener('click', function() {
       if (window.gtag) gtag('event', 'intake_form_click', { page: 'gracias-consulta' });
+    });
+    // Mide cuántos reproducen el video de bienvenida
+    document.getElementById('presentVideo').addEventListener('play', function onPlay() {
+      if (window.gtag) gtag('event', 'welcome_video_play', { page: 'gracias-consulta' });
+      this.removeEventListener('play', onPlay);
     });
   </script>
 
