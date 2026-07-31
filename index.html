@@ -1190,10 +1190,10 @@
         <button class="cal-booking-notice-btn" onclick="openMichelleBooking()">Reservar mi consulta →</button>
         <button class="cal-booking-back" onclick="showIntakeForm()">← Cambiar mis respuestas</button>
       </div>
-      <div id="zohoWidget" style="display:none">
+      <div id="michelleWidget" style="display:none">
         <button class="cal-widget-back" onclick="showIntakeForm()">← Cambiar mis respuestas</button>
         <div class="cal-widget-wrap">
-          <div id="zohoInline" style="min-width:320px;"></div>
+          <div id="michelleInline" style="min-width:320px;height:700px;"></div>
         </div>
       </div>
 
@@ -1812,9 +1812,11 @@
 
     /* ── Rotación de calendarios (test de formato de oferta) ── */
     var CALENDLY_URLS = {
-      reps:   'https://calendly.com/nutrigenomica-michellepeiret/michellepeirethealth',
-      closer: 'https://calendly.com/nutrigenomica-michellepeiret/analisis-inicial-mp'
+      reps:     'https://calendly.com/nutrigenomica-michellepeiret/michellepeirethealth',
+      closer:   'https://calendly.com/nutrigenomica-michellepeiret/analisis-inicial-mp',
+      michelle: 'https://calendly.com/nutrigenomica-michellepeiret/consulta-privada-con-michelle-peiret'
     };
+    var activeBookingContext = null; // qué calendario está abierto (para etiquetar los eventos de Calendly)
     var CLOSER_SPLIT = 100; // % de leads asignados al calendario "closer" (Genesis = principal desde 2026-07-30)
     var CAL_LABELS = { reps: 'Samantha/Fauzi', closer: 'Genesis', michelle: 'Consulta directa Michelle ($700)' };
     function calVariant() {
@@ -1887,11 +1889,15 @@
     // Eventos de Calendly (selección de horario y cita agendada)
     window.addEventListener('message', function(e) {
       if (!e.data || typeof e.data.event !== 'string' || e.data.event.indexOf('calendly.') !== 0) return;
-      if (e.data.event === 'calendly.date_and_time_selected') track('booking_time_selected', { calendar: calVariant() });
+      var ctx = activeBookingContext || calVariant();
+      if (e.data.event === 'calendly.date_and_time_selected') track('booking_time_selected', { calendar: ctx });
       if (e.data.event === 'calendly.event_scheduled') {
-        track('booking_completed', { calendar: calVariant() });
-        // Página de preparación para la llamada (reduce no-shows)
-        setTimeout(function() { window.location.href = '/gracias.html'; }, 1200);
+        track('booking_completed', { calendar: ctx });
+        // Página de preparación para la llamada (reduce no-shows) — solo para el Análisis;
+        // la consulta pagada con Michelle usa la confirmación propia de Calendly
+        if (ctx !== 'michelle') {
+          setTimeout(function() { window.location.href = '/gracias.html'; }, 1200);
+        }
       }
     });
 
@@ -2124,8 +2130,10 @@
       form.style.display = 'none';
 
       if (selectedProgram === 'michelle') {
-        // Consulta pagada directa con Michelle → Zoho Bookings
+        // Consulta pagada directa con Michelle → Calendly con pago Stripe
         track('michelle_booking_shown');
+        pendingCalName  = nameVal;
+        pendingCalEmail = emailVal;
         var mNotice = document.getElementById('michelleNotice');
         mNotice.style.display = 'block';
         var navM = document.querySelector('.nav');
@@ -2151,6 +2159,7 @@
 
     function openCalendly() {
       var variant = calVariant();
+      activeBookingContext = variant;
       track('calendly_opened', { calendar: variant });
       document.getElementById('bookingNotice').style.display = 'none';
       var cal = document.getElementById('calendlyWidget');
@@ -2165,27 +2174,24 @@
 
     function openMichelleBooking() {
       track('michelle_widget_opened');
+      activeBookingContext = 'michelle';
       document.getElementById('michelleNotice').style.display = 'none';
-      var w = document.getElementById('zohoWidget');
+      var w = document.getElementById('michelleWidget');
       w.style.display = 'block';
-      var holder = document.getElementById('zohoInline');
-      if (!holder.querySelector('iframe')) {
-        var f = document.createElement('iframe');
-        f.src = 'https://michellepeirethealth.zohobookings.com/portal-embed#/4177182000004591016';
-        f.style.width = '100%';
-        f.style.height = '750px';
-        f.style.border = '0';
-        f.setAttribute('allowfullscreen', '');
-        holder.appendChild(f);
-      }
+      Calendly.initInlineWidget({
+        url: CALENDLY_URLS.michelle,
+        parentElement: document.getElementById('michelleInline'),
+        prefill: { name: pendingCalName, email: pendingCalEmail }
+      });
       w.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function showIntakeForm() {
+      activeBookingContext = null;
       document.getElementById('altOffer').style.display = 'none';
       document.getElementById('bookingNotice').style.display = 'none';
       document.getElementById('michelleNotice').style.display = 'none';
-      document.getElementById('zohoWidget').style.display = 'none';
+      document.getElementById('michelleWidget').style.display = 'none';
       document.getElementById('calendlyWidget').style.display = 'none';
       document.getElementById('intakeForm').style.display = 'block';
       selectedProgram = null;
