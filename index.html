@@ -1837,8 +1837,11 @@
     function abStep4() {
       var v = null;
       try { v = localStorage.getItem('mp_ab_step4'); } catch (e) {}
-      if (/[?&]camino=michelle/.test(location.search)) v = 'ambas';
-      if (v !== 'ambas' && v !== 'solo_analisis') {
+      // Lead al que Vanessa ya le prometió la consulta directa: siempre debe verla.
+      // Se etiqueta aparte ("ambas_forzada") porque no es asignación aleatoria y
+      // contaminaría la comparación del test con población autoseleccionada.
+      if (/[?&]camino=michelle/.test(location.search)) v = 'ambas_forzada';
+      if (v !== 'ambas' && v !== 'solo_analisis' && v !== 'ambas_forzada') {
         v = (Math.random() * 100 < AB_STEP4_SPLIT) ? 'ambas' : 'solo_analisis';
       }
       try { localStorage.setItem('mp_ab_step4', v); } catch (e) {}
