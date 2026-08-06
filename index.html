@@ -1096,11 +1096,13 @@
 
         <!-- Step 4 — Programa -->
         <div class="form-step" id="step4">
-          <h3 class="form-step-title">¿Cómo prefieres empezar?</h3>
-          <p class="path-note">Elige si quieres tu <strong>consulta directa con Michelle</strong>, o si prefieres primero <strong>saber más sobre los tratamientos</strong> con un análisis inicial.</p>
-          <button class="path-btn path-btn-secondary" onclick="submitForm('michelle')">CONSULTA DIRECTA CON MICHELLE — $700</button>
-          <p class="path-note">Sin llamada previa. <strong>Incluye tu estudio epigenético</strong> (muestra de ADN de tu cabello — en el consultorio o con kit a domicilio si estás online) + evaluación 1 a 1 completa con Michelle: analiza tu estudio y tu historial, y sales con tu ruta exacta a seguir.</p>
-          <hr class="path-divider">
+          <h3 class="form-step-title" id="step4Title">¿Cómo prefieres empezar?</h3>
+          <div id="michellePathOption">
+            <p class="path-note">Elige si quieres tu <strong>consulta directa con Michelle</strong>, o si prefieres primero <strong>saber más sobre los tratamientos</strong> con un análisis inicial.</p>
+            <button class="path-btn path-btn-secondary" onclick="submitForm('michelle')">CONSULTA DIRECTA CON MICHELLE — $700</button>
+            <p class="path-note">Sin llamada previa. <strong>Incluye tu estudio epigenético</strong> (muestra de ADN de tu cabello — en el consultorio o con kit a domicilio si estás online) + evaluación 1 a 1 completa con Michelle: analiza tu estudio y tu historial, y sales con tu ruta exacta a seguir.</p>
+            <hr class="path-divider">
+          </div>
           <button class="path-btn path-btn-primary" onclick="submitForm('analisis')">AGENDAR MI ANÁLISIS INICIAL</button>
           <p class="path-note">20 minutos con nuestro equipo clínico para conocer a fondo nuestros dos tratamientos y ver cuál corresponde a tu caso:</p>
           <div class="info-cards">
@@ -1775,6 +1777,28 @@
       return v;
     }
 
+    // Split test paso 4 (desde 2026-08-06): ¿mostrar la consulta directa de $700 junto al análisis?
+    // "ambas" = paso 4 actual (análisis + consulta Michelle) · "solo_analisis" = solo análisis.
+    // camino=michelle en la URL fuerza "ambas" (Vanessa promete esa opción dentro del enlace).
+    var AB_STEP4_SPLIT = 50; // % de visitantes que ven AMBAS opciones
+    function abStep4() {
+      var v = null;
+      try { v = localStorage.getItem('mp_ab_step4'); } catch (e) {}
+      if (/[?&]camino=michelle/.test(location.search)) v = 'ambas';
+      if (v !== 'ambas' && v !== 'solo_analisis') {
+        v = (Math.random() * 100 < AB_STEP4_SPLIT) ? 'ambas' : 'solo_analisis';
+      }
+      try { localStorage.setItem('mp_ab_step4', v); } catch (e) {}
+      return v;
+    }
+    (function() {
+      if (abStep4() !== 'solo_analisis') return;
+      var block = document.getElementById('michellePathOption');
+      if (block) block.style.display = 'none';
+      var title = document.getElementById('step4Title');
+      if (title) title.textContent = 'Tu siguiente paso: agendar tu análisis inicial';
+    })();
+
     // Los precios iniciales del paso 4 se ajustan a la oferta de la vendedora asignada
     // Texto legible del origen, para los emails de lead
     function attributionLabel() {
@@ -1793,6 +1817,7 @@
     function track(name, params) {
       params = params || {};
       UTM_KEYS.forEach(function(k) { if (attribution[k]) params[k] = attribution[k]; });
+      try { params.ab_step4 = abStep4(); } catch (e) {}
       try { if (window.gtag) gtag('event', name, params); } catch (e) {}
       try {
         if (window.fbq) {
