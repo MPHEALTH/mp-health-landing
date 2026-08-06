@@ -663,6 +663,15 @@
       border-radius: 50%; border: 2px solid var(--cream2); transition: all 0.2s;
     }
     .program-card.selected .program-card-radio { border-color: var(--teal); background: var(--teal); box-shadow: inset 0 0 0 3px white; }
+    .form-alt-options { display: flex; flex-direction: column; gap: 7px; margin-top: 10px; }
+    .form-alt-option {
+      border: 1.5px solid var(--cream2); border-radius: 6px; padding: 11px 14px;
+      cursor: pointer; transition: all 0.2s; font-size: 0.83rem; color: var(--muted);
+      text-align: left; background: none; width: 100%; display: flex; align-items: center; gap: 9px;
+      font-family: var(--font-body);
+    }
+    .form-alt-option:hover { border-color: #6b7a8d; color: var(--navy); }
+    .form-alt-option.selected { border-color: var(--navy); color: var(--navy); background: rgba(0,0,0,0.02); }
     .financing-badge {
       display: none; font-size: 0.68rem; color: var(--teal); font-weight: 600;
       margin-top: 6px; padding: 3px 9px; background: rgba(0,201,167,0.08); border-radius: 20px; width: fit-content;
@@ -1094,35 +1103,79 @@
           </div>
         </div>
 
-        <!-- Step 4 — Programa -->
+        <!-- Step 4 — Programa (dos layouts según split test ab_step4) -->
         <div class="form-step" id="step4">
-          <h3 class="form-step-title" id="step4Title">¿Cómo prefieres empezar?</h3>
-          <div id="michellePathOption">
-            <p class="path-note">Elige si quieres tu <strong>consulta directa con Michelle</strong>, o si prefieres primero <strong>saber más sobre los tratamientos</strong> con un análisis inicial.</p>
-            <button class="path-btn path-btn-secondary" onclick="submitForm('michelle')">CONSULTA DIRECTA CON MICHELLE — $700</button>
-            <p class="path-note">Sin llamada previa. <strong>Incluye tu estudio epigenético</strong> (muestra de ADN de tu cabello — en el consultorio o con kit a domicilio si estás online) + evaluación 1 a 1 completa con Michelle: analiza tu estudio y tu historial, y sales con tu ruta exacta a seguir.</p>
-            <hr class="path-divider">
-          </div>
-          <button class="path-btn path-btn-primary" onclick="submitForm('analisis')">AGENDAR MI ANÁLISIS INICIAL</button>
-          <p class="path-note">20 minutos con nuestro equipo clínico para conocer a fondo nuestros dos tratamientos y ver cuál corresponde a tu caso:</p>
-          <div class="info-cards">
-            <div class="info-card">
-              <div class="info-card-name">PROGRAMA INTEGRAL</div>
-              <div class="info-card-sub">desde $1,500 inicial · mínimo 6 meses</div>
-              <div class="info-card-desc">Para condiciones específicas o crónicas: diabetes, desbalances hormonales, autoinmunes, esclerosis múltiple, cáncer, problemas digestivos complejos, u otras situaciones que llevan años sin resolverse. Trabajas directamente con Michelle Peiret y un health coach dedicado a tu caso. Incluye estudio epigenético, composición corporal y VO2 max, plan nutricional y de suplementación, acceso a instalaciones y servicios, y precios exclusivos de miembro.</div>
-              <div class="financing-badge" id="financingIntegral">✓ Financiamiento disponible</div>
+          <!-- Variante "ambas": elección binaria análisis vs consulta directa -->
+          <div id="step4LayoutBoth">
+            <h3 class="form-step-title">¿Cómo prefieres empezar?</h3>
+            <div id="michellePathOption">
+              <p class="path-note">Elige si quieres tu <strong>consulta directa con Michelle</strong>, o si prefieres primero <strong>saber más sobre los tratamientos</strong> con un análisis inicial.</p>
+              <button class="path-btn path-btn-secondary" onclick="submitForm('michelle')">CONSULTA DIRECTA CON MICHELLE — $700</button>
+              <p class="path-note">Sin llamada previa. <strong>Incluye tu estudio epigenético</strong> (muestra de ADN de tu cabello — en el consultorio o con kit a domicilio si estás online) + evaluación 1 a 1 completa con Michelle: analiza tu estudio y tu historial, y sales con tu ruta exacta a seguir.</p>
+              <hr class="path-divider">
             </div>
-            <div class="info-card">
-              <div class="info-card-name">PROGRAMA RESET</div>
-              <div class="info-card-sub">desde $500 inicial · mínimo 3 meses</div>
-              <div class="info-card-desc">Para casos sin condición crónica de base — donde el objetivo es recomposición corporal, energía y reset metabólico. Tu proceso lo guía un especialista del equipo de Michelle, entrenado y supervisado por ella bajo el mismo protocolo. Incluye estudio epigenético y composición corporal, plan nutricional y de suplementación, y acceso a los servicios e instalaciones del centro.</div>
-              <div class="financing-badge" id="financingReset">✓ Financiamiento disponible</div>
+            <button class="path-btn path-btn-primary" onclick="submitForm('analisis')">AGENDAR MI ANÁLISIS INICIAL</button>
+            <p class="path-note">20 minutos con nuestro equipo clínico para conocer a fondo nuestros dos tratamientos y ver cuál corresponde a tu caso:</p>
+            <div class="info-cards">
+              <div class="info-card">
+                <div class="info-card-name">PROGRAMA INTEGRAL</div>
+                <div class="info-card-sub">desde $1,500 inicial · mínimo 6 meses</div>
+                <div class="info-card-desc">Para condiciones específicas o crónicas: diabetes, desbalances hormonales, autoinmunes, esclerosis múltiple, cáncer, problemas digestivos complejos, u otras situaciones que llevan años sin resolverse. Trabajas directamente con Michelle Peiret y un health coach dedicado a tu caso. Incluye estudio epigenético, composición corporal y VO2 max, plan nutricional y de suplementación, acceso a instalaciones y servicios, y precios exclusivos de miembro.</div>
+                <div class="financing-badge">✓ Financiamiento disponible</div>
+              </div>
+              <div class="info-card">
+                <div class="info-card-name">PROGRAMA RESET</div>
+                <div class="info-card-sub">desde $500 inicial · mínimo 3 meses</div>
+                <div class="info-card-desc">Para casos sin condición crónica de base — donde el objetivo es recomposición corporal, energía y reset metabólico. Tu proceso lo guía un especialista del equipo de Michelle, entrenado y supervisado por ella bajo el mismo protocolo. Incluye estudio epigenético y composición corporal, plan nutricional y de suplementación, y acceso a los servicios e instalaciones del centro.</div>
+                <div class="financing-badge">✓ Financiamiento disponible</div>
+              </div>
+            </div>
+            <p class="path-note">Los montos indicados son el pago inicial de los tratamientos — el valor total y las opciones de financiamiento se revisan contigo en tu llamada.<br><strong>No se requiere ningún depósito para agendar tu análisis inicial.</strong></p>
+            <div class="form-nav">
+              <button class="form-btn-back" onclick="prevStep(4)">← Atrás</button>
+              <span></span>
             </div>
           </div>
-          <p class="path-note">Los montos indicados son el pago inicial de los tratamientos — el valor total y las opciones de financiamiento se revisan contigo en tu llamada.<br><strong>No se requiere ningún depósito para agendar tu análisis inicial.</strong></p>
-          <div class="form-nav">
-            <button class="form-btn-back" onclick="prevStep(4)">← Atrás</button>
-            <span></span>
+          <!-- Variante "solo_analisis": selección de programa (formato clásico, sin consulta $700) -->
+          <div id="step4LayoutChoose" style="display:none">
+            <h3 class="form-step-title">Elige tu programa</h3>
+            <p class="form-step-sub">Dos opciones de protocolo personalizado. Lee las dos y dinos cuál se acerca más a lo que buscas.</p>
+            <div class="program-cards">
+              <div class="program-card" id="cardReset" onclick="selectProgram('reset')">
+                <div class="program-card-radio" id="radioReset"></div>
+                <div class="program-card-header">
+                  <span class="program-card-name">Programa Reset</span>
+                  <span class="program-card-price" id="priceReset">Inicial desde $500</span>
+                </div>
+                <div class="program-card-duration">Mínimo 3 meses</div>
+                <div class="program-card-desc">Para quienes quieren perder peso, hacer un detox o reset, recuperar energía y sentirse y verse mejor en general. Tu proceso lo guía un especialista del equipo de Michelle, entrenado y supervisado directamente por ella bajo el mismo protocolo. Incluye estudio epigenético y estudio de composición corporal, plan nutricional y de suplementación, y acceso a los servicios e instalaciones del centro.</div>
+                <div class="financing-badge">✓ Financiamiento disponible</div>
+              </div>
+              <div class="program-card" id="cardIntegral" onclick="selectProgram('integral')">
+                <div class="program-card-radio" id="radioIntegral"></div>
+                <div class="program-card-header">
+                  <span class="program-card-name">Programa Integral</span>
+                  <span class="program-card-price" id="priceIntegral">Inicial desde $1,500</span>
+                </div>
+                <div class="program-card-duration">Mínimo 6 meses</div>
+                <div class="program-card-desc">Para personas con condiciones específicas o crónicas — diabetes, desbalances hormonales, autoinmunes, esclerosis múltiple, cáncer, problemas digestivos complejos, u otras situaciones que llevan años sin resolverse. Trabajas directamente con Michelle Peiret y un health coach dedicado a tu caso. Incluye estudio epigenético, estudio de composición corporal y estudio VO2 max (que mide tu edad biológica real), plan nutricional y de suplementación, acceso a instalaciones y servicios, y precios exclusivos de miembro en tratamientos y productos del centro.</div>
+                <div class="financing-badge">✓ Financiamiento disponible</div>
+              </div>
+            </div>
+            <p style="font-size:0.78rem;color:var(--muted);margin:12px 2px 4px;line-height:1.55;text-align:center;">Con los programas, tu <strong>Análisis Inicial es sin costo</strong> — los montos indicados son el pago inicial, y el valor total con financiamiento se revisa en tu llamada.</p>
+            <div class="form-alt-options">
+              <button class="form-alt-option" id="altUnsure" onclick="selectProgram('unsure')">
+                <span>🤔</span> No estoy seguro/a — prefiero discutirlo en el análisis inicial
+              </button>
+              <button class="form-alt-option" id="altBudget" onclick="selectProgram('budget')">
+                <span>💬</span> Mi presupuesto es diferente por ahora
+              </button>
+            </div>
+            <div class="form-error" id="errProgram" style="margin-top:8px">Por favor selecciona una opción</div>
+            <div class="form-nav">
+              <button class="form-btn-back" onclick="prevStep(4)">← Atrás</button>
+              <button class="form-btn-next" onclick="submitForm('choose')">Ver disponibilidad →</button>
+            </div>
           </div>
         </div>
       </div>
@@ -1793,10 +1846,10 @@
     }
     (function() {
       if (abStep4() !== 'solo_analisis') return;
-      var block = document.getElementById('michellePathOption');
-      if (block) block.style.display = 'none';
-      var title = document.getElementById('step4Title');
-      if (title) title.textContent = 'Tu siguiente paso: agendar tu análisis inicial';
+      var both = document.getElementById('step4LayoutBoth');
+      var choose = document.getElementById('step4LayoutChoose');
+      if (both) both.style.display = 'none';
+      if (choose) choose.style.display = 'block';
     })();
 
     // Los precios iniciales del paso 4 se ajustan a la oferta de la vendedora asignada
@@ -1947,13 +2000,10 @@
         if (!name) { err('errName', true); valid = false; } else err('errName', false);
         if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err('errEmail', true); valid = false; } else err('errEmail', false);
         if (!country) { err('errCountry', true); valid = false; } else err('errCountry', false);
-        if (country === 'us') {
-          document.getElementById('financingReset').classList.add('visible');
-          document.getElementById('financingIntegral').classList.add('visible');
-        } else {
-          document.getElementById('financingReset').classList.remove('visible');
-          document.getElementById('financingIntegral').classList.remove('visible');
-        }
+        var showFinancing = country === 'us';
+        document.querySelectorAll('.financing-badge').forEach(function(b) {
+          b.classList.toggle('visible', showFinancing);
+        });
       }
       return valid;
     }
@@ -1984,7 +2034,38 @@
       if (val !== 'other') document.getElementById('errGoalOther').classList.remove('show');
     }
 
+    // Selección de programa (layout "solo_analisis" del split test)
+    var selectedProgram = null;
+    function selectProgram(val) {
+      selectedProgram = val;
+      ['cardReset','cardIntegral','altUnsure','altBudget'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.classList.remove('selected');
+      });
+      var map = { reset: 'cardReset', integral: 'cardIntegral', unsure: 'altUnsure', budget: 'altBudget' };
+      if (map[val]) document.getElementById(map[val]).classList.add('selected');
+      document.getElementById('errProgram').classList.remove('show');
+      track('program_selected', { program: val, calendar: calVariant() });
+    }
+
+    var PROGRAM_LABELS = {
+      michelle: 'Consulta directa con Michelle ($700)',
+      analisis: 'Análisis Inicial (sin costo)',
+      reset:    'Programa Reset',
+      integral: 'Programa Integral',
+      unsure:   'No está seguro/a',
+      budget:   'Presupuesto diferente'
+    };
+
     function submitForm(camino) {
+      if (camino === 'choose') {
+        if (!selectedProgram) {
+          document.getElementById('errProgram').classList.add('show');
+          track('form_validation_error', { step: 4 });
+          return;
+        }
+        camino = selectedProgram; // reset | integral | unsure | budget
+      }
       var caminoKey = camino === 'michelle' ? 'consulta_michelle' : 'analisis_inicial';
 
       var nameVal     = document.getElementById('fieldName').value.trim();
@@ -2003,12 +2084,13 @@
                           : goalEl.options[goalEl.selectedIndex].text;
       var tlEl        = document.getElementById('fieldTimeline');
       var tlVal       = tlEl.options[tlEl.selectedIndex].text;
-      var programVal  = camino === 'michelle' ? 'Consulta directa con Michelle ($700)' : 'Análisis Inicial (sin costo)';
+      var programVal  = PROGRAM_LABELS[camino] || camino;
+      var programKey  = camino === 'analisis' ? 'analisis_inicial' : camino;
       var sourceVal   = attributionLabel();
       var calVal      = camino === 'michelle' ? 'michelle' : calVariant();
 
       track('camino_elegido', { camino: caminoKey });
-      track('form_submitted', { program: caminoKey, calendar: calVal });
+      track('form_submitted', { program: programKey, calendar: calVal });
 
       // Send email notification (non-blocking)
       if (WEB3FORMS_KEY !== 'YOUR_ACCESS_KEY') {
@@ -2057,7 +2139,7 @@
             impact:     impactVal,
             timeline:   tlVal,
             program:    programVal,
-            program_key: camino,
+            program_key: programKey,
             camino_elegido: caminoKey,
             source:     sourceVal,
             calendar:   calVal
@@ -2080,6 +2162,12 @@
         var navM = document.querySelector('.nav');
         var navMH = navM ? navM.getBoundingClientRect().height : 0;
         window.scrollTo({ top: mNotice.getBoundingClientRect().top + window.pageYOffset - navMH - 12, behavior: 'smooth' });
+      } else if (camino === 'budget') {
+        // Presupuesto diferente → escalera de valor: Estudio Epigenético (BioScan)
+        track('bioscan_redirect', { from: 'form_budget' });
+        setTimeout(function() {
+          window.location.href = 'https://bioscan.michellepeiret.com/?utm_source=analisis_landing&utm_medium=form_budget';
+        }, 400);
       } else {
         track('booking_notice_shown');
         pendingCalName  = nameVal;
