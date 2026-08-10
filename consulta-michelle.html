@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="images/LOGO (10).png">
+  <link rel="icon" type="image/png" href="images/LOGO%20%2810%29.png">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-B7PSHFCHGY"></script>
@@ -66,11 +66,10 @@
     .hero { background: var(--cream); padding: 56px 0 68px; border-bottom: 1px solid var(--cream2); }
     .hero-grid {
       display: grid; grid-template-columns: 0.88fr 1.12fr; column-gap: 50px; row-gap: 0;
-      grid-template-areas: "lead cal" "desc cal"; align-items: start;
+      grid-template-areas: "lead cal"; align-items: start;
     }
     .hero-lead { grid-area: lead; }
     .cal-col   { grid-area: cal; }
-    .hero-desc { grid-area: desc; }
     .hero h1 { margin-bottom: 18px; }
     .h1-plus { display: block; color: var(--teal-dk); font-style: italic; font-weight: 400; margin-top: 2px; }
     .hero-sub { font-size: 1.04rem; color: var(--muted); line-height: 1.8; margin-bottom: 30px; }
@@ -128,7 +127,7 @@
     .timing strong { color: var(--navy); font-weight: 700; }
     @media (max-width: 980px) {
       /* En movil: titulo → formulario → descripcion (patron de pagina de producto) */
-      .hero-grid { grid-template-columns: 1fr; grid-template-areas: "lead" "cal" "desc"; row-gap: 34px; }
+      .hero-grid { grid-template-columns: 1fr; grid-template-areas: "lead" "cal"; row-gap: 32px; }
       .cal-col { position: static; }
       /* 16px evita que iOS haga zoom al enfocar un campo */
       .fld input, .fld select, .fld textarea { font-size: 16px; }
@@ -146,12 +145,17 @@
     .tagline { font-family: var(--font-serif); font-size: clamp(1.2rem, 2.1vw, 1.5rem); font-style: italic; color: var(--teal-dk); line-height: 1.4; margin-bottom: 18px; }
     .desc-h { font-family: var(--font-serif); font-size: 1.42rem; font-weight: 600; color: var(--navy); margin: 34px 0 4px; }
     .desc-sub { font-size: 0.9rem; color: var(--muted); margin-bottom: 20px; }
-    .inc-list { list-style: none; }
-    .inc-list > li { padding: 17px 0 17px 30px; position: relative; border-bottom: 1px solid var(--cream2); }
-    .inc-list > li:last-child { border-bottom: none; }
+    .inc-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; column-gap: 46px; }
+    .inc-list > li { padding: 16px 0 16px 28px; position: relative; border-bottom: 1px solid var(--cream2); }
+    .inc-list > li:nth-last-child(-n+2) { border-bottom: none; }
     .inc-list > li::before { content: ''; position: absolute; left: 3px; top: 25px; width: 8px; height: 8px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 4px rgba(0,201,167,0.16); }
     .inc-list b { display: block; font-size: 0.95rem; color: var(--navy); font-weight: 700; margin-bottom: 4px; }
-    .inc-list span { display: block; font-size: 0.91rem; color: var(--muted); line-height: 1.78; }
+    .inc-list span { display: block; font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+    @media (max-width: 860px) {
+      .inc-list { grid-template-columns: 1fr; column-gap: 0; }
+      .inc-list > li:nth-last-child(-n+2) { border-bottom: 1px solid var(--cream2); }
+      .inc-list > li:last-child { border-bottom: none; }
+    }
 
     /* ── LA CONSULTA ── */
     .sec-head { max-width: 720px; margin-bottom: 20px; }
@@ -184,7 +188,13 @@
     .col-list li:last-child { border-bottom: none; }
     .col-list li::before { content: ''; position: absolute; left: 2px; top: 20px; width: 8px; height: 8px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 4px rgba(0,201,167,0.14); }
     .col-list strong { color: var(--text); font-weight: 600; }
-    @media (max-width: 820px) { .two-col { grid-template-columns: 1fr; gap: 40px; } }
+    @media (max-width: 820px) {
+      .two-col { column-gap: 20px; }
+      .col-block h3 { font-size: 1.18rem; margin-bottom: 14px; }
+      .col-list li { font-size: 0.82rem; padding: 10px 0 10px 19px; line-height: 1.58; }
+      .col-list li::before { top: 16px; width: 7px; height: 7px; box-shadow: 0 0 0 3px rgba(0,201,167,0.14); }
+    }
+    @media (max-width: 430px) { .two-col { grid-template-columns: 1fr; row-gap: 32px; } }
 
     /* ── BIOSCAN ── */
     .scan { background: var(--navy); color: rgba(255,255,255,0.78); }
@@ -293,8 +303,8 @@
 
   <nav class="nav">
     <div class="nav-in">
-      <img src="images/LOGO (10).png" alt="Michelle Peiret Health" class="nav-logo">
-      <a href="#reservar" class="nav-cta" onclick="track('cta_click',{position:'nav'})">Reservar consulta</a>
+      <img src="images/LOGO%20%2810%29.png" alt="Michelle Peiret Health" class="nav-logo">
+      <a href="#form" class="nav-cta" onclick="track('cta_click',{position:'nav'})">Reservar consulta</a>
     </div>
   </nav>
 
@@ -319,7 +329,6 @@
           <div class="meta-row"><span class="meta-k">Incluye</span><span class="meta-v">BioScan · 900+ biomarcadores</span></div>
           <div class="meta-row"><span class="meta-k">Modalidad</span><span class="meta-v">Presencial en Miami u online</span></div>
           <div class="meta-row"><span class="meta-k">En Miami</span><span class="meta-v">Muestra y consulta el mismo día</span></div>
-          <div class="meta-row"><span class="meta-k">Inversión</span><span class="meta-v price">$700 USD</span></div>
         </div>
 
         <div class="hero-portrait">
@@ -329,9 +338,7 @@
             <span>Especialista en Nutrigenómica y Epigenética</span>
           </div>
         </div>
-      </div>
 
-      <div class="hero-desc">
         <div class="after after-standalone">
           <b>Qué pasa después de reservar</b>
           <ol>
@@ -343,84 +350,9 @@
             <strong>Tiempos estimados:</strong> normalmente la consulta ocurre entre <strong>15 y 20 días</strong> después de tu reserva. El rango puede variar según dónde estés ubicado — dentro de Estados Unidos o internacionalmente — porque Michelle necesita tus resultados del BioScan antes de la consulta.
           </p>
         </div>
-
-        <h2 class="desc-h">Qué incluye esta consulta</h2>
-        <p class="desc-sub">Seis piezas que trabajan juntas. La integración es lo que la hace precisa.</p>
-
-        <ul class="inc-list">
-          <li>
-            <b>Evaluación integral de tu historia</b>
-            <span>
-              Michelle entiende tu caso completo: historial médico, diagnósticos previos, tratamientos
-              y medicación. Y junto a eso tu historia personal — hábitos, sueño, alimentación, niveles
-              de estrés, los momentos que marcaron tu salud y los objetivos que tienes hoy.
-            </span>
-          </li>
-          <li>
-            <b>Tu estudio BioScan</b>
-            <span>
-              El BioScan es un estudio epigenético que se realiza con cuatro hebras de cabello — sin
-              agujas y sin sangre. El cabello acumula información biológica durante semanas, y de ahí
-              se leen más de 900 biomarcadores: tus vitaminas y minerales, tus hormonas, tu microbiota
-              intestinal, las toxinas y metales que acumulas, tus sensibilidades a más de 115
-              alimentos, tu inflamación y tu edad biológica. No mide predisposiciones genéticas fijas:
-              muestra cómo está funcionando tu cuerpo ahora.
-            </span>
-          </li>
-          <li>
-            <b>La interpretación de Michelle</b>
-            <span>
-              Michelle revisa tu reporte contigo, categoría por categoría, y traduce cada hallazgo al
-              contexto de tu caso. La diferencia no está en tener el estudio, sino en que alguien con
-              quince años leyendo biología individual te explique el tuyo.
-            </span>
-          </li>
-          <li>
-            <b>El origen de lo que te está pasando</b>
-            <span>
-              El mecanismo detrás de lo que sientes: qué lo originó, por qué tu cuerpo está
-              respondiendo así, y cómo se conecta con tu genética y con la forma en que tus genes se
-              están expresando hoy. Sales entendiendo tu propio caso, no repitiendo un diagnóstico.
-            </span>
-          </li>
-          <li>
-            <b>La estructura de tu plan personalizado</b>
-            <span>
-              Aquí queda definida la arquitectura de tu plan: qué contempla, por dónde se empieza, en
-              qué fases se ordena y qué papel juegan la nutrición, la suplementación y los hábitos en
-              tu protocolo. El plan detallado se construye y se entrega al iniciar tu programa — en
-              esta consulta queda establecido cómo va a funcionar.
-            </span>
-          </li>
-          <li>
-            <b>Los tiempos, con fechas</b>
-            <span>
-              Márgenes reales: cuánto tomaría trabajar tu caso uno a uno, en qué momento se empiezan a
-              notar los cambios, cuánto tiempo se acompaña el proceso y cuánto suele llevar llegar al
-              objetivo que te planteas.
-            </span>
-          </li>
-        </ul>
-
-        <div class="planner">
-          <div class="planner-mark">&#43;</div>
-          <div>
-            <p class="kicker">Como parte de tu experiencia recibirás</p>
-            <h3>El Planner Michelle Peiret</h3>
-            <p>
-              Un complemento diseñado para acompañar tu proceso desde el primer día, para que la
-              estrategia que definas con Michelle sea aplicable en tu día a día.
-            </p>
-            <ul>
-              <li>Variedad de recetas de jugos y comidas alineadas al enfoque de Michelle</li>
-              <li>Calendario de planificación para organizar tu plan personalizado semana a semana</li>
-            </ul>
-          </div>
-        </div>
-
       </div>
 
-      <div class="cal-col">
+      <div class="cal-col" id="form">
         <div class="cal-card">
           <div class="cal-card-head">
             <b>Reserva tu cupo</b>
@@ -428,7 +360,6 @@
           </div>
           <div class="cal-card-body">
             <div class="bk-price">
-              <img src="images/michelle-retrato.jpg" alt="Michelle Peiret" class="bk-avatar">
               <div>
                 <b>$700</b>
                 <span>USD · pago único</span>
@@ -495,6 +426,51 @@
       </div>
     </div>
   </header>
+
+  <!-- ━━━ QUÉ INCLUYE ━━━ -->
+  <section class="incl-sec">
+    <div class="wrap">
+      <div class="sec-head fade">
+        <span class="label">Qué incluye</span>
+        <h2>Qué incluye esta consulta</h2>
+      </div>
+      <ul class="inc-list fade">
+        <li>
+          <b>Evaluación integral de tu historia</b>
+          <span>Tu historial médico, diagnósticos y tratamientos previos, junto a tu historia personal: hábitos, sueño, alimentación, estrés y los objetivos que tienes hoy.</span>
+        </li>
+        <li>
+          <b>Tu estudio BioScan</b>
+          <span>Un estudio epigenético con cuatro hebras de cabello, sin agujas ni sangre. Lee 900+ biomarcadores: vitaminas y minerales, hormonas, microbiota, toxinas, sensibilidades a 115+ alimentos, inflamación y edad biológica. Muestra cómo funciona tu cuerpo hoy, no predisposiciones fijas.</span>
+        </li>
+        <li>
+          <b>La interpretación de Michelle</b>
+          <span>Revisa tu reporte contigo, categoría por categoría, y traduce cada hallazgo al contexto de tu caso.</span>
+        </li>
+        <li>
+          <b>El origen de lo que te pasa</b>
+          <span>Qué lo originó, por qué tu cuerpo responde así, y cómo se conecta con tu genética y con la forma en que tus genes se expresan hoy.</span>
+        </li>
+        <li>
+          <b>La estructura de tu plan personalizado</b>
+          <span>Qué contempla, por dónde se empieza y en qué fases se ordena. El plan detallado se entrega al iniciar tu programa; aquí queda definido cómo va a funcionar.</span>
+        </li>
+        <li>
+          <b>Los tiempos, con fechas</b>
+          <span>Cuánto tomaría trabajar tu caso uno a uno, cuándo se empiezan a notar los cambios y cuánto suele llevar llegar a tu objetivo.</span>
+        </li>
+      </ul>
+
+      <div class="planner fade">
+        <div class="planner-mark">&#43;</div>
+        <div>
+          <p class="kicker">Como parte de tu experiencia recibirás</p>
+          <h3>El Planner Michelle Peiret</h3>
+          <p>Un complemento para que la estrategia que definas con Michelle sea aplicable en tu día a día: variedad de recetas de jugos y comidas, y un calendario de planificación para organizar tu plan semana a semana.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ━━━ BIOSCAN ━━━ -->
   <section class="scan">
@@ -563,51 +539,6 @@
           <li><strong>Tiempos concretos</strong> — cuánto tomaría el proceso y cuándo se notan los cambios</li>
           <li><strong>Decisiones informadas</strong> — criterio propio para lo que decidas hacer a partir de hoy</li>
         </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ━━━ PASOS ━━━ -->
-  <section>
-    <div class="wrap">
-      <div class="sec-head fade">
-        <span class="label">El proceso</span>
-        <h2>Cómo se ordena todo</h2>
-      </div>
-      <div class="steps">
-        <div class="step fade">
-          <span class="step-n">PASO 01</span>
-          <h3>Reservas</h3>
-          <p>Eliges día y hora en el calendario y confirmas tu cupo.</p>
-        </div>
-        <div class="step fade">
-          <span class="step-n">PASO 02</span>
-          <h3>Tu muestra</h3>
-          <p>En Miami se toma en el consultorio el día de tu cita. Si es online, el kit llega a tu casa y la envías de vuelta.</p>
-        </div>
-        <div class="step fade">
-          <span class="step-n">PASO 03</span>
-          <h3>Tu BioScan</h3>
-          <p>En Miami el reporte queda listo en unas dos horas, ese mismo día. Online, al recibirse tu muestra.</p>
-        </div>
-        <div class="step fade">
-          <span class="step-n">PASO 04</span>
-          <h3>Tu consulta y tu estrategia</h3>
-          <p>Los sesenta minutos con Michelle, con tu reporte en mano, y la estrategia de tu plan definida.</p>
-        </div>
-      </div>
-
-      <div class="planner fade" style="margin-top:34px">
-        <div class="planner-mark">&#9711;</div>
-        <div>
-          <p class="kicker">Si vienes al consultorio en Miami</p>
-          <h3>Todo en una sola visita</h3>
-          <p>
-            Llegas, se toma tu muestra de cabello, esperas alrededor de dos horas mientras se procesa
-            y ese mismo día entras a tu consulta con Michelle, con tus resultados sobre la mesa. Un
-            solo día, de la muestra a tu estrategia.
-          </p>
-        </div>
       </div>
     </div>
   </section>
@@ -850,7 +781,7 @@
     <div class="wrap fade">
       <h2>Reserva tu consulta</h2>
       <p class="lede">Sesenta minutos con Michelle y tu biología medida. Elige tu día y hora.</p>
-      <a href="#reservar" class="btn" onclick="track('cta_click',{position:'final'})">Reservar mi cupo →</a>
+      <a href="#form" class="btn" onclick="track('cta_click',{position:'final'})">Reservar mi cupo →</a>
       <span class="btn-line">$700 USD · BioScan incluido</span>
     </div>
   </section>
