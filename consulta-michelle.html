@@ -79,12 +79,24 @@
     .hero-portrait b { display: block; font-size: 0.9rem; color: var(--navy); font-weight: 700; }
     .hero-portrait span { font-size: 0.78rem; color: var(--muted); }
 
+    .cal-col { position: sticky; top: 82px; }
     .cal-card { background: var(--white); border-radius: 14px; box-shadow: 0 18px 52px rgba(13,27,46,0.13); overflow: hidden; border: 1px solid var(--border); }
     .cal-card-head { padding: 20px 26px 17px; border-bottom: 1px solid var(--border); }
     .cal-card-head b { display: block; font-family: var(--font-serif); font-size: 1.3rem; color: var(--navy); font-weight: 600; }
     .cal-card-head span { font-size: 0.81rem; color: var(--muted); }
     #calInline { min-width: 300px; height: 710px; }
-    @media (max-width: 980px) { .hero-grid { grid-template-columns: 1fr; gap: 40px; } #calInline { height: 1000px; } }
+    @media (max-width: 980px) { .hero-grid { grid-template-columns: 1fr; gap: 40px; } #calInline { height: 1000px; } .cal-col { position: static; } }
+
+    /* ── DESCRIPCION EN EL HERO ── */
+    .tagline { font-family: var(--font-serif); font-size: clamp(1.2rem, 2.1vw, 1.5rem); font-style: italic; color: var(--teal-dk); line-height: 1.4; margin-bottom: 18px; }
+    .desc-h { font-family: var(--font-serif); font-size: 1.42rem; font-weight: 600; color: var(--navy); margin: 34px 0 4px; }
+    .desc-sub { font-size: 0.9rem; color: var(--muted); margin-bottom: 20px; }
+    .inc-list { list-style: none; }
+    .inc-list > li { padding: 17px 0 17px 30px; position: relative; border-bottom: 1px solid var(--cream2); }
+    .inc-list > li:last-child { border-bottom: none; }
+    .inc-list > li::before { content: ''; position: absolute; left: 3px; top: 25px; width: 8px; height: 8px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 4px rgba(0,201,167,0.16); }
+    .inc-list b { display: block; font-size: 0.95rem; color: var(--navy); font-weight: 700; margin-bottom: 4px; }
+    .inc-list span { display: block; font-size: 0.91rem; color: var(--muted); line-height: 1.78; }
 
     /* ── LA CONSULTA ── */
     .sec-head { max-width: 720px; margin-bottom: 20px; }
@@ -231,24 +243,104 @@
     </div>
   </nav>
 
-  <!-- ━━━ HERO + CALENDARIO ━━━ -->
+  <!-- ━━━ HERO: PRODUCTO + DESCRIPCION + CALENDARIO ━━━ -->
   <header class="hero" id="reservar">
     <div class="wrap hero-grid">
       <div>
         <span class="label">Consulta de evaluación</span>
         <h1>Consulta de evaluación con Michelle Peiret <span class="h1-plus">+ estudio BioScan</span></h1>
+
+        <p class="tagline">Tu punto de partida hacia un plan hecho a tu medida.</p>
+
         <p class="hero-sub">
-          Sesenta minutos uno a uno con Michelle, con tu <strong>BioScan</strong> sobre la mesa.
-          Recorre tu historia completa, te explica el origen de lo que estás viviendo, cómo se
-          corrige y en cuánto tiempo.
+          Sesenta minutos uno a uno con Michelle, con tu BioScan sobre la mesa. Recorre tu historia
+          completa, te explica el origen de lo que estás viviendo y define contigo la estrategia con
+          la que se va a trabajar tu caso: <strong>cómo se corrige, en qué orden y en cuánto tiempo</strong>.
+          Tu plan personalizado nace de esta consulta.
         </p>
+
         <div class="meta-rows">
           <div class="meta-row"><span class="meta-k">Duración</span><span class="meta-v">60 minutos, uno a uno</span></div>
           <div class="meta-row"><span class="meta-k">Incluye</span><span class="meta-v">BioScan · 900+ biomarcadores</span></div>
           <div class="meta-row"><span class="meta-k">Modalidad</span><span class="meta-v">Presencial en Miami u online</span></div>
           <div class="meta-row"><span class="meta-k">Inversión</span><span class="meta-v price">$700 USD</span></div>
         </div>
-        <div class="hero-portrait">
+
+        <h2 class="desc-h">Qué incluye esta consulta</h2>
+        <p class="desc-sub">Seis piezas que trabajan juntas. La integración es lo que la hace precisa.</p>
+
+        <ul class="inc-list">
+          <li>
+            <b>Evaluación integral de tu historia</b>
+            <span>
+              Michelle entiende tu caso completo: historial médico, diagnósticos previos, tratamientos
+              y medicación. Y junto a eso tu historia personal — hábitos, sueño, alimentación, niveles
+              de estrés, los momentos que marcaron tu salud y los objetivos que tienes hoy.
+            </span>
+          </li>
+          <li>
+            <b>Tu estudio BioScan</b>
+            <span>
+              El BioScan es un estudio epigenético que se realiza con cuatro hebras de cabello — sin
+              agujas y sin sangre. El cabello acumula información biológica durante semanas, y de ahí
+              se leen más de 900 biomarcadores: tus vitaminas y minerales, tus hormonas, tu microbiota
+              intestinal, las toxinas y metales que acumulas, tus sensibilidades a más de 115
+              alimentos, tu inflamación y tu edad biológica. No mide predisposiciones genéticas fijas:
+              muestra cómo está funcionando tu cuerpo ahora.
+            </span>
+          </li>
+          <li>
+            <b>La interpretación de Michelle</b>
+            <span>
+              Michelle revisa tu reporte contigo, categoría por categoría, y traduce cada hallazgo al
+              contexto de tu caso. La diferencia no está en tener el estudio, sino en que alguien con
+              quince años leyendo biología individual te explique el tuyo.
+            </span>
+          </li>
+          <li>
+            <b>El origen de lo que te está pasando</b>
+            <span>
+              El mecanismo detrás de lo que sientes: qué lo originó, por qué tu cuerpo está
+              respondiendo así, y cómo se conecta con tu genética y con la forma en que tus genes se
+              están expresando hoy. Sales entendiendo tu propio caso, no repitiendo un diagnóstico.
+            </span>
+          </li>
+          <li>
+            <b>La estructura de tu plan personalizado</b>
+            <span>
+              Aquí queda definida la arquitectura de tu plan: qué contempla, por dónde se empieza, en
+              qué fases se ordena y qué papel juegan la nutrición, la suplementación y los hábitos en
+              tu protocolo. El plan detallado se construye y se entrega al iniciar tu programa — en
+              esta consulta queda establecido cómo va a funcionar.
+            </span>
+          </li>
+          <li>
+            <b>Los tiempos, con fechas</b>
+            <span>
+              Márgenes reales: cuánto tomaría trabajar tu caso uno a uno, en qué momento se empiezan a
+              notar los cambios, cuánto tiempo se acompaña el proceso y cuánto suele llevar llegar al
+              objetivo que te planteas.
+            </span>
+          </li>
+        </ul>
+
+        <div class="planner">
+          <div class="planner-mark">&#43;</div>
+          <div>
+            <p class="kicker">Como parte de tu experiencia recibirás</p>
+            <h3>El Planner Michelle Peiret</h3>
+            <p>
+              Un complemento diseñado para acompañar tu proceso desde el primer día, para que la
+              estrategia que definas con Michelle sea aplicable en tu día a día.
+            </p>
+            <ul>
+              <li>Variedad de recetas de jugos y comidas alineadas al enfoque de Michelle</li>
+              <li>Calendario de planificación para organizar tu plan personalizado semana a semana</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="hero-portrait" style="margin-top:32px">
           <img src="images/michelle-retrato.jpg" alt="Michelle Peiret">
           <div>
             <b>Michelle Peiret</b>
@@ -257,115 +349,17 @@
         </div>
       </div>
 
-      <div class="cal-card">
-        <div class="cal-card-head">
-          <b>Elige tu día y hora</b>
-          <span>Tu cupo se confirma al reservar.</span>
+      <div class="cal-col">
+        <div class="cal-card">
+          <div class="cal-card-head">
+            <b>Elige tu día y hora</b>
+            <span>Tu cupo se confirma al reservar.</span>
+          </div>
+          <div id="calInline"></div>
         </div>
-        <div id="calInline"></div>
       </div>
     </div>
   </header>
-
-  <!-- ━━━ LA CONSULTA ━━━ -->
-  <section>
-    <div class="wrap">
-      <div class="sec-head fade">
-        <span class="label">La consulta</span>
-        <h2>El punto de partida de tu plan personalizado</h2>
-      </div>
-      <p class="cons-intro fade">
-        Esta consulta es el primer paso del proceso: el momento en que tu caso se evalúa a fondo y
-        queda definida la estrategia con la que se va a trabajar. Michelle recorre tu historia
-        completa, lee tu BioScan, te explica el origen de lo que estás viviendo y sale contigo con
-        una <strong>estrategia clara y aterrizada</strong>: cómo se corrige, en qué orden, y en
-        cuánto tiempo. El plan personalizado nace de aquí.
-      </p>
-
-      <div class="cons-grid">
-        <div class="cons-item fade">
-          <div class="cons-item-n">01</div>
-          <h3>Evaluación integral de tu historia</h3>
-          <p>
-            Un espacio de sesenta minutos donde Michelle entiende tu caso completo: historial médico,
-            diagnósticos previos, tratamientos y medicación. Y junto a eso tu historia personal —
-            hábitos, sueño, alimentación, niveles de estrés, los momentos que marcaron tu salud y los
-            objetivos que tienes hoy.
-          </p>
-        </div>
-
-        <div class="cons-item fade">
-          <div class="cons-item-n">02</div>
-          <h3>Tu estudio BioScan</h3>
-          <p>
-            El BioScan es un estudio epigenético que se hace con cuatro hebras de cabello. El cabello
-            acumula información biológica durante semanas, y de ahí se leen más de 900 biomarcadores:
-            tus vitaminas y minerales, tus hormonas, tu microbiota intestinal, las toxinas y metales
-            que acumulas, tus sensibilidades alimentarias, tu inflamación y tu edad biológica. No mide
-            predisposiciones genéticas fijas — muestra cómo está funcionando tu cuerpo ahora.
-          </p>
-        </div>
-
-        <div class="cons-item fade">
-          <div class="cons-item-n">03</div>
-          <h3>La interpretación de Michelle</h3>
-          <p>
-            Michelle revisa tu reporte contigo, categoría por categoría, y traduce cada hallazgo al
-            contexto de tu caso. La diferencia no está en tener el estudio: está en que alguien con
-            quince años leyendo biología individual te explique qué significa el tuyo.
-          </p>
-        </div>
-
-        <div class="cons-item fade">
-          <div class="cons-item-n">04</div>
-          <h3>Por qué te está pasando</h3>
-          <p>
-            El mecanismo detrás de lo que sientes: qué lo originó, por qué tu cuerpo está respondiendo
-            así, y cómo se conecta con tu genética y con la forma en que tus genes se están expresando
-            hoy. Sales entendiendo tu propio caso, no repitiendo un diagnóstico.
-          </p>
-        </div>
-
-        <div class="cons-item fade">
-          <div class="cons-item-n">05</div>
-          <h3>La estructura de tu plan personalizado</h3>
-          <p>
-            Aquí queda definida la arquitectura de tu plan: qué contempla, por dónde se empieza, en qué
-            fases se ordena, y qué papel juegan la nutrición, la suplementación y los hábitos en tu
-            protocolo. El plan detallado se construye y se entrega al iniciar tu programa — en esta
-            consulta queda establecido cómo va a funcionar.
-          </p>
-        </div>
-
-        <div class="cons-item fade">
-          <div class="cons-item-n">06</div>
-          <h3>Los tiempos, con fechas</h3>
-          <p>
-            Márgenes reales: cuánto tomaría trabajar tu caso uno a uno, en qué momento se empiezan a
-            notar los cambios, cuánto tiempo se acompaña el proceso y cuánto suele llevar llegar al
-            objetivo que te planteas. Con tiempos concretos, para que decidas con información.
-          </p>
-        </div>
-      </div>
-
-      <div class="planner fade">
-        <div class="planner-mark">&#43;</div>
-        <div>
-          <p class="kicker">Como parte de tu experiencia recibirás</p>
-          <h3>El Planner Michelle Peiret</h3>
-          <p>
-            Un complemento diseñado para acompañar tu proceso desde el primer día, pensado para que la
-            estrategia que definas con Michelle sea aplicable en tu día a día.
-          </p>
-          <ul>
-            <li>Variedad de recetas de jugos y comidas alineadas al enfoque de Michelle</li>
-            <li>Calendario de planificación para organizar tu plan personalizado semana a semana</li>
-            <li>Formato para registrar tu progreso y llevarlo a tus siguientes consultas</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ━━━ BIOSCAN ━━━ -->
   <section class="scan">
