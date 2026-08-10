@@ -84,7 +84,37 @@
     .cal-card-head { padding: 20px 26px 17px; border-bottom: 1px solid var(--border); }
     .cal-card-head b { display: block; font-family: var(--font-serif); font-size: 1.3rem; color: var(--navy); font-weight: 600; }
     .cal-card-head span { font-size: 0.81rem; color: var(--muted); }
-    #calInline { min-width: 300px; height: 710px; }
+    .cal-card-body { padding: 24px 26px 28px; }
+    .bk-price { display: flex; align-items: baseline; gap: 10px; padding-bottom: 18px; border-bottom: 1px solid var(--border); margin-bottom: 18px; }
+    .bk-price b { font-size: 2rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; }
+    .bk-price span { font-size: 0.83rem; color: var(--muted); }
+    .scarcity { background: rgba(0,201,167,0.08); border: 1px solid rgba(0,201,167,0.26); border-radius: 8px; padding: 13px 16px; margin-bottom: 20px; }
+    .scarcity b { display: block; font-size: 0.83rem; color: var(--teal-dk); font-weight: 700; margin-bottom: 4px; }
+    .scarcity span { font-size: 0.82rem; color: var(--muted); line-height: 1.62; }
+    .fld { margin-bottom: 15px; }
+    .fld label { display: block; font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 6px; }
+    .fld input, .fld select, .fld textarea {
+      width: 100%; padding: 12px 14px; border: 1.5px solid var(--cream2); border-radius: 7px;
+      font-size: 0.93rem; font-family: var(--font-body); color: var(--text); background: var(--white);
+      transition: border-color 0.18s; -webkit-appearance: none; appearance: none;
+    }
+    .fld select { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'><path d='M1 1l4.5 4.5L10 1' stroke='%236b7a8d' stroke-width='1.6' fill='none' stroke-linecap='round'/></svg>"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+    .fld input:focus, .fld select:focus, .fld textarea:focus { outline: none; border-color: var(--teal); }
+    .fld textarea { resize: vertical; min-height: 62px; }
+    .fld-err { display: none; font-size: 0.78rem; color: #d64545; margin-top: 5px; }
+    .fld-err.show { display: block; }
+    .bk-btn { width: 100%; margin-top: 6px; border: none; cursor: pointer; }
+    .bk-btn[disabled] { opacity: 0.6; cursor: default; transform: none; }
+    .bk-secure { text-align: center; font-size: 0.76rem; color: var(--muted); margin-top: 12px; line-height: 1.6; }
+    .after { border-top: 1px solid var(--border); margin-top: 22px; padding-top: 20px; }
+    .after > b { display: block; font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-dk); font-weight: 700; margin-bottom: 14px; }
+    .after ol { list-style: none; counter-reset: a; }
+    .after li { counter-increment: a; position: relative; padding: 0 0 14px 30px; font-size: 0.86rem; color: var(--muted); line-height: 1.68; }
+    .after li:last-child { padding-bottom: 0; }
+    .after li::before { content: counter(a); position: absolute; left: 0; top: 1px; width: 20px; height: 20px; border-radius: 50%; background: var(--navy); color: var(--teal); font-size: 0.68rem; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+    .after li strong { color: var(--text); font-weight: 600; }
+    .timing { font-size: 0.81rem; color: var(--muted); line-height: 1.7; margin-top: 16px; padding: 14px 16px; background: var(--cream); border-radius: 8px; }
+    .timing strong { color: var(--navy); font-weight: 700; }
     @media (max-width: 980px) { .hero-grid { grid-template-columns: 1fr; gap: 40px; } #calInline { height: 1000px; } .cal-col { position: static; } }
 
     /* ── DESCRIPCION EN EL HERO ── */
@@ -353,10 +383,81 @@
       <div class="cal-col">
         <div class="cal-card">
           <div class="cal-card-head">
-            <b>Elige tu día y hora</b>
-            <span>Tu cupo se confirma al reservar.</span>
+            <b>Reserva tu cupo</b>
+            <span>Consulta de evaluación + estudio BioScan</span>
           </div>
-          <div id="calInline"></div>
+          <div class="cal-card-body">
+            <div class="bk-price">
+              <b>$700</b><span>USD · pago único</span>
+            </div>
+
+            <div class="scarcity">
+              <b>Cupos limitados cada mes</b>
+              <span>Michelle atiende un número limitado de consultas nuevas al mes y se asignan por orden de reserva. Al reservar hoy tu cupo queda apartado antes que el de cualquiera que aún no ha reservado.</span>
+            </div>
+
+            <form id="bkForm" novalidate>
+              <div class="fld">
+                <label for="bkName">Nombre completo</label>
+                <input type="text" id="bkName" autocomplete="name" placeholder="Tu nombre y apellido">
+                <span class="fld-err" id="errName">Escribe tu nombre completo</span>
+              </div>
+              <div class="fld">
+                <label for="bkEmail">Correo electrónico</label>
+                <input type="email" id="bkEmail" autocomplete="email" inputmode="email" placeholder="tu@correo.com">
+                <span class="fld-err" id="errEmail">Escribe un correo válido</span>
+              </div>
+              <div class="fld">
+                <label for="bkCountry">¿Dónde estás ubicado?</label>
+                <select id="bkCountry">
+                  <option value="">Selecciona…</option>
+                  <option value="Miami, FL">Miami, Florida</option>
+                  <option value="Estados Unidos (otro estado)">Estados Unidos — otro estado</option>
+                  <option value="Internacional">Fuera de Estados Unidos</option>
+                </select>
+                <span class="fld-err" id="errCountry">Selecciona tu ubicación</span>
+              </div>
+              <div class="fld">
+                <label for="bkMes">¿Cuándo te gustaría tu consulta?</label>
+                <select id="bkMes">
+                  <option value="">Selecciona…</option>
+                  <option value="cuanto_antes">Lo antes posible</option>
+                  <option value="este_mes">Este mes</option>
+                  <option value="proximo_mes">El próximo mes</option>
+                  <option value="flexible">Soy flexible</option>
+                </select>
+                <span class="fld-err" id="errMes">Selecciona una opción</span>
+              </div>
+              <div class="fld">
+                <label for="bkUrg">¿Qué tan urgente es tu caso?</label>
+                <select id="bkUrg">
+                  <option value="">Selecciona…</option>
+                  <option value="alta">Alta — quiero empezar ya</option>
+                  <option value="media">Media — en las próximas semanas</option>
+                  <option value="baja">Baja — estoy planificando</option>
+                </select>
+              </div>
+              <div class="fld">
+                <label for="bkNotes">Qué te gustaría resolver <span style="text-transform:none;letter-spacing:0;font-weight:400">(opcional)</span></label>
+                <textarea id="bkNotes" placeholder="Cuéntanos brevemente tu caso"></textarea>
+              </div>
+
+              <button type="submit" class="btn bk-btn" id="bkBtn">Reservar mi consulta →</button>
+              <p class="bk-secure">Pago seguro con Stripe. Tarjeta, Apple&nbsp;Pay y Google&nbsp;Pay.</p>
+            </form>
+
+            <div class="after">
+              <b>Qué pasa después de reservar</b>
+              <ol>
+                <li><strong>Te contactamos entre 24 y 48 horas</strong> para coordinar tu muestra y agendar tu consulta. Normalmente es mucho antes; si reservas un fin de semana o fuera del horario de oficina, será el siguiente día hábil.</li>
+                <li><strong>Coordinamos tu muestra de cabello.</strong> En Miami se toma en el consultorio el mismo día de tu consulta. Fuera de Miami, te enviamos el kit a tu casa.</li>
+                <li><strong>Michelle te recibe con tus resultados listos.</strong></li>
+              </ol>
+              <p class="timing">
+                <strong>Tiempos estimados:</strong> normalmente la consulta ocurre entre <strong>15 y 20 días</strong> después de tu reserva. El rango puede variar según dónde estés ubicado — dentro de Estados Unidos o internacionalmente — porque Michelle necesita tus resultados del BioScan antes de la consulta.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -716,7 +817,7 @@
     <div class="wrap fade">
       <h2>Reserva tu consulta</h2>
       <p class="lede">Sesenta minutos con Michelle y tu biología medida. Elige tu día y hora.</p>
-      <a href="#reservar" class="btn" onclick="track('cta_click',{position:'final'})">Ver disponibilidad →</a>
+      <a href="#reservar" class="btn" onclick="track('cta_click',{position:'final'})">Reservar mi cupo →</a>
       <span class="btn-line">$700 USD · BioScan incluido</span>
     </div>
   </section>
@@ -731,12 +832,10 @@
     </div>
   </footer>
 
-  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
   <script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
 
   <script>
-    var CALENDLY_URL = 'https://calendly.com/michelle-michellepeiret/30min/60'; // /60 = duracion de 60 minutos
+    var CHECKOUT_ENDPOINT = 'https://bioscan.michellepeiret.com/api/consulta-checkout';
     var UTM_KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
     var attribution = {};
     (function () {
@@ -759,20 +858,58 @@
       try { if (window.gtag) gtag('event', name, params); } catch (e) {}
     }
 
-    function initCal() {
-      if (!window.Calendly) { setTimeout(initCal, 260); return; }
-      Calendly.initInlineWidget({
-        url: CALENDLY_URL + '?hide_gdpr_banner=1&primary_color=00c9a7',
-        parentElement: document.getElementById('calInline')
-      });
-    }
-    initCal();
+    /* ── CHECKOUT ── */
+    (function () {
+      var form = document.getElementById('bkForm');
+      if (!form) return;
+      var btn = document.getElementById('bkBtn');
+      var started = false;
 
-    window.addEventListener('message', function (e) {
-      if (!e.data || typeof e.data.event !== 'string' || e.data.event.indexOf('calendly.') !== 0) return;
-      if (e.data.event === 'calendly.date_and_time_selected') track('booking_time_selected', { calendar: 'michelle_consulta' });
-      if (e.data.event === 'calendly.event_scheduled') track('booking_completed', { calendar: 'michelle_consulta', value: 700, currency: 'USD' });
-    });
+      function val(id) { return (document.getElementById(id).value || '').trim(); }
+      function err(id, show) { document.getElementById(id).classList.toggle('show', show); }
+
+      form.addEventListener('focusin', function () {
+        if (started) return; started = true; track('checkout_form_start');
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = val('bkName'), email = val('bkEmail'), country = val('bkCountry'), mes = val('bkMes');
+        var ok = true;
+        if (name.length < 3)                                   { err('errName', true);    ok = false; } else err('errName', false);
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))        { err('errEmail', true);   ok = false; } else err('errEmail', false);
+        if (!country)                                          { err('errCountry', true); ok = false; } else err('errCountry', false);
+        if (!mes)                                              { err('errMes', true);     ok = false; } else err('errMes', false);
+        if (!ok) { track('checkout_validation_error'); return; }
+
+        btn.disabled = true;
+        btn.textContent = 'Abriendo pago seguro…';
+        track('begin_checkout', { value: 700, currency: 'USD', country: country, mes: mes });
+
+        fetch(CHECKOUT_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: name, email: email, country: country, mes: mes,
+            urgencia: val('bkUrg'), notes: val('bkNotes'),
+            source: 'consulta-michelle · ' + (attribution.utm_source || 'directo'),
+            origin: location.origin
+          })
+        })
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          if (j && j.url) { window.location.href = j.url; return; }
+          throw new Error((j && j.error) || 'sin url');
+        })
+        .catch(function (e) {
+          console.error('Checkout error:', e);
+          btn.disabled = false;
+          btn.textContent = 'Reservar mi consulta →';
+          alert('No pudimos abrir el pago. Escríbenos por WhatsApp al +1 (786) 484-8729 y lo resolvemos.');
+          track('checkout_error');
+        });
+      });
+    })();
 
     document.querySelectorAll('.faq-q').forEach(function (b) {
       b.addEventListener('click', function () {
