@@ -1107,13 +1107,7 @@
         <div class="form-step" id="step4">
           <!-- Variante "ambas": elección binaria análisis vs consulta directa -->
           <div id="step4LayoutBoth">
-            <h3 class="form-step-title">¿Cómo prefieres empezar?</h3>
-            <div id="michellePathOption">
-              <p class="path-note">Elige si quieres tu <strong>consulta directa con Michelle</strong>, o si prefieres primero <strong>saber más sobre los tratamientos</strong> con un análisis inicial.</p>
-              <button class="path-btn path-btn-secondary" onclick="submitForm('michelle')">CONSULTA DIRECTA CON MICHELLE — $700</button>
-              <p class="path-note">Sin llamada previa. <strong>Incluye tu estudio epigenético</strong> (muestra de ADN de tu cabello — en el consultorio o con kit a domicilio si estás online) + evaluación 1 a 1 completa con Michelle: analiza tu estudio y tu historial, y sales con tu ruta exacta a seguir.</p>
-              <hr class="path-divider">
-            </div>
+            <h3 class="form-step-title">Tu siguiente paso</h3>
             <button class="path-btn path-btn-primary" onclick="submitForm('analisis')">AGENDAR MI ANÁLISIS INICIAL</button>
             <p class="path-note">20 minutos con nuestro equipo clínico para conocer a fondo nuestros dos tratamientos y ver cuál corresponde a tu caso:</p>
             <div class="info-cards">
@@ -1832,15 +1826,12 @@
 
     // Split test paso 4 (desde 2026-08-06): ¿mostrar la consulta directa de $700 junto al análisis?
     // "ambas" = paso 4 actual (análisis + consulta Michelle) · "solo_analisis" = solo análisis.
-    // camino=michelle en la URL fuerza "ambas" (Vanessa promete esa opción dentro del enlace).
+    // La consulta con Michelle salió de este formulario: ahora tiene su propia página
+    // (consulta-michelle.html), así que aquí solo se compara el layout del paso 4.
     var AB_STEP4_SPLIT = 50; // % de visitantes que ven AMBAS opciones
     function abStep4() {
       var v = null;
       try { v = localStorage.getItem('mp_ab_step4'); } catch (e) {}
-      // Lead al que Vanessa ya le prometió la consulta directa: siempre debe verla.
-      // Se etiqueta aparte ("ambas_forzada") porque no es asignación aleatoria y
-      // contaminaría la comparación del test con población autoseleccionada.
-      if (/[?&]camino=michelle/.test(location.search)) v = 'ambas_forzada';
       if (v !== 'ambas' && v !== 'solo_analisis' && v !== 'ambas_forzada') {
         v = (Math.random() * 100 < AB_STEP4_SPLIT) ? 'ambas' : 'solo_analisis';
       }
