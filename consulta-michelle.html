@@ -383,6 +383,11 @@
                 <span class="fld-err" id="errEmail">Escribe un correo válido</span>
               </div>
               <div class="fld">
+                <label for="bkPhone">Teléfono / WhatsApp</label>
+                <input type="tel" id="bkPhone" autocomplete="tel" inputmode="tel" placeholder="+1 305 555 0123">
+                <span class="fld-err" id="errPhone">Escribe un teléfono válido con código de país</span>
+              </div>
+              <div class="fld">
                 <label for="bkCountry">¿Dónde estás ubicado?</label>
                 <select id="bkCountry">
                   <option value="">Selecciona…</option>
@@ -418,7 +423,7 @@
               </div>
 
               <button type="submit" class="btn bk-btn" id="bkBtn">Reservar mi consulta →</button>
-              <p class="bk-secure">Pago seguro con Stripe. Tarjeta, Apple&nbsp;Pay y Google&nbsp;Pay.</p>
+              <p class="bk-secure">Pago seguro con Stripe. Tarjeta, Apple&nbsp;Pay y Google&nbsp;Pay.<br>Usamos tu teléfono solo para coordinar tu cita.</p>
             </form>
 
           </div>
@@ -842,10 +847,11 @@
 
       form.addEventListener('submit', function (e) {
         e.preventDefault();
-        var name = val('bkName'), email = val('bkEmail'), country = val('bkCountry'), mes = val('bkMes');
+        var name = val('bkName'), email = val('bkEmail'), phone = val('bkPhone'), country = val('bkCountry'), mes = val('bkMes');
         var ok = true;
         if (name.length < 3)                                   { err('errName', true);    ok = false; } else err('errName', false);
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))        { err('errEmail', true);   ok = false; } else err('errEmail', false);
+        if (phone.replace(/\D/g, '').length < 8)                { err('errPhone', true);   ok = false; } else err('errPhone', false);
         if (!country)                                          { err('errCountry', true); ok = false; } else err('errCountry', false);
         if (!mes)                                              { err('errMes', true);     ok = false; } else err('errMes', false);
         if (!ok) { track('checkout_validation_error'); return; }
@@ -858,7 +864,7 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            name: name, email: email, country: country, mes: mes,
+            name: name, email: email, phone: phone, country: country, mes: mes,
             urgencia: val('bkUrg'), notes: val('bkNotes'),
             source: 'consulta-michelle · ' + (attribution.utm_source || 'directo'),
             origin: location.origin
