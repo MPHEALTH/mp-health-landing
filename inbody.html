@@ -589,6 +589,20 @@
   .ib-quote { text-align: center; max-width: 620px; margin: 38px auto 0; }
   .ib-quote p { font-family: var(--font-serif); font-size: clamp(1.2rem, 2.4vw, 1.6rem); font-style: italic; color: var(--navy); line-height: 1.5; }
   .ib-quote span { display: block; font-family: var(--font-body); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-top: 14px; }
+
+  /* El render del equipo va sobre fondo, no recortado */
+  .gal-device { object-fit: contain !important; background: linear-gradient(160deg,#fff 0%,var(--cream2) 100%) !important; padding: 14px 0; }
+  /* Bloque de marca en dos columnas */
+  .ib-grid { display: grid; grid-template-columns: 0.62fr 1fr; gap: 44px; align-items: center; }
+  .ib-grid > img { width: 100%; max-width: 290px; margin: 0 auto; filter: drop-shadow(0 22px 44px rgba(13,27,46,0.17)); }
+  .ib-grid .ib-head { text-align: left; margin-bottom: 26px; }
+  .ib-grid .ib-head p { margin-left: 0; margin-right: 0; }
+  @media (max-width: 820px) {
+    .ib-grid { grid-template-columns: 1fr; gap: 26px; }
+    .ib-grid > img { max-width: 190px; }
+    .ib-grid .ib-head { text-align: center; }
+    .ib-grid .ib-head p { margin-left: auto; margin-right: auto; }
+  }
   /* ── Cita científica ── */
   .sci { border-left: 3px solid var(--teal); padding: 4px 0 4px 20px; margin: 26px 0 0; }
   .sci p { font-size: 0.93rem; line-height: 1.75; color: var(--muted); margin: 0 0 6px; }
@@ -616,7 +630,8 @@
 
       <div class="gal hero-gal" data-gal>
         <div class="gal-track">
-          <figure class="gal-item"><img src="images/centro-miami.jpg" alt="Centro Michelle Peiret Health en Miami"></figure>
+          <figure class="gal-item"><img src="images/inbody-970s.png" alt="InBody 970S, el analizador de composición corporal del centro" class="gal-device"></figure>
+          <figure class="gal-item"><img src="images/centro-miami.jpg" alt="Centro Michelle Peiret Health en Miami" loading="lazy"></figure>
           <figure class="gal-item"><img src="images/paso2-michelle-consulta.jpg" alt="Lectura de resultados con una especialista MP" loading="lazy"></figure>
         </div>
         <button class="gal-nav gal-prev" type="button" aria-label="Anterior">‹</button>
@@ -891,7 +906,10 @@
   <!-- ━━━ EL EQUIPO ━━━ -->
   <section class="ib">
     <div class="wrap ib-wrap">
-      <div class="ib-head fade">
+      <div class="ib-grid fade">
+      <img src="images/inbody-970s.png" alt="InBody 970S" loading="lazy">
+      <div>
+      <div class="ib-head">
         <div class="ib-logo">In<em>Body</em></div>
         <span class="ib-model">Modelo 970S</span>
         <p>
@@ -901,11 +919,13 @@
         </p>
       </div>
 
-      <div class="ib-specs fade">
+      <div class="ib-specs">
         <div class="ib-spec"><b>30 s</b><span>Dura el escaneo</span></div>
         <div class="ib-spec"><b>2</b><span>Hojas de resultados</span></div>
         <div class="ib-spec"><b>5</b><span>Segmentos medidos</span></div>
         <div class="ib-spec"><b>0</b><span>Radiación y agujas</span></div>
+      </div>
+      </div>
       </div>
 
       <div class="ib-quote fade">
