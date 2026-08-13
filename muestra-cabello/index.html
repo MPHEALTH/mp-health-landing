@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Muestra de cabello | Estudio Epigenético — Michelle Peiret Health</title>
+<meta name="description" content="Instrucciones paso a paso para extraer y enviar tu muestra de cabello para el Estudio Epigenético de Michelle Peiret Health.">
+<meta name="theme-color" content="#0d1b2e">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../images/logo-mp-white.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ─────────── base ─────────── */
+:root{
+  --navy:#0d1b2e;
+  --navy-2:#12233a;
+  --teal:#00c9a7;
+  --teal-dk:#00a88c;
+  --cream:#f7f5f0;
+  --white:#fff;
+  --text:#1a2332;
+  --muted:#6b7a8d;
+  --line:rgba(13,27,46,.10);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --shadow:0 20px 60px -22px rgba(13,27,46,.30);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);
+  background:var(--cream);
+  color:var(--text);
+  line-height:1.65;
+  font-size:16.5px;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{width:100%;max-width:760px;margin:0 auto;padding:0 22px}
+.wrap-wide{max-width:1040px}
+
+/* ─────────── topbar ─────────── */
+.topbar{
+  background:var(--navy);
+  padding:20px 22px 18px;
+  text-align:center;
+}
+.topbar img{height:34px;width:auto;margin:0 auto;opacity:.97}
+
+/* ─────────── hero ─────────── */
+.hero{
+  position:relative;
+  background:var(--navy);
+  color:#fff;
+  text-align:center;
+  padding:14px 0 148px;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(120% 80% at 50% -10%,rgba(0,201,167,.20),transparent 62%),
+    radial-gradient(90% 60% at 85% 110%,rgba(0,201,167,.10),transparent 60%);
+  pointer-events:none;
+}
+.hero .wrap{position:relative;z-index:2}
+.eyebrow{
+  display:inline-block;
+  font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--teal);
+  border:1px solid rgba(0,201,167,.34);
+  border-radius:100px;
+  padding:7px 17px;
+  margin-bottom:26px;
+}
+.hero h1{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:clamp(2.35rem,9vw,3.6rem);
+  line-height:1.08;
+  letter-spacing:-.015em;
+  margin-bottom:18px;
+}
+.hero h1 em{font-style:italic;color:var(--teal)}
+.hero p{
+  font-size:clamp(1rem,3.6vw,1.13rem);
+  font-weight:300;
+  color:rgba(255,255,255,.76);
+  max-width:44ch;margin:0 auto;
+}
+.facts{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:9px;
+  margin-top:30px;
+}
+.fact{
+  font-size:12.5px;font-weight:500;letter-spacing:.02em;
+  color:rgba(255,255,255,.82);
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:100px;
+  padding:7px 15px;
+}
+
+/* ─────────── video ─────────── */
+.video-sec{margin-top:-120px;position:relative;z-index:5}
+.player{
+  position:relative;
+  aspect-ratio:16/9;
+  border-radius:18px;
+  overflow:hidden;
+  background:var(--navy-2);
+  box-shadow:0 32px 70px -26px rgba(13,27,46,.62);
+  cursor:pointer;
+  border:1px solid rgba(255,255,255,.10);
+}
+.player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.player .thumb{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:50% 24%;
+  opacity:.78;transition:opacity .4s,transform .6s;
+}
+.player::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(13,27,46,.10) 35%,rgba(13,27,46,.80) 100%);
+  pointer-events:none;transition:opacity .4s;
+}
+.player.playing::after{display:none}
+.play{
+  position:absolute;inset:auto 0 0 0;z-index:3;
+  display:flex;align-items:center;gap:15px;
+  color:#fff;padding:20px 22px;
+}
+.play-btn{
+  flex:0 0 auto;
+  width:58px;height:58px;border-radius:50%;
+  background:var(--teal);
+  display:grid;place-items:center;
+  box-shadow:0 0 0 0 rgba(0,201,167,.45);
+  animation:pulse 2.6s infinite;
+  transition:transform .25s;
+}
+.play-btn svg{margin-left:3px;width:20px;height:22px}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(0,201,167,.42)}
+  70%{box-shadow:0 0 0 22px rgba(0,201,167,0)}
+  100%{box-shadow:0 0 0 0 rgba(0,201,167,0)}
+}
+.play-label{
+  font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  text-shadow:0 2px 14px rgba(0,0,0,.55);
+  line-height:1.35;text-align:left;
+}
+.play-label small{
+  display:block;font-size:11px;font-weight:400;letter-spacing:.04em;
+  text-transform:none;color:rgba(255,255,255,.72);margin-top:2px;
+}
+.player:hover .thumb{opacity:.72;transform:scale(1.025)}
+.player:hover .play-btn{transform:scale(1.07)}
+.video-cap{
+  text-align:center;color:var(--muted);font-size:13.5px;
+  margin-top:16px;
+}
+
+/* ─────────── sections ─────────── */
+section{padding:56px 0}
+.step-head{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.num{
+  flex:0 0 auto;
+  width:38px;height:38px;border-radius:50%;
+  background:var(--navy);color:var(--teal);
+  font-family:var(--sans);font-size:15px;font-weight:600;
+  display:grid;place-items:center;
+}
+h2{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(1.7rem,6vw,2.2rem);
+  line-height:1.15;letter-spacing:-.01em;
+}
+.lead{color:var(--muted);font-weight:300;margin-bottom:26px;max-width:56ch}
+
+.card{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:26px 24px;
+  box-shadow:var(--shadow);
+}
+.card + .card{margin-top:16px}
+
+ul.checks{list-style:none;display:grid;gap:15px}
+ul.checks li{
+  position:relative;padding-left:32px;
+  font-size:15.8px;
+}
+ul.checks li::before{
+  content:'';position:absolute;left:0;top:9px;
+  width:17px;height:17px;border-radius:50%;
+  background:rgba(0,201,167,.14);
+  border:1.5px solid var(--teal);
+}
+ul.checks li::after{
+  content:'';position:absolute;left:5.5px;top:14px;
+  width:6px;height:3px;
+  border-left:1.8px solid var(--teal-dk);
+  border-bottom:1.8px solid var(--teal-dk);
+  transform:rotate(-45deg);
+}
+ul.checks strong{font-weight:600}
+
+/* kit photo */
+.kit{
+  margin-top:22px;border-radius:16px;overflow:hidden;
+  border:1px solid var(--line);box-shadow:var(--shadow);
+}
+.kit img{width:100%}
+.kit figcaption{
+  background:var(--white);
+  font-size:12.5px;color:var(--muted);
+  padding:13px 18px;text-align:center;
+  letter-spacing:.03em;
+}
+
+/* datos list */
+.datos{
+  display:grid;grid-template-columns:1fr;gap:0;
+  border-top:1px solid var(--line);
+}
+.datos li{
+  list-style:none;
+  border-bottom:1px solid var(--line);
+  padding:12px 2px;
+  font-size:15.5px;
+  display:flex;align-items:center;gap:11px;
+}
+.datos li span{
+  width:6px;height:6px;border-radius:50%;background:var(--teal);flex:0 0 auto;
+}
+@media(min-width:420px){.datos{grid-template-columns:1fr 1fr;column-gap:26px}}
+
+/* ─────────── envío ─────────── */
+.ship-grid{display:grid;gap:16px}
+@media(min-width:900px){.ship-grid{grid-template-columns:repeat(3,1fr)}}
+.ship{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:24px 22px;
+  box-shadow:var(--shadow);
+  display:flex;flex-direction:column;
+}
+.ship-flag{
+  font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--teal-dk);
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:14px;
+}
+.ship-flag::after{content:'';flex:1;height:1px;background:var(--line)}
+.ship address{
+  font-style:normal;font-size:15.6px;line-height:1.62;
+  white-space:pre-line;
+  flex:1;
+}
+.ship address b{font-weight:600}
+.ship .note{
+  margin-top:14px;font-size:13.3px;color:var(--muted);
+  border-left:2px solid rgba(0,201,167,.4);padding-left:11px;
+}
+.copy{
+  margin-top:18px;
+  appearance:none;border:1px solid var(--navy);
+  background:transparent;color:var(--navy);
+  font-family:var(--sans);font-size:12.5px;font-weight:600;
+  letter-spacing:.09em;text-transform:uppercase;
+  padding:11px 16px;border-radius:100px;cursor:pointer;
+  transition:.2s;align-self:flex-start;
+}
+.copy:hover{background:var(--navy);color:#fff}
+.copy.done{background:var(--teal);border-color:var(--teal);color:var(--navy)}
+
+/* ─────────── importante ─────────── */
+.alert{
+  background:var(--navy);color:#fff;
+  border-radius:16px;padding:30px 26px;
+  position:relative;overflow:hidden;
+}
+.alert::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(100% 100% at 100% 0%,rgba(0,201,167,.16),transparent 60%);
+}
+.alert > *{position:relative;z-index:2}
+.alert h3{
+  font-family:var(--serif);font-weight:500;font-size:1.6rem;margin-bottom:16px;
+}
+.alert ul{list-style:none;display:grid;gap:13px}
+.alert li{
+  padding-left:22px;position:relative;
+  font-size:15.4px;font-weight:300;color:rgba(255,255,255,.86);
+}
+.alert li::before{
+  content:'';position:absolute;left:0;top:10px;
+  width:7px;height:7px;border-radius:50%;background:var(--teal);
+}
+.alert strong{font-weight:600;color:#fff}
+
+/* ─────────── firma ─────────── */
+.sign{
+  background:var(--white);border-top:1px solid var(--line);
+  padding:52px 0;
+}
+.sign .inner{
+  display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px;
+}
+.sign img{
+  width:118px;height:118px;border-radius:50%;object-fit:cover;object-position:50% 30%;
+  border:3px solid #fff;box-shadow:0 12px 34px -12px rgba(13,27,46,.45);
+}
+.sign .name{
+  font-family:var(--serif);font-size:1.6rem;font-weight:500;line-height:1.2;
+}
+.sign .role{
+  font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal-dk);
+  font-weight:600;margin-top:5px;
+}
+.sign p{color:var(--muted);font-weight:300;max-width:48ch;font-size:15.5px}
+@media(min-width:680px){
+  .sign .inner{flex-direction:row;text-align:left;gap:30px}
+  .sign img{width:132px;height:132px;flex:0 0 auto}
+}
+
+/* ─────────── footer ─────────── */
+footer{
+  background:var(--navy);color:rgba(255,255,255,.5);
+  text-align:center;padding:38px 22px 44px;
+  font-size:12.5px;letter-spacing:.03em;
+}
+footer img{height:26px;margin:0 auto 16px;opacity:.72}
+footer a{color:rgba(255,255,255,.72);text-decoration:none;border-bottom:1px solid rgba(0,201,167,.4)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  .play-btn{animation:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <img src="../images/logo-mp-white.png" alt="Michelle Peiret Health">
+</header>
+
+<!-- ━━━━━━━━━━ HERO ━━━━━━━━━━ -->
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Estudio Epigenético</span>
+    <h1>Tu muestra<br>de <em>cabello</em></h1>
+    <p>Mira el video, extrae 4 hebras con folículo y envíanos tu muestra. Así de simple.</p>
+    <div class="facts">
+      <span class="fact">4 hebras de la nuca</span>
+      <span class="fact">Con folículo</span>
+      <span class="fact">5 minutos</span>
+    </div>
+  </div>
+</div>
+
+<!-- ━━━━━━━━━━ VIDEO ━━━━━━━━━━ -->
+<div class="video-sec">
+  <div class="wrap">
+    <div class="player" id="player" role="button" tabindex="0" aria-label="Reproducir video: cómo extraer la muestra de cabello">
+      <img class="thumb" id="thumb" src="../images/michelle-retrato.jpg" alt="" loading="eager">
+      <div class="play" id="playUi">
+        <div class="play-btn">
+          <svg width="24" height="27" viewBox="0 0 24 27" fill="none" aria-hidden="true">
+            <path d="M23 12.13a1.6 1.6 0 0 1 0 2.74L2.6 26.3A1.6 1.6 0 0 1 .2 24.93V2.07A1.6 1.6 0 0 1 2.6.7L23 12.13Z" fill="#0d1b2e"/>
+          </svg>
+        </div>
+        <span class="play-label">Ver el video<small>Michelle te explica cómo hacerlo</small></span>
+      </div>
+    </div>
+    <p class="video-cap">Introducción e instrucciones de la muestra de cabello</p>
+  </div>
+</div>
+
+<!-- ━━━━━━━━━━ PASO 1 ━━━━━━━━━━ -->
+<section class="rv">
+  <div class="wrap">
+    <div class="step-head">
+      <div class="num">1</div>
+      <h2>Extrae el cabello</h2>
+    </div>
+    <p class="lead">El folículo es la base de todo el estudio: sin él, la muestra no sirve.</p>
+    <div class="card">
+      <ul class="checks">
+        <li>Con una <strong>pinza de cejas</strong>, extrae de raíz <strong>4 hebras de cabello</strong> de la parte de la <strong>nuca</strong>.</li>
+        <li>Verifica que cada hebra haya salido <strong>con el folículo</strong> —ese pequeño bulbo blanco en la punta—. Es la base del estudio.</li>
+        <li>Si tu cabello es largo, puedes <strong>cortarlo por el lado opuesto</strong> al folículo.</li>
+        <li>El cabello puede estar <strong>limpio o sin lavar</strong>. No hace falta ninguna preparación.</li>
+      </ul>
+    </div>
+    <figure class="kit">
+      <img src="../images/extraccion-cabello.jpg" alt="Extracción de una hebra de cabello desde la raíz con una pinza de cejas" loading="lazy">
+      <figcaption>Desde la raíz, con pinza. El bulbo blanco en la punta es el folículo.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━ PASO 2 ━━━━━━━━━━ -->
+<section class="rv" style="padding-top:0">
+  <div class="wrap">
+    <div class="step-head">
+      <div class="num">2</div>
+      <h2>Empaca e identifica</h2>
+    </div>
+    <div class="card">
+      <ul class="checks">
+        <li>Coloca las hebras en la <strong>bolsa Mylar</strong> del kit, o en una <strong>bolsa ziploc</strong> envueltas en papel absorbente.</li>
+        <li>Marca la bolsa con tu <strong>nombre completo</strong>.</li>
+        <li>Identifica también el <strong>sobre</strong> con el nombre completo del paciente.</li>
+      </ul>
+    </div>
+    <figure class="kit">
+      <img src="../images/kit-adn.jpg" alt="Interior del kit de Michelle Peiret Health con la pinza de extracción, guantes y biopaquete hermético" loading="lazy">
+      <figcaption>Tu kit ya trae todo: pinza de extracción, guantes y biopaquete hermético.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━ PASO 3 ━━━━━━━━━━ -->
+<section class="rv" style="padding-top:0">
+  <div class="wrap">
+    <div class="step-head">
+      <div class="num">3</div>
+      <h2>Incluye tus datos</h2>
+    </div>
+    <p class="lead">Dentro del paquete de envío coloca una hoja con esta información:</p>
+    <div class="card">
+      <ul class="datos">
+        <li><span></span>Nombre completo</li>
+        <li><span></span>Fecha de nacimiento</li>
+        <li><span></span>Dirección completa (con zip code)</li>
+        <li><span></span>Ciudad</li>
+        <li><span></span>Estado</li>
+        <li><span></span>País</li>
+        <li><span></span>Teléfono</li>
+        <li><span></span>Correo electrónico</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━ PASO 4 · ENVÍO ━━━━━━━━━━ -->
+<section class="rv" style="padding-top:0">
+  <div class="wrap wrap-wide">
+    <div class="wrap" style="padding:0">
+      <div class="step-head">
+        <div class="num">4</div>
+        <h2>Envía tu muestra</h2>
+      </div>
+      <p class="lead">Usa la dirección que corresponda a tu localidad.</p>
+    </div>
+
+    <div class="ship-grid">
+      <div class="ship">
+        <div class="ship-flag">🇺🇸 Estados Unidos</div>
+        <address id="addr-us"><b>Michelle Peiret</b>
+760 NW 107th Ave, Suite #340
+Miami, FL 33172
+Estados Unidos</address>
+        <button class="copy" data-target="addr-us">Copiar dirección</button>
+      </div>
+
+      <div class="ship">
+        <div class="ship-flag">🇪🇸 Europa</div>
+        <address id="addr-eu"><b>Etvan Fitness S.L.</b>
+A la atención de Esteban Peiró
+C/ Ciudad de Laval n.º 33, bajo
+46702 Gandía (Valencia)
+España</address>
+        <p class="note">Solo si vives en Europa. Te agradecemos que nos avises cuando hayas enviado la muestra.</p>
+        <button class="copy" data-target="addr-eu">Copiar dirección</button>
+      </div>
+
+      <div class="ship">
+        <div class="ship-flag">🇻🇪 Venezuela</div>
+        <address id="addr-ve"><b>Jorge Abdou</b>
+C.I. 9.449.782
+Teléfono: 0414-340 1111
+MRW # 0814000</address>
+        <p class="note">Envío por MRW a la cuenta indicada.</p>
+        <button class="copy" data-target="addr-ve">Copiar datos</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━ IMPORTANTE ━━━━━━━━━━ -->
+<section class="rv" style="padding-top:0">
+  <div class="wrap">
+    <div class="alert">
+      <h3>Importante</h3>
+      <ul>
+        <li>El sobre <strong>debe llevar el nombre completo del paciente</strong>. Si no tiene nombre, la muestra se desecha.</li>
+        <li>Te sugerimos enviarla los <strong>lunes</strong>: no se reciben muestras sábados ni domingos. Toma en cuenta los días feriados.</li>
+        <li>Sin folículo no hay estudio. Revisa las 4 hebras antes de empacarlas.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━ FIRMA ━━━━━━━━━━ -->
+<div class="sign">
+  <div class="wrap inner">
+    <img src="../images/michelle-firma.jpg" alt="Michelle Peiret">
+    <div>
+      <div class="name">Michelle Peiret</div>
+      <div class="role">Nutrigenomic Specialist</div>
+      <p style="margin-top:12px">Tu muestra de cabello es el punto de partida. A partir de ella construimos un plan hecho a la medida de tu biología.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <img src="../images/logo-mp-white.png" alt="Michelle Peiret Health">
+  <div>© <span id="y"></span> Michelle Peiret Health · <a href="https://michellepeiret.com/mp-health/" target="_blank" rel="noopener">michellepeiret.com</a></div>
+</footer>
+
+<script>
+document.getElementById('y').textContent = new Date().getFullYear();
+
+/* ── video facade ── */
+(function(){
+  var p = document.getElementById('player');
+  var loaded = false;
+  function play(){
+    if (loaded) return;
+    loaded = true;
+    p.classList.add('playing');
+    var t = document.getElementById('thumb'), u = document.getElementById('playUi');
+    if (t) t.remove();
+    if (u) u.remove();
+    var f = document.createElement('iframe');
+    f.src = 'https://www.youtube.com/embed/pptPV7sdV-U?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+    f.title = 'Instrucciones de la muestra de cabello';
+    f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    f.allowFullscreen = true;
+    p.appendChild(f);
+  }
+  p.addEventListener('click', play);
+  p.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(); }
+  });
+})();
+
+/* ── copiar direcciones ── */
+document.querySelectorAll('.copy').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var el = document.getElementById(btn.dataset.target);
+    var txt = el.innerText.trim();
+    var done = function(){
+      var old = btn.textContent;
+      btn.textContent = '¡Copiado!';
+      btn.classList.add('done');
+      setTimeout(function(){ btn.textContent = old; btn.classList.remove('done'); }, 2000);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(txt).then(done).catch(function(){});
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch(e){}
+      document.body.removeChild(ta);
+    }
+  });
+});
+
+/* ── reveal on scroll ── */
+(function(){
+  var els = document.querySelectorAll('.rv');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(function(e){ e.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  els.forEach(function(e){ io.observe(e); });
+})();
+</script>
+</body>
+</html>
