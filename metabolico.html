@@ -524,8 +524,37 @@
   }
   @media (max-width: 720px) { .brand-row { gap: 10px 20px; } .brand-row i { font-size: 0.8rem; letter-spacing: 0.11em; } }
   /* ── Tira de previews del informe ── */
-  .rep { margin-top: 34px; min-width: 0; max-width: 100%; }
-  .rep-strip { max-width: 100%; }
+  .rep { margin-top: 38px; min-width: 0; max-width: 100%; }
+  .rep > b { display: block; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-dk); font-weight: 700; margin-bottom: 14px; text-align: center; }
+  .rep-gal { max-width: 420px; margin: 0 auto; }
+  .rep-gal .gal-item img { aspect-ratio: 3/4; object-fit: contain; background: #fff; }
+  /* Las flechas también en móvil: son la señal de que hay más páginas */
+  @media (max-width: 620px) {
+    .rep-gal .gal-nav { display: flex; width: 42px; height: 42px; font-size: 24px; box-shadow: 0 4px 16px rgba(13,27,46,0.3); }
+    .rep-gal .gal-prev { left: -4px; } .rep-gal .gal-next { right: -4px; }
+  }
+
+  /* Barra fija de compra en móvil: el checkout siempre a un toque */
+  .buybar { display: none; }
+  @media (max-width: 980px) {
+    .buybar {
+      display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 80;
+      align-items: center; justify-content: space-between; gap: 14px;
+      padding: 11px 16px calc(11px + env(safe-area-inset-bottom));
+      background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border); box-shadow: 0 -4px 20px rgba(13,27,46,0.09);
+      transform: translateY(110%); transition: transform 0.25s ease;
+    }
+    .buybar.on { transform: none; }
+    .buybar-p b { display: block; font-size: 1.22rem; font-weight: 800; color: var(--navy); line-height: 1.1; }
+    .buybar-p span { font-size: 0.7rem; color: var(--muted); }
+    .buybar a {
+      background: var(--teal); color: var(--navy); text-decoration: none; font-weight: 800;
+      font-size: 0.83rem; letter-spacing: 0.03em; text-transform: uppercase;
+      padding: 13px 20px; border-radius: 8px; white-space: nowrap;
+    }
+    footer { padding-bottom: 90px; }
+  }
   .rep > b { display: block; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-dk); font-weight: 700; margin-bottom: 12px; }
   .rep-strip { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: none; }
   .rep-strip::-webkit-scrollbar { display: none; }
@@ -721,18 +750,8 @@
 
   <div class="cred">
     <div class="wrap cred-in">
-      <div class="cred-brand">PNOĒ<small>Tecnología del análisis</small></div>
-      <div class="cred-sep"></div>
-      <div class="cred-item"><b>r ≈ 0.98</b><span>vs. COSMED Quark CPET</span></div>
-      <div class="cred-sep"></div>
-      <div class="cred-item"><b>ICC ≈ 0.98</b><span>Fiabilidad test-retest</span></div>
-      <div class="cred-sep"></div>
-      <div class="cred-item"><b>23</b><span>Biomarcadores</span></div>
-      <div class="cred-sep"></div>
-      <div class="cred-item"><b>&lt; 10 min</b><span>Por prueba, sin sangre</span></div>
-      <p class="cred-note">Validado frente al COSMED Quark CPET, el estándar de oro clínico.</p>
-      <div class="cred-brands">
-        <span>La misma tecnología de análisis metabólico que utilizan</span>
+      <div class="cred-brands" style="border-top:none;margin-top:0;padding-top:0;">
+        <span>Tecnología PNOĒ · la misma que utilizan</span>
         <div class="brand-row">
           <i>Equinox</i>
           <i>Four Seasons</i>
@@ -948,16 +967,21 @@
 
       <div class="rep fade">
         <b>Así se ve tu informe</b>
-        <div class="rep-strip">
-          <img src="images/metabolico/rmr_14.jpg" alt="Informe: equilibrio calórico" loading="lazy">
-          <img src="images/metabolico/amr_6.jpg" alt="Informe: edad biológica" loading="lazy">
-          <img src="images/metabolico/rmr_15.jpg" alt="Informe: macronutrientes" loading="lazy">
-          <img src="images/metabolico/amr_20.jpg" alt="Informe: zonas de entrenamiento" loading="lazy">
-          <img src="images/metabolico/amr_4.jpg" alt="Informe: descripción general" loading="lazy">
-          <img src="images/metabolico/rmr_4.jpg" alt="Informe en reposo" loading="lazy">
-          <img src="images/metabolico/amr_21.jpg" alt="Informe: consumo de energía" loading="lazy">
+        <div class="gal portrait rep-gal" data-gal>
+          <div class="gal-track">
+            <figure class="gal-item"><img src="images/metabolico/rmr_14.jpg" alt="Informe: equilibrio calórico" loading="lazy"></figure>
+            <figure class="gal-item"><img src="images/metabolico/amr_6.jpg" alt="Informe: edad biológica" loading="lazy"></figure>
+            <figure class="gal-item"><img src="images/metabolico/rmr_15.jpg" alt="Informe: macronutrientes" loading="lazy"></figure>
+            <figure class="gal-item"><img src="images/metabolico/amr_20.jpg" alt="Informe: zonas de entrenamiento" loading="lazy"></figure>
+            <figure class="gal-item"><img src="images/metabolico/amr_4.jpg" alt="Informe: descripción general" loading="lazy"></figure>
+            <figure class="gal-item"><img src="images/metabolico/rmr_4.jpg" alt="Informe en reposo" loading="lazy"></figure>
+            <figure class="gal-item"><img src="images/metabolico/amr_21.jpg" alt="Informe: consumo de energía" loading="lazy"></figure>
+          </div>
+          <button class="gal-nav gal-prev" type="button" aria-label="Página anterior">‹</button>
+          <button class="gal-nav gal-next" type="button" aria-label="Página siguiente">›</button>
+          <div class="gal-dots"></div>
+          <p class="gal-cap">Desliza o usa las flechas para ver las 7 páginas. Toca una para ampliarla.</p>
         </div>
-        <p class="rep-cap">Páginas reales de un informe MP. Toca cualquiera para ampliarla.</p>
       </div>
     </div>
   </section>
@@ -1018,6 +1042,11 @@
       <p class="small">El Análisis Metabólico MP es una herramienta de información y prevención. No diagnostica enfermedades ni sustituye la atención médica profesional.</p>
     </div>
   </footer>
+
+  <div class="buybar" id="buybar">
+    <div class="buybar-p"><b>$350</b><span>Análisis Metabólico MP</span></div>
+    <a href="#bkForm">Reservar ahora</a>
+  </div>
 
   <div class="lb" id="lb" aria-hidden="true">
     <button class="lb-x" type="button" aria-label="Cerrar">✕</button>
@@ -1107,6 +1136,21 @@
       if (!open) item.classList.add('open');
     });
   });
+
+  /* ── BARRA FIJA DE COMPRA (móvil) ── */
+  (function () {
+    var bar = document.getElementById('buybar');
+    var form = document.getElementById('bkForm');
+    if (!bar || !form) return;
+    function upd() {
+      var r = form.getBoundingClientRect();
+      // aparece cuando el formulario ya pasó de largo, y se esconde mientras está a la vista
+      bar.classList.toggle('on', r.bottom < 40);
+    }
+    window.addEventListener('scroll', upd, { passive: true });
+    window.addEventListener('resize', upd);
+    upd();
+  })();
 
   /* ── FADE-IN ── */
   (function () {
