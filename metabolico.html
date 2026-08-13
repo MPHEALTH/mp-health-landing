@@ -72,7 +72,8 @@
     /* Sin sticky: la tarjeta de reserva mide más que cualquier pantalla (precio +
        6 campos + los pasos), y un sticky más alto que el viewport se queda trabado
        y no deja llegar al botón. Fluye normal y el scroll funciona siempre. */
-    .buy-col { grid-area: buy; }
+    .buy-col { grid-area: buy; scroll-margin-top: 88px; }
+    @media (max-width: 720px) { .buy-col { scroll-margin-top: 74px; } }
     @media (max-width: 980px) {
       /* Orden de página de producto: foto → checkout → descripción */
       /* En móvil el checkout sube: foto → comprar → y recién después la descripción */
@@ -577,11 +578,11 @@
   <nav class="nav">
     <div class="nav-in">
       <img src="images/LOGO%20%286%29.png" alt="Michelle Peiret Health" class="nav-logo">
-      <a href="#reservar" class="nav-cta">Reservar mi prueba</a>
+      <a href="#comprar" class="nav-cta">Reservar mi prueba</a>
     </div>
   </nav>
 
-  <header class="hero" id="reservar">
+  <header class="hero">
     <div class="wrap hero-grid">
       <div class="hero-head">
         <span class="label">Diagnóstico metabólico · presencial en Miami</span>
@@ -610,7 +611,7 @@
         <p class="gal-cap">La prueba se hace en nuestro centro de Miami, en una sola visita de unos 60 minutos.</p>
       </div>
 
-      <div class="buy-col">
+      <div class="buy-col" id="comprar">
         <div class="buy-card">
           <div class="buy-head">
             <b>Reserva tu análisis</b>
@@ -1029,7 +1030,7 @@
     <div class="wrap fade">
       <h2>Deja de entrenar y comer a ciegas</h2>
       <p class="lede">Tus calorías, tus macros, tus zonas y tu edad biológica. Medidos, no estimados.</p>
-      <button class="buy-btn" onclick="document.getElementById('reservar').scrollIntoView({behavior:'smooth'})">Reservar mi análisis · $350 →</button>
+      <a href="#comprar" class="buy-btn" style="display:block;text-decoration:none;text-align:center;">Reservar mi análisis · $350 →</a>
     </div>
   </section>
 
@@ -1045,7 +1046,7 @@
 
   <div class="buybar" id="buybar">
     <div class="buybar-p"><b>$350</b><span>Análisis Metabólico MP</span></div>
-    <a href="#bkForm">Reservar ahora</a>
+    <a href="#comprar">Reservar ahora</a>
   </div>
 
   <div class="lb" id="lb" aria-hidden="true">
@@ -1134,6 +1135,20 @@
       var item = b.parentElement, open = item.classList.contains('open');
       document.querySelectorAll('.faq-item').forEach(function (i) { i.classList.remove('open'); });
       if (!open) item.classList.add('open');
+    });
+  });
+
+  /* ── CTAs: llevar a la tarjeta de compra y señalar el formulario ── */
+  document.querySelectorAll('a[href="#comprar"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var dest = document.getElementById('comprar');
+      if (!dest) return;
+      e.preventDefault();
+      dest.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // en escritorio el foco ayuda; en móvil abriría el teclado, así que no
+      if (window.innerWidth > 980) {
+        setTimeout(function () { var n = document.getElementById('bkName'); if (n) n.focus({ preventScroll: true }); }, 620);
+      }
     });
   });
 
