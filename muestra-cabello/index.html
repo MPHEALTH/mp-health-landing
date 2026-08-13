@@ -46,10 +46,13 @@ a{color:inherit}
 /* ─────────── topbar ─────────── */
 .topbar{
   background:var(--navy);
-  padding:20px 22px 18px;
+  padding:26px 22px 22px;
   text-align:center;
 }
-.topbar img{height:34px;width:auto;margin:0 auto;opacity:.97}
+.topbar img{
+  height:clamp(78px,26vw,102px);
+  width:auto;max-width:100%;margin:0 auto;opacity:.97;
+}
 
 /* ─────────── hero ─────────── */
 .hero{
@@ -114,55 +117,34 @@ a{color:inherit}
   overflow:hidden;
   background:var(--navy-2);
   box-shadow:0 32px 70px -26px rgba(13,27,46,.62);
-  cursor:pointer;
   border:1px solid rgba(255,255,255,.10);
 }
 .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.player .thumb{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  object-position:50% 24%;
-  opacity:.78;transition:opacity .4s,transform .6s;
+
+/* pill para activar el sonido: el autoplay solo se permite en silencio,
+   va debajo del player para no chocar con los controles de YouTube */
+.sound-row{text-align:center;margin-top:18px}
+.sound{
+  display:inline-flex;align-items:center;gap:9px;
+  appearance:none;border:0;cursor:pointer;
+  font-family:var(--sans);font-size:13px;font-weight:600;
+  letter-spacing:.06em;
+  color:var(--navy);background:var(--teal);
+  padding:12px 20px;border-radius:100px;
+  animation:pulse 2.8s infinite;
+  transition:transform .2s;
 }
-.player::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(13,27,46,.10) 35%,rgba(13,27,46,.80) 100%);
-  pointer-events:none;transition:opacity .4s;
-}
-.player.playing::after{display:none}
-.play{
-  position:absolute;inset:auto 0 0 0;z-index:3;
-  display:flex;align-items:center;gap:15px;
-  color:#fff;padding:20px 22px;
-}
-.play-btn{
-  flex:0 0 auto;
-  width:58px;height:58px;border-radius:50%;
-  background:var(--teal);
-  display:grid;place-items:center;
-  box-shadow:0 0 0 0 rgba(0,201,167,.45);
-  animation:pulse 2.6s infinite;
-  transition:transform .25s;
-}
-.play-btn svg{margin-left:3px;width:20px;height:22px}
+.sound:hover{transform:scale(1.04)}
+.sound svg{flex:0 0 auto}
+.sound[hidden]{display:none}
 @keyframes pulse{
-  0%{box-shadow:0 0 0 0 rgba(0,201,167,.42)}
-  70%{box-shadow:0 0 0 22px rgba(0,201,167,0)}
+  0%{box-shadow:0 0 0 0 rgba(0,201,167,.45)}
+  70%{box-shadow:0 0 0 16px rgba(0,201,167,0)}
   100%{box-shadow:0 0 0 0 rgba(0,201,167,0)}
 }
-.play-label{
-  font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
-  text-shadow:0 2px 14px rgba(0,0,0,.55);
-  line-height:1.35;text-align:left;
-}
-.play-label small{
-  display:block;font-size:11px;font-weight:400;letter-spacing:.04em;
-  text-transform:none;color:rgba(255,255,255,.72);margin-top:2px;
-}
-.player:hover .thumb{opacity:.72;transform:scale(1.025)}
-.player:hover .play-btn{transform:scale(1.07)}
 .video-cap{
   text-align:center;color:var(--muted);font-size:13.5px;
-  margin-top:16px;
+  margin-top:14px;
 }
 
 /* ─────────── sections ─────────── */
@@ -345,7 +327,7 @@ footer a{color:rgba(255,255,255,.72);text-decoration:none;border-bottom:1px soli
 .rv.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){
   .rv{opacity:1;transform:none;transition:none}
-  .play-btn{animation:none}
+  .sound{animation:none}
   html{scroll-behavior:auto}
 }
 </style>
@@ -373,16 +355,21 @@ footer a{color:rgba(255,255,255,.72);text-decoration:none;border-bottom:1px soli
 <!-- ━━━━━━━━━━ VIDEO ━━━━━━━━━━ -->
 <div class="video-sec">
   <div class="wrap">
-    <div class="player" id="player" role="button" tabindex="0" aria-label="Reproducir video: cómo extraer la muestra de cabello">
-      <img class="thumb" id="thumb" src="../images/michelle-retrato.jpg" alt="" loading="eager">
-      <div class="play" id="playUi">
-        <div class="play-btn">
-          <svg width="24" height="27" viewBox="0 0 24 27" fill="none" aria-hidden="true">
-            <path d="M23 12.13a1.6 1.6 0 0 1 0 2.74L2.6 26.3A1.6 1.6 0 0 1 .2 24.93V2.07A1.6 1.6 0 0 1 2.6.7L23 12.13Z" fill="#0d1b2e"/>
-          </svg>
-        </div>
-        <span class="play-label">Ver el video<small>Michelle te explica cómo hacerlo</small></span>
-      </div>
+    <div class="player" id="player">
+      <iframe id="ytFrame"
+        src="https://www.youtube.com/embed/pptPV7sdV-U?autoplay=1&amp;mute=1&amp;playsinline=1&amp;rel=0&amp;modestbranding=1&amp;enablejsapi=1"
+        title="Introducción e instrucciones de la muestra de cabello"
+        allow="autoplay; encrypted-media; picture-in-picture; web-share; fullscreen"
+        allowfullscreen></iframe>
+    </div>
+    <div class="sound-row">
+      <button class="sound" id="soundBtn" type="button">
+        <svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true">
+          <path d="M7.2.6 3.6 3.7H1a1 1 0 0 0-1 1v4.6a1 1 0 0 0 1 1h2.6l3.6 3.1a.6.6 0 0 0 1-.45V1.05A.6.6 0 0 0 7.2.6Z" fill="#0d1b2e"/>
+          <path d="M10.4 4.3a3.7 3.7 0 0 1 0 5.4M12.6 2.1a6.8 6.8 0 0 1 0 9.8" stroke="#0d1b2e" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        Activar sonido
+      </button>
     </div>
     <p class="video-cap">Introducción e instrucciones de la muestra de cabello</p>
   </div>
@@ -534,27 +521,26 @@ MRW # 0814000</address>
 <script>
 document.getElementById('y').textContent = new Date().getFullYear();
 
-/* ── video facade ── */
+/* ── video: arranca solo (los navegadores solo permiten autoplay en silencio),
+      y el pill activa el sonido con un toque ── */
 (function(){
-  var p = document.getElementById('player');
-  var loaded = false;
-  function play(){
-    if (loaded) return;
-    loaded = true;
-    p.classList.add('playing');
-    var t = document.getElementById('thumb'), u = document.getElementById('playUi');
-    if (t) t.remove();
-    if (u) u.remove();
-    var f = document.createElement('iframe');
-    f.src = 'https://www.youtube.com/embed/pptPV7sdV-U?autoplay=1&rel=0&modestbranding=1&playsinline=1';
-    f.title = 'Instrucciones de la muestra de cabello';
-    f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-    f.allowFullscreen = true;
-    p.appendChild(f);
+  var frame = document.getElementById('ytFrame');
+  var btn   = document.getElementById('soundBtn');
+  if (!frame || !btn) return;
+
+  function cmd(func, args){
+    try {
+      frame.contentWindow.postMessage(JSON.stringify({
+        event: 'command', func: func, args: args || []
+      }), '*');
+    } catch (e) {}
   }
-  p.addEventListener('click', play);
-  p.addEventListener('keydown', function(e){
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(); }
+
+  btn.addEventListener('click', function(){
+    cmd('unMute');
+    cmd('setVolume', [100]);
+    cmd('playVideo');
+    btn.hidden = true;
   });
 })();
 
