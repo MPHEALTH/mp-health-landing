@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="images/LOGO%20%2810%29.png">
+  <link rel="icon" type="image/png" href="images/LOGO%20%286%29.png">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-B7PSHFCHGY"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -54,10 +54,10 @@
     /* NAV */
     .nav { position: sticky; top: 0; z-index: 90; background: rgba(255,255,255,0.95); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
     .nav-in { max-width: 1180px; margin: 0 auto; padding: 13px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .nav-logo { height: 40px; width: auto; }
+    .nav-logo { height: 54px; width: auto; }
     .nav-cta { background: var(--navy); color: var(--white); text-decoration: none; padding: 11px 22px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; transition: background 0.2s; white-space: nowrap; }
     .nav-cta:hover { background: var(--teal-dk); }
-    @media (max-width: 720px) { .nav-in { padding: 11px 20px; } .nav-logo { height: 32px; } .nav-cta { padding: 10px 15px; font-size: 0.73rem; } }
+    @media (max-width: 720px) { .nav-in { padding: 10px 18px; } .nav-logo { height: 40px; } .nav-cta { padding: 10px 15px; font-size: 0.73rem; } }
 
     /* HERO PRODUCTO */
     .hero { background: var(--cream); padding: 54px 0 66px; border-bottom: 1px solid var(--cream2); }
@@ -503,6 +503,15 @@
     .cred-item b { font-size: 0.92rem; } .cred-item span { font-size: 0.6rem; }
     .cred-note { font-size: 0.76rem; }
   }
+
+  .cred-brands { flex-basis: 100%; border-top: 1px solid var(--cream2); margin-top: 6px; padding-top: 18px; }
+  .cred-brands > span { display: block; font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 11px; }
+  .brand-row { display: flex; align-items: center; justify-content: center; gap: 14px 30px; flex-wrap: wrap; }
+  .brand-row i {
+    font-style: normal; font-family: var(--font-body); font-size: 0.98rem; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--navy); opacity: 0.62;
+  }
+  @media (max-width: 720px) { .brand-row { gap: 10px 20px; } .brand-row i { font-size: 0.8rem; letter-spacing: 0.11em; } }
   /* ── Tira de previews del informe ── */
   .rep { margin-top: 30px; }
   .rep > b { display: block; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-dk); font-weight: 700; margin-bottom: 12px; }
@@ -526,7 +535,7 @@
 
   <nav class="nav">
     <div class="nav-in">
-      <img src="images/LOGO%20%2810%29.png" alt="Michelle Peiret Health" class="nav-logo">
+      <img src="images/LOGO%20%286%29.png" alt="Michelle Peiret Health" class="nav-logo">
       <a href="#reservar" class="nav-cta">Reservar mi prueba</a>
     </div>
   </nav>
@@ -548,8 +557,8 @@
       <div class="gal hero-gal" data-gal>
         <div class="gal-track">
           <figure class="gal-item"><img src="images/centro-vo2max.jpg" alt="Prueba metabólica en el centro de Miami"></figure>
-          <figure class="gal-item"><img src="images/centro-miami.jpg" alt="Centro Michelle Peiret Health en Miami" loading="lazy"></figure>
-          <figure class="gal-item"><img src="images/centro-equipo.jpg" alt="Equipo de Michelle Peiret Health" loading="lazy"></figure>
+          <figure class="gal-item"><img src="images/metabolico-prueba.jpg" alt="Prueba de esfuerzo con mascarilla, supervisada por una especialista" loading="lazy"></figure>
+          <figure class="gal-item"><img src="images/paso2-michelle-consulta.jpg" alt="Consulta de interpretación con una especialista MP" loading="lazy"></figure>
         </div>
         <button class="gal-nav gal-prev" type="button" aria-label="Anterior">‹</button>
         <button class="gal-nav gal-next" type="button" aria-label="Siguiente">›</button>
@@ -596,11 +605,12 @@
                 <label for="bkObjetivo">¿Cuál es tu objetivo?</label>
                 <select id="bkObjetivo">
                   <option value="">Elige uno…</option>
-                  <option value="perder_peso">Perder peso</option>
-                  <option value="rendimiento">Mejorar mi rendimiento</option>
-                  <option value="longevidad">Longevidad y antiaging</option>
-                  <option value="energia">Más energía y menos fatiga</option>
-                  <option value="salud">Entender mi salud metabólica</option>
+                  <option value="perder_peso">Bajar de peso y dejar de estancarme</option>
+                  <option value="metabolismo">Saber por qué mi metabolismo está lento</option>
+                  <option value="calorias">Conocer mis calorías y macros exactos</option>
+                  <option value="rendimiento">Entrenar mejor y subir mi rendimiento</option>
+                  <option value="longevidad">Bajar mi edad biológica</option>
+                  <option value="energia">Entender mi fatiga y mi recuperación</option>
                 </select>
                 <span class="fld-err" id="errObjetivo">Elige tu objetivo</span>
               </div>
@@ -705,7 +715,16 @@
       <div class="cred-item"><b>23</b><span>Biomarcadores</span></div>
       <div class="cred-sep"></div>
       <div class="cred-item"><b>&lt; 10 min</b><span>Por prueba, sin sangre</span></div>
-      <p class="cred-note">Validado frente al estándar de oro clínico. Es la misma plataforma de análisis metabólico que utilizan centros como Equinox y Four Seasons.</p>
+      <p class="cred-note">Validado frente al COSMED Quark CPET, el estándar de oro clínico.</p>
+      <div class="cred-brands">
+        <span>La misma tecnología de análisis metabólico que utilizan</span>
+        <div class="brand-row">
+          <i>Equinox</i>
+          <i>Four Seasons</i>
+          <i>Liquivida</i>
+          <i>NuBioAge</i>
+        </div>
+      </div>
     </div>
   </div>
 
