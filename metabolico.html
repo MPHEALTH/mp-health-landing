@@ -63,9 +63,10 @@
     .hero { background: var(--cream); padding: 54px 0 66px; border-bottom: 1px solid var(--cream2); }
     .hero-grid {
       display: grid; grid-template-columns: 1fr 0.82fr; column-gap: 52px; row-gap: 0;
-      grid-template-areas: "head buy" "gal buy" "desc buy"; align-items: start;
+      grid-template-areas: "head buy" "intro buy" "gal buy" "desc buy"; align-items: start;
     }
     .hero-head { grid-area: head; }
+    .hero-intro { grid-area: intro; }
     .hero-gal  { grid-area: gal; }
     .hero-desc { grid-area: desc; }
     /* Sin sticky: la tarjeta de reserva mide más que cualquier pantalla (precio +
@@ -74,7 +75,8 @@
     .buy-col { grid-area: buy; }
     @media (max-width: 980px) {
       /* Orden de página de producto: foto → checkout → descripción */
-      .hero-grid { grid-template-columns: 1fr; grid-template-areas: "head" "gal" "buy" "desc"; row-gap: 24px; }
+      /* En móvil el checkout sube: foto → comprar → y recién después la descripción */
+      .hero-grid { grid-template-columns: 1fr; grid-template-areas: "head" "gal" "buy" "intro" "desc"; row-gap: 24px; }
       .buy-col { position: static; }
       .hero-gal { margin-bottom: 0; }
     }
@@ -461,7 +463,14 @@
   .met-col li:last-child { border-bottom: none; }
   .met-col li::before { content: ''; position: absolute; left: 0; top: 17px; width: 5px; height: 5px; border-radius: 50%; background: var(--teal); }
   .met-col li strong { color: #fff; font-weight: 600; }
-  @media (max-width: 780px) { .mets { grid-template-columns: 1fr; gap: 26px; } }
+  @media (max-width: 780px) { .mets { gap: 16px; } }
+  @media (max-width: 620px) {
+    .mets { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .met-col > b { font-size: 0.6rem; letter-spacing: 0.09em; }
+    .met-col > i { font-size: 0.92rem; margin-bottom: 10px; }
+    .met-col li { font-size: 0.73rem; line-height: 1.5; padding: 7px 0 7px 13px; }
+    .met-col li::before { top: 13px; width: 4px; height: 4px; }
+  }
 
   /* ── PANEL DE MÉTRICAS ── */
   .dash { background: var(--navy); color: rgba(255,255,255,0.75); }
@@ -515,7 +524,8 @@
   }
   @media (max-width: 720px) { .brand-row { gap: 10px 20px; } .brand-row i { font-size: 0.8rem; letter-spacing: 0.11em; } }
   /* ── Tira de previews del informe ── */
-  .rep { margin-top: 30px; }
+  .rep { margin-top: 34px; min-width: 0; max-width: 100%; }
+  .rep-strip { max-width: 100%; }
   .rep > b { display: block; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-dk); font-weight: 700; margin-bottom: 12px; }
   .rep-strip { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: none; }
   .rep-strip::-webkit-scrollbar { display: none; }
@@ -548,6 +558,9 @@
         <span class="label">Diagnóstico metabólico · presencial en Miami</span>
         <h1>Análisis Metabólico MP</h1>
         <p class="tagline">Tu metabolismo medido, no estimado. Con la interpretación de tus resultados por un especialista MP.</p>
+      </div>
+
+      <div class="hero-intro">
         <p class="hero-sub">
           Respiras a través de una mascarilla durante unos minutos —en reposo y luego en movimiento— y
           el analizador lee <strong>23 biomarcadores en tu aliento</strong>. De ahí salen tus números
@@ -913,78 +926,38 @@
   </section>
 
   <section class="interp">
-    <div class="wrap interp-grid">
-      <img src="images/centro-miami.jpg" alt="Centro Michelle Peiret Health en Miami" class="interp-img fade" loading="lazy">
-      <div class="fade">
+    <div class="wrap" style="max-width:880px;">
+      <div class="fade" style="text-align:center;max-width:640px;margin:0 auto 34px;">
         <span class="label">La tecnología</span>
         <h2>Por qué medimos con PNOĒ</h2>
-        <p>
-          Usamos <strong>PNOĒ</strong>, el mismo analizador metabólico que utilizan centros como Equinox
-          y Four Seasons. Es la primera plataforma portátil que iguala a los equipos de laboratorio
-          hospitalario, y esa precisión es lo que hace que los números sirvan para tomar decisiones.
+        <p style="font-size:0.99rem;color:var(--muted);line-height:1.8;margin-top:15px;">
+          Es la primera plataforma portátil que iguala a los equipos de laboratorio hospitalario.
+          Esa precisión es lo que hace que los números sirvan para decidir.
         </p>
-        <ul class="interp-list">
-          <li>Validado frente al COSMED Quark CPET, el estándar de oro clínico</li>
-          <li>Correlación r ≈ 0.98 en VO2, VCO2, cociente respiratorio y ventilación</li>
-          <li>Fiabilidad test-retest ICC ≈ 0.98 — mide igual hoy que dentro de tres meses</li>
-          <li>Cada prueba toma menos de 10 minutos, sin laboratorio ni extracción de sangre</li>
-        </ul>
-        <div class="sci">
-          <p>
-            La capacidad cardiorrespiratoria es el predictor de supervivencia más potente que se ha
-            medido. En un análisis de <strong>122.007 adultos</strong> publicado en JAMA Network Open,
-            las personas con una condición física de élite tuvieron cerca de un <strong>80 % menos de
-            mortalidad</strong> que las de peor condición — un efecto mayor que el de fumar, la
-            hipertensión o la diabetes en esa misma población.
-          </p>
-          <span>Mandsager et al., Cleveland Clinic · JAMA Network Open, 2018</span>
-        </div>
-
-        <div class="rep">
-          <b>Así se ve tu informe</b>
-          <div class="rep-strip">
-            <img src="images/metabolico/rmr_14.jpg" alt="Informe: equilibrio calórico" loading="lazy">
-            <img src="images/metabolico/amr_6.jpg" alt="Informe: edad biológica" loading="lazy">
-            <img src="images/metabolico/rmr_15.jpg" alt="Informe: macronutrientes" loading="lazy">
-            <img src="images/metabolico/amr_20.jpg" alt="Informe: zonas de entrenamiento" loading="lazy">
-            <img src="images/metabolico/amr_4.jpg" alt="Informe: descripción general" loading="lazy">
-            <img src="images/metabolico/rmr_4.jpg" alt="Informe en reposo" loading="lazy">
-            <img src="images/metabolico/amr_21.jpg" alt="Informe: consumo de energía" loading="lazy">
-          </div>
-          <p class="rep-cap">Páginas reales de un informe MP. Toca cualquiera para ampliarla.</p>
-        </div>
-
       </div>
-    </div>
-  </section>
 
-  <section>
-    <div class="wrap">
-      <div style="max-width:640px" class="fade">
-        <span class="label">Cómo es la visita</span>
-        <h2>Una hora en el centro, y sales con tus números</h2>
+      <div class="sci fade" style="max-width:640px;margin:0 auto;">
+        <p>
+          La capacidad cardiorrespiratoria es el predictor de supervivencia más potente que se ha
+          medido. En un análisis de <strong>122.007 adultos</strong>, quienes tenían una condición
+          física de élite mostraron cerca de un <strong>80 % menos de mortalidad</strong> que los de
+          peor condición — más efecto que fumar, la hipertensión o la diabetes.
+        </p>
+        <span>Mandsager et al., Cleveland Clinic · JAMA Network Open, 2018</span>
       </div>
-      <div class="steps">
-        <div class="step fade">
-          <span class="step-n">PASO 01</span>
-          <h3>Reservas y te contactamos</h3>
-          <p>Eliges tu objetivo al reservar. El equipo te llama en 24 a 48 horas para fijar tu cita.</p>
+
+      <div class="rep fade">
+        <b>Así se ve tu informe</b>
+        <div class="rep-strip">
+          <img src="images/metabolico/rmr_14.jpg" alt="Informe: equilibrio calórico" loading="lazy">
+          <img src="images/metabolico/amr_6.jpg" alt="Informe: edad biológica" loading="lazy">
+          <img src="images/metabolico/rmr_15.jpg" alt="Informe: macronutrientes" loading="lazy">
+          <img src="images/metabolico/amr_20.jpg" alt="Informe: zonas de entrenamiento" loading="lazy">
+          <img src="images/metabolico/amr_4.jpg" alt="Informe: descripción general" loading="lazy">
+          <img src="images/metabolico/rmr_4.jpg" alt="Informe en reposo" loading="lazy">
+          <img src="images/metabolico/amr_21.jpg" alt="Informe: consumo de energía" loading="lazy">
         </div>
-        <div class="step fade">
-          <span class="step-n">PASO 02</span>
-          <h3>Prueba en reposo</h3>
-          <p>Sentado y relajado, respirando por la mascarilla unos minutos. Nada invasivo.</p>
-        </div>
-        <div class="step fade">
-          <span class="step-n">PASO 03</span>
-          <h3>Prueba en esfuerzo</h3>
-          <p>En bicicleta, subiendo la intensidad de forma gradual y siempre bajo supervisión.</p>
-        </div>
-        <div class="step fade">
-          <span class="step-n">PASO 04</span>
-          <h3>Tus informes y tu consulta</h3>
-          <p>Recibes los dos informes y tu consulta de 30 min con un especialista MP.</p>
-        </div>
+        <p class="rep-cap">Páginas reales de un informe MP. Toca cualquiera para ampliarla.</p>
       </div>
     </div>
   </section>
