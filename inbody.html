@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InBody — Análisis de composición corporal | Michelle Peiret Health</title>
-  <meta name="description" content="Escaneo InBody en Miami: de qué está hecho tu peso — músculo, grasa, grasa visceral y agua celular — en 60 segundos. $95 con lectura de resultados incluida.">
+  <title>InBody 970S — Análisis de composición corporal | Michelle Peiret Health</title>
+  <meta name="description" content="Escaneo con el InBody 970S en Miami: músculo, grasa, agua y proteína en 30 segundos. $95 con consulta de resultados incluida.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -566,6 +566,29 @@
   }
   .rep-strip img:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(13,27,46,0.14); }
   .rep-cap { font-size: 0.78rem; color: var(--muted); margin-top: 9px; }
+
+  /* ── BLOQUE DE MARCA INBODY 970S ── */
+  .ib { background: var(--cream); }
+  .ib-wrap { max-width: 900px; margin: 0 auto; }
+  .ib-head { text-align: center; margin-bottom: 38px; }
+  .ib-logo {
+    font-family: var(--font-body); font-size: 2.1rem; font-weight: 800; letter-spacing: -0.03em;
+    color: #b4132c; line-height: 1; margin-bottom: 8px;
+  }
+  .ib-logo em { font-style: normal; color: var(--navy); font-weight: 300; }
+  .ib-model {
+    display: inline-block; font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase;
+    font-weight: 800; color: var(--white); background: var(--navy); padding: 5px 13px; border-radius: 20px;
+  }
+  .ib-head p { font-size: 0.99rem; color: var(--muted); line-height: 1.8; margin-top: 18px; max-width: 620px; margin-left: auto; margin-right: auto; }
+  .ib-specs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .ib-spec { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 20px 16px; text-align: center; }
+  .ib-spec b { display: block; font-family: var(--font-serif); font-size: 1.85rem; color: var(--navy); line-height: 1; margin-bottom: 7px; font-weight: 600; }
+  .ib-spec span { font-size: 0.71rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); font-weight: 600; line-height: 1.4; display: block; }
+  @media (max-width: 780px) { .ib-specs { grid-template-columns: 1fr 1fr; gap: 10px; } .ib-spec { padding: 15px 11px; } .ib-spec b { font-size: 1.45rem; } .ib-spec span { font-size: 0.63rem; } }
+  .ib-quote { text-align: center; max-width: 620px; margin: 38px auto 0; }
+  .ib-quote p { font-family: var(--font-serif); font-size: clamp(1.2rem, 2.4vw, 1.6rem); font-style: italic; color: var(--navy); line-height: 1.5; }
+  .ib-quote span { display: block; font-family: var(--font-body); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-top: 14px; }
   /* ── Cita científica ── */
   .sci { border-left: 3px solid var(--teal); padding: 4px 0 4px 20px; margin: 26px 0 0; }
   .sci p { font-size: 0.93rem; line-height: 1.75; color: var(--muted); margin: 0 0 6px; }
@@ -586,9 +609,9 @@
   <header class="hero">
     <div class="wrap hero-grid">
       <div class="hero-head">
-        <span class="label">Composición corporal · presencial en Miami</span>
-        <h1>InBody</h1>
-        <p class="tagline">De qué está hecho tu peso. En 60 segundos, sin agujas y sin radiación.</p>
+        <span class="label">Composición corporal · el modelo más avanzado de InBody</span>
+        <h1>InBody <span class="h1-sub">970S</span></h1>
+        <p class="tagline">Ve de qué estás hecho. Músculo, grasa, agua y proteína en 30 segundos.</p>
       </div>
 
       <div class="gal hero-gal" data-gal>
@@ -599,7 +622,7 @@
         <button class="gal-nav gal-prev" type="button" aria-label="Anterior">‹</button>
         <button class="gal-nav gal-next" type="button" aria-label="Siguiente">›</button>
         <div class="gal-dots"></div>
-        <p class="gal-cap">Se hace en nuestro centro de Miami. Te subes al equipo y en un minuto tienes tus resultados.</p>
+        <p class="gal-cap">Se hace en nuestro centro de Miami, con el InBody 970S. En 30 segundos tienes tus resultados.</p>
       </div>
 
       <div class="buy-col" id="comprar">
@@ -672,7 +695,7 @@
               <b>Qué pasa después de reservar</b>
               <ol>
                 <li><strong>Te contactamos entre 24 y 48 horas</strong> para agendar tu cita. Si reservas un fin de semana, será el siguiente día hábil.</li>
-                <li><strong>Vienes al centro.</strong> Te subes al equipo descalzo y sostienes los electrodos: el escaneo dura unos 60 segundos.</li>
+                <li><strong>Vienes al centro.</strong> Te subes al equipo descalzo y sostienes los electrodos: el escaneo dura unos 30 segundos.</li>
                 <li><strong>Recibes tu hoja de resultados</strong> impresa, con todos tus valores y sus rangos de referencia.</li>
                 <li><strong>Un especialista MP te la explica</strong> ahí mismo: qué está bien, qué conviene corregir y con qué empezar.</li>
               </ol>
@@ -683,10 +706,10 @@
 
       <div class="hero-intro">
         <p class="hero-sub">
-          La báscula te da un número y nada más. El InBody te dice <strong>de qué está hecho ese
-          número</strong>: cuánto es músculo, cuánta es grasa, cuánta de esa grasa rodea tus órganos
-          y cómo está tu agua celular. Dos personas del mismo peso pueden tener cuerpos —y riesgos—
-          completamente distintos.
+          Eres mucho más que un número estandarizado. La báscula, la presión y el colesterol apenas
+          rozan la superficie de cómo estás. El <strong>InBody 970S</strong> —el modelo más avanzado
+          de la marca— analiza tu <strong>músculo, grasa, agua y proteína</strong> segmento por
+          segmento, y te da la línea base real desde la cual medir cualquier cambio.
         </p>
       </div>
 
@@ -695,11 +718,11 @@
         <ul class="inc-list acc">
           <li>
             <b>Tu escaneo de composición corporal</b>
-            <span>Te subes al equipo descalzo y sostienes los electrodos durante unos 60 segundos. Sin agujas, sin radiación y sin necesidad de desvestirte. La corriente es imperceptible.</span>
+            <span>Te subes al equipo descalzo y sostienes los electrodos durante unos 30 segundos. Sin agujas, sin radiación y sin necesidad de desvestirte. La corriente es imperceptible.</span>
           </li>
           <li>
-            <b>Tu hoja de resultados completa</b>
-            <span>Masa muscular esquelética, masa grasa, porcentaje de grasa, grasa visceral, agua intracelular y extracelular, ángulo de fase y tu tasa metabólica basal — cada valor con su rango de referencia para que sepas dónde estás parado.</span>
+            <b>Tus dos hojas de resultados</b>
+            <span>El 970S entrega dos informes: el de composición corporal —masa muscular esquelética, masa grasa, porcentaje de grasa, agua intracelular y extracelular, proteína, minerales y tasa metabólica basal— y el de <strong>análisis de grasa abdominal</strong>, dedicado a la grasa visceral. Cada valor viene con su rango de referencia.</span>
           </li>
           <li>
             <b>Tu análisis segmental</b>
@@ -731,7 +754,7 @@
           </li>
           <li>
             <b>Medir si tu plan está funcionando</b>
-            <span>Repetido cada 4 a 8 semanas, te dice con datos si lo que estás haciendo suma músculo y baja grasa, o si hay que cambiar algo antes de perder tres meses.</span>
+            <span>Repetido cada 2 a 4 semanas —el ritmo que recomienda InBody— te dice con datos si lo que haces suma músculo y baja grasa, o si hay que corregir antes de perder tres meses.</span>
           </li>
           <li>
             <b>Ver tu inflamación e hidratación celular</b>
@@ -864,6 +887,34 @@
     </div>
   </section>
 
+
+  <!-- ━━━ EL EQUIPO ━━━ -->
+  <section class="ib">
+    <div class="wrap ib-wrap">
+      <div class="ib-head fade">
+        <div class="ib-logo">In<em>Body</em></div>
+        <span class="ib-model">Modelo 970S</span>
+        <p>
+          InBody es el referente mundial en análisis de composición corporal, y el <strong>970S</strong>
+          es su equipo más avanzado. Es el que tenemos en el centro: medición directa y segmental,
+          sin estimaciones basadas en tu edad o tu sexo.
+        </p>
+      </div>
+
+      <div class="ib-specs fade">
+        <div class="ib-spec"><b>30 s</b><span>Dura el escaneo</span></div>
+        <div class="ib-spec"><b>2</b><span>Hojas de resultados</span></div>
+        <div class="ib-spec"><b>5</b><span>Segmentos medidos</span></div>
+        <div class="ib-spec"><b>0</b><span>Radiación y agujas</span></div>
+      </div>
+
+      <div class="ib-quote fade">
+        <p>«Eres mucho más que un número estandarizado.»</p>
+        <span>InBody</span>
+      </div>
+    </div>
+  </section>
+
   <!-- ━━━ FAQ ━━━ -->
   <section>
     <div class="wrap">
@@ -886,11 +937,11 @@
         </div>
         <div class="faq-item">
           <button class="faq-q">¿Cada cuánto conviene repetirlo?<span class="faq-ico">+</span></button>
-          <div class="faq-a"><p>Cada 4 a 8 semanas. Es el tiempo en el que un cambio de alimentación o entrenamiento se refleja en la composición corporal, y compararlo con tu medición anterior es lo que le da valor real.</p></div>
+          <div class="faq-a"><p>InBody recomienda repetirlo <strong>cada 2 a 4 semanas</strong>. Es el ritmo en el que un cambio de alimentación o entrenamiento ya se refleja en tu composición, y comparar contra tu medición anterior es lo que convierte el dato en seguimiento.</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-q">¿Es tan preciso como un DEXA?<span class="faq-ico">+</span></button>
-          <div class="faq-a"><p>El InBody muestra una correlación muy alta con el DEXA en masa muscular y masa grasa, sin radiación y en 60 segundos en lugar de una cita hospitalaria. Donde es más valioso es en el seguimiento: midiendo siempre en las mismas condiciones, los cambios entre una medición y otra son muy fiables.</p></div>
+          <div class="faq-a"><p>El InBody muestra una correlación muy alta con el DEXA en masa muscular y masa grasa, sin radiación y en 30 segundos en lugar de una cita hospitalaria. Donde es más valioso es en el seguimiento: midiendo siempre en las mismas condiciones, los cambios entre una medición y otra son muy fiables.</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-q">¿En qué se diferencia del Análisis Metabólico?<span class="faq-ico">+</span></button>
@@ -903,7 +954,7 @@
   <section class="final">
     <div class="wrap fade">
       <h2>Deja de medirte solo con la báscula</h2>
-      <p class="lede">Músculo, grasa, grasa visceral y agua celular. En 60 segundos, con la lectura incluida.</p>
+      <p class="lede">Músculo, grasa, agua y proteína. En 30 segundos con el InBody 970S, y con tu consulta de resultados incluida.</p>
       <a href="#comprar" class="buy-btn" style="display:block;text-decoration:none;text-align:center;">Reservar mi InBody · $95 →</a>
       <p style="font-size:0.85rem;color:var(--muted);margin-top:22px;line-height:1.7;">
         ¿Quieres el panorama completo? El <strong>Mapa Biológico MP</strong> reúne el InBody, el BioScan,
