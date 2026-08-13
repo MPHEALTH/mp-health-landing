@@ -68,8 +68,10 @@
     .hero-head { grid-area: head; }
     .hero-gal  { grid-area: gal; }
     .hero-desc { grid-area: desc; }
-    .buy-col { grid-area: buy; position: sticky; top: 80px; }
-    @media (max-height: 900px) { .buy-col { position: static; } }
+    /* Sin sticky: la tarjeta de reserva mide más que cualquier pantalla (precio +
+       6 campos + los pasos), y un sticky más alto que el viewport se queda trabado
+       y no deja llegar al botón. Fluye normal y el scroll funciona siempre. */
+    .buy-col { grid-area: buy; }
     @media (max-width: 980px) {
       /* Orden de página de producto: foto → checkout → descripción */
       .hero-grid { grid-template-columns: 1fr; grid-template-areas: "head" "gal" "buy" "desc"; row-gap: 24px; }
