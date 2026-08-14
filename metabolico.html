@@ -570,6 +570,19 @@
   .sci { border-left: 3px solid var(--teal); padding: 4px 0 4px 20px; margin: 26px 0 0; }
   .sci p { font-size: 0.93rem; line-height: 1.75; color: var(--muted); margin: 0 0 6px; }
   .sci span { font-size: 0.76rem; color: var(--muted); opacity: 0.8; }
+
+  /* ── Hablar con el equipo, dentro del checkout ── */
+  .talk { margin-top: 16px; padding-top: 15px; border-top: 1px solid var(--border); text-align: center; }
+  .talk > span { display: block; font-size: 0.81rem; color: var(--muted); line-height: 1.55; margin-bottom: 9px; }
+  .talk a {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; padding: 12px 16px; border: 1.5px solid var(--navy); border-radius: 8px;
+    color: var(--navy); text-decoration: none; font-size: 0.87rem; font-weight: 700;
+    transition: background 0.18s, color 0.18s;
+  }
+  .talk a:hover { background: var(--navy); color: #fff; }
+  .talk a svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .talk small { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 8px; }
 </style>
 
 </head>
@@ -677,6 +690,16 @@
             </form>
 
             <p class="buy-secure">Pago seguro con Stripe. Tarjeta, Apple&nbsp;Pay y Google&nbsp;Pay.<br>Tu objetivo define cómo se genera tu informe.</p>
+
+            <div class="talk">
+              <span>¿Tienes dudas antes de reservar?</span>
+              <a href="tel:+17869302544">
+                <svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+                Hablar con nuestro equipo
+              </a>
+              <small>Llámanos al +1 (786) 930-2544 · lunes a viernes, 9 AM – 6 PM EST</small>
+            </div>
+
 
             <div class="after">
               <b>Qué pasa después de reservar</b>
