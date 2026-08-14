@@ -470,20 +470,14 @@
       <div style="text-align:center;margin-bottom:36px;">
         <div style="width:62px;height:62px;border-radius:50%;background:var(--teal);color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:800;margin:0 auto 20px;">✓</div>
         <span class="label">Pago confirmado</span>
-        <h1 style="font-size:clamp(1.7rem,3.6vw,2.5rem);margin-bottom:14px;">Tu Análisis Metabólico está reservado</h1>
+        <h1 id="gTitulo" style="font-size:clamp(1.7rem,3.6vw,2.5rem);margin-bottom:14px;">Tu estudio está reservado</h1>
         <p class="lede">Te enviamos la confirmación por correo. El equipo te contactará entre 24 y 48 horas para agendar tu cita en el centro.</p>
       </div>
 
       <div class="buy-card">
         <div class="buy-head"><b>Cómo prepararte para tu cita</b><span>Estas indicaciones importan: afectan la precisión de tus resultados.</span></div>
         <div class="buy-body">
-          <ul class="inc-list">
-            <li><b>Ayuno de 4 horas antes</b><span>Puedes tomar agua. Comer antes altera tu tasa metabólica en reposo y falsea la medición.</span></li>
-            <li><b>Sin cafeína ese día</b><span>El café acelera tu metabolismo de forma temporal y distorsiona los números.</span></li>
-            <li><b>Sin ejercicio intenso ese día</b><span>Llega descansado: el esfuerzo previo altera tu recuperación y tu VO2 max.</span></li>
-            <li><b>Ropa cómoda para ejercicio ligero</b><span>La segunda prueba es en bicicleta, gradual y supervisada.</span></li>
-            <li><b>Reserva unos 60 minutos</b><span>Entre preparación, las dos pruebas y la generación de tus informes.</span></li>
-          </ul>
+          <ul class="inc-list" id="gPrep"></ul>
         </div>
       </div>
 
@@ -503,5 +497,41 @@
       <p class="small">© 2026 Michelle Peiret Health · Energy MP LLC · Miami, FL</p>
     </div>
   </footer>
+
+<script>
+  /* Cada estudio tiene una preparación distinta: la página se adapta al que se compró. */
+  var PREP = {
+    metabolico: {
+      titulo: 'Tu Análisis Metabólico está reservado',
+      pasos: [
+        ['Ayuno de 4 horas antes', 'Puedes tomar agua. Comer antes altera tu tasa metabólica en reposo y falsea la medición.'],
+        ['Sin cafeína ese día', 'El café acelera tu metabolismo de forma temporal y distorsiona los números.'],
+        ['Sin ejercicio intenso ese día', 'Llega descansado: el esfuerzo previo altera tu recuperación y tu VO2 max.'],
+        ['Ropa cómoda para ejercicio ligero', 'La segunda prueba es en bicicleta, gradual y supervisada.'],
+        ['Reserva unos 60 minutos', 'Entre preparación, las dos pruebas y la generación de tus informes.']
+      ]
+    },
+    inbody: {
+      titulo: 'Tu InBody 970S está reservado',
+      pasos: [
+        ['Ayuno de 3 horas antes', 'Puedes tomar agua, pero evita beber mucho justo antes: la hidratación cambia los valores en minutos.'],
+        ['Ve al baño antes de la medición', 'Suena menor, pero influye en el peso y en el agua corporal que registra el equipo.'],
+        ['Sin ejercicio ese día', 'El entrenamiento previo desplaza líquidos y altera la lectura por segmento.'],
+        ['Ropa ligera y sin joyas metálicas', 'No hace falta desvestirse; solo te medirás descalzo.'],
+        ['Reserva unos 15 minutos', 'El escaneo dura 30 segundos; el resto es la lectura de tus resultados con el especialista.']
+      ]
+    }
+  };
+
+  (function () {
+    var e = new URLSearchParams(location.search).get('e') || 'metabolico';
+    var d = PREP[e] || PREP.metabolico;
+    document.getElementById('gTitulo').textContent = d.titulo;
+    document.getElementById('gPrep').innerHTML = d.pasos.map(function (p) {
+      return '<li><b>' + p[0] + '</b><span>' + p[1] + '</span></li>';
+    }).join('');
+    document.title = d.titulo + ' — Michelle Peiret Health';
+  })();
+</script>
 </body>
 </html>
