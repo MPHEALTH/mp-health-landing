@@ -603,6 +603,17 @@
     .ib-grid .ib-head { text-align: center; }
     .ib-grid .ib-head p { margin-left: auto; margin-right: auto; }
   }
+
+  /* ── Hojas de resultados ── */
+  .rep { margin-top: 40px; min-width: 0; max-width: 100%; }
+  .rep > b { display: block; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-dk); font-weight: 700; margin-bottom: 6px; text-align: center; }
+  .rep > i { display: block; font-family: var(--font-serif); font-style: italic; font-size: 1.28rem; color: var(--navy); text-align: center; margin-bottom: 18px; }
+  .rep-gal { max-width: 430px; margin: 0 auto; }
+  .rep-gal .gal-item img { aspect-ratio: 3/4; object-fit: contain; background: #fff; }
+  @media (max-width: 620px) {
+    .rep-gal .gal-nav { display: flex; width: 42px; height: 42px; font-size: 24px; box-shadow: 0 4px 16px rgba(13,27,46,0.3); }
+    .rep-gal .gal-prev { left: -4px; } .rep-gal .gal-next { right: -4px; }
+  }
   /* ── Cita científica ── */
   .sci { border-left: 3px solid var(--teal); padding: 4px 0 4px 20px; margin: 26px 0 0; }
   .sci p { font-size: 0.93rem; line-height: 1.75; color: var(--muted); margin: 0 0 6px; }
@@ -926,6 +937,23 @@
         <div class="ib-spec"><b>0</b><span>Radiación y agujas</span></div>
       </div>
       </div>
+      </div>
+
+
+      <div class="rep fade">
+        <b>Lo que te llevas</b>
+        <i>Así se ven tus hojas de resultados</i>
+        <div class="gal portrait rep-gal" data-gal>
+          <div class="gal-track">
+            <figure class="gal-item"><img src="images/inbody/hoja-composicion.jpg" alt="Hoja de composición corporal del InBody 970" loading="lazy"></figure>
+            <figure class="gal-item"><img src="images/inbody/hoja-agua.jpg" alt="Hoja de agua corporal del InBody 970" loading="lazy"></figure>
+            <figure class="gal-item"><img src="images/inbody/hoja-evaluacion.jpg" alt="Hoja de evaluación del InBody 970" loading="lazy"></figure>
+          </div>
+          <button class="gal-nav gal-prev" type="button" aria-label="Hoja anterior">‹</button>
+          <button class="gal-nav gal-next" type="button" aria-label="Hoja siguiente">›</button>
+          <div class="gal-dots"></div>
+          <p class="gal-cap">Hojas de ejemplo del InBody 970. Desliza o usa las flechas; toca una para ampliarla.</p>
+        </div>
       </div>
 
       <div class="ib-quote fade">
