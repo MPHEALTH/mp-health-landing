@@ -785,6 +785,10 @@
   .bp-prog i { background: var(--blood); }
   .bp-opt.sel { border-color: var(--blood); background: rgba(176,35,60,0.05); }
   .dash .label, .rev .label, .stats-band .label, .close-box .label { color: var(--teal) !important; }
+
+  .nav-all { font-size: 0.79rem; font-weight: 700; color: var(--muted); text-decoration: none; margin-right: 16px; white-space: nowrap; transition: color 0.18s; }
+  .nav-all:hover { color: var(--navy); }
+  @media (max-width: 620px) { .nav-all { display: none; } }
 </style>
 </head>
 <body>
@@ -792,6 +796,7 @@
   <nav class="nav">
     <div class="nav-in">
       <img src="images/LOGO%20%286%29.png" alt="Michelle Peiret Health" class="nav-logo">
+      <a href="diagnosticos.html" class="nav-all">Todos los diagnósticos</a>
       <a href="#agendar" class="nav-cta">Agendar mi llamada</a>
     </div>
   </nav>

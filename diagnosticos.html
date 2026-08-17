@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Análisis Metabólico MP — Tu metabolismo medido, no estimado | Michelle Peiret Health</title>
-  <meta name="description" content="Prueba metabólica con tecnología PNOĒ en Miami: tu VO2 max, tu edad biológica y tus calorías exactas medidas desde el aliento. $350, con consulta de interpretación incluida.">
+  <title>Diagnósticos MP — Elige el estudio que necesitas | Michelle Peiret Health</title>
+  <meta name="description" content="BioScan, Análisis Metabólico, InBody, Paneles de Sangre y los paquetes MP. Todos con interpretación de un especialista. Elige el que necesitas.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -566,6 +566,54 @@
   }
   .rep-strip img:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(13,27,46,0.14); }
   .rep-cap { font-size: 0.78rem; color: var(--muted); margin-top: 9px; }
+
+  /* ── BLOQUE DE MARCA INBODY 970S ── */
+  .ib { background: var(--cream); }
+  .ib-wrap { max-width: 900px; margin: 0 auto; }
+  .ib-head { text-align: center; margin-bottom: 38px; }
+  .ib-logo {
+    font-family: var(--font-body); font-size: 2.1rem; font-weight: 800; letter-spacing: -0.03em;
+    color: #b4132c; line-height: 1; margin-bottom: 8px;
+  }
+  .ib-logo em { font-style: normal; color: var(--navy); font-weight: 300; }
+  .ib-model {
+    display: inline-block; font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase;
+    font-weight: 800; color: var(--white); background: var(--navy); padding: 5px 13px; border-radius: 20px;
+  }
+  .ib-head p { font-size: 0.99rem; color: var(--muted); line-height: 1.8; margin-top: 18px; max-width: 620px; margin-left: auto; margin-right: auto; }
+  .ib-specs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .ib-spec { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 20px 16px; text-align: center; }
+  .ib-spec b { display: block; font-family: var(--font-serif); font-size: 1.85rem; color: var(--navy); line-height: 1; margin-bottom: 7px; font-weight: 600; }
+  .ib-spec span { font-size: 0.71rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); font-weight: 600; line-height: 1.4; display: block; }
+  @media (max-width: 780px) { .ib-specs { grid-template-columns: 1fr 1fr; gap: 10px; } .ib-spec { padding: 15px 11px; } .ib-spec b { font-size: 1.45rem; } .ib-spec span { font-size: 0.63rem; } }
+  .ib-quote { text-align: center; max-width: 620px; margin: 38px auto 0; }
+  .ib-quote p { font-family: var(--font-serif); font-size: clamp(1.2rem, 2.4vw, 1.6rem); font-style: italic; color: var(--navy); line-height: 1.5; }
+  .ib-quote span { display: block; font-family: var(--font-body); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-top: 14px; }
+
+  /* El render del equipo va sobre fondo, no recortado */
+  .gal-device { object-fit: contain !important; background: linear-gradient(160deg,#fff 0%,var(--cream2) 100%) !important; padding: 14px 0; }
+  /* Bloque de marca en dos columnas */
+  .ib-grid { display: grid; grid-template-columns: 0.62fr 1fr; gap: 44px; align-items: center; }
+  .ib-grid > img { width: 100%; max-width: 290px; margin: 0 auto; filter: drop-shadow(0 22px 44px rgba(13,27,46,0.17)); }
+  .ib-grid .ib-head { text-align: left; margin-bottom: 26px; }
+  .ib-grid .ib-head p { margin-left: 0; margin-right: 0; }
+  @media (max-width: 820px) {
+    .ib-grid { grid-template-columns: 1fr; gap: 26px; }
+    .ib-grid > img { max-width: 190px; }
+    .ib-grid .ib-head { text-align: center; }
+    .ib-grid .ib-head p { margin-left: auto; margin-right: auto; }
+  }
+
+  /* ── Hojas de resultados ── */
+  .rep { margin-top: 40px; min-width: 0; max-width: 100%; }
+  .rep > b { display: block; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-dk); font-weight: 700; margin-bottom: 6px; text-align: center; }
+  .rep > i { display: block; font-family: var(--font-serif); font-style: italic; font-size: 1.28rem; color: var(--navy); text-align: center; margin-bottom: 18px; }
+  .rep-gal { max-width: 430px; margin: 0 auto; }
+  .rep-gal .gal-item img { aspect-ratio: 3/4; object-fit: contain; background: #fff; }
+  @media (max-width: 620px) {
+    .rep-gal .gal-nav { display: flex; width: 42px; height: 42px; font-size: 24px; box-shadow: 0 4px 16px rgba(13,27,46,0.3); }
+    .rep-gal .gal-prev { left: -4px; } .rep-gal .gal-next { right: -4px; }
+  }
   /* ── Cita científica ── */
   .sci { border-left: 3px solid var(--teal); padding: 4px 0 4px 20px; margin: 26px 0 0; }
   .sci p { font-size: 0.93rem; line-height: 1.75; color: var(--muted); margin: 0 0 6px; }
@@ -606,544 +654,315 @@
   .talk-btns { display: grid; gap: 8px; }
   .talk a.alt { border-color: var(--teal-dk); color: var(--teal-dk); }
   .talk a.alt:hover { background: var(--teal-dk); color: #fff; }
+</style>
 
-  /* ── Acento propio de este diagnóstico ── */
-  :root { --accent: #c2701c; }
-  .label { color: var(--accent) !important; }
-  .h1-sub { color: var(--accent); }
-  .tagline { color: var(--accent); }
-  .step-n { color: var(--accent); }
-  .inc-list > li::before { background: var(--accent); box-shadow: 0 0 0 4px #c2701c22; }
-  .interp-list li::before { background: var(--accent); box-shadow: 0 0 0 4px #c2701c22; }
-  .sci { border-left-color: var(--accent); }
-  .rep > b, .after > b { color: var(--accent); }
-  .faq-ico { color: var(--accent); }
-  .gal-dot.on { background: var(--accent); }
-  .plan-tag { background: var(--accent); color: #fff; }
-  .dash .label, .rev .label { color: var(--teal) !important; }   /* sobre oscuro se mantiene el turquesa */
 
-  /* ── Comparativa: el costo de no saber ── */
+
+<style>
+  /* ── Cards de panel: informativas, sin estado ── */
+  .pan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+  @media (max-width: 980px) { .pan-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 620px)  { .pan-grid { grid-template-columns: 1fr; gap: 12px; } }
+  .pan {
+    position: relative; background: #fbfcfd; border: 1px solid rgba(13,27,46,0.14);
+    border-radius: 12px; padding: 24px 22px 22px; display: flex; flex-direction: column;
+  }
+  .pan-tag {
+    position: absolute; top: -9px; left: 20px; background: var(--teal); color: var(--navy);
+    font-size: 0.6rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 20px;
+  }
+  .pan h3 { font-family: var(--font-body); font-size: 0.79rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal-dk); margin-bottom: 9px; }
+  .pan-range { font-size: 1.5rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; line-height: 1; margin-bottom: 10px; }
+  .pan-tl { font-family: var(--font-serif); font-style: italic; font-size: 1.12rem; color: var(--navy); line-height: 1.35; margin-bottom: 11px; }
+  .pan p { font-size: 0.88rem; color: var(--muted); line-height: 1.72; margin: 0; }
+
+
+  /* ── Identidad propia de Paneles: acento clínico ── */
+  :root { --blood: #b0233c; --blood-lt: rgba(176,35,60,0.08); }
+  .pan {
+    background: var(--white); border: 1px solid rgba(13,27,46,0.12);
+    border-top: 3px solid var(--blood); border-radius: 12px;
+    padding: 26px 22px 22px; transition: box-shadow 0.22s, transform 0.22s;
+  }
+  .pan:hover { box-shadow: 0 14px 38px rgba(13,27,46,0.10); transform: translateY(-3px); }
+  .pan-tag { background: var(--blood); color: #fff; }
+  .pan h3 { color: var(--blood); }
+  .pan-range { color: var(--navy); }
+  .pan-range span { font-size: 0.74rem; font-weight: 600; color: var(--muted); letter-spacing: 0; margin-left: 5px; }
+
+  /* ── Biomarcadores ── */
+  .bio { margin-top: 16px; padding-top: 15px; border-top: 1px dashed rgba(13,27,46,0.14); }
+  .bio > b {
+    display: block; font-size: 0.63rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted); font-weight: 800; margin-bottom: 10px;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .chips { gap: 4px; }
+  .chips span {
+    font-size: 0.7rem; font-weight: 500; color: var(--text); line-height: 1.35;
+    background: transparent; border: 1px solid rgba(13,27,46,0.16);
+    border-left: 2px solid var(--blood);
+    padding: 3px 8px; border-radius: 3px; white-space: nowrap;
+  }
+  .chips .more { background: none; border: none; color: var(--muted); font-weight: 500; padding-left: 3px; }
+  @media (max-width: 620px) { .chips span { font-size: 0.66rem; padding: 2px 7px; } }
+
+  /* La etiqueta de sección del hero también toma el acento */
+  .hero-head .label { color: var(--blood); }
+  .pan-tl { color: var(--navy); }
+
+  /* ── Barra de datos y argumento de costo (estructura tipo Function Health) ── */
+  .stats-band { background: var(--navy); color: rgba(255,255,255,0.7); padding: 54px 0; }
+  .stats-band h2 { color: #fff; text-align: center; margin-bottom: 8px; }
+  .stats-band > .wrap > p { text-align: center; max-width: 560px; margin: 0 auto 40px; font-size: 1rem; line-height: 1.8; color: rgba(255,255,255,0.6); }
+  .sb-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .sb { text-align: center; padding: 0 12px; }
+  .sb b { display: block; font-family: var(--font-serif); font-size: 2.9rem; color: var(--blood); line-height: 1; margin-bottom: 10px; font-weight: 600; }
+  .sb span { font-size: 0.86rem; color: rgba(255,255,255,0.62); line-height: 1.6; display: block; }
+  @media (max-width: 720px) { .sb-grid { grid-template-columns: 1fr; gap: 26px; } .sb b { font-size: 2.3rem; } .stats-band { padding: 40px 0; } }
+
   .cost { background: var(--white); }
   .cost-head { max-width: 640px; margin: 0 auto 40px; text-align: center; }
   .cost-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
   @media (max-width: 820px) { .cost-cols { grid-template-columns: 1fr; } }
   .cost-col { border: 1px solid rgba(13,27,46,0.12); border-radius: 12px; padding: 26px 24px; }
-  .cost-col.bad { background: #fbfbfc; }
+  .cost-col.bad { background: #fdfafa; border-color: rgba(176,35,60,0.22); }
   .cost-col > b { display: block; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 800; margin-bottom: 16px; }
-  .cost-col.bad > b { color: var(--muted); }
-  .cost-col.good > b { color: var(--accent); }
+  .cost-col.bad > b { color: var(--blood); }
+  .cost-col.good > b { color: var(--teal-dk); }
   .cost-col ul { list-style: none; }
   .cost-col li { font-size: 0.9rem; color: var(--muted); line-height: 1.7; padding: 11px 0 11px 26px; position: relative; border-bottom: 1px solid rgba(13,27,46,0.07); }
   .cost-col li:last-child { border-bottom: none; }
   .cost-col li::before { position: absolute; left: 0; top: 10px; font-size: 0.95rem; font-weight: 700; }
-  .cost-col.bad li::before  { content: '×'; color: #b0233c; }
-  .cost-col.good li::before { content: '✓'; color: var(--accent); }
+  .cost-col.bad li::before  { content: '×'; color: var(--blood); }
+  .cost-col.good li::before { content: '✓'; color: var(--teal-dk); }
   .cost-col li strong { color: var(--text); font-weight: 600; }
+  /* ── Bloque de cierre ── */
+  .close-box {
+    background: var(--navy); border-radius: 16px; padding: 42px 38px; margin-top: 34px;
+    text-align: center; color: rgba(255,255,255,0.72);
+  }
+  .close-box h2 { color: #fff; margin-bottom: 13px; }
+  .close-box p { font-size: 0.99rem; line-height: 1.8; max-width: 520px; margin: 0 auto 24px; }
+  .close-box .buy-btn { max-width: 380px; margin: 0 auto; }
+  @media (max-width: 620px) { .close-box { padding: 30px 20px; } }
 
-  .nav-all { font-size: 0.79rem; font-weight: 700; color: var(--muted); text-decoration: none; margin-right: 16px; white-space: nowrap; transition: color 0.18s; }
-  .nav-all:hover { color: var(--navy); }
-  @media (max-width: 620px) { .nav-all { display: none; } }
+  /* ── Formulario de 2 pasos ── */
+  .bp-prog { height: 3px; background: var(--cream2); border-radius: 3px; overflow: hidden; margin-bottom: 8px; }
+  .bp-prog i { display: block; height: 100%; background: var(--teal); width: 50%; transition: width 0.3s ease; }
+  .bp-steplabel { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 16px; }
+  .bp-step { display: none; }
+  .bp-step.on { display: block; }
+  .bp-opt {
+    border: 1.5px solid var(--cream2); border-radius: 9px; padding: 13px 15px; margin-bottom: 8px;
+    cursor: pointer; font-size: 0.89rem; font-weight: 600; color: var(--navy);
+    transition: border-color 0.16s, background 0.16s;
+  }
+  .bp-opt:hover { border-color: rgba(0,201,167,0.5); }
+  .bp-opt.sel { border-color: var(--teal); background: rgba(0,201,167,0.06); }
+  .bp-opt small { display: block; font-weight: 400; font-size: 0.79rem; color: var(--muted); margin-top: 2px; }
+  .bp-back { background: none; border: none; cursor: pointer; font-family: var(--font-body); font-size: 0.82rem; font-weight: 600; color: var(--muted); padding: 10px 0 0; width: 100%; }
+  .bp-back:hover { color: var(--navy); }
+  .bp-ok { text-align: center; }
+  .bp-ok .tick { width: 54px; height: 54px; border-radius: 50%; background: var(--teal); color: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 800; margin: 0 auto 16px; }
+  .bp-ok h3 { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
+  .bp-ok p { font-size: 0.9rem; color: var(--muted); line-height: 1.72; margin-bottom: 18px; }
+  #bpCal { min-width: 280px; height: 660px; }
+  .bp-cal-fallback { background: rgba(0,201,167,0.07); border: 1px solid rgba(0,201,167,0.28); border-radius: 10px; padding: 18px 20px; }
+  .bp-cal-fallback p { font-size: 0.88rem; color: var(--text); line-height: 1.7; margin: 0; }
+
+  /* ── El acento granate, consistente en toda la página ── */
+  .label { color: var(--blood) !important; }
+  .h1-sub { color: var(--blood); }
+  .tagline { color: var(--blood); }
+  .inc-list > li::before { background: var(--blood); box-shadow: 0 0 0 4px rgba(176,35,60,0.14); }
+  .faq-ico { color: var(--blood); }
+  .gal-dot.on { background: var(--blood); }
+  .after > b { color: var(--blood); }
+  .bp-prog i { background: var(--blood); }
+  .bp-opt.sel { border-color: var(--blood); background: rgba(176,35,60,0.05); }
+  .dash .label, .rev .label, .stats-band .label, .close-box .label { color: var(--teal) !important; }
 </style>
 
+<style>
+  .hub-hero { background: var(--cream); padding: 56px 0 50px; border-bottom: 1px solid var(--cream2); text-align: center; }
+  .hub-hero .wrap { max-width: 720px; }
+  .hub-hero p { font-size: 1.03rem; color: var(--muted); line-height: 1.8; margin-top: 16px; }
+
+  .dgrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 38px; }
+  @media (max-width: 860px) { .dgrid { grid-template-columns: 1fr; gap: 14px; } }
+  .dcard {
+    --c: var(--teal-dk);
+    background: var(--white); border: 1px solid rgba(13,27,46,0.12);
+    border-top: 3px solid var(--c); border-radius: 13px;
+    padding: 26px 24px 24px; display: flex; flex-direction: column;
+    transition: box-shadow 0.22s, transform 0.22s;
+  }
+  .dcard:hover { box-shadow: 0 16px 42px rgba(13,27,46,0.11); transform: translateY(-3px); }
+  .dcard.bioscan   { --c: #00a88c; }
+  .dcard.metab     { --c: #c2701c; }
+  .dcard.inbody    { --c: #2563a8; }
+  .dcard.sangre    { --c: #b0233c; }
+  .dcard.paquete   { --c: #0d1b2e; }
+  .d-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 5px; }
+  .dcard h3 { font-family: var(--font-body); font-size: 0.8rem; font-weight: 800; letter-spacing: 0.11em; text-transform: uppercase; color: var(--c); line-height: 1.4; }
+  .d-price { font-size: 1.32rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; white-space: nowrap; line-height: 1; }
+  .d-tl { font-family: var(--font-serif); font-style: italic; font-size: 1.18rem; color: var(--navy); line-height: 1.4; margin: 8px 0 10px; }
+  .dcard > p { font-size: 0.89rem; color: var(--muted); line-height: 1.72; margin: 0 0 16px; }
+  .d-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+  .d-meta span { font-size: 0.68rem; font-weight: 600; color: var(--text); border: 1px solid rgba(13,27,46,0.16); border-left: 2px solid var(--c); padding: 3px 8px; border-radius: 3px; }
+  .d-cta {
+    margin-top: auto; display: block; text-align: center; text-decoration: none;
+    background: var(--c); color: #fff; font-size: 0.83rem; font-weight: 800;
+    letter-spacing: 0.03em; text-transform: uppercase; padding: 13px 18px; border-radius: 8px;
+    transition: opacity 0.18s;
+  }
+  .d-cta:hover { opacity: 0.88; }
+  .d-cta.ghost { background: none; border: 1.5px solid var(--c); color: var(--c); }
+
+  .guide { background: var(--navy); color: rgba(255,255,255,0.72); }
+  .guide h2 { color: #fff; }
+  .guide .label { color: var(--teal) !important; }
+  .g-rows { margin-top: 34px; max-width: 820px; }
+  .g-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding: 17px 0; border-bottom: 1px solid var(--border2); align-items: baseline; }
+  .g-row:last-child { border-bottom: none; }
+  .g-row b { font-size: 0.93rem; color: #fff; font-weight: 600; line-height: 1.5; }
+  .g-row span { font-size: 0.88rem; color: rgba(255,255,255,0.62); line-height: 1.6; }
+  .g-row span em { font-style: normal; color: var(--teal); font-weight: 600; }
+  @media (max-width: 720px) { .g-row { grid-template-columns: 1fr; gap: 5px; padding: 14px 0; } }
+</style>
 </head>
 <body>
 
   <nav class="nav">
     <div class="nav-in">
       <img src="images/LOGO%20%286%29.png" alt="Michelle Peiret Health" class="nav-logo">
-      <a href="diagnosticos.html" class="nav-all">Todos los diagnósticos</a>
-      <a href="#comprar" class="nav-cta">Reservar mi prueba</a>
+      <a href="#estudios" class="nav-cta">Ver los estudios</a>
     </div>
   </nav>
 
-  <header class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-head">
-        <span class="label">Diagnóstico metabólico · presencial en Miami</span>
-        <h1>Análisis Metabólico MP</h1>
-        <p class="tagline">Tu metabolismo medido, no estimado. Con la interpretación de tus resultados por un especialista MP.</p>
-      </div>
-
-      <div class="hero-intro">
-        <p class="hero-sub">
-          Respiras a través de una mascarilla durante unos minutos —en reposo y luego en movimiento— y
-          el analizador lee <strong>23 biomarcadores en tu aliento</strong>. De ahí salen tus números
-          reales: cuántas calorías quema tu cuerpo, si quemas grasa o azúcar, cuál es tu VO2 max y
-          cuál es tu edad biológica. Sin sangre y sin agujas.
-        </p>
-      </div>
-
-      <div class="gal hero-gal" data-gal>
-        <div class="gal-track">
-          <figure class="gal-item"><img src="images/centro-vo2max.jpg" alt="Prueba metabólica en el centro de Miami"></figure>
-          <figure class="gal-item"><img src="images/metabolico-prueba.jpg" alt="Prueba de esfuerzo con mascarilla, supervisada por una especialista" loading="lazy"></figure>
-          <figure class="gal-item"><img src="images/paso2-michelle-consulta.jpg" alt="Consulta de interpretación con una especialista MP" loading="lazy"></figure>
-        </div>
-        <button class="gal-nav gal-prev" type="button" aria-label="Anterior">‹</button>
-        <button class="gal-nav gal-next" type="button" aria-label="Siguiente">›</button>
-        <div class="gal-dots"></div>
-        <p class="gal-cap">La prueba se hace en nuestro centro de Miami, en una sola visita de unos 60 minutos.</p>
-      </div>
-
-      <div class="buy-col" id="comprar">
-        <div class="buy-card">
-          <div class="buy-head">
-            <b>Reserva tu análisis</b>
-            <span>Las dos pruebas, tus dos informes y tu consulta de interpretación.</span>
-          </div>
-          <div class="buy-body">
-            <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px;">
-              <span style="font-size:2.1rem;font-weight:800;color:var(--navy);letter-spacing:-0.02em;">$350</span>
-              <span style="font-size:0.83rem;color:var(--muted);">USD · pago único</span>
-            </div>
-            <p style="font-size:0.83rem;color:var(--muted);line-height:1.6;margin-bottom:16px;">
-              Presencial en nuestro centro de Miami. Reserva y te contactamos para agendar tu cita.
-            </p>
-
-            <div class="note">
-              <p><b>Cupos limitados por semana.</b> El equipo te contacta entre 24 y 48 horas para coordinar tu fecha y hora.</p>
-            </div>
-
-            <form id="bkForm" novalidate>
-              <div class="fld">
-                <label for="bkName">Nombre completo</label>
-                <input type="text" id="bkName" autocomplete="name" placeholder="Tu nombre">
-                <span class="fld-err" id="errName">Escribe tu nombre</span>
-              </div>
-              <div class="fld">
-                <label for="bkEmail">Correo electrónico</label>
-                <input type="email" id="bkEmail" autocomplete="email" inputmode="email" placeholder="tu@correo.com">
-                <span class="fld-err" id="errEmail">Escribe un correo válido</span>
-              </div>
-              <div class="fld">
-                <label for="bkPhone">Teléfono / WhatsApp</label>
-                <input type="tel" id="bkPhone" autocomplete="tel" inputmode="tel" placeholder="+1 305 555 0123">
-                <span class="fld-err" id="errPhone">Escribe un teléfono válido con código de país</span>
-              </div>
-              <div class="fld">
-                <label for="bkObjetivo">¿Cuál es tu objetivo?</label>
-                <select id="bkObjetivo">
-                  <option value="">Elige uno…</option>
-                  <option value="perder_peso">Bajar de peso y dejar de estancarme</option>
-                  <option value="metabolismo">Saber por qué mi metabolismo está lento</option>
-                  <option value="calorias">Conocer mis calorías y macros exactos</option>
-                  <option value="rendimiento">Entrenar mejor y subir mi rendimiento</option>
-                  <option value="longevidad">Bajar mi edad biológica</option>
-                  <option value="energia">Entender mi fatiga y mi recuperación</option>
-                </select>
-                <span class="fld-err" id="errObjetivo">Elige tu objetivo</span>
-              </div>
-              <div class="fld">
-                <label for="bkUrgencia">¿Para cuándo?</label>
-                <select id="bkUrgencia">
-                  <option value="alta">Lo antes posible</option>
-                  <option value="media">En las próximas semanas</option>
-                  <option value="baja">Estoy planificando</option>
-                </select>
-              </div>
-              <div class="fld">
-                <label for="bkNotes">Algo que debamos saber <span style="text-transform:none;letter-spacing:0;font-weight:400;">(opcional)</span></label>
-                <textarea id="bkNotes" placeholder="Condiciones, medicamentos, lesiones…"></textarea>
-              </div>
-
-              <div class="fld-err" id="errForm" style="text-align:center;margin-bottom:8px;"></div>
-              <button type="submit" class="buy-btn" id="bkBtn">Reservar mi análisis · $350 →</button>
-            </form>
-
-            <p class="buy-secure">Pago seguro con Stripe. Tarjeta, Apple&nbsp;Pay y Google&nbsp;Pay.<br>Tu objetivo define cómo se genera tu informe.</p>
-
-            <div class="talk">
-              <span>¿Prefieres hablar con alguien antes?</span>
-              <div class="talk-btns">
-                <a href="tel:+17869302544">
-                  <svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
-                  Agendar directo con nuestro equipo
-                </a>
-                <a class="alt" id="cal15" style="display:none;" target="_blank" rel="noopener">
-                  <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg>
-                  Llamada de 15 min con un especialista
-                </a>
-              </div>
-              <small>Llámanos al +1 (786) 930-2544 · lunes a viernes, 9 AM – 6 PM EST</small>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-desc">
-        <h2 class="inc-h">Qué incluye</h2>
-        <ul class="inc-list acc">
-          <li>
-            <b>Tu prueba en reposo · análisis nutricional</b>
-            <span>Respiras normalmente a través de la mascarilla durante unos minutos. De ahí sale tu tasa metabólica en reposo real —las calorías que quema tu cuerpo sin hacer nada—, tu mezcla de combustible (qué porcentaje de energía sacas de grasa y qué porcentaje de carbohidratos), tu función mitocondrial y tu flexibilidad metabólica.</span>
-          </li>
-          <li>
-            <b>Tu prueba en esfuerzo · rendimiento y edad biológica</b>
-            <span>En bicicleta, con la mascarilla, subiendo la intensidad de forma gradual y controlada. Mide tu VO2 max, la capacidad de tu corazón para bombear oxígeno, tu eficiencia pulmonar, tu capacidad de recuperación y tu edad biológica comparada con la cronológica.</span>
-          </li>
-          <li>
-            <b>Tus dos informes completos, según tu objetivo</b>
-            <span>Antes de la prueba eliges qué buscas —perder peso, rendimiento, longevidad, energía— y los informes se generan enfocados en eso: los mismos datos, priorizados y explicados para tu meta concreta.</span>
-          </li>
-          <li>
-            <b>Tu consulta de interpretación · 30 minutos</b>
-            <span>Un especialista MP revisa tus informes contigo, te explica qué significa cada número en tu caso y qué priorizar. Los datos sin lectura no cambian nada; esta parte es la que los convierte en decisiones.</span>
-          </li>
-          <li>
-            <b>Tu plan de calorías, macros y zonas</b>
-            <span>Sales con tus calorías exactas para días con y sin ejercicio, tus gramos de proteína, grasa y carbohidratos, y tus cinco zonas de entrenamiento con las pulsaciones exactas de cada una — incluida la pulsación en la que tu cuerpo quema la mayor cantidad de grasa.</span>
-          </li>
-        </ul>
-
-        <h2 class="inc-h">Para qué te sirve</h2>
-        <p style="font-size:0.93rem;color:var(--muted);line-height:1.8;margin-bottom:4px;">
-          La mayoría de la gente entrena y come según fórmulas basadas en su peso, edad y estatura.
-          El problema es que esas fórmulas fallan: solo coinciden con la medición real en el 40 % a 60 %
-          de las personas. Esta prueba deja de estimar y mide.
-        </p>
-        <ul class="inc-list acc">
-          <li>
-            <b>Cuántas calorías necesitas de verdad</b>
-            <span>No las que te da una app, sino las tuyas medidas. Si tu metabolismo es más lento de lo que la fórmula supone, llevas meses comiendo de más sin saberlo — o de menos, que es lo que frena a mucha gente que "hace todo bien" y no baja.</span>
-          </li>
-          <li>
-            <b>Si tu cuerpo quema grasa o azúcar</b>
-            <span>Puedes estar en déficit y aun así no bajar grasa si tu metabolismo depende casi por completo de los carbohidratos. La prueba te dice tu proporción exacta y a qué intensidad empiezas a quemar grasa de verdad.</span>
-          </li>
-          <li>
-            <b>A qué pulso entrenar para tu objetivo</b>
-            <span>Tus cinco zonas con pulsaciones exactas, no las de la fórmula genérica de "220 menos tu edad". Incluye tu punto de máxima quema de grasa y tu umbral anaeróbico, los dos números que hacen que el mismo tiempo de ejercicio dé resultados distintos.</span>
-          </li>
-          <li>
-            <b>Tu edad biológica, y qué la está subiendo</b>
-            <span>Se calcula desde tu VO2 max, tu eficiencia en la quema de grasa y tu tasa metabólica. Y lo importante: el informe señala cuál de los tres te está envejeciendo, que es sobre lo que se puede trabajar.</span>
-          </li>
-          <li>
-            <b>Cómo están tu corazón y tus pulmones bajo esfuerzo</b>
-            <span>La circulación de oxígeno, la eficiencia de ventilación y la capacidad de recuperación revelan limitaciones que en reposo no se ven. Es información que la mayoría solo obtiene en una prueba de esfuerzo hospitalaria.</span>
-          </li>
-        </ul>
-      </div>
+  <header class="hub-hero">
+    <div class="wrap">
+      <span class="label">Diagnósticos MP</span>
+      <h1>Elige el estudio que necesitas</h1>
+      <p>
+        Todos nuestros diagnósticos incluyen <strong>la interpretación de tus resultados con un
+        especialista MP</strong>. Porque el dato sin lectura no cambia nada — lo que cambia las cosas
+        es saber qué significa en tu caso y qué hacer con eso.
+      </p>
     </div>
   </header>
 
-
-  <div class="cred">
-    <div class="wrap cred-in">
-      <div class="cred-brands" style="border-top:none;margin-top:0;padding-top:0;">
-        <span>Tecnología PNOĒ · la misma que utilizan</span>
-        <div class="brand-row">
-          <i>Equinox</i>
-          <i>Four Seasons</i>
-          <i>Liquivida</i>
-          <i>NuBioAge</i>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ━━━ PANEL DE MÉTRICAS ━━━ -->
-  <section class="dash">
+  <section id="estudios">
     <div class="wrap">
-      <div class="dash-top fade">
-        <span class="label">Lo que sales sabiendo</span>
-        <h2>Tus números, no los de una fórmula</h2>
-        <p>
-          Esto es lo que aparece en tu informe. Los valores de abajo son de un caso real —
-          una persona de 27 años que hizo su análisis con objetivo de pérdida de peso.
-        </p>
+      <div style="max-width:640px" class="fade">
+        <span class="label">Estudios individuales</span>
+        <h2>Mide una cosa a la vez</h2>
       </div>
 
-      <div class="cards fade">
-
-        <!-- Edad biológica -->
-        <div class="card">
-          <div class="card-h">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-            <span>Edad biológica</span>
-          </div>
-          <div class="card-viz">
-            <svg viewBox="0 0 120 74" width="100%" style="max-width:150px">
-              <path d="M12 66 A48 48 0 0 1 108 66" stroke="rgba(255,255,255,0.13)" stroke-width="8" fill="none" stroke-linecap="round"/>
-              <path d="M12 66 A48 48 0 0 1 84 25" stroke="#00c9a7" stroke-width="8" fill="none" stroke-linecap="round"/>
-              <text x="60" y="52" text-anchor="middle" class="big" font-size="27">25</text>
-              <text x="60" y="66" text-anchor="middle" class="sml">−2 AÑOS</text>
-            </svg>
-          </div>
-          <p class="card-note"><b>25 años biológicos</b> con 27 cronológicos. El informe señala cuál de tus tres marcadores te está envejeciendo.</p>
+      <div class="dgrid">
+        <div class="dcard bioscan fade">
+          <div class="d-top"><h3>BioScan</h3><span class="d-price">$447</span></div>
+          <p class="d-tl">Cómo está funcionando tu cuerpo hoy.</p>
+          <p>900+ biomarcadores desde cuatro hebras de cabello: deficiencias, hormonas, microbiota, toxinas y sensibilidad a 115+ alimentos. Sin agujas y sin sangre.</p>
+          <div class="d-meta"><span>Desde tu casa</span><span>Kit a domicilio</span><span>7–10 días</span><span>Consulta de 30 min</span></div>
+          <a class="d-cta" href="https://bioscan.michellepeiret.com/">Ver el BioScan →</a>
         </div>
 
-        <!-- Calorías reales -->
-        <div class="card">
-          <div class="card-h">
-            <svg viewBox="0 0 24 24"><path d="M12 3s5 4.5 5 9a5 5 0 0 1-10 0c0-1.6.6-3 1.4-4.2"/><path d="M12 21a3.5 3.5 0 0 0 3.5-3.5c0-2-3.5-4.5-3.5-4.5s-3.5 2.5-3.5 4.5A3.5 3.5 0 0 0 12 21z"/></svg>
-            <span>Calorías reales</span>
-          </div>
-          <div class="card-viz">
-            <svg viewBox="0 0 150 86" width="100%" style="max-width:170px">
-              <text x="75" y="26" text-anchor="middle" class="big" font-size="25">2,619</text>
-              <text x="75" y="39" text-anchor="middle" class="sml">KCAL QUE QUEMAS</text>
-              <rect x="10" y="49" width="130" height="8" rx="4" fill="rgba(255,255,255,0.13)"/>
-              <rect x="10" y="49" width="98" height="8" rx="4" fill="#00c9a7"/>
-              <text x="10" y="75" class="sml">DEBES COMER</text>
-              <text x="140" y="75" text-anchor="end" class="sml" style="fill:#fff;font-size:12px;font-weight:800">1,969</text>
-            </svg>
-          </div>
-          <p class="card-note">Tu gasto medido, no estimado. <b>Las fórmulas solo aciertan en el 40–60 %</b> de las personas.</p>
+        <div class="dcard metab fade">
+          <div class="d-top"><h3>Análisis Metabólico MP</h3><span class="d-price">$350</span></div>
+          <p class="d-tl">Tu metabolismo medido, no estimado.</p>
+          <p>Dos pruebas con tecnología PNOĒ: tus calorías y macros reales, tu VO2 max, tus zonas de entrenamiento y tu edad biológica. Respirando por una mascarilla.</p>
+          <div class="d-meta"><span>Presencial en Miami</span><span>~60 min</span><span>Resultados el mismo día</span><span>Consulta de 30 min</span></div>
+          <a class="d-cta" href="metabolico.html">Ver el Análisis Metabólico →</a>
         </div>
 
-        <!-- Mezcla de combustible -->
-        <div class="card">
-          <div class="card-h">
-            <svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M7 20V9l5-5 5 5v11"/><path d="M11 20v-5h2v5"/></svg>
-            <span>Mezcla de combustible</span>
-          </div>
-          <div class="card-viz">
-            <svg viewBox="0 0 150 86" width="100%" style="max-width:170px">
-              <text x="10" y="24" class="big" font-size="23">17%</text>
-              <text x="140" y="24" text-anchor="end" class="big" font-size="23" style="fill:rgba(255,255,255,0.45)">83%</text>
-              <text x="10" y="37" class="sml">GRASA</text>
-              <text x="140" y="37" text-anchor="end" class="sml">CARBOS</text>
-              <rect x="10" y="49" width="130" height="12" rx="6" fill="rgba(255,255,255,0.13)"/>
-              <rect x="10" y="49" width="22" height="12" rx="6" fill="#00c9a7"/>
-              <text x="10" y="79" class="sml">TU FUENTE DE ENERGÍA</text>
-            </svg>
-          </div>
-          <p class="card-note">Puedes estar en déficit y no bajar grasa si tu cuerpo <b>casi solo quema azúcar</b>.</p>
+        <div class="dcard inbody fade">
+          <div class="d-top"><h3>InBody 970S</h3><span class="d-price">$95</span></div>
+          <p class="d-tl">De qué está hecho tu peso.</p>
+          <p>Músculo, grasa, grasa visceral, agua celular y proteína, medidos por segmento en 30 segundos. Sin agujas y sin radiación.</p>
+          <div class="d-meta"><span>Presencial en Miami</span><span>15 min</span><span>Resultados al instante</span><span>Lectura con especialista</span></div>
+          <a class="d-cta" href="inbody.html">Ver el InBody →</a>
         </div>
 
-        <!-- VO2 max -->
-        <div class="card">
-          <div class="card-h">
-            <svg viewBox="0 0 24 24"><path d="M3 13h4l2.5-7 4 14L16 13h5"/></svg>
-            <span>VO2 max</span>
-          </div>
-          <div class="card-viz">
-            <svg viewBox="0 0 120 74" width="100%" style="max-width:150px">
-              <path d="M12 66 A48 48 0 0 1 108 66" stroke="rgba(255,255,255,0.13)" stroke-width="8" fill="none" stroke-linecap="round"/>
-              <path d="M12 66 A48 48 0 0 1 96 38" stroke="#00c9a7" stroke-width="8" fill="none" stroke-linecap="round"/>
-              <text x="60" y="52" text-anchor="middle" class="big" font-size="26">40</text>
-              <text x="60" y="66" text-anchor="middle" class="sml">ML/MIN/KG</text>
-            </svg>
-          </div>
-          <p class="card-note">El <b>predictor de longevidad más potente</b> que se ha medido — más que fumar o la hipertensión.</p>
-        </div>
-
-        <!-- Zona de quema de grasa -->
-        <div class="card">
-          <div class="card-h">
-            <svg viewBox="0 0 24 24"><path d="M20.8 6.6a5 5 0 0 0-7.1 0L12 8.3l-1.7-1.7a5 5 0 0 0-7.1 7.1l8.8 8.8 8.8-8.8a5 5 0 0 0 0-7.1z"/></svg>
-            <span>Quema de grasa</span>
-          </div>
-          <div class="card-viz">
-            <svg viewBox="0 0 150 86" width="100%" style="max-width:170px">
-              <text x="75" y="26" text-anchor="middle" class="big" font-size="25">108</text>
-              <text x="75" y="39" text-anchor="middle" class="sml">PULSACIONES POR MINUTO</text>
-              <rect x="10" y="50" width="130" height="9" rx="4.5" fill="rgba(255,255,255,0.13)"/>
-              <rect x="10" y="50" width="34" height="9" rx="4.5" fill="#00c9a7"/>
-              <circle cx="44" cy="54.5" r="7" fill="#00c9a7" stroke="#0d1b2e" stroke-width="2.5"/>
-              <text x="10" y="78" class="sml">REPOSO</text>
-              <text x="140" y="78" text-anchor="end" class="sml">MÁXIMO 174</text>
-            </svg>
-          </div>
-          <p class="card-note">La pulsación exacta a la que <b>tu cuerpo quema más grasa</b>. Por encima, quemas azúcar.</p>
-        </div>
-
-        <!-- Macros -->
-        <div class="card">
-          <div class="card-h">
-            <svg viewBox="0 0 24 24"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-7"/></svg>
-            <span>Tus macros</span>
-          </div>
-          <div class="card-viz">
-            <svg viewBox="0 0 150 86" width="100%" style="max-width:170px">
-              <text x="10" y="18" class="sml">PROTEÍNA</text>
-              <text x="140" y="18" text-anchor="end" class="sml" style="fill:#fff;font-size:11px;font-weight:800">145 g</text>
-              <rect x="10" y="22" width="130" height="7" rx="3.5" fill="rgba(255,255,255,0.13)"/>
-              <rect x="10" y="22" width="82" height="7" rx="3.5" fill="#00c9a7"/>
-              <text x="10" y="47" class="sml">GRASA</text>
-              <text x="140" y="47" text-anchor="end" class="sml" style="fill:#fff;font-size:11px;font-weight:800">101 g</text>
-              <rect x="10" y="51" width="130" height="7" rx="3.5" fill="rgba(255,255,255,0.13)"/>
-              <rect x="10" y="51" width="57" height="7" rx="3.5" fill="#00c9a7"/>
-              <text x="10" y="76" class="sml">CARBOS</text>
-              <text x="140" y="76" text-anchor="end" class="sml" style="fill:#fff;font-size:11px;font-weight:800">209 g</text>
-              <rect x="10" y="80" width="130" height="7" rx="3.5" fill="rgba(255,255,255,0.13)"/>
-              <rect x="10" y="80" width="118" height="7" rx="3.5" fill="#00c9a7"/>
-            </svg>
-          </div>
-          <p class="card-note">En gramos, para días con y sin entrenamiento. <b>Sin adivinar.</b></p>
-        </div>
-
-      </div>
-      <p class="dash-foot">Valores de un informe real, a modo de ejemplo. Tus resultados son los tuyos: dependen de tu fisiología y del objetivo que elijas.</p>
-    </div>
-  </section>
-
-  <section class="rev">
-    <div class="wrap">
-      <div class="rev-top fade">
-        <span class="label">Qué se mide</span>
-        <h2>23 biomarcadores, dos pruebas, un solo día</h2>
-        <p>
-          El aliento delata cómo tu cuerpo produce energía. Midiendo el oxígeno que consumes y el
-          dióxido de carbono que exhalas se reconstruye el funcionamiento de tu metabolismo, tu corazón,
-          tus pulmones y tus células — sin una sola extracción de sangre.
-        </p>
-      </div>
-
-      <div class="mets fade">
-        <div class="met-col">
-          <b>Prueba en reposo</b>
-          <i>Tu plan metabólico y nutricional</i>
-          <ul>
-            <li><strong>Tasa metabólica en reposo</strong> — tus calorías reales por día</li>
-            <li><strong>Equilibrio calórico</strong> — cuánto quemas y cuánto deberías comer, con y sin ejercicio</li>
-            <li><strong>Fuentes de combustible</strong> — tu proporción exacta de grasa frente a carbohidratos</li>
-            <li><strong>Macronutrientes</strong> — tus gramos de proteína, grasa y carbohidratos</li>
-            <li><strong>Función mitocondrial</strong> — la salud energética de tus células</li>
-            <li><strong>Flexibilidad metabólica</strong> — tu capacidad de alternar entre grasa y azúcar</li>
-            <li><strong>Variabilidad cardíaca (VFC)</strong> — recuperación y carga de estrés</li>
-            <li><strong>Balance simpático / parasimpático</strong> — estrés acumulado</li>
-          </ul>
-        </div>
-        <div class="met-col">
-          <b>Prueba en esfuerzo</b>
-          <i>Tu edad biológica y tu rendimiento</i>
-          <ul>
-            <li><strong>VO2 max</strong> — tu capacidad aeróbica máxima</li>
-            <li><strong>Edad biológica</strong> — comparada con tu edad cronológica</li>
-            <li><strong>Circulación de oxígeno</strong> — cómo bombea tu corazón bajo esfuerzo</li>
-            <li><strong>Eficiencia de ventilación</strong> — cómo intercambian tus pulmones</li>
-            <li><strong>Umbral de quema de grasa</strong> — la pulsación exacta de máxima quema</li>
-            <li><strong>Zonas de entrenamiento</strong> — tus cinco zonas con pulsaciones reales</li>
-            <li><strong>Capacidad de recuperación</strong> — riesgo de fatiga y sobreentrenamiento</li>
-            <li><strong>Economía de movimiento</strong> — cuánta energía te cuesta moverte</li>
-          </ul>
+        <div class="dcard sangre fade">
+          <div class="d-top"><h3>Paneles de Sangre MP</h3><span class="d-price">$250 – $600</span></div>
+          <p class="d-tl">Análisis clínico con interpretación.</p>
+          <p>Cinco paneles según lo que necesites medir: completo, metabólico, hormonal, inflamatorio o nutricional. Empieza con una llamada de 15 minutos para definir cuál te toca.</p>
+          <div class="d-meta"><span>Presencial en Miami</span><span>102 biomarcadores</span><span>5 paneles</span><span>Consulta incluida</span></div>
+          <a class="d-cta" href="paneles-sangre.html">Ver los Paneles →</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="interp">
-    <div class="wrap" style="max-width:880px;">
-      <div class="fade" style="text-align:center;max-width:640px;margin:0 auto 34px;">
-        <span class="label">La tecnología</span>
-        <h2>Por qué medimos con PNOĒ</h2>
-        <p style="font-size:0.99rem;color:var(--muted);line-height:1.8;margin-top:15px;">
-          Es la primera plataforma portátil que iguala a los equipos de laboratorio hospitalario.
-          Esa precisión es lo que hace que los números sirvan para decidir.
+  <section style="padding-top:0;">
+    <div class="wrap">
+      <div style="max-width:640px" class="fade">
+        <span class="label">Paquetes</span>
+        <h2>O mídelo todo en un solo día</h2>
+        <p class="lede" style="margin-top:15px;">
+          El monto que pagas por cualquiera de los tres se acredita a tu tratamiento nutricional
+          personalizado si decides iniciarlo en los próximos 60 días.
         </p>
       </div>
 
-      <div class="sci fade" style="max-width:640px;margin:0 auto;">
-        <p>
-          La capacidad cardiorrespiratoria es el predictor de supervivencia más potente que se ha
-          medido. En un análisis de <strong>122.007 adultos</strong>, quienes tenían una condición
-          física de élite mostraron cerca de un <strong>80 % menos de mortalidad</strong> que los de
-          peor condición — más efecto que fumar, la hipertensión o la diabetes.
-        </p>
-        <span>Mandsager et al., Cleveland Clinic · JAMA Network Open, 2018</span>
-      </div>
+      <div class="dgrid">
+        <div class="dcard paquete fade">
+          <div class="d-top"><h3>Punto de Partida MP</h3><span class="d-price">$540</span></div>
+          <p class="d-tl">Entiende qué está pasando en tu cuerpo.</p>
+          <p>Para quien quiere empezar a cuidarse de verdad pero no sabe por dónde. Incluye tu BioScan y tu InBody, con la consulta de interpretación.</p>
+          <div class="d-meta"><span>Miami u online</span><span>Se acredita íntegro</span></div>
+          <a class="d-cta ghost" href="https://wa.me/17869302544?text=Hola%2C%20quiero%20informaci%C3%B3n%20del%20Punto%20de%20Partida%20MP">Consultar por WhatsApp →</a>
+        </div>
 
-      <div class="rep fade">
-        <b>Así se ve tu informe</b>
-        <div class="gal portrait rep-gal" data-gal>
-          <div class="gal-track">
-            <figure class="gal-item"><img src="images/metabolico/rmr_14.jpg" alt="Informe: equilibrio calórico" loading="lazy"></figure>
-            <figure class="gal-item"><img src="images/metabolico/amr_6.jpg" alt="Informe: edad biológica" loading="lazy"></figure>
-            <figure class="gal-item"><img src="images/metabolico/rmr_15.jpg" alt="Informe: macronutrientes" loading="lazy"></figure>
-            <figure class="gal-item"><img src="images/metabolico/amr_20.jpg" alt="Informe: zonas de entrenamiento" loading="lazy"></figure>
-            <figure class="gal-item"><img src="images/metabolico/amr_4.jpg" alt="Informe: descripción general" loading="lazy"></figure>
-            <figure class="gal-item"><img src="images/metabolico/rmr_4.jpg" alt="Informe en reposo" loading="lazy"></figure>
-            <figure class="gal-item"><img src="images/metabolico/amr_21.jpg" alt="Informe: consumo de energía" loading="lazy"></figure>
-          </div>
-          <button class="gal-nav gal-prev" type="button" aria-label="Página anterior">‹</button>
-          <button class="gal-nav gal-next" type="button" aria-label="Página siguiente">›</button>
-          <div class="gal-dots"></div>
-          <p class="gal-cap">Desliza o usa las flechas para ver las 7 páginas. Toca una para ampliarla.</p>
+        <div class="dcard paquete fade">
+          <div class="d-top"><h3>Atleta MP</h3><span class="d-price">$895</span></div>
+          <p class="d-tl">Tu rendimiento, medido y optimizado.</p>
+          <p>Análisis Metabólico con VO2 Max, panel de sangre completo, InBody y una sesión de IV Therapy de recuperación deportiva, con tu consulta de interpretación.</p>
+          <div class="d-meta"><span>Presencial en Miami</span><span>Se acredita íntegro</span></div>
+          <a class="d-cta ghost" href="https://wa.me/17869302544?text=Hola%2C%20quiero%20informaci%C3%B3n%20del%20paquete%20Atleta%20MP">Consultar por WhatsApp →</a>
+        </div>
+
+        <div class="dcard paquete fade" style="grid-column:1/-1;">
+          <div class="d-top"><h3>Mapa Biológico MP · el más completo</h3><span class="d-price">$1,200</span></div>
+          <p class="d-tl">La fotografía completa de tu biología.</p>
+          <p>BioScan, panel de sangre completo, Análisis Metabólico e InBody, todo en una sola visita, con tu consulta de interpretación y recomendaciones personalizadas. Lo que pasa a nivel celular, metabólico, hormonal y de composición corporal.</p>
+          <div class="d-meta"><span>Presencial en Miami</span><span>Visita de 3 a 3.5 h</span><span>Se acredita íntegro</span></div>
+          <a class="d-cta ghost" href="https://wa.me/17869302544?text=Hola%2C%20quiero%20informaci%C3%B3n%20del%20Mapa%20Biol%C3%B3gico%20MP">Consultar por WhatsApp →</a>
         </div>
       </div>
     </div>
   </section>
 
-
-  <!-- ━━━ EL COSTO DE NO SABER ━━━ -->
-  <section class="cost">
+  <section class="guide">
     <div class="wrap">
-      <div class="cost-head fade">
-        <span class="label">Por qué importa</span>
-        <h2>La pregunta no es cuánto cuesta medirte</h2>
-        <p class="lede" style="margin-top:15px;">Es cuántos meses llevas entrenando y comiendo según un número que nunca fue tuyo.</p>
+      <div style="max-width:640px" class="fade">
+        <span class="label">Si no sabes cuál elegir</span>
+        <h2>Empieza por lo que quieres resolver</h2>
       </div>
-      <div class="cost-cols fade">
-        <div class="cost-col bad">
-          <b>Con la fórmula de una app</b>
-          <ul>
-            <li>Tus calorías salen de una ecuación basada en peso, edad y estatura — que <strong>solo acierta en el 40 % a 60 % de las personas</strong></li>
-            <li>No sabes si quemas grasa o azúcar, así que <strong>puedes estar en déficit y no bajar grasa</strong></li>
-            <li>Entrenas en zonas calculadas con <strong>"220 menos tu edad"</strong>, una regla general que no es tuya</li>
-            <li>Si te estancas, <strong>no sabes qué ajustar</strong>: comes menos y entrenas más, a ciegas</li>
-            <li>Tu edad biológica es una incógnita</li>
-          </ul>
-        </div>
-        <div class="cost-col good">
-          <b>Con tu Análisis Metabólico</b>
-          <ul>
-            <li>Tus calorías <strong>medidas</strong>, para días con y sin ejercicio, y tus macros en gramos</li>
-            <li>Tu <strong>proporción exacta de grasa y carbohidratos</strong>, y la pulsación en la que quemas más grasa</li>
-            <li>Tus <strong>cinco zonas con pulsaciones reales</strong>, medidas en tu prueba de esfuerzo</li>
-            <li>Sabes <strong>dónde está el bloqueo</strong>: metabolismo lento, mala flexibilidad metabólica o limitación cardiovascular</li>
-            <li>Tu <strong>edad biológica</strong> y cuál de tus marcadores la está subiendo</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="faq-head fade">
-        <span class="label">Preguntas frecuentes</span>
-        <h2>Antes de reservar</h2>
-      </div>
-      <div class="faq-list">
-        <div class="faq-item">
-          <button class="faq-q">¿Tengo que estar en forma para hacerlo?<span class="faq-ico">+</span></button>
-          <div class="faq-a"><p>No. La prueba en esfuerzo es gradual y se ajusta a tu condición actual: se detiene cuando tú lo necesites. De hecho, cuanto más lejos estés de tu mejor forma, más margen de mejora revelan tus números.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q">¿Cómo me preparo?<span class="faq-ico">+</span></button>
-          <div class="faq-a"><p>Ven en ropa cómoda para hacer ejercicio ligero, con al menos 4 horas de ayuno (puedes tomar agua) y evitando cafeína y ejercicio intenso ese día. Te enviamos las indicaciones completas al confirmar tu cita.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q">¿Cuánto dura y cuándo recibo los resultados?<span class="faq-ico">+</span></button>
-          <div class="faq-a"><p>Reserva unos 60 minutos para la visita completa. El análisis es instantáneo: los resultados se generan durante la sesión, y tu consulta de interpretación se agenda enseguida.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q">¿Es lo mismo que el BioScan?<span class="faq-ico">+</span></button>
-          <div class="faq-a"><p>No, son complementarios. El BioScan lee 900+ biomarcadores desde tu cabello: deficiencias, hormonas, toxinas, sensibilidades alimentarias. El Análisis Metabólico mide cómo tu cuerpo produce y gasta energía. Uno te dice qué te falta; el otro, cómo funciona tu motor.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q">¿Se puede hacer online o fuera de Miami?<span class="faq-ico">+</span></button>
-          <div class="faq-a"><p>No. Requiere el analizador y la supervisión del equipo, así que es solo presencial en nuestro centro de Miami. Si estás fuera y quieres empezar a distancia, el BioScan sí se hace desde tu casa.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q">¿Cada cuánto conviene repetirlo?<span class="faq-ico">+</span></button>
-          <div class="faq-a"><p>Cada 3 meses. Es el tiempo en el que un cambio de entrenamiento o alimentación se refleja en estos marcadores, y repetirlo es lo que te permite ver si lo que estás haciendo funciona de verdad.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q">¿Reemplaza a mi médico?<span class="faq-ico">+</span></button>
-          <div class="faq-a"><p>No. Es una herramienta de información, rendimiento y prevención que complementa tu seguimiento médico, no lo sustituye, y no diagnostica enfermedades. Si tienes una condición cardiovascular o respiratoria, consúltalo con tu médico antes de hacerte la prueba y avísanos al reservar.</p></div>
-        </div>
+      <div class="g-rows fade">
+        <div class="g-row"><b>Quiero bajar de peso y me estanco</b><span>Empieza por el <em>Análisis Metabólico</em>, y súmale el <em>InBody</em> para ver si pierdes grasa o músculo</span></div>
+        <div class="g-row"><b>Me siento mal pero "todo salió normal"</b><span>Un <em>Panel de Sangre MP</em>, que mide lo que un chequeo de rutina deja fuera</span></div>
+        <div class="g-row"><b>Sospecho algo hormonal o de tiroides</b><span>El <em>Panel Hormonal MP</em>, y el <em>BioScan</em> si además quieres ver microbiota y toxinas</span></div>
+        <div class="g-row"><b>Estoy cansado todo el tiempo</b><span>El <em>Panel Nutricional MP</em> o el <em>BioScan</em>, según si prefieres sangre o hacerlo desde casa</span></div>
+        <div class="g-row"><b>No sé qué suplementos tomar</b><span>El <em>BioScan</em>: te dice qué te falta y qué alimentos te inflaman</span></div>
+        <div class="g-row"><b>Entreno en serio y quiero rendir más</b><span>El paquete <em>Atleta MP</em>, que junta metabólico, sangre, InBody y recuperación</span></div>
+        <div class="g-row"><b>Quiero verlo todo de una vez</b><span>El <em>Mapa Biológico MP</em>, los cuatro estudios en una sola visita</span></div>
+        <div class="g-row"><b>Sigo sin saber</b><span>Escríbenos por WhatsApp o llámanos al <em>+1 (786) 930-2544</em> y te orientamos</span></div>
       </div>
     </div>
   </section>
 
   <section class="final">
     <div class="wrap fade">
-      <h2>Deja de entrenar y comer a ciegas</h2>
-      <p class="lede">Tus calorías, tus macros, tus zonas y tu edad biológica. Medidos, no estimados.</p>
-      <a href="#comprar" class="buy-btn" style="display:block;text-decoration:none;text-align:center;">Reservar mi análisis · $350 →</a>
+      <h2>¿Todavía con dudas?</h2>
+      <p class="lede">Cuéntanos qué quieres resolver y te decimos cuál te conviene. Sin compromiso.</p>
+      <a href="https://wa.me/17864848729?text=Hola%2C%20quiero%20saber%20cu%C3%A1l%20diagn%C3%B3stico%20me%20conviene" class="buy-btn" style="display:block;text-decoration:none;text-align:center;max-width:380px;margin:0 auto;">Escríbenos por WhatsApp →</a>
+      <p style="font-size:0.85rem;color:var(--muted);margin-top:20px;">
+        O llámanos al <a href="tel:+17869302544" style="color:var(--teal-dk);font-weight:700;text-decoration:none;">+1 (786) 930-2544</a> · lunes a viernes, 9 AM – 6 PM EST
+      </p>
     </div>
   </section>
 
@@ -1153,218 +972,40 @@
       <p class="fline">760 NW 107th Ave, Suite #340, Miami FL 33172</p>
       <p class="fline">WhatsApp <a href="https://wa.me/17869302544">+1 (786) 930-2544</a> · <a href="https://www.michellepeiret.com">michellepeiret.com</a></p>
       <p class="small">© 2026 Michelle Peiret Health · Energy MP LLC · Miami, FL</p>
-      <p class="small">El Análisis Metabólico MP es una herramienta de información y prevención. No diagnostica enfermedades ni sustituye la atención médica profesional.</p>
+      <p class="small">Nuestros diagnósticos son herramientas de información y prevención. No diagnostican enfermedades ni sustituyen la atención médica profesional.</p>
     </div>
   </footer>
 
-  <div class="buybar" id="buybar">
-    <div class="buybar-p"><b>$350</b><span>Análisis Metabólico MP</span></div>
-    <a href="#comprar">Reservar ahora</a>
-  </div>
-
-  <div class="lb" id="lb" aria-hidden="true">
-    <button class="lb-x" type="button" aria-label="Cerrar">✕</button>
-    <img src="" alt="Vista ampliada del informe">
-  </div>
-
-<script>
-  /* ── GALERÍA ── */
-  document.querySelectorAll('[data-gal]').forEach(function (gal) {
-    var track = gal.querySelector('.gal-track');
-    var items = gal.querySelectorAll('.gal-item');
-    var dots  = gal.querySelector('.gal-dots');
-    if (!track || !items.length) return;
-    items.forEach(function (_, i) {
-      var d = document.createElement('button');
-      d.type = 'button'; d.className = 'gal-dot' + (i === 0 ? ' on' : '');
-      d.setAttribute('aria-label', 'Imagen ' + (i + 1));
-      d.addEventListener('click', function () { go(i); });
-      dots.appendChild(d);
-    });
-    function go(i) {
-      i = Math.max(0, Math.min(items.length - 1, i));
-      track.scrollTo({ left: items[i].offsetLeft - track.offsetLeft, behavior: 'smooth' });
-    }
-    function current() {
-      var best = 0, min = Infinity;
-      items.forEach(function (it, i) {
-        var d = Math.abs(it.offsetLeft - track.offsetLeft - track.scrollLeft);
-        if (d < min) { min = d; best = i; }
-      });
-      return best;
-    }
-    function sync() {
-      var c = current();
-      dots.querySelectorAll('.gal-dot').forEach(function (d, i) { d.classList.toggle('on', i === c); });
-    }
-    var raf;
-    track.addEventListener('scroll', function () {
-      cancelAnimationFrame(raf); raf = requestAnimationFrame(sync);
-    }, { passive: true });
-    var prev = gal.querySelector('.gal-prev'), next = gal.querySelector('.gal-next');
-    if (prev) prev.addEventListener('click', function () { go(current() - 1); });
-    if (next) next.addEventListener('click', function () { go(current() + 1); });
-    items.forEach(function (it) {
-      it.querySelector('img').addEventListener('click', function () {
-        var lb = document.getElementById('lb');
-        lb.querySelector('img').src = this.src;
-        lb.classList.add('on'); lb.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
+  <script>
+    (function () {
+      var els = document.querySelectorAll('.fade');
+      if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+      var io = new IntersectionObserver(function (en) {
+        en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(function (e) { io.observe(e); });
+    })();
+    document.querySelectorAll('a[href="#estudios"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.getElementById('estudios').scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
-  });
-
-  document.querySelectorAll('.rep-strip img').forEach(function (im) {
-    im.addEventListener('click', function () {
-      var lb = document.getElementById('lb');
-      lb.querySelector('img').src = this.src;
-      lb.classList.add('on'); lb.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    });
-  });
-
-  (function () {
-    var lb = document.getElementById('lb');
-    if (!lb) return;
-    function close() {
-      lb.classList.remove('on'); lb.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-    lb.addEventListener('click', function (e) { if (e.target === lb || e.target.classList.contains('lb-x')) close(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-  })();
-
-  /* ── ACORDEÓN (solo actúa en móvil por CSS) ── */
-  document.querySelectorAll('.inc-list.acc').forEach(function (ul) {
-    ul.querySelectorAll(':scope > li').forEach(function (li, i) {
-      if (i === 0) li.classList.add('open');
-      li.addEventListener('click', function () { li.classList.toggle('open'); });
-    });
-  });
-
-  /* ── FAQ ── */
-  document.querySelectorAll('.faq-q').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var item = b.parentElement, open = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(function (i) { i.classList.remove('open'); });
-      if (!open) item.classList.add('open');
-    });
-  });
-
-  /* ── CTAs: llevar a la tarjeta de compra y señalar el formulario ── */
-  document.querySelectorAll('a[href="#comprar"]').forEach(function (a) {
-    a.addEventListener('click', function (e) {
-      var dest = document.getElementById('comprar');
-      if (!dest) return;
-      e.preventDefault();
-      dest.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // en escritorio el foco ayuda; en móvil abriría el teclado, así que no
-      if (window.innerWidth > 980) {
-        setTimeout(function () { var n = document.getElementById('bkName'); if (n) n.focus({ preventScroll: true }); }, 620);
-      }
-    });
-  });
-
-  /* ── BARRA FIJA DE COMPRA (móvil) ── */
-  (function () {
-    var bar = document.getElementById('buybar');
-    var form = document.getElementById('bkForm');
-    if (!bar || !form) return;
-    function upd() {
-      var r = form.getBoundingClientRect();
-      // aparece cuando el formulario ya pasó de largo, y se esconde mientras está a la vista
-      bar.classList.toggle('on', r.bottom < 40);
-    }
-    window.addEventListener('scroll', upd, { passive: true });
-    window.addEventListener('resize', upd);
-    upd();
-  })();
-
-  /* ── FADE-IN ── */
-  (function () {
-    var els = document.querySelectorAll('.fade');
-    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
-    var io = new IntersectionObserver(function (en) {
-      en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    els.forEach(function (e) { io.observe(e); });
-  })();
-
-  /* ── CHECKOUT ── */
-  (function () {
-    var ENDPOINT = 'https://bioscan.michellepeiret.com/api/estudio-checkout';
-    var form = document.getElementById('bkForm');
-    var btn  = document.getElementById('bkBtn');
-
-    function val(id) { return (document.getElementById(id).value || '').trim(); }
-    function err(id, on) {
-      var e = document.getElementById(id);
-      if (e) e.classList.toggle('on', !!on);
-    }
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var name = val('bkName'), email = val('bkEmail'), phone = val('bkPhone'),
-          objetivo = val('bkObjetivo'), urgencia = val('bkUrgencia'), notes = val('bkNotes');
-      var ok = true;
-      if (name.length < 2)                                     { err('errName', true);     ok = false; } else err('errName', false);
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))          { err('errEmail', true);    ok = false; } else err('errEmail', false);
-      if (phone.replace(/\D/g, '').length < 8)                 { err('errPhone', true);    ok = false; } else err('errPhone', false);
-      if (!objetivo)                                           { err('errObjetivo', true); ok = false; } else err('errObjetivo', false);
-      if (!ok) return;
-
-      var errForm = document.getElementById('errForm');
-      errForm.classList.remove('on');
-      btn.disabled = true;
-      btn.textContent = 'Redirigiendo al pago…';
-
-      try {
-        if (window.gtag) gtag('event', 'begin_checkout', {
-          value: 350, currency: 'USD',
-          items: [{ item_name: 'Analisis Metabolico MP' }]
-        });
-      } catch (e2) {}
-
-      fetch(ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          estudio: 'metabolico',
-          name: name, email: email, phone: phone,
-          objetivo: objetivo, urgencia: urgencia, notes: notes,
-          source: 'landing metabolico',
-          origin: location.origin
-        })
-      })
-      .then(function (r) { return r.json(); })
-      .then(function (j) {
-        if (j && j.url) { window.location.href = j.url; return; }
-        throw new Error((j && j.error) || 'No se pudo iniciar el pago.');
-      })
-      .catch(function (e3) {
-        errForm.textContent = e3.message + ' Escríbenos al WhatsApp +1 (786) 930-2544.';
-        errForm.classList.add('on');
-        btn.disabled = false;
-        btn.textContent = 'Reservar mi análisis · $350 →';
+    document.querySelectorAll('.d-cta').forEach(function (a) {
+      a.addEventListener('click', function () {
+        try {
+          if (window.gtag) gtag('event', 'select_item', {
+            item_name: (a.closest('.dcard').querySelector('h3') || {}).textContent || 'diagnostico'
+          });
+        } catch (e) {}
       });
     });
-  })();
-</script>
+  </script>
 
   <a class="wa-fab" href="https://wa.me/17864848729?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n"
      target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
     <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.4M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2m0 18.2c-1.6 0-3.2-.4-4.5-1.3l-.3-.2-3.1.8.8-3-.2-.3a8.2 8.2 0 1 1 7.3 4"/></svg>
     <span>Escríbenos</span>
   </a>
-<script>
-  /* Llamada rápida de 15 min con un especialista.
-     Pon aquí el enlace de Calendly y el botón aparece solo. Vacío = no se muestra,
-     para no publicar nunca un botón que no lleva a ningún lado. */
-  var CAL_15MIN = 'https://calendly.com/nutrigenomica-michellepeiret/estudio-metabolico-vo2-max-consult';
-  (function () {
-    var a = document.getElementById('cal15');
-    if (a && CAL_15MIN) { a.href = CAL_15MIN; a.style.display = ''; }
-  })();
-</script>
 </body>
 </html>

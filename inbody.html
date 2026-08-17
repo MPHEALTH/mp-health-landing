@@ -687,6 +687,10 @@
   .cost-col.bad li::before  { content: '×'; color: #b0233c; }
   .cost-col.good li::before { content: '✓'; color: var(--accent); }
   .cost-col li strong { color: var(--text); font-weight: 600; }
+
+  .nav-all { font-size: 0.79rem; font-weight: 700; color: var(--muted); text-decoration: none; margin-right: 16px; white-space: nowrap; transition: color 0.18s; }
+  .nav-all:hover { color: var(--navy); }
+  @media (max-width: 620px) { .nav-all { display: none; } }
 </style>
 
 
@@ -696,6 +700,7 @@
   <nav class="nav">
     <div class="nav-in">
       <img src="images/LOGO%20%286%29.png" alt="Michelle Peiret Health" class="nav-logo">
+      <a href="diagnosticos.html" class="nav-all">Todos los diagnósticos</a>
       <a href="#comprar" class="nav-cta">Reservar mi InBody</a>
     </div>
   </nav>
