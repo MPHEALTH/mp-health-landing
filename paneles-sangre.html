@@ -679,6 +679,38 @@
   .pan-tl { font-family: var(--font-serif); font-style: italic; font-size: 1.12rem; color: var(--navy); line-height: 1.35; margin-bottom: 11px; }
   .pan p { font-size: 0.88rem; color: var(--muted); line-height: 1.72; margin: 0; }
 
+
+  /* ── Identidad propia de Paneles: acento clínico ── */
+  :root { --blood: #b0233c; --blood-lt: rgba(176,35,60,0.08); }
+  .pan {
+    background: var(--white); border: 1px solid rgba(13,27,46,0.12);
+    border-top: 3px solid var(--blood); border-radius: 12px;
+    padding: 26px 22px 22px; transition: box-shadow 0.22s, transform 0.22s;
+  }
+  .pan:hover { box-shadow: 0 14px 38px rgba(13,27,46,0.10); transform: translateY(-3px); }
+  .pan-tag { background: var(--blood); color: #fff; }
+  .pan h3 { color: var(--blood); }
+  .pan-range { color: var(--navy); }
+  .pan-range span { font-size: 0.74rem; font-weight: 600; color: var(--muted); letter-spacing: 0; margin-left: 5px; }
+
+  /* ── Biomarcadores ── */
+  .bio { margin-top: 16px; padding-top: 15px; border-top: 1px dashed rgba(13,27,46,0.14); }
+  .bio > b {
+    display: block; font-size: 0.63rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted); font-weight: 800; margin-bottom: 10px;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .chips span {
+    font-size: 0.71rem; font-weight: 600; color: var(--navy); line-height: 1.3;
+    background: var(--blood-lt); border: 1px solid rgba(176,35,60,0.16);
+    padding: 4px 9px; border-radius: 20px; white-space: nowrap;
+  }
+  .chips .more { background: none; border: none; color: var(--muted); font-weight: 500; padding-left: 3px; }
+  @media (max-width: 620px) { .chips span { font-size: 0.67rem; padding: 3px 8px; } }
+
+  /* La etiqueta de sección del hero también toma el acento */
+  .hero-head .label { color: var(--blood); }
+  .pan-tl { color: var(--navy); }
   /* ── Bloque de cierre ── */
   .close-box {
     background: var(--navy); border-radius: 16px; padding: 42px 38px; margin-top: 34px;
@@ -920,33 +952,53 @@
         <div class="pan">
           <span class="pan-tag">Más completo</span>
           <h3>Panel MP Completo</h3>
-          <div class="pan-range">$500 – $600</div>
+          <div class="pan-range"><span style="font-size:1.5rem;font-weight:800;color:var(--navy);letter-spacing:-0.02em;margin:0;">$500 – $600</span><span>según tu caso</span></div>
           <p class="pan-tl">La evaluación integral de tu salud.</p>
           <p>Nuestro panel más completo. Evalúa metabolismo, función hepática y renal, tiroides, hormonas, inflamación y marcadores nutricionales. La base sobre la que se construye cualquier protocolo personalizado.</p>
+          <div class="bio">
+            <b>Qué mide · 25 biomarcadores</b>
+            <div class="chips"><span>Glucosa en ayunas</span><span>HbA1c</span><span>Insulina</span><span>Colesterol total</span><span>LDL</span><span>HDL</span><span>Triglicéridos</span><span>ALT</span><span>AST</span><span>GGT</span><span>Bilirrubina</span><span>Creatinina</span><span>BUN</span><span>TFG estimada</span><span>TSH</span><span>T4 libre</span><span>T3 libre</span><span>Perfil hormonal</span><span>PCR ultrasensible</span><span>Homocisteína</span><span>Vitamina D</span><span>Vitamina B12</span><span>Folato</span><span>Ferritina</span><span>Hemograma completo</span></div>
+          </div>
         </div>
         <div class="pan">
           <h3>Panel Metabólico MP</h3>
-          <div class="pan-range">$250 – $350</div>
+          <div class="pan-range"><span style="font-size:1.5rem;font-weight:800;color:var(--navy);letter-spacing:-0.02em;margin:0;">$250 – $350</span><span>según tu caso</span></div>
           <p class="pan-tl">Entiende por qué tu cuerpo no responde.</p>
           <p>Para quienes buscan bajar de peso, recuperar energía o entender su resistencia a la insulina. Evalúa glucosa, insulina, HbA1c, perfil lipídico completo y marcadores de función metabólica.</p>
+          <div class="bio">
+            <b>Qué mide · 14 biomarcadores</b>
+            <div class="chips"><span>Glucosa en ayunas</span><span>Insulina en ayunas</span><span>HbA1c</span><span>Índice HOMA-IR</span><span>Colesterol total</span><span>LDL</span><span>HDL</span><span>VLDL</span><span>Triglicéridos</span><span>Ratio TG/HDL</span><span>ALT</span><span>AST</span><span>GGT</span><span>Ácido úrico</span></div>
+          </div>
         </div>
         <div class="pan">
           <h3>Panel Hormonal MP</h3>
-          <div class="pan-range">$350 – $500</div>
+          <div class="pan-range"><span style="font-size:1.5rem;font-weight:800;color:var(--navy);letter-spacing:-0.02em;margin:0;">$350 – $500</span><span>según tu caso</span></div>
           <p class="pan-tl">Tus hormonas, medidas con precisión.</p>
           <p>Para menopausia, perimenopausia, desbalances hormonales, tiroides o niveles de testosterona. Evalúa el perfil hormonal completo según tu sexo y tu etapa de vida, incluyendo tiroides, cortisol y DHEA-S.</p>
+          <div class="bio">
+            <b>Qué mide · 16 biomarcadores</b>
+            <div class="chips"><span>Estradiol</span><span>Progesterona</span><span>Testosterona total</span><span>Testosterona libre</span><span>SHBG</span><span>FSH</span><span>LH</span><span>Prolactina</span><span>AMH</span><span>TSH</span><span>T4 libre</span><span>T3 libre</span><span>T3 reversa</span><span>Anti-TPO</span><span>Cortisol</span><span>DHEA-S</span></div>
+          </div>
         </div>
         <div class="pan">
           <h3>Panel Inflamatorio MP</h3>
-          <div class="pan-range">$300 – $400</div>
+          <div class="pan-range"><span style="font-size:1.5rem;font-weight:800;color:var(--navy);letter-spacing:-0.02em;margin:0;">$300 – $400</span><span>según tu caso</span></div>
           <p class="pan-tl">Encuentra el origen de la inflamación.</p>
           <p>Para inflamación crónica, condiciones autoinmunes o problemas digestivos persistentes. Evalúa marcadores inflamatorios, anticuerpos tiroideos, sensibilidad al gluten e indicadores de salud intestinal.</p>
+          <div class="bio">
+            <b>Qué mide · 11 biomarcadores</b>
+            <div class="chips"><span>PCR ultrasensible</span><span>Velocidad de sedimentación</span><span>Homocisteína</span><span>Ferritina</span><span>Anti-TPO</span><span>Antitiroglobulina</span><span>Antitransglutaminasa</span><span>Antigliadina</span><span>ANA</span><span>Zonulina</span><span>Calprotectina</span></div>
+          </div>
         </div>
         <div class="pan">
           <h3>Panel Nutricional MP</h3>
-          <div class="pan-range">$350 – $500</div>
+          <div class="pan-range"><span style="font-size:1.5rem;font-weight:800;color:var(--navy);letter-spacing:-0.02em;margin:0;">$350 – $500</span><span>según tu caso</span></div>
           <p class="pan-tl">Qué te falta y qué te está afectando.</p>
           <p>Para fatiga persistente, deficiencias nutricionales o sospecha de exposición a metales pesados. Evalúa vitaminas, minerales, micronutrientes y metales pesados en sangre.</p>
+          <div class="bio">
+            <b>Qué mide · 18 biomarcadores</b>
+            <div class="chips"><span>Vitamina D 25-OH</span><span>Vitamina B12</span><span>Folato</span><span>Vitamina A</span><span>Vitamina E</span><span>Hierro sérico</span><span>Ferritina</span><span>Transferrina</span><span>Zinc</span><span>Magnesio eritrocitario</span><span>Selenio</span><span>Cobre</span><span>Índice Omega-3</span><span>Plomo</span><span>Mercurio</span><span>Arsénico</span><span>Cadmio</span><span>Aluminio</span></div>
+          </div>
         </div>
       </div>
 
