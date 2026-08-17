@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InBody 970S — Análisis de composición corporal | Michelle Peiret Health</title>
-  <meta name="description" content="Escaneo con el InBody 970S en Miami: músculo, grasa, agua y proteína en 30 segundos. $95 con consulta de resultados incluida.">
+  <title>Paneles de Sangre MP — Análisis clínico con interpretación | Michelle Peiret Health</title>
+  <meta name="description" content="Cinco paneles de sangre en Miami, con interpretación de nuestro equipo. Agenda una llamada de 15 minutos y definimos cuál necesitas.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="images/LOGO%20%286%29.png">
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="https://assets.calendly.com/assets/external/widget.js" defer></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-B7PSHFCHGY"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -657,113 +659,183 @@
 </style>
 
 
+
+<style>
+  /* ── Cards de panel: informativas, sin estado ── */
+  .pan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+  @media (max-width: 980px) { .pan-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 620px)  { .pan-grid { grid-template-columns: 1fr; gap: 12px; } }
+  .pan {
+    position: relative; background: #fbfcfd; border: 1px solid rgba(13,27,46,0.14);
+    border-radius: 12px; padding: 24px 22px 22px; display: flex; flex-direction: column;
+  }
+  .pan-tag {
+    position: absolute; top: -9px; left: 20px; background: var(--teal); color: var(--navy);
+    font-size: 0.6rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 20px;
+  }
+  .pan h3 { font-family: var(--font-body); font-size: 0.79rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal-dk); margin-bottom: 9px; }
+  .pan-range { font-size: 1.5rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; line-height: 1; margin-bottom: 10px; }
+  .pan-tl { font-family: var(--font-serif); font-style: italic; font-size: 1.12rem; color: var(--navy); line-height: 1.35; margin-bottom: 11px; }
+  .pan p { font-size: 0.88rem; color: var(--muted); line-height: 1.72; margin: 0; }
+
+  /* ── Bloque de cierre ── */
+  .close-box {
+    background: var(--navy); border-radius: 16px; padding: 42px 38px; margin-top: 34px;
+    text-align: center; color: rgba(255,255,255,0.72);
+  }
+  .close-box h2 { color: #fff; margin-bottom: 13px; }
+  .close-box p { font-size: 0.99rem; line-height: 1.8; max-width: 520px; margin: 0 auto 24px; }
+  .close-box .buy-btn { max-width: 380px; margin: 0 auto; }
+  @media (max-width: 620px) { .close-box { padding: 30px 20px; } }
+
+  /* ── Formulario de 2 pasos ── */
+  .bp-prog { height: 3px; background: var(--cream2); border-radius: 3px; overflow: hidden; margin-bottom: 8px; }
+  .bp-prog i { display: block; height: 100%; background: var(--teal); width: 50%; transition: width 0.3s ease; }
+  .bp-steplabel { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 16px; }
+  .bp-step { display: none; }
+  .bp-step.on { display: block; }
+  .bp-opt {
+    border: 1.5px solid var(--cream2); border-radius: 9px; padding: 13px 15px; margin-bottom: 8px;
+    cursor: pointer; font-size: 0.89rem; font-weight: 600; color: var(--navy);
+    transition: border-color 0.16s, background 0.16s;
+  }
+  .bp-opt:hover { border-color: rgba(0,201,167,0.5); }
+  .bp-opt.sel { border-color: var(--teal); background: rgba(0,201,167,0.06); }
+  .bp-opt small { display: block; font-weight: 400; font-size: 0.79rem; color: var(--muted); margin-top: 2px; }
+  .bp-back { background: none; border: none; cursor: pointer; font-family: var(--font-body); font-size: 0.82rem; font-weight: 600; color: var(--muted); padding: 10px 0 0; width: 100%; }
+  .bp-back:hover { color: var(--navy); }
+  .bp-ok { text-align: center; }
+  .bp-ok .tick { width: 54px; height: 54px; border-radius: 50%; background: var(--teal); color: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 800; margin: 0 auto 16px; }
+  .bp-ok h3 { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
+  .bp-ok p { font-size: 0.9rem; color: var(--muted); line-height: 1.72; margin-bottom: 18px; }
+  #bpCal { min-width: 280px; height: 660px; }
+  .bp-cal-fallback { background: rgba(0,201,167,0.07); border: 1px solid rgba(0,201,167,0.28); border-radius: 10px; padding: 18px 20px; }
+  .bp-cal-fallback p { font-size: 0.88rem; color: var(--text); line-height: 1.7; margin: 0; }
+</style>
 </head>
 <body>
 
   <nav class="nav">
     <div class="nav-in">
       <img src="images/LOGO%20%286%29.png" alt="Michelle Peiret Health" class="nav-logo">
-      <a href="#comprar" class="nav-cta">Reservar mi InBody</a>
+      <a href="#agendar" class="nav-cta">Agendar mi llamada</a>
     </div>
   </nav>
 
   <header class="hero">
     <div class="wrap hero-grid">
       <div class="hero-head">
-        <span class="label">Composición corporal · el modelo más avanzado de InBody</span>
-        <h1>InBody <span class="h1-sub">970S</span></h1>
-        <p class="tagline">Ve de qué estás hecho. Músculo, grasa, agua y proteína en 30 segundos.</p>
+        <span class="label">Análisis clínico · presencial en Miami</span>
+        <h1>Paneles de Sangre <span class="h1-sub">MP</span></h1>
+        <p class="tagline">Análisis clínico completo con interpretación de nuestro equipo — no solo el
+        resultado, sino qué significa para ti.</p>
       </div>
 
       <div class="gal hero-gal" data-gal>
         <div class="gal-track">
-          <figure class="gal-item"><img src="images/inbody/uso-970s.jpg" alt="Una persona haciéndose el escaneo en el InBody 970S"></figure>
-          <figure class="gal-item"><img src="images/inbody-970s.png" alt="InBody 970S, el analizador de composición corporal" class="gal-device" loading="lazy"></figure>
-          <figure class="gal-item"><img src="images/inbody/detalle-electrodo.jpg" alt="Electrodo de mano del InBody 970S" loading="lazy"></figure>
-          <figure class="gal-item"><img src="images/inbody/hoja-en-mano.jpg" alt="La hoja de resultados del InBody" loading="lazy"></figure>
+          <figure class="gal-item"><img src="images/127michelle%20peiret%20oficina%202026%20.jpg" alt="Área clínica del centro en Miami"></figure>
+          <figure class="gal-item"><img src="images/paso2-michelle-consulta.jpg" alt="Interpretación de resultados con una especialista MP" loading="lazy"></figure>
+          <figure class="gal-item"><img src="images/centro-miami.jpg" alt="Centro Michelle Peiret Health en Miami" loading="lazy"></figure>
         </div>
         <button class="gal-nav gal-prev" type="button" aria-label="Anterior">‹</button>
         <button class="gal-nav gal-next" type="button" aria-label="Siguiente">›</button>
         <div class="gal-dots"></div>
-        <p class="gal-cap">Se hace en nuestro centro de Miami, con el InBody 970S. En 30 segundos tienes tus resultados.</p>
+        <p class="gal-cap">La extracción se hace en nuestro centro de Miami, y la interpretación con un especialista MP.</p>
       </div>
 
-      <div class="buy-col" id="comprar">
+      <div class="buy-col" id="agendar">
         <div class="buy-card">
           <div class="buy-head">
-            <b>Reserva tu InBody</b>
-            <span>El escaneo y la lectura de tus resultados con un especialista MP.</span>
+            <b>Agenda tu llamada de evaluación</b>
+            <span>15 minutos, sin costo. Definimos qué panel necesitas y agendamos tu cita.</span>
           </div>
           <div class="buy-body">
-            <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px;">
-              <span style="font-size:2.1rem;font-weight:800;color:var(--navy);letter-spacing:-0.02em;">$95</span>
-              <span style="font-size:0.83rem;color:var(--muted);">USD · pago único</span>
-            </div>
-            <p style="font-size:0.83rem;color:var(--muted);line-height:1.6;margin-bottom:16px;">
-              Presencial en nuestro centro de Miami. Reserva y te contactamos para agendar tu cita.
-            </p>
 
             <div class="note">
-              <p><b>Toma 15 minutos en total.</b> El equipo te contacta entre 24 y 48 horas para coordinar tu fecha y hora.</p>
+              <p><b>El panel indicado depende de tu caso.</b> Por eso no publicamos un precio exacto: en la llamada revisamos qué necesitas medir y de ahí sale el panel y el costo puntual.</p>
             </div>
 
-            <form id="bkForm" novalidate>
-              <div class="fld">
-                <label for="bkName">Nombre completo</label>
-                <input type="text" id="bkName" autocomplete="name" placeholder="Tu nombre">
-                <span class="fld-err" id="errName">Escribe tu nombre</span>
-              </div>
-              <div class="fld">
-                <label for="bkEmail">Correo electrónico</label>
-                <input type="email" id="bkEmail" autocomplete="email" inputmode="email" placeholder="tu@correo.com">
-                <span class="fld-err" id="errEmail">Escribe un correo válido</span>
-              </div>
-              <div class="fld">
-                <label for="bkPhone">Teléfono / WhatsApp</label>
-                <input type="tel" id="bkPhone" autocomplete="tel" inputmode="tel" placeholder="+1 305 555 0123">
-                <span class="fld-err" id="errPhone">Escribe un teléfono válido con código de país</span>
-              </div>
-              <div class="fld">
-                <label for="bkObjetivo">¿Cuál es tu objetivo?</label>
-                <select id="bkObjetivo">
-                  <option value="">Elige uno…</option>
-                  <option value="perder_peso">Bajar grasa sin perder músculo</option>
-                  <option value="musculo">Ganar masa muscular</option>
-                  <option value="metabolismo">Ver si mi plan está funcionando</option>
-                  <option value="salud">Revisar mi grasa visceral y mi salud</option>
-                  <option value="energia">Entender mi hidratación e inflamación</option>
-                </select>
-                <span class="fld-err" id="errObjetivo">Elige tu objetivo</span>
-              </div>
-              <div class="fld">
-                <label for="bkUrgencia">¿Para cuándo?</label>
-                <select id="bkUrgencia">
-                  <option value="alta">Lo antes posible</option>
-                  <option value="media">En las próximas semanas</option>
-                  <option value="baja">Estoy planificando</option>
-                </select>
-              </div>
-              <div class="fld">
-                <label for="bkNotes">Algo que debamos saber <span style="text-transform:none;letter-spacing:0;font-weight:400;">(opcional)</span></label>
-                <textarea id="bkNotes" placeholder="Marcapasos, embarazo, prótesis metálicas…"></textarea>
-              </div>
+            <!-- PASO 1 -->
+            <div class="bp-step on" id="bpStep1">
+              <div class="bp-prog"><i id="bpBar" style="width:50%"></i></div>
+              <p class="bp-steplabel" id="bpLabel">Paso 1 de 2</p>
+              <h3 style="font-family:var(--font-serif);font-size:1.24rem;font-weight:600;color:var(--navy);margin-bottom:14px;">¿Qué panel te interesa?</h3>
 
-              <div class="fld-err" id="errForm" style="text-align:center;margin-bottom:8px;"></div>
-              <button type="submit" class="buy-btn" id="bkBtn">Reservar mi InBody · $95 →</button>
-            </form>
+              <div class="bp-opt" data-panel="Panel MP Completo">Panel MP Completo<small>$500 – $600</small></div>
+              <div class="bp-opt" data-panel="Panel Metabólico MP">Panel Metabólico MP<small>$250 – $350</small></div>
+              <div class="bp-opt" data-panel="Panel Hormonal MP">Panel Hormonal MP<small>$350 – $500</small></div>
+              <div class="bp-opt" data-panel="Panel Inflamatorio MP">Panel Inflamatorio MP<small>$300 – $400</small></div>
+              <div class="bp-opt" data-panel="Panel Nutricional MP">Panel Nutricional MP<small>$350 – $500</small></div>
+              <div class="bp-opt" data-panel="No está seguro/a">No estoy seguro/a<small>Quiero que me orienten</small></div>
 
-            <p class="buy-secure">Pago seguro con Stripe. Tarjeta, Apple&nbsp;Pay y Google&nbsp;Pay.</p>
+              <span class="fld-err" id="bpErrPanel">Elige una opción para continuar</span>
+              <button type="button" class="buy-btn" id="bpNext">Continuar →</button>
+            </div>
+
+            <!-- PASO 2 -->
+            <div class="bp-step" id="bpStep2">
+              <div class="bp-prog"><i style="width:100%"></i></div>
+              <p class="bp-steplabel">Paso 2 de 2</p>
+              <h3 style="font-family:var(--font-serif);font-size:1.24rem;font-weight:600;color:var(--navy);margin-bottom:14px;">Cuéntanos de tu caso</h3>
+
+              <form id="bpForm" novalidate>
+                <div class="fld">
+                  <label for="bpName">Nombre y apellido</label>
+                  <input type="text" id="bpName" autocomplete="name" placeholder="Tu nombre completo">
+                  <span class="fld-err" id="bpErrName">Escribe tu nombre y apellido</span>
+                </div>
+                <div class="fld">
+                  <label for="bpEmail">Correo electrónico</label>
+                  <input type="email" id="bpEmail" autocomplete="email" inputmode="email" placeholder="tu@correo.com">
+                  <span class="fld-err" id="bpErrEmail">Escribe un correo válido</span>
+                </div>
+                <div class="fld">
+                  <label for="bpPhone">Teléfono / WhatsApp</label>
+                  <input type="tel" id="bpPhone" autocomplete="tel" inputmode="tel" placeholder="+1 305 555 0123">
+                  <span class="fld-err" id="bpErrPhone">Escribe un teléfono válido con código de país</span>
+                </div>
+                <div class="fld">
+                  <label for="bpCase">¿Qué te gustaría evaluar o entender?</label>
+                  <textarea id="bpCase" placeholder="Cuéntanos qué te está pasando o qué quieres medir…"></textarea>
+                  <span class="fld-err" id="bpErrCase">Cuéntanos brevemente tu caso</span>
+                </div>
+                <div class="fld">
+                  <label for="bpPrev">¿Has hecho estudios de sangre en los últimos 6 meses?</label>
+                  <select id="bpPrev">
+                    <option value="No">No</option>
+                    <option value="Sí">Sí</option>
+                  </select>
+                </div>
+                <div class="fld">
+                  <label for="bpLoc">¿Estás en Miami o vienes de fuera?</label>
+                  <select id="bpLoc">
+                    <option value="Miami">Estoy en Miami</option>
+                    <option value="Fuera de Miami">Vengo de fuera de Miami</option>
+                  </select>
+                </div>
+
+                <div class="fld-err" id="bpErrForm" style="text-align:center;margin-bottom:8px;"></div>
+                <button type="submit" class="buy-btn" id="bpSubmit">Agendar mi llamada →</button>
+                <button type="button" class="bp-back" id="bpBack">← Volver al paso anterior</button>
+              </form>
+            </div>
+
+            <!-- CONFIRMACIÓN -->
+            <div class="bp-step bp-ok" id="bpDone">
+              <div class="tick">✓</div>
+              <h3>¡Listo! Falta un paso</h3>
+              <p>Elige el horario de tu llamada de evaluación. Son 15 minutos — revisamos tu caso,
+              definimos el panel indicado y agendamos tu cita en el centro.</p>
+              <div id="bpCalWrap"></div>
+            </div>
 
             <div class="talk">
-              <span>¿Prefieres hablar con alguien antes?</span>
+              <span>¿Prefieres agendar por teléfono?</span>
               <div class="talk-btns">
                 <a href="tel:+17869302544">
                   <svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
-                  Agendar directo con nuestro equipo
-                </a>
-                <a class="alt" id="cal15" style="display:none;" target="_blank" rel="noopener">
-                  <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg>
-                  Llamada de 15 min con un especialista
+                  Llamar al consultorio
                 </a>
               </div>
               <small>Llámanos al +1 (786) 930-2544 · lunes a viernes, 9 AM – 6 PM EST</small>
@@ -774,10 +846,10 @@
 
       <div class="hero-intro">
         <p class="hero-sub">
-          Eres mucho más que un número estandarizado. La báscula, la presión y el colesterol apenas
-          rozan la superficie de cómo estás. El <strong>InBody 970S</strong> —el modelo más avanzado
-          de la marca— analiza tu <strong>músculo, grasa, agua y proteína</strong> segmento por
-          segmento, y te da la línea base real desde la cual medir cualquier cambio.
+          Un chequeo de rutina mide muy poco, y casi nunca te explican qué significa. Nuestros paneles
+          van mucho más allá —hormonas, tiroides completa, inflamación, micronutrientes, metabolismo— y
+          <strong>siempre incluyen la interpretación con un especialista MP</strong>. La extracción se
+          hace en el centro, en Miami.
         </p>
       </div>
 
@@ -785,257 +857,138 @@
         <h2 class="inc-h">Qué incluye</h2>
         <ul class="inc-list acc">
           <li>
-            <b>Tu escaneo de composición corporal</b>
-            <span>Te subes al equipo descalzo y sostienes los electrodos durante unos 30 segundos. Sin agujas, sin radiación y sin necesidad de desvestirte. La corriente es imperceptible.</span>
+            <b>Tu llamada de evaluación de 15 minutos</b>
+            <span>Antes de sacarte sangre queremos saber qué buscas. En esa llamada un especialista revisa tu caso, define qué panel te corresponde y te dice el costo exacto — así no pagas por marcadores que no necesitas.</span>
           </li>
           <li>
-            <b>Tus dos hojas de resultados</b>
-            <span>El 970S entrega dos informes: el de composición corporal —masa muscular esquelética, masa grasa, porcentaje de grasa, agua intracelular y extracelular, proteína, minerales y tasa metabólica basal— y el de <strong>análisis de grasa abdominal</strong>, dedicado a la grasa visceral. Cada valor viene con su rango de referencia.</span>
+            <b>La extracción en nuestro centro</b>
+            <span>Se hace en Miami, con cita agendada. Te confirmamos las indicaciones previas —normalmente ayuno— cuando reservemos tu hora.</span>
           </li>
           <li>
-            <b>Tu análisis segmental</b>
-            <span>El músculo y la grasa medidos por separado en cada brazo, cada pierna y el tronco. Ahí se ven los desequilibrios que un espejo no muestra: un lado más desarrollado que el otro, o piernas fuertes con tronco débil.</span>
+            <b>Tu panel de laboratorio completo</b>
+            <span>Según el panel elegido: metabolismo, función hepática y renal, tiroides, perfil hormonal, marcadores inflamatorios, micronutrientes o metales pesados. Cada valor con su rango de referencia.</span>
           </li>
           <li>
-            <b>La lectura con un especialista MP</b>
-            <span>No te entregamos una hoja de números y adiós. Un especialista del equipo te la explica ahí mismo: qué significa cada valor en tu caso, qué priorizar y qué esperar si haces los cambios.</span>
+            <b>Tu consulta de interpretación con un especialista MP</b>
+            <span>Aquí está la diferencia real. No te entregamos un PDF con números y adiós: un especialista del equipo te explica qué significa cada hallazgo en tu caso, qué priorizar y qué hacer con esa información.</span>
           </li>
         </ul>
 
         <h2 class="inc-h">Para qué te sirve</h2>
         <p style="font-size:0.93rem;color:var(--muted);line-height:1.8;margin-bottom:4px;">
-          El peso solo sube o baja. La composición corporal te dice si vas bien o mal, y es lo único
-          que distingue perder grasa de perder músculo.
+          La sangre es la única forma de ver, con precisión clínica, qué está pasando por dentro
+          ahora mismo.
         </p>
         <ul class="inc-list acc">
           <li>
-            <b>Saber si estás perdiendo grasa o músculo</b>
-            <span>Bajar 4 kilos puede ser un éxito o un problema, según de dónde salieron. Si viene del músculo, tu metabolismo se vuelve más lento y recuperar el peso es cuestión de tiempo. La báscula sola no distingue esto; el InBody sí.</span>
+            <b>Saber por qué te sientes mal cuando "todo salió normal"</b>
+            <span>Un chequeo de rutina mide un puñado de marcadores y usa rangos muy amplios. Muchos desbalances reales —tiroides subóptima, insulina alta, inflamación, déficits— caen dentro de lo "normal" y quedan sin ver.</span>
           </li>
           <li>
-            <b>Ver tu grasa visceral, la que importa</b>
-            <span>Es la que rodea el hígado, el páncreas y los intestinos, y es la que se asocia a riesgo metabólico y cardiovascular. Puedes verte delgado y tenerla alta. Es un número concreto que se puede seguir y bajar.</span>
+            <b>Medir tus hormonas de verdad</b>
+            <span>Perimenopausia, menopausia, tiroides, testosterona baja, ciclos irregulares. El perfil hormonal completo según tu sexo y tu etapa de vida, incluyendo cortisol y DHEA-S.</span>
           </li>
           <li>
-            <b>Encontrar desequilibrios entre lados y zonas</b>
-            <span>El análisis segmental compara brazo con brazo y pierna con pierna. Las asimetrías explican dolores recurrentes, lesiones que se repiten y estancamientos en el entrenamiento.</span>
+            <b>Encontrar el origen de la inflamación</b>
+            <span>Si tienes inflamación crónica, una condición autoinmune o problemas digestivos que no ceden, los marcadores inflamatorios y los anticuerpos tiroideos suelen dar la respuesta.</span>
           </li>
           <li>
-            <b>Medir si tu plan está funcionando</b>
-            <span>Repetido cada 2 a 4 semanas —el ritmo que recomienda InBody— te dice con datos si lo que haces suma músculo y baja grasa, o si hay que corregir antes de perder tres meses.</span>
+            <b>Ver qué te falta y qué te está afectando</b>
+            <span>Vitaminas, minerales y micronutrientes medidos en sangre, más metales pesados si hay sospecha de exposición. Deja de suplementar a ciegas.</span>
           </li>
           <li>
-            <b>Ver tu inflamación e hidratación celular</b>
-            <span>La relación entre agua extracelular y total, junto con el ángulo de fase, refleja el estado de tus células y tu retención de líquidos — marcadores que suelen moverse antes que el peso.</span>
+            <b>Tener la base de tu tratamiento personalizado</b>
+            <span>Si vas a iniciar un protocolo con nosotros, el panel es lo que permite diseñarlo con tus datos reales en lugar de suposiciones.</span>
           </li>
         </ul>
       </div>
     </div>
   </header>
 
-
-  <!-- ━━━ PANEL DE MÉTRICAS ━━━ -->
-  <section class="dash">
+  <section>
     <div class="wrap">
-      <div class="dash-top fade">
-        <span class="label">Lo que sales sabiendo</span>
-        <h2>Lo que la báscula no te dice</h2>
-        <p>
-          Estos son los valores que aparecen en tu hoja de resultados. Los números de abajo son
-          un ejemplo ilustrativo para que entiendas qué se mide y cómo se lee.
+      <div style="max-width:660px" class="fade">
+        <span class="label">Los paneles</span>
+        <h2>Cinco paneles, según lo que necesites medir</h2>
+        <p class="lede" style="margin-top:15px;">
+          Los rangos varían según los marcadores que tu caso requiera. En la llamada de evaluación te
+          confirmamos el panel y el costo exacto.
         </p>
       </div>
 
-      <div class="cards fade">
-
-        <div class="card">
-          <div class="card-h">
-            <svg viewBox="0 0 24 24"><path d="M12 3s5 4.5 5 9a5 5 0 0 1-10 0c0-1.6.6-3 1.4-4.2"/></svg>
-            <span>Grasa corporal</span>
-          </div>
-          <div class="card-viz">
-            <svg viewBox="0 0 120 74" width="100%" style="max-width:150px">
-              <path d="M12 66 A48 48 0 0 1 108 66" stroke="rgba(255,255,255,0.13)" stroke-width="8" fill="none" stroke-linecap="round"/>
-              <path d="M12 66 A48 48 0 0 1 78 22" stroke="#00c9a7" stroke-width="8" fill="none" stroke-linecap="round"/>
-              <text x="60" y="52" text-anchor="middle" class="big" font-size="26">24%</text>
-              <text x="60" y="66" text-anchor="middle" class="sml">DE TU PESO</text>
-            </svg>
-          </div>
-          <p class="card-note">Tu porcentaje real, con el <b>rango saludable para tu sexo y edad</b>.</p>
+      <div class="pan-grid fade">
+        <div class="pan">
+          <span class="pan-tag">Más completo</span>
+          <h3>Panel MP Completo</h3>
+          <div class="pan-range">$500 – $600</div>
+          <p class="pan-tl">La evaluación integral de tu salud.</p>
+          <p>Nuestro panel más completo. Evalúa metabolismo, función hepática y renal, tiroides, hormonas, inflamación y marcadores nutricionales. La base sobre la que se construye cualquier protocolo personalizado.</p>
         </div>
-
-        <div class="card">
-          <div class="card-h">
-            <svg viewBox="0 0 24 24"><path d="M4 12h3M17 12h3"/><rect x="7" y="8" width="10" height="8" rx="2"/></svg>
-            <span>Masa muscular</span>
-          </div>
-          <div class="card-viz">
-            <svg viewBox="0 0 150 86" width="100%" style="max-width:170px">
-              <text x="75" y="30" text-anchor="middle" class="big" font-size="27">31.4</text>
-              <text x="75" y="43" text-anchor="middle" class="sml">KG DE MÚSCULO ESQUELÉTICO</text>
-              <rect x="10" y="54" width="130" height="9" rx="4.5" fill="rgba(255,255,255,0.13)"/>
-              <rect x="10" y="54" width="88" height="9" rx="4.5" fill="#00c9a7"/>
-              <text x="10" y="79" class="sml">BAJO</text>
-              <text x="140" y="79" text-anchor="end" class="sml">ALTO</text>
-            </svg>
-          </div>
-          <p class="card-note">El tejido que <b>sostiene tu metabolismo</b>. Perderlo es lo que estanca una dieta.</p>
+        <div class="pan">
+          <h3>Panel Metabólico MP</h3>
+          <div class="pan-range">$250 – $350</div>
+          <p class="pan-tl">Entiende por qué tu cuerpo no responde.</p>
+          <p>Para quienes buscan bajar de peso, recuperar energía o entender su resistencia a la insulina. Evalúa glucosa, insulina, HbA1c, perfil lipídico completo y marcadores de función metabólica.</p>
         </div>
-
-        <div class="card">
-          <div class="card-h">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/></svg>
-            <span>Grasa visceral</span>
-          </div>
-          <div class="card-viz">
-            <svg viewBox="0 0 120 74" width="100%" style="max-width:150px">
-              <path d="M12 66 A48 48 0 0 1 108 66" stroke="rgba(255,255,255,0.13)" stroke-width="8" fill="none" stroke-linecap="round"/>
-              <path d="M12 66 A48 48 0 0 1 62 18" stroke="#00c9a7" stroke-width="8" fill="none" stroke-linecap="round"/>
-              <text x="60" y="52" text-anchor="middle" class="big" font-size="26">84</text>
-              <text x="60" y="66" text-anchor="middle" class="sml">CM² · META &lt; 100</text>
-            </svg>
-          </div>
-          <p class="card-note">La que <b>rodea tus órganos</b>. Puedes verte delgado y tenerla alta.</p>
+        <div class="pan">
+          <h3>Panel Hormonal MP</h3>
+          <div class="pan-range">$350 – $500</div>
+          <p class="pan-tl">Tus hormonas, medidas con precisión.</p>
+          <p>Para menopausia, perimenopausia, desbalances hormonales, tiroides o niveles de testosterona. Evalúa el perfil hormonal completo según tu sexo y tu etapa de vida, incluyendo tiroides, cortisol y DHEA-S.</p>
         </div>
-
-        <div class="card">
-          <div class="card-h">
-            <svg viewBox="0 0 24 24"><path d="M12 3v18M7 7v10M17 7v10"/></svg>
-            <span>Análisis segmental</span>
-          </div>
-          <div class="card-viz">
-            <svg viewBox="0 0 150 92" width="100%" style="max-width:170px">
-              <text x="10" y="14" class="sml">BRAZO IZQ</text><rect x="78" y="8" width="62" height="7" rx="3.5" fill="rgba(255,255,255,0.13)"/><rect x="78" y="8" width="44" height="7" rx="3.5" fill="#00c9a7"/>
-              <text x="10" y="32" class="sml">BRAZO DER</text><rect x="78" y="26" width="62" height="7" rx="3.5" fill="rgba(255,255,255,0.13)"/><rect x="78" y="26" width="52" height="7" rx="3.5" fill="#00c9a7"/>
-              <text x="10" y="50" class="sml">TRONCO</text><rect x="78" y="44" width="62" height="7" rx="3.5" fill="rgba(255,255,255,0.13)"/><rect x="78" y="44" width="58" height="7" rx="3.5" fill="#00c9a7"/>
-              <text x="10" y="68" class="sml">PIERNA IZQ</text><rect x="78" y="62" width="62" height="7" rx="3.5" fill="rgba(255,255,255,0.13)"/><rect x="78" y="62" width="49" height="7" rx="3.5" fill="#00c9a7"/>
-              <text x="10" y="86" class="sml">PIERNA DER</text><rect x="78" y="80" width="62" height="7" rx="3.5" fill="rgba(255,255,255,0.13)"/><rect x="78" y="80" width="56" height="7" rx="3.5" fill="#00c9a7"/>
-            </svg>
-          </div>
-          <p class="card-note">Músculo y grasa <b>zona por zona</b>. Ahí aparecen las asimetrías.</p>
+        <div class="pan">
+          <h3>Panel Inflamatorio MP</h3>
+          <div class="pan-range">$300 – $400</div>
+          <p class="pan-tl">Encuentra el origen de la inflamación.</p>
+          <p>Para inflamación crónica, condiciones autoinmunes o problemas digestivos persistentes. Evalúa marcadores inflamatorios, anticuerpos tiroideos, sensibilidad al gluten e indicadores de salud intestinal.</p>
         </div>
-
-        <div class="card">
-          <div class="card-h">
-            <svg viewBox="0 0 24 24"><path d="M12 3s6 6.4 6 10.5a6 6 0 0 1-12 0C6 9.4 12 3 12 3z"/></svg>
-            <span>Agua celular</span>
-          </div>
-          <div class="card-viz">
-            <svg viewBox="0 0 150 86" width="100%" style="max-width:170px">
-              <text x="75" y="28" text-anchor="middle" class="big" font-size="25">0.372</text>
-              <text x="75" y="41" text-anchor="middle" class="sml">RELACIÓN ECW / TBW</text>
-              <rect x="10" y="52" width="130" height="9" rx="4.5" fill="rgba(255,255,255,0.13)"/>
-              <rect x="46" y="52" width="34" height="9" fill="rgba(0,201,167,0.35)"/>
-              <circle cx="63" cy="56.5" r="7" fill="#00c9a7" stroke="#0d1b2e" stroke-width="2.5"/>
-              <text x="10" y="79" class="sml">0.360</text>
-              <text x="140" y="79" text-anchor="end" class="sml">0.390</text>
-            </svg>
-          </div>
-          <p class="card-note">Tu equilibrio de líquidos: señala <b>inflamación y retención</b>.</p>
-        </div>
-
-        <div class="card">
-          <div class="card-h">
-            <svg viewBox="0 0 24 24"><path d="M3 13h4l2.5-7 4 14L16 13h5"/></svg>
-            <span>Metabolismo basal</span>
-          </div>
-          <div class="card-viz">
-            <svg viewBox="0 0 150 86" width="100%" style="max-width:170px">
-              <text x="75" y="34" text-anchor="middle" class="big" font-size="27">1,542</text>
-              <text x="75" y="48" text-anchor="middle" class="sml">KCAL / DÍA EN REPOSO</text>
-              <rect x="10" y="60" width="130" height="9" rx="4.5" fill="rgba(255,255,255,0.13)"/>
-              <rect x="10" y="60" width="96" height="9" rx="4.5" fill="#00c9a7"/>
-            </svg>
-          </div>
-          <p class="card-note">Estimado desde tu masa muscular. <b>Medirlo exacto</b> es el Análisis Metabólico.</p>
-        </div>
-
-      </div>
-      <p class="dash-foot">Valores de ejemplo, para ilustrar la lectura. Tus resultados dependen de tu composición real.</p>
-    </div>
-  </section>
-
-
-  <!-- ━━━ EL EQUIPO ━━━ -->
-  <section class="ib">
-    <div class="wrap ib-wrap">
-      <div class="ib-grid fade">
-      <img src="images/inbody-970s.png" alt="InBody 970S" loading="lazy">
-      <div>
-      <div class="ib-head">
-        <div class="ib-logo">In<em>Body</em></div>
-        <span class="ib-model">Modelo 970S</span>
-        <p>
-          InBody es el referente mundial en análisis de composición corporal, y el <strong>970S</strong>
-          es su equipo más avanzado. Es el que tenemos en el centro: medición directa y segmental,
-          sin estimaciones basadas en tu edad o tu sexo.
-        </p>
-      </div>
-
-      <div class="ib-specs">
-        <div class="ib-spec"><b>30 s</b><span>Dura el escaneo</span></div>
-        <div class="ib-spec"><b>2</b><span>Hojas de resultados</span></div>
-        <div class="ib-spec"><b>5</b><span>Segmentos medidos</span></div>
-        <div class="ib-spec"><b>0</b><span>Radiación y agujas</span></div>
-      </div>
-      </div>
-      </div>
-
-
-      <div class="rep fade">
-        <b>Lo que te llevas</b>
-        <i>Así se ven tus hojas de resultados</i>
-        <div class="gal portrait rep-gal" data-gal>
-          <div class="gal-track">
-            <figure class="gal-item"><img src="images/inbody/hoja-composicion.jpg" alt="Hoja de composición corporal del InBody 970" loading="lazy"></figure>
-            <figure class="gal-item"><img src="images/inbody/hoja-agua.jpg" alt="Hoja de agua corporal del InBody 970" loading="lazy"></figure>
-            <figure class="gal-item"><img src="images/inbody/hoja-evaluacion.jpg" alt="Hoja de evaluación del InBody 970" loading="lazy"></figure>
-          </div>
-          <button class="gal-nav gal-prev" type="button" aria-label="Hoja anterior">‹</button>
-          <button class="gal-nav gal-next" type="button" aria-label="Hoja siguiente">›</button>
-          <div class="gal-dots"></div>
-          <p class="gal-cap">Hojas de ejemplo del InBody 970. Desliza o usa las flechas; toca una para ampliarla.</p>
+        <div class="pan">
+          <h3>Panel Nutricional MP</h3>
+          <div class="pan-range">$350 – $500</div>
+          <p class="pan-tl">Qué te falta y qué te está afectando.</p>
+          <p>Para fatiga persistente, deficiencias nutricionales o sospecha de exposición a metales pesados. Evalúa vitaminas, minerales, micronutrientes y metales pesados en sangre.</p>
         </div>
       </div>
 
-      <div class="ib-quote fade">
-        <p>«Eres mucho más que un número estandarizado.»</p>
-        <span>InBody</span>
+      <div class="close-box fade">
+        <h2>¿No sabes cuál necesitas?</h2>
+        <p>Es lo más común. Agenda una llamada de 15 minutos con nuestro especialista: revisamos tu
+        caso, definimos el panel indicado y agendamos tu cita en el centro.</p>
+        <a href="#agendar" class="buy-btn" style="display:block;text-decoration:none;text-align:center;">Agendar mi llamada de evaluación →</a>
       </div>
     </div>
   </section>
 
-  <!-- ━━━ FAQ ━━━ -->
   <section>
     <div class="wrap">
       <div class="faq-head fade">
         <span class="label">Preguntas frecuentes</span>
-        <h2>Antes de reservar</h2>
+        <h2>Antes de agendar</h2>
       </div>
       <div class="faq-list">
         <div class="faq-item">
-          <button class="faq-q">¿Cómo me preparo?<span class="faq-ico">+</span></button>
-          <div class="faq-a"><p>Ven con al menos 3 horas de ayuno, sin haber entrenado ese día y habiendo ido al baño antes. Evita beber mucho líquido justo antes: la hidratación cambia los valores en minutos. Ropa ligera y sin joyas metálicas.</p></div>
+          <button class="faq-q">¿Por qué no publican el precio exacto?<span class="faq-ico">+</span></button>
+          <div class="faq-a"><p>Porque el panel correcto depende de tu caso, y no queremos que pagues por marcadores que no necesitas ni que te falten los que sí. En la llamada de 15 minutos definimos qué medir y ahí te damos el costo puntual, dentro del rango que ves en cada panel.</p></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q">¿Duele o tiene radiación?<span class="faq-ico">+</span></button>
-          <div class="faq-a"><p>Ninguna de las dos. El equipo envía una corriente eléctrica muy baja e imperceptible que mide la resistencia de tus tejidos. No hay agujas, no hay rayos X y no tienes que desvestirte.</p></div>
+          <button class="faq-q">¿La llamada de 15 minutos tiene costo?<span class="faq-ico">+</span></button>
+          <div class="faq-a"><p>No. Es una llamada de evaluación con un especialista del equipo para definir tu panel y agendar tu extracción.</p></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q">¿Hay alguien que no deba hacérselo?<span class="faq-ico">+</span></button>
-          <div class="faq-a"><p>Sí. No se recomienda si tienes marcapasos u otro dispositivo electrónico implantado. Si estás embarazada, avísanos al reservar. Si tienes prótesis metálicas, se puede hacer pero conviene mencionarlo porque afecta la lectura de esa zona.</p></div>
+          <button class="faq-q">¿Tengo que ir en ayunas?<span class="faq-ico">+</span></button>
+          <div class="faq-a"><p>En la mayoría de los paneles sí, y suele ser de 8 a 12 horas. Depende de los marcadores que lleve tu panel, así que te confirmamos las indicaciones exactas cuando agendemos tu cita.</p></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q">¿Cada cuánto conviene repetirlo?<span class="faq-ico">+</span></button>
-          <div class="faq-a"><p>InBody recomienda repetirlo <strong>cada 2 a 4 semanas</strong>. Es el ritmo en el que un cambio de alimentación o entrenamiento ya se refleja en tu composición, y comparar contra tu medición anterior es lo que convierte el dato en seguimiento.</p></div>
+          <button class="faq-q">¿Puedo hacerlo si no vivo en Miami?<span class="faq-ico">+</span></button>
+          <div class="faq-a"><p>La extracción se hace en nuestro centro en Miami. Si vienes de fuera, dínoslo al agendar y coordinamos tu cita para que coincida con tu viaje. Si no puedes venir, el BioScan sí se hace desde tu casa en cualquier parte del mundo.</p></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q">¿Es tan preciso como un DEXA?<span class="faq-ico">+</span></button>
-          <div class="faq-a"><p>El InBody muestra una correlación muy alta con el DEXA en masa muscular y masa grasa, sin radiación y en 30 segundos en lugar de una cita hospitalaria. Donde es más valioso es en el seguimiento: midiendo siempre en las mismas condiciones, los cambios entre una medición y otra son muy fiables.</p></div>
+          <button class="faq-q">¿Sirve si ya me hice análisis hace poco?<span class="faq-ico">+</span></button>
+          <div class="faq-a"><p>Sí, y de hecho ayuda: tráelos a la llamada. El especialista puede ver qué ya está medido y enfocar el panel en lo que falta, lo que a veces reduce el costo.</p></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q">¿En qué se diferencia del Análisis Metabólico?<span class="faq-ico">+</span></button>
-          <div class="faq-a"><p>El InBody dice <em>de qué está hecho</em> tu cuerpo. El Análisis Metabólico mide <em>cómo produce y gasta energía</em>: tus calorías reales medidas, tu VO2 max y tu edad biológica. Se complementan, y el Análisis Metabólico ya incluye un InBody.</p></div>
+          <button class="faq-q">¿En qué se diferencia del BioScan?<span class="faq-ico">+</span></button>
+          <div class="faq-a"><p>Son complementarios. El panel de sangre es análisis clínico de laboratorio: mide con precisión médica lo que circula en tu sangre hoy. El BioScan lee 900+ biomarcadores desde el cabello y muestra la expresión epigenética de las últimas semanas, incluyendo sensibilidades alimentarias y carga tóxica. En los protocolos completos se usan los dos.</p></div>
         </div>
       </div>
     </div>
@@ -1043,14 +996,9 @@
 
   <section class="final">
     <div class="wrap fade">
-      <h2>Deja de medirte solo con la báscula</h2>
-      <p class="lede">Músculo, grasa, agua y proteína. En 30 segundos con el InBody 970S, y con tu consulta de resultados incluida.</p>
-      <a href="#comprar" class="buy-btn" style="display:block;text-decoration:none;text-align:center;">Reservar mi InBody · $95 →</a>
-      <p style="font-size:0.85rem;color:var(--muted);margin-top:22px;line-height:1.7;">
-        ¿Quieres el panorama completo? El <strong>Mapa Biológico MP</strong> reúne el InBody, el BioScan,
-        el panel de sangre y el análisis metabólico en una sola visita.<br>
-        Escríbenos al WhatsApp <a href="https://wa.me/17869302544" style="color:var(--teal-dk);font-weight:700;text-decoration:none;">+1 (786) 930-2544</a>
-      </p>
+      <h2>Deja de adivinar qué está pasando por dentro</h2>
+      <p class="lede">Análisis clínico completo, con un especialista que te explica qué significa.</p>
+      <a href="#agendar" class="buy-btn" style="display:block;text-decoration:none;text-align:center;">Agendar mi llamada de evaluación →</a>
     </div>
   </section>
 
@@ -1060,13 +1008,13 @@
       <p class="fline">760 NW 107th Ave, Suite #340, Miami FL 33172</p>
       <p class="fline">WhatsApp <a href="https://wa.me/17869302544">+1 (786) 930-2544</a> · <a href="https://www.michellepeiret.com">michellepeiret.com</a></p>
       <p class="small">© 2026 Michelle Peiret Health · Energy MP LLC · Miami, FL</p>
-      <p class="small">El InBody es una herramienta de información y seguimiento. No diagnostica enfermedades ni sustituye la atención médica profesional.</p>
+      <p class="small">Los paneles de sangre son herramientas de información y prevención. No sustituyen la atención médica profesional.</p>
     </div>
   </footer>
 
   <div class="buybar" id="buybar">
-    <div class="buybar-p"><b>$95</b><span>InBody · composición corporal</span></div>
-    <a href="#comprar">Reservar ahora</a>
+    <div class="buybar-p"><b>15 min</b><span>Llamada de evaluación</span></div>
+    <a href="#agendar">Agendar</a>
   </div>
 
   <div class="lb" id="lb" aria-hidden="true">
@@ -1105,12 +1053,10 @@
       dots.querySelectorAll('.gal-dot').forEach(function (d, i) { d.classList.toggle('on', i === c); });
     }
     var raf;
-    track.addEventListener('scroll', function () {
-      cancelAnimationFrame(raf); raf = requestAnimationFrame(sync);
-    }, { passive: true });
-    var prev = gal.querySelector('.gal-prev'), next = gal.querySelector('.gal-next');
-    if (prev) prev.addEventListener('click', function () { go(current() - 1); });
-    if (next) next.addEventListener('click', function () { go(current() + 1); });
+    track.addEventListener('scroll', function () { cancelAnimationFrame(raf); raf = requestAnimationFrame(sync); }, { passive: true });
+    var p = gal.querySelector('.gal-prev'), n = gal.querySelector('.gal-next');
+    if (p) p.addEventListener('click', function () { go(current() - 1); });
+    if (n) n.addEventListener('click', function () { go(current() + 1); });
     items.forEach(function (it) {
       it.querySelector('img').addEventListener('click', function () {
         var lb = document.getElementById('lb');
@@ -1121,22 +1067,10 @@
     });
   });
 
-  document.querySelectorAll('.rep-strip img').forEach(function (im) {
-    im.addEventListener('click', function () {
-      var lb = document.getElementById('lb');
-      lb.querySelector('img').src = this.src;
-      lb.classList.add('on'); lb.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    });
-  });
-
   (function () {
     var lb = document.getElementById('lb');
     if (!lb) return;
-    function close() {
-      lb.classList.remove('on'); lb.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
+    function close() { lb.classList.remove('on'); lb.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }
     lb.addEventListener('click', function (e) { if (e.target === lb || e.target.classList.contains('lb-x')) close(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
   })();
@@ -1158,35 +1092,6 @@
     });
   });
 
-  /* ── CTAs: llevar a la tarjeta de compra y señalar el formulario ── */
-  document.querySelectorAll('a[href="#comprar"]').forEach(function (a) {
-    a.addEventListener('click', function (e) {
-      var dest = document.getElementById('comprar');
-      if (!dest) return;
-      e.preventDefault();
-      dest.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // en escritorio el foco ayuda; en móvil abriría el teclado, así que no
-      if (window.innerWidth > 980) {
-        setTimeout(function () { var n = document.getElementById('bkName'); if (n) n.focus({ preventScroll: true }); }, 620);
-      }
-    });
-  });
-
-  /* ── BARRA FIJA DE COMPRA (móvil) ── */
-  (function () {
-    var bar = document.getElementById('buybar');
-    var form = document.getElementById('bkForm');
-    if (!bar || !form) return;
-    function upd() {
-      var r = form.getBoundingClientRect();
-      // aparece cuando el formulario ya pasó de largo, y se esconde mientras está a la vista
-      bar.classList.toggle('on', r.bottom < 40);
-    }
-    window.addEventListener('scroll', upd, { passive: true });
-    window.addEventListener('resize', upd);
-    upd();
-  })();
-
   /* ── FADE-IN ── */
   (function () {
     var els = document.querySelectorAll('.fade');
@@ -1197,65 +1102,140 @@
     els.forEach(function (e) { io.observe(e); });
   })();
 
-  /* ── CHECKOUT ── */
-  (function () {
-    var ENDPOINT = 'https://bioscan.michellepeiret.com/api/estudio-checkout';
-    var form = document.getElementById('bkForm');
-    var btn  = document.getElementById('bkBtn');
-
-    function val(id) { return (document.getElementById(id).value || '').trim(); }
-    function err(id, on) {
-      var e = document.getElementById(id);
-      if (e) e.classList.toggle('on', !!on);
-    }
-
-    form.addEventListener('submit', function (e) {
+  /* ── ANCLAS AL FORMULARIO ── */
+  document.querySelectorAll('a[href="#agendar"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var d = document.getElementById('agendar');
+      if (!d) return;
       e.preventDefault();
-      var name = val('bkName'), email = val('bkEmail'), phone = val('bkPhone'),
-          objetivo = val('bkObjetivo'), urgencia = val('bkUrgencia'), notes = val('bkNotes');
-      var ok = true;
-      if (name.length < 2)                                     { err('errName', true);     ok = false; } else err('errName', false);
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))          { err('errEmail', true);    ok = false; } else err('errEmail', false);
-      if (phone.replace(/\D/g, '').length < 8)                 { err('errPhone', true);    ok = false; } else err('errPhone', false);
-      if (!objetivo)                                           { err('errObjetivo', true); ok = false; } else err('errObjetivo', false);
-      if (!ok) return;
+      d.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
 
-      var errForm = document.getElementById('errForm');
-      errForm.classList.remove('on');
-      btn.disabled = true;
-      btn.textContent = 'Redirigiendo al pago…';
+  /* ── BARRA FIJA MÓVIL ── */
+  (function () {
+    var bar = document.getElementById('buybar'), box = document.getElementById('agendar');
+    if (!bar || !box) return;
+    function upd() { bar.classList.toggle('on', box.getBoundingClientRect().bottom < 40); }
+    window.addEventListener('scroll', upd, { passive: true });
+    window.addEventListener('resize', upd);
+    upd();
+  })();
 
+  /* ══════════════════════════════════════════════════
+     FORMULARIO DE PANELES — 2 pasos → Calendly
+     Independiente del formulario principal del landing.
+     Pon el enlace de Calendly aquí y el embed aparece solo.
+  ══════════════════════════════════════════════════ */
+  var BP_CALENDLY   = '';
+  var BP_ENDPOINT   = 'https://bioscan.michellepeiret.com/api/lead';
+  var bpPanel       = null;
+
+  function bpVal(id) { return (document.getElementById(id).value || '').trim(); }
+  function bpErr(id, on) { var e = document.getElementById(id); if (e) e.classList.toggle('on', !!on); }
+  function bpShow(which) {
+    ['bpStep1', 'bpStep2', 'bpDone'].forEach(function (id) {
+      document.getElementById(id).classList.toggle('on', id === which);
+    });
+  }
+
+  /* Paso 1 — selección de panel */
+  document.querySelectorAll('.bp-opt').forEach(function (o) {
+    o.addEventListener('click', function () {
+      document.querySelectorAll('.bp-opt').forEach(function (x) { x.classList.remove('sel'); });
+      o.classList.add('sel');
+      bpPanel = o.getAttribute('data-panel');
+      bpErr('bpErrPanel', false);
+      try { if (window.gtag) gtag('event', 'select_item', { item_name: 'Panel: ' + bpPanel }); } catch (e) {}
+    });
+  });
+
+  document.getElementById('bpNext').addEventListener('click', function () {
+    if (!bpPanel) { bpErr('bpErrPanel', true); return; }
+    bpShow('bpStep2');
+    try { if (window.gtag) gtag('event', 'form_step', { step: 2, item_name: 'Paneles de sangre' }); } catch (e) {}
+  });
+
+  document.getElementById('bpBack').addEventListener('click', function () { bpShow('bpStep1'); });
+
+  /* Paso 2 — datos y envío */
+  document.getElementById('bpForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = bpVal('bpName'), email = bpVal('bpEmail'), phone = bpVal('bpPhone'),
+        cas  = bpVal('bpCase'),  prev  = bpVal('bpPrev'),  loc   = bpVal('bpLoc');
+
+    var ok = true;
+    if (name.length < 3 || name.indexOf(' ') === -1) { bpErr('bpErrName', true);  ok = false; } else bpErr('bpErrName', false);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))  { bpErr('bpErrEmail', true); ok = false; } else bpErr('bpErrEmail', false);
+    if (phone.replace(/\D/g, '').length < 8)          { bpErr('bpErrPhone', true); ok = false; } else bpErr('bpErrPhone', false);
+    if (cas.length < 4)                               { bpErr('bpErrCase', true);  ok = false; } else bpErr('bpErrCase', false);
+    if (!ok) return;
+
+    var btn = document.getElementById('bpSubmit');
+    btn.disabled = true; btn.textContent = 'Enviando…';
+    bpErr('bpErrForm', false);
+
+    // Los datos se envían primero; el Calendly solo aparece si el envío salió bien.
+    fetch(BP_ENDPOINT, {
+      method: 'POST',
+      keepalive: true,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name:          name,
+        email:         email,
+        phone:         phone,
+        challenge:     cas,
+        country:       loc,
+        goal:          'Paneles de sangre',
+        program:       'Panel de sangre — ' + bpPanel,
+        origen:        'paneles_sangre',
+        panel_interes: bpPanel,
+        estudios_previos: prev,
+        source:        'landing paneles de sangre',
+        calendar:      'paneles_15min'
+      })
+    })
+    .then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
       try {
-        if (window.gtag) gtag('event', 'begin_checkout', {
-          value: 95, currency: 'USD',
-          items: [{ item_name: 'InBody' }]
+        if (window.gtag) gtag('event', 'generate_lead', {
+          item_name: 'Panel de sangre', panel: bpPanel, currency: 'USD', value: 0
         });
       } catch (e2) {}
-
-      fetch(ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          estudio: 'inbody',
-          name: name, email: email, phone: phone,
-          objetivo: objetivo, urgencia: urgencia, notes: notes,
-          source: 'landing inbody',
-          origin: location.origin
-        })
-      })
-      .then(function (r) { return r.json(); })
-      .then(function (j) {
-        if (j && j.url) { window.location.href = j.url; return; }
-        throw new Error((j && j.error) || 'No se pudo iniciar el pago.');
-      })
-      .catch(function (e3) {
-        errForm.textContent = e3.message + ' Escríbenos al WhatsApp +1 (786) 930-2544.';
-        errForm.classList.add('on');
-        btn.disabled = false;
-        btn.textContent = 'Reservar mi InBody · $95 →';
-      });
+      bpShow('bpDone');
+      document.getElementById('agendar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      bpLoadCalendly(name, email);
+    })
+    .catch(function (err) {
+      document.getElementById('bpErrForm').textContent =
+        'No se pudo enviar. Inténtalo de nuevo o llámanos al +1 (786) 930-2544.';
+      bpErr('bpErrForm', true);
+      btn.disabled = false; btn.textContent = 'Agendar mi llamada →';
+      console.error('Paneles lead error:', err);
     });
-  })();
+  });
+
+  /* Calendly: si no hay enlace configurado, se muestra un aviso en vez de un iframe roto */
+  function bpLoadCalendly(name, email) {
+    var wrap = document.getElementById('bpCalWrap');
+    if (!BP_CALENDLY) {
+      wrap.innerHTML = '<div class="bp-cal-fallback"><p><b>Recibimos tus datos.</b> ' +
+        'Nuestro equipo te contactará para coordinar tu llamada de evaluación. ' +
+        'Si prefieres adelantarlo, llámanos al +1 (786) 930-2544.</p></div>';
+      return;
+    }
+    wrap.innerHTML = '<div id="bpCal"></div>';
+    var url = BP_CALENDLY +
+      '?hide_gdpr_banner=1&name=' + encodeURIComponent(name) + '&email=' + encodeURIComponent(email);
+    function init() {
+      if (window.Calendly && window.Calendly.initInlineWidget) {
+        window.Calendly.initInlineWidget({ url: url, parentElement: document.getElementById('bpCal') });
+      } else {
+        setTimeout(init, 300);
+      }
+    }
+    init();
+  }
 </script>
 
   <a class="wa-fab" href="https://wa.me/17864848729?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n"
@@ -1263,15 +1243,5 @@
     <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.4M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2m0 18.2c-1.6 0-3.2-.4-4.5-1.3l-.3-.2-3.1.8.8-3-.2-.3a8.2 8.2 0 1 1 7.3 4"/></svg>
     <span>Escríbenos</span>
   </a>
-<script>
-  /* Llamada rápida de 15 min con un especialista.
-     Pon aquí el enlace de Calendly y el botón aparece solo. Vacío = no se muestra,
-     para no publicar nunca un botón que no lleva a ningún lado. */
-  var CAL_15MIN = 'https://calendly.com/nutrigenomica-michellepeiret/inbody-970-s-consult';
-  (function () {
-    var a = document.getElementById('cal15');
-    if (a && CAL_15MIN) { a.href = CAL_15MIN; a.style.display = ''; }
-  })();
-</script>
 </body>
 </html>
