@@ -621,6 +621,24 @@
   .gal-dot.on { background: var(--accent); }
   .plan-tag { background: var(--accent); color: #fff; }
   .dash .label, .rev .label { color: var(--teal) !important; }   /* sobre oscuro se mantiene el turquesa */
+
+  /* ── Comparativa: el costo de no saber ── */
+  .cost { background: var(--white); }
+  .cost-head { max-width: 640px; margin: 0 auto 40px; text-align: center; }
+  .cost-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 820px) { .cost-cols { grid-template-columns: 1fr; } }
+  .cost-col { border: 1px solid rgba(13,27,46,0.12); border-radius: 12px; padding: 26px 24px; }
+  .cost-col.bad { background: #fbfbfc; }
+  .cost-col > b { display: block; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 800; margin-bottom: 16px; }
+  .cost-col.bad > b { color: var(--muted); }
+  .cost-col.good > b { color: var(--accent); }
+  .cost-col ul { list-style: none; }
+  .cost-col li { font-size: 0.9rem; color: var(--muted); line-height: 1.7; padding: 11px 0 11px 26px; position: relative; border-bottom: 1px solid rgba(13,27,46,0.07); }
+  .cost-col li:last-child { border-bottom: none; }
+  .cost-col li::before { position: absolute; left: 0; top: 10px; font-size: 0.95rem; font-weight: 700; }
+  .cost-col.bad li::before  { content: '×'; color: #b0233c; }
+  .cost-col.good li::before { content: '✓'; color: var(--accent); }
+  .cost-col li strong { color: var(--text); font-weight: 600; }
 </style>
 
 </head>
@@ -1038,6 +1056,40 @@
           <button class="gal-nav gal-next" type="button" aria-label="Página siguiente">›</button>
           <div class="gal-dots"></div>
           <p class="gal-cap">Desliza o usa las flechas para ver las 7 páginas. Toca una para ampliarla.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ━━━ EL COSTO DE NO SABER ━━━ -->
+  <section class="cost">
+    <div class="wrap">
+      <div class="cost-head fade">
+        <span class="label">Por qué importa</span>
+        <h2>La pregunta no es cuánto cuesta medirte</h2>
+        <p class="lede" style="margin-top:15px;">Es cuántos meses llevas entrenando y comiendo según un número que nunca fue tuyo.</p>
+      </div>
+      <div class="cost-cols fade">
+        <div class="cost-col bad">
+          <b>Con la fórmula de una app</b>
+          <ul>
+            <li>Tus calorías salen de una ecuación basada en peso, edad y estatura — que <strong>solo acierta en el 40 % a 60 % de las personas</strong></li>
+            <li>No sabes si quemas grasa o azúcar, así que <strong>puedes estar en déficit y no bajar grasa</strong></li>
+            <li>Entrenas en zonas calculadas con <strong>"220 menos tu edad"</strong>, una regla general que no es tuya</li>
+            <li>Si te estancas, <strong>no sabes qué ajustar</strong>: comes menos y entrenas más, a ciegas</li>
+            <li>Tu edad biológica es una incógnita</li>
+          </ul>
+        </div>
+        <div class="cost-col good">
+          <b>Con tu Análisis Metabólico</b>
+          <ul>
+            <li>Tus calorías <strong>medidas</strong>, para días con y sin ejercicio, y tus macros en gramos</li>
+            <li>Tu <strong>proporción exacta de grasa y carbohidratos</strong>, y la pulsación en la que quemas más grasa</li>
+            <li>Tus <strong>cinco zonas con pulsaciones reales</strong>, medidas en tu prueba de esfuerzo</li>
+            <li>Sabes <strong>dónde está el bloqueo</strong>: metabolismo lento, mala flexibilidad metabólica o limitación cardiovascular</li>
+            <li>Tu <strong>edad biológica</strong> y cuál de tus marcadores la está subiendo</li>
+          </ul>
         </div>
       </div>
     </div>

@@ -669,6 +669,24 @@
   .gal-dot.on { background: var(--accent); }
   .plan-tag { background: var(--accent); color: #fff; }
   .dash .label, .rev .label { color: var(--teal) !important; }   /* sobre oscuro se mantiene el turquesa */
+
+  /* ── Comparativa: el costo de no saber ── */
+  .cost { background: var(--white); }
+  .cost-head { max-width: 640px; margin: 0 auto 40px; text-align: center; }
+  .cost-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 820px) { .cost-cols { grid-template-columns: 1fr; } }
+  .cost-col { border: 1px solid rgba(13,27,46,0.12); border-radius: 12px; padding: 26px 24px; }
+  .cost-col.bad { background: #fbfbfc; }
+  .cost-col > b { display: block; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 800; margin-bottom: 16px; }
+  .cost-col.bad > b { color: var(--muted); }
+  .cost-col.good > b { color: var(--accent); }
+  .cost-col ul { list-style: none; }
+  .cost-col li { font-size: 0.9rem; color: var(--muted); line-height: 1.7; padding: 11px 0 11px 26px; position: relative; border-bottom: 1px solid rgba(13,27,46,0.07); }
+  .cost-col li:last-child { border-bottom: none; }
+  .cost-col li::before { position: absolute; left: 0; top: 10px; font-size: 0.95rem; font-weight: 700; }
+  .cost-col.bad li::before  { content: '×'; color: #b0233c; }
+  .cost-col.good li::before { content: '✓'; color: var(--accent); }
+  .cost-col li strong { color: var(--text); font-weight: 600; }
 </style>
 
 
@@ -1021,6 +1039,40 @@
   </section>
 
   <!-- ━━━ FAQ ━━━ -->
+
+  <!-- ━━━ EL COSTO DE NO SABER ━━━ -->
+  <section class="cost">
+    <div class="wrap">
+      <div class="cost-head fade">
+        <span class="label">Por qué importa</span>
+        <h2>La báscula te miente por omisión</h2>
+        <p class="lede" style="margin-top:15px;">No porque el número sea falso, sino porque no te dice de qué está hecho.</p>
+      </div>
+      <div class="cost-cols fade">
+        <div class="cost-col bad">
+          <b>Con la báscula del baño</b>
+          <ul>
+            <li>Bajaste 4 kilos y <strong>no sabes si eran grasa, músculo o agua</strong></li>
+            <li>Puedes estar perdiendo músculo, <strong>volviendo más lento tu metabolismo</strong> sin enterarte</li>
+            <li>Te ves delgado y asumes que estás bien, <strong>sin saber tu grasa visceral</strong></li>
+            <li>No detectas <strong>asimetrías entre lados</strong> que explican dolores y lesiones repetidas</li>
+            <li>Si el peso no se mueve, <strong>asumes que nada está pasando</strong></li>
+          </ul>
+        </div>
+        <div class="cost-col good">
+          <b>Con tu InBody 970S</b>
+          <ul>
+            <li>Sabes exactamente <strong>cuánto de tu peso es músculo y cuánto es grasa</strong></li>
+            <li>Ves si tu masa muscular sube o baja, que es <strong>lo que decide si el resultado dura</strong></li>
+            <li>Tienes tu <strong>grasa visceral en cm²</strong>, con su umbral de referencia</li>
+            <li>Ves el <strong>músculo y la grasa por segmento</strong>: cada brazo, cada pierna y el tronco</li>
+            <li>Aunque el peso no cambie, <strong>ves la recomposición</strong> — y sabes que sí está funcionando</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section>
     <div class="wrap">
       <div class="faq-head fade">
