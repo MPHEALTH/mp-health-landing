@@ -654,6 +654,21 @@
   .talk-btns { display: grid; gap: 8px; }
   .talk a.alt { border-color: var(--teal-dk); color: var(--teal-dk); }
   .talk a.alt:hover { background: var(--teal-dk); color: #fff; }
+
+  /* ── Acento propio de este diagnóstico ── */
+  :root { --accent: #2563a8; }
+  .label { color: var(--accent) !important; }
+  .h1-sub { color: var(--accent); }
+  .tagline { color: var(--accent); }
+  .step-n { color: var(--accent); }
+  .inc-list > li::before { background: var(--accent); box-shadow: 0 0 0 4px #2563a822; }
+  .interp-list li::before { background: var(--accent); box-shadow: 0 0 0 4px #2563a822; }
+  .sci { border-left-color: var(--accent); }
+  .rep > b, .after > b { color: var(--accent); }
+  .faq-ico { color: var(--accent); }
+  .gal-dot.on { background: var(--accent); }
+  .plan-tag { background: var(--accent); color: #fff; }
+  .dash .label, .rev .label { color: var(--teal) !important; }   /* sobre oscuro se mantiene el turquesa */
 </style>
 
 
