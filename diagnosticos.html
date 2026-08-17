@@ -137,6 +137,22 @@
     .d-cta:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 14px 30px color-mix(in srgb, var(--c) 40%, transparent); }
     .d-cta.ghost { background: rgba(255,255,255,0.5); color: var(--c); border: 1px solid color-mix(in srgb, var(--c) 30%, transparent); box-shadow: inset 0 1px 0 rgba(255,255,255,0.85); }
 
+
+    /* ── Imagen dentro del vidrio ── */
+    .d-img {
+      position: relative; margin: -32px -30px 22px; border-radius: 22px 22px 0 0;
+      overflow: hidden; aspect-ratio: 16/9; background: rgba(255,255,255,0.4);
+    }
+    .d-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(.2,.8,.2,1); }
+    .dcard:hover .d-img img { transform: scale(1.04); }
+    .d-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 55%, rgba(245,241,234,0.55) 100%);
+      pointer-events: none;
+    }
+    .d-img .d-dot { position: absolute; left: 20px; bottom: 16px; margin: 0; z-index: 2;
+      box-shadow: 0 0 0 5px rgba(255,255,255,0.45), 0 2px 8px rgba(30,42,53,0.25); }
+    @media (max-width: 860px) { .d-img { margin: -32px -30px 20px; aspect-ratio: 16/8; } }
     /* ── Guía ── */
     .guide-card { padding: 46px 44px; }
     @media (max-width: 720px) { .guide-card { padding: 30px 22px; } }
@@ -221,7 +237,7 @@
 
       <div class="dgrid">
         <div class="dcard bioscan glass fade">
-          <div class="d-dot"></div>
+          <div class="d-img"><img src="images/bioscan-kit.jpg" alt="Kit de muestreo del BioScan" loading="lazy"><span class="d-dot"></span></div>
           <div class="d-top"><h3>BioScan</h3><span class="d-price">$447</span></div>
           <p class="d-tl">Cómo está funcionando tu cuerpo hoy.</p>
           <p>900+ biomarcadores desde cuatro hebras de cabello: deficiencias, hormonas, microbiota, toxinas y sensibilidad a 115+ alimentos. Sin agujas y sin sangre.</p>
@@ -230,7 +246,7 @@
         </div>
 
         <div class="dcard metab glass fade">
-          <div class="d-dot"></div>
+          <div class="d-img"><img src="images/metabolico-prueba.jpg" alt="Prueba metabólica con tecnología PNOĒ" loading="lazy"><span class="d-dot"></span></div>
           <div class="d-top"><h3>Análisis Metabólico MP</h3><span class="d-price">$350</span></div>
           <p class="d-tl">Tu metabolismo medido, no estimado.</p>
           <p>Dos pruebas con tecnología PNOĒ: tus calorías y macros reales, tu VO2 max, tus zonas de entrenamiento y tu edad biológica. Respirando por una mascarilla.</p>
@@ -239,7 +255,7 @@
         </div>
 
         <div class="dcard inbody glass fade">
-          <div class="d-dot"></div>
+          <div class="d-img"><img src="images/inbody/uso-970s.jpg" alt="Escaneo de composición corporal en el InBody 970S" loading="lazy"><span class="d-dot"></span></div>
           <div class="d-top"><h3>InBody 970S</h3><span class="d-price">$95</span></div>
           <p class="d-tl">De qué está hecho tu peso.</p>
           <p>Músculo, grasa, grasa visceral, agua celular y proteína, medidos por segmento en 30 segundos. Sin agujas y sin radiación.</p>
@@ -248,7 +264,7 @@
         </div>
 
         <div class="dcard sangre glass fade">
-          <div class="d-dot"></div>
+          <div class="d-img"><img src="images/239michelle%20peiret%20oficina%202026%20-Edit.jpg" alt="Especialista preparando una muestra" loading="lazy"><span class="d-dot"></span></div>
           <div class="d-top"><h3>Paneles de Sangre MP</h3><span class="d-price">$250 – $600</span></div>
           <p class="d-tl">Análisis clínico con interpretación.</p>
           <p>Cinco paneles según lo que necesites medir: completo, metabólico, hormonal, inflamatorio o nutricional. Empieza con una llamada de 15 minutos para definir cuál te toca.</p>
