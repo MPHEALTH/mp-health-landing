@@ -2113,23 +2113,23 @@ p, li { font-weight: 300; }
       return stored;
     })();
 
-    /* ── Rotación de calendarios (test de formato de oferta) ── */
-    var CALENDLY_URLS = {
-      reps:     'https://calendly.com/nutrigenomica-michellepeiret/michellepeirethealth',
-      closer:   'https://calendly.com/nutrigenomica-michellepeiret/analisis-inicial-mp',
-      michelle: 'https://calendly.com/michelle-michellepeiret/30min'
-    };
+    /* ── Calendario único (desde 2026-08-18) ──
+       Toda reserva de esta página va al análisis inicial y a ningún otro
+       calendario. Antes había rotación reps/closer (CLOSER_SPLIT ya estaba
+       al 100 % en "closer", pero una sesión vieja guardada en sessionStorage
+       aún podía mandar a "reps") y el calendario de la consulta directa de
+       Michelle, que hoy vive en su propia página, consulta-michelle.html.
+       Las tres claves se conservan para no romper las llamadas existentes
+       ni las etiquetas de tracking; todas apuntan al mismo destino. */
+    var CALENDLY_URL = 'https://calendly.com/nutrigenomica-michellepeiret/analisis-inicial-mp';
+    var CALENDLY_URLS = { reps: CALENDLY_URL, closer: CALENDLY_URL, michelle: CALENDLY_URL };
     var activeBookingContext = null; // qué calendario está abierto (para etiquetar los eventos de Calendly)
     var CLOSER_SPLIT = 100; // % de leads asignados al calendario "closer" (Genesis = principal desde 2026-07-30)
     var CAL_LABELS = { reps: 'Samantha/Fauzi', closer: 'Genesis', michelle: 'Consulta directa Michelle ($700)' };
     function calVariant() {
-      var v = null;
-      try { v = sessionStorage.getItem('mp_cal_variant'); } catch (e) {}
-      if (v !== 'reps' && v !== 'closer') {
-        v = (Math.random() * 100 < CLOSER_SPLIT) ? 'closer' : 'reps';
-        try { sessionStorage.setItem('mp_cal_variant', v); } catch (e) {}
-      }
-      return v;
+      // Un solo calendario: se ignora cualquier variante guardada en sesiones previas.
+      try { sessionStorage.setItem('mp_cal_variant', 'closer'); } catch (e) {}
+      return 'closer';
     }
 
     // Split test paso 4 (desde 2026-08-06): ¿mostrar la consulta directa de $700 junto al análisis?
