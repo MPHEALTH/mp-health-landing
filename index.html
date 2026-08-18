@@ -936,6 +936,24 @@ body { background: var(--sand); color: var(--ink); position: relative; }
 }
 .service-card { overflow: hidden; }
 
+
+/* ── Rescate de contraste: todo lo que era blanco sobre fondo oscuro ── */
+.nav-phone, .hero-trust-text, .hero-badge-text, .proof-label, .about-num-lbl,
+.cred, .about-bio, .about-bio strong, .cal-intro, .cal-step-desc, .cal-trust-text,
+.footer-link, .gallery-caption span, .service-desc, .pain-cta-block p,
+.stat-label, .hero-stat-label, .proof-num, .about-num { color: var(--inks) !important; }
+
+.hero h1, .hero-title, .about-title, .cal-title, .proof-num, .about-num,
+.hero-stat-num, .stat-num { color: var(--ink) !important; }
+
+/* Las tarjetas de servicio conservan su foto y overlay: ahí el blanco sí se lee */
+.service-card .service-desc, .service-card .service-title, .service-card .service-tag,
+.gallery-caption span { color: #fff !important; }
+.service-card { background: var(--ink) !important; }
+
+/* El logo blanco desaparecía sobre el vidrio claro */
+.nav-logo { content: url('images/LOGO%20%286%29.png'); }
+
 /* ── Tipografía más serena ── */
 h1, h2, h3, .section-h2 { font-weight: 400 !important; letter-spacing: -0.012em; }
 p, li { font-weight: 300; }
