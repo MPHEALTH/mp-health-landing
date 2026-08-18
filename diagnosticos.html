@@ -63,15 +63,14 @@
     @keyframes drift3 { 0%,100% { transform: translate(0,0) scale(1); }      50% { transform: translate(7vw,-8vh) scale(1.16); } }
     @keyframes drift4 { 0%,100% { transform: translate(0,0) scale(1.05); }   50% { transform: translate(-10vw,-6vh) scale(0.92); } }
 
-    .helix { position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.22; }
+    .helix { position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.10; }
     .helix svg { width: 100%; height: 100%; }
-    .helix .strand { fill: none; stroke: var(--ink); stroke-width: 1.1; stroke-opacity: 0.5; }
-    .helix .rung   { stroke: var(--ink); stroke-width: 0.8; stroke-opacity: 0.28; }
+    .helix .strand { fill: none; stroke: var(--ink); stroke-width: 1.4; stroke-opacity: 0.55; }
     .helix .layer  { animation: slide 34s linear infinite; }
     .helix .layer.slow { animation-duration: 52s; opacity: 0.6; }
-    @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-720px); } }
+    @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-480px); } }
 
-    @media (max-width: 720px) { .blob { filter: blur(70px); opacity: 0.42; } .helix { opacity: 0.15; } }
+    @media (max-width: 720px) { .blob { filter: blur(70px); opacity: 0.42; } .helix { opacity: 0.07; } }
 
     /* Si el usuario pide menos movimiento, todo se queda quieto */
     @media (prefers-reduced-motion: reduce) {
@@ -276,30 +275,17 @@
   </div>
 
   <div class="helix" aria-hidden="true">
-    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+    <svg viewBox="0 0 2880 1620" preserveAspectRatio="xMidYMid slice">
       <defs>
         <g id="dna">
-          <path class="strand" d="M0,150 C60,60 120,60 180,150 S300,240 360,150 S480,60 540,150 S660,240 720,150 S840,60 900,150 S1020,240 1080,150 S1200,60 1260,150 S1380,240 1440,150 S1560,60 1620,150 S1740,240 1800,150 S1920,60 1980,150 S2100,240 2160,150"/>
-          <path class="strand" d="M0,150 C60,240 120,240 180,150 S300,60 360,150 S480,240 540,150 S660,60 720,150 S840,240 900,150 S1020,60 1080,150 S1200,240 1260,150 S1380,60 1440,150 S1560,240 1620,150 S1740,60 1800,150 S1920,240 1980,150 S2100,60 2160,150"/>
-          <g class="rung">
-            <line x1="45"   y1="98"  x2="45"   y2="202"/><line x1="135" y1="98"  x2="135" y2="202"/>
-            <line x1="225"  y1="98"  x2="225"  y2="202"/><line x1="315" y1="98"  x2="315" y2="202"/>
-            <line x1="405"  y1="98"  x2="405"  y2="202"/><line x1="495" y1="98"  x2="495" y2="202"/>
-            <line x1="585"  y1="98"  x2="585"  y2="202"/><line x1="675" y1="98"  x2="675" y2="202"/>
-            <line x1="765"  y1="98"  x2="765"  y2="202"/><line x1="855" y1="98"  x2="855" y2="202"/>
-            <line x1="945"  y1="98"  x2="945"  y2="202"/><line x1="1035" y1="98" x2="1035" y2="202"/>
-            <line x1="1125" y1="98"  x2="1125" y2="202"/><line x1="1215" y1="98" x2="1215" y2="202"/>
-            <line x1="1305" y1="98"  x2="1305" y2="202"/><line x1="1395" y1="98" x2="1395" y2="202"/>
-            <line x1="1485" y1="98"  x2="1485" y2="202"/><line x1="1575" y1="98" x2="1575" y2="202"/>
-            <line x1="1665" y1="98"  x2="1665" y2="202"/><line x1="1755" y1="98" x2="1755" y2="202"/>
-            <line x1="1845" y1="98"  x2="1845" y2="202"/><line x1="1935" y1="98" x2="1935" y2="202"/>
-            <line x1="2025" y1="98"  x2="2025" y2="202"/><line x1="2115" y1="98" x2="2115" y2="202"/>
-          </g>
+          <path class="strand" d="M0,60 C40,18 80,18 120,60 S200,102 240,60 S320,18 360,60 S440,102 480,60 S560,18 600,60 S680,102 720,60 S800,18 840,60 S920,102 960,60 S1040,18 1080,60 S1160,102 1200,60 S1280,18 1320,60 S1400,102 1440,60 S1520,18 1560,60 S1640,102 1680,60 S1760,18 1800,60 S1880,102 1920,60 S2000,18 2040,60 S2120,102 2160,60 S2240,18 2280,60 S2360,102 2400,60 S2480,18 2520,60 S2600,102 2640,60 S2720,18 2760,60 S2840,102 2880,60 S2960,18 3000,60 S3080,102 3120,60"/>
+          <path class="strand" d="M0,60 C40,102 80,102 120,60 S200,18 240,60 S320,102 360,60 S440,18 480,60 S560,102 600,60 S680,18 720,60 S800,102 840,60 S920,18 960,60 S1040,102 1080,60 S1160,18 1200,60 S1280,102 1320,60 S1400,18 1440,60 S1520,102 1560,60 S1640,18 1680,60 S1760,102 1800,60 S1880,18 1920,60 S2000,102 2040,60 S2120,18 2160,60 S2240,102 2280,60 S2360,18 2400,60 S2480,102 2520,60 S2600,18 2640,60 S2720,102 2760,60 S2840,18 2880,60 S2960,102 3000,60 S3080,18 3120,60"/>
         </g>
       </defs>
-      <g class="layer"><use href="#dna" y="60"/></g>
-      <g class="layer slow"><use href="#dna" y="470"/></g>
-      <g class="layer"><use href="#dna" y="700"/></g>
+      <g class="layer"><use href="#dna" y="180"/></g>
+      <g class="layer slow"><use href="#dna" y="640"/></g>
+      <g class="layer"><use href="#dna" y="1100"/></g>
+      <g class="layer slow"><use href="#dna" y="1480"/></g>
     </svg>
   </div>
 
