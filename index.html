@@ -958,6 +958,136 @@ body { background: var(--sand); color: var(--ink); position: relative; }
 h1, h2, h3, .section-h2 { font-weight: 400 !important; letter-spacing: -0.012em; }
 p, li { font-weight: 300; }
 
+/* ═══════════════════════════════════════════════════════════
+   AUDITORÍA DE CONTRASTE · sección por sección
+   Tres fallas heredadas del tema oscuro:
+     a) texto blanco que quedó sobre fondo claro → invisible
+     b) texto recoloreado a gris/tinta que quedó sobre las
+        superficies que SÍ siguen siendo oscuras → invisible
+     c) el teal #00c9a7 rinde 1.9:1 sobre la arena — sirve como
+        fondo de botón, no como color de texto sobre claro.
+   Se introduce --teal-ink (5.6:1 sobre arena, 6.3:1 sobre
+   blanco) para todo el teal que es TEXTO.
+═══════════════════════════════════════════════════════════ */
+:root {
+  --teal-ink: #0a5b4d;   /* acento legible sobre claro: 7.2:1 en arena, 5.5:1 sobre las manchas */
+  --mint:     #7fe3cd;   /* acento legible sobre superficies oscuras: 9.4:1 sobre tinta */
+  /* Los grises heredados se midieron contra navy. Sobre arena, --muted daba
+     3.9:1 y bajaba a ~3.1:1 donde pasa una mancha de color. Ambos se oscurecen
+     al mismo tono: 6.6:1 en arena, 5.2:1 en el peor punto del fondo vivo. */
+  --inks:  #4b5761;
+  --muted: #4b5761;
+}
+
+/* Las manchas de color eran el segundo problema de contraste: al 0.42 teñían
+   el fondo lo suficiente como para tumbar el texto secundario. */
+.blob { opacity: 0.26; }
+@media (max-width: 720px) { .blob { opacity: 0.22; } }
+
+/* ── 1 · Logos: mix-blend-mode:screen los borra sobre fondo claro ── */
+.nav-logo, .footer-logo { mix-blend-mode: normal !important; }
+.footer-logo { content: url('images/LOGO%20%286%29.png'); opacity: 1 !important; height: 44px; }
+
+/* ── 2 · Banda de datos: era navy sólido y su texto se recoloreó a tinta ── */
+.proof-bar {
+  background: rgba(255,255,255,0.52) !important;
+  backdrop-filter: blur(22px) saturate(160%); -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.6) !important;
+  border-radius: 22px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.85), 0 14px 36px rgba(30,42,53,0.07) !important;
+  max-width: 1180px; width: calc(100% - 48px); margin: 10px auto;
+  padding: 18px 24px; flex-wrap: nowrap;
+}
+.proof-item { border-right: 1px solid rgba(30,42,53,0.10); padding: 4px 20px; }
+@media (max-width: 980px) { .proof-bar { flex-wrap: wrap; } .proof-item { padding: 8px 16px; } }
+.proof-num   { color: var(--teal-ink) !important; }
+.proof-label { color: var(--inks) !important; }
+@media (max-width: 720px) { .proof-bar { width: calc(100% - 24px); } }
+
+/* ── 3 · Superficies que siguen oscuras: su texto vuelve a ser claro ── */
+.hero-badge-text { color: rgba(255,255,255,0.92) !important; }
+.hero-badge-text strong { color: var(--mint) !important; }
+
+.pain-cta-block {
+  background: var(--ink) !important; border-radius: 22px;
+  box-shadow: 0 18px 44px rgba(30,42,53,0.16);
+}
+.pain-cta-block p { color: rgba(255,255,255,0.88) !important; }
+.pain-cta-block p strong { color: var(--mint) !important; }
+
+.video-testi-card { background: var(--ink) !important; border-color: rgba(255,255,255,0.12) !important; }
+
+.team-card-lead { background: var(--ink) !important; border-color: rgba(255,255,255,0.14) !important; }
+.team-card-lead .team-role { color: var(--mint) !important; }
+.team-card-lead .team-spec { color: rgba(255,255,255,0.72) !important; }
+.team-card-lead .team-icon { color: var(--mint) !important; }
+
+/* ── 4 · Blancos que nadie rescató (los selectores viejos no existían) ── */
+.about-name     { color: var(--ink) !important; }
+.cal-step-title { color: var(--ink) !important; }
+.about-bio strong { color: var(--ink) !important; font-weight: 600; }
+
+/* ── 5 · Teal como TEXTO sobre claro → teal-ink ── */
+.section-label, .hero-eyebrow, .about-label,
+.about-num-val, .hero-h1 em, .section-h2 em, .cal-step-num,
+.form-step-label, .program-card-price, .info-card-sub,
+.team-icon, .faq-q::before, .hero-trust svg, .cal-trust-item svg,
+.carousel-dot.active { color: var(--teal-ink) !important; }
+.hero-eyebrow::before, .about-label::before { background: var(--teal-ink); }
+.hero-stat { border-left-color: var(--teal-ink); }
+.process-num { color: rgba(13,109,93,0.34); }
+.testi-quote { color: var(--teal-ink); opacity: 0.28; }
+.testi-stars { color: #96690f; }
+.carousel-dot { background: rgba(30,42,53,0.22); }
+.carousel-dot.active { background: var(--teal-ink); }
+.carousel-btn { color: var(--ink); box-shadow: 0 6px 22px rgba(30,42,53,0.14); }
+.carousel-btn:hover { background: var(--teal-ink); color: #fff; }
+.faq-icon { border-color: rgba(30,42,53,0.18); }
+
+/* ── 6 · El hero ya no desemboca en navy: el degradado se vuelve arena ── */
+.hero-gradient {
+  background: linear-gradient(to right, var(--sand) 0%, rgba(245,241,234,0.35) 22%, transparent 52%, rgba(245,241,234,0.28) 100%);
+}
+.hero-img { filter: brightness(0.95) contrast(1.04) saturate(0.97); }
+
+/* ── 7 · Tarjetas que se quedaron en crema sólida ── */
+.pain-item {
+  background: rgba(255,255,255,0.52) !important;
+  backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.6) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 10px 28px rgba(30,42,53,0.06) !important;
+  border-radius: 14px;
+}
+.pain-item:hover { border-color: rgba(13,109,93,0.4) !important; }
+
+/* ── 8 · Sombras de tema oscuro (0.4 de negro) sobre fondo claro ── */
+.cal-widget-wrap, .cal-booking-notice {
+  box-shadow: 0 22px 54px rgba(30,42,53,0.10) !important;
+  border: 1px solid rgba(255,255,255,0.65); border-radius: 22px;
+}
+
+/* ── 9 · Banda de urgencia: teal de fondo con tinta encima (8.2:1) ── */
+.urgency { background: var(--teal) !important; }
+.urgency p, .urgency span { color: var(--navy) !important; }
+
+/* ── 10 · Cierre ── */
+.closing { padding: 96px 72px; text-align: center; }
+.closing-inner {
+  max-width: 780px; margin: 0 auto; padding: 56px 48px;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(26px) saturate(165%); -webkit-backdrop-filter: blur(26px) saturate(165%);
+  border: 1px solid rgba(255,255,255,0.62); border-radius: 26px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.85), 0 20px 50px rgba(30,42,53,0.08);
+}
+.closing-h2 {
+  font-family: var(--font-serif); font-size: clamp(2rem, 3.4vw, 3rem);
+  line-height: 1.15; color: var(--ink); margin-bottom: 18px;
+}
+.closing-h2 em { font-style: italic; color: var(--teal-ink); }
+.closing-p { font-size: 1rem; line-height: 1.8; color: var(--inks); max-width: 560px; margin: 0 auto 32px; }
+.closing-note { font-size: 0.78rem; color: var(--inks); margin-top: 20px; }
+@media (max-width: 768px) { .closing { padding: 60px 24px; } .closing-inner { padding: 40px 24px; } }
+
 </style>
 </head>
 <body>
@@ -983,7 +1113,7 @@ p, li { font-weight: 300; }
     <span class="nav-center">Nutrigenómica · Epigenética · Personalización</span>
     <div class="nav-right">
       <a href="tel:+17864848729" class="nav-phone">+1 (786) 484 8729</a>
-      <a href="#calendly" class="btn nav-cta">Agenda tu análisis →</a>
+      <a href="#calendly" class="btn nav-cta">Ver mis datos →</a>
     </div>
   </nav>
 
@@ -991,36 +1121,37 @@ p, li { font-weight: 300; }
   <!-- ━━━ HERO ━━━ -->
   <section class="hero">
     <div class="hero-left">
-      <div class="hero-eyebrow">Análisis inicial gratuito sobre tu caso</div>
+      <div class="hero-eyebrow">Análisis inicial sin costo</div>
       <h1 class="hero-h1">
-        Da el primer paso<br>
-        hacia tu <em>mejor versión</em>
+        Tu salud vuelve<br>
+        a ser <em>tuya</em>
       </h1>
       <p class="hero-sub">
-        Agenda tu análisis inicial gratuito y descubre el programa diseñado para
-        tu biología — transforma tu salud desde la raíz con ciencia real.
+        Durante años otros interpretaron tu cuerpo por ti. Aquí medimos cientos de
+        biomarcadores en tu cabello y tu sangre, te explicamos qué dicen y decides
+        tú qué hacer con ellos. Tus datos, tu biología, tus decisiones.
       </p>
 
       <div class="hero-stats">
         <div class="hero-stat">
+          <span class="hero-stat-num">900+</span>
+          <span class="hero-stat-label">Biomarcadores<br>en tu evaluación</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">7</span>
+          <span class="hero-stat-label">Especialistas<br>leyendo tu caso</span>
+        </div>
+        <div class="hero-stat">
           <span class="hero-stat-num">+7,000</span>
-          <span class="hero-stat-label">Personas<br>transformadas</span>
-        </div>
-        <div class="hero-stat">
-          <span class="hero-stat-num">+15 años</span>
-          <span class="hero-stat-label">Experiencia<br>clínica</span>
-        </div>
-        <div class="hero-stat">
-          <span class="hero-stat-num">Harvard</span>
-          <span class="hero-stat-label">Formación<br>& EMA</span>
+          <span class="hero-stat-label">Personas ya<br>tienen sus datos</span>
         </div>
       </div>
 
-      <a href="#calendly" class="btn btn-lg">Quiero mi análisis inicial →</a>
+      <a href="#calendly" class="btn btn-lg">Quiero ver mis datos →</a>
 
       <div class="hero-trust">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        <span class="hero-trust-text">100% gratuito · Sin compromiso · Tu información es confidencial</span>
+        <span class="hero-trust-text">Sin costo · Sin compromiso · Tus resultados son solo tuyos</span>
       </div>
     </div>
 
@@ -1031,8 +1162,8 @@ p, li { font-weight: 300; }
         <div class="hero-badge-row">
           <div class="hero-badge-dot"></div>
           <div class="hero-badge-text">
-            <strong>Cupos disponibles esta semana</strong>
-            Reserva tu lugar antes de que se llenen
+            <strong>Agenda abierta esta semana</strong>
+            El equipo revisa cada caso antes de la sesión
           </div>
         </div>
       </div>
@@ -1040,27 +1171,27 @@ p, li { font-weight: 300; }
   </section>
 
 
-  <!-- ━━━ PROOF BAR ━━━ -->
+  <!-- ━━━ BANDA DE DATOS ━━━ -->
   <div class="proof-bar">
     <div class="proof-item">
-      <span class="proof-num" data-target="7000">+7,000</span>
-      <span class="proof-label">Personas<br>transformadas</span>
-    </div>
-    <div class="proof-item">
-      <span class="proof-num">+15 años</span>
-      <span class="proof-label">Experiencia<br>clínica</span>
-    </div>
-    <div class="proof-item">
-      <span class="proof-num">Harvard</span>
-      <span class="proof-label">Formación<br>& EMA</span>
-    </div>
-    <div class="proof-item">
       <span class="proof-num" data-target="900+">900+</span>
-      <span class="proof-label">Biomarcadores<br>evaluados</span>
+      <span class="proof-label">Biomarcadores<br>que leemos</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-num">2</span>
+      <span class="proof-label">Muestras: cabello<br>y sangre</span>
     </div>
     <div class="proof-item">
       <span class="proof-num" data-target="7">7</span>
-      <span class="proof-label">Especialistas<br>en tu equipo</span>
+      <span class="proof-label">Especialistas<br>en tu caso</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-num" data-target="7000">+7,000</span>
+      <span class="proof-label">Personas ya<br>tienen sus datos</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-num">+15 años</span>
+      <span class="proof-label">Leyendo<br>biología humana</span>
     </div>
   </div>
 
@@ -1068,43 +1199,43 @@ p, li { font-weight: 300; }
   <!-- ━━━ URGENCY ━━━ -->
   <div class="urgency">
     <div class="urgency-dot"></div>
-    <p>Los cupos para esta semana son limitados — <span>reserva tu lugar ahora antes de que se llenen.</span></p>
+    <p>Cada semana abrimos un número limitado de análisis iniciales — <span>si quieres los tuyos, este es el momento de agendar.</span></p>
   </div>
 
 
   <!-- ━━━ CALENDLY ━━━ -->
   <section class="calendly-section" id="calendly">
     <div class="cal-left">
-      <span class="section-label">Agenda tu análisis inicial</span>
+      <span class="section-label">Empieza aquí</span>
       <h2 class="section-h2 section-h2-light">
-        Un especialista<br>
-        <em style="font-family:var(--font-serif); font-style:italic; color:var(--teal);">está listo para ti</em>
+        Reclama<br>
+        <em style="font-family:var(--font-serif); font-style:italic;">tus datos</em>
       </h2>
       <p class="cal-intro">
-        Completa el formulario en 2 minutos para que el equipo llegue preparado a tu sesión —
-        luego elige el día y la hora que mejor te funcione.
+        Dos minutos de formulario para que el equipo llegue conociendo tu caso, y después
+        eliges tú el día y la hora. Nadie te llama a vender: te sientas a entender tu cuerpo.
       </p>
 
       <div class="cal-steps">
         <div class="cal-step">
           <div class="cal-step-num">1</div>
           <div>
-            <h4 class="cal-step-title">Cuéntanos sobre ti</h4>
-            <p class="cal-step-desc">4 preguntas rápidas para que el equipo entienda tu caso antes de la sesión.</p>
+            <h4 class="cal-step-title">Cuéntanos qué te pasa</h4>
+            <p class="cal-step-desc">4 preguntas. Tu historia llega al equipo antes que tú, para no gastar la sesión en preámbulos.</p>
           </div>
         </div>
         <div class="cal-step">
           <div class="cal-step-num">2</div>
           <div>
-            <h4 class="cal-step-title">Elige tu horario</h4>
-            <p class="cal-step-desc">Selecciona el día y la hora que más te convenga — el equipo estará listo.</p>
+            <h4 class="cal-step-title">Eliges tu horario</h4>
+            <p class="cal-step-desc">Online o presencial en Miami. El día y la hora los pones tú.</p>
           </div>
         </div>
         <div class="cal-step">
           <div class="cal-step-num">3</div>
           <div>
-            <h4 class="cal-step-title">Tu análisis inicial</h4>
-            <p class="cal-step-desc">20 minutos. Sales con claridad sobre tu situación y un plan de acción concreto.</p>
+            <h4 class="cal-step-title">Sales sabiendo qué medir</h4>
+            <p class="cal-step-desc">20 minutos para entender qué está pasando en tu cuerpo y qué datos hacen falta para comprobarlo.</p>
           </div>
         </div>
       </div>
@@ -1112,7 +1243,7 @@ p, li { font-weight: 300; }
       <div class="cal-trust">
         <div class="cal-trust-item">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span class="cal-trust-text">Tu información es 100% confidencial y nunca será compartida</span>
+          <span class="cal-trust-text">Tus resultados son tuyos: confidenciales y nunca compartidos</span>
         </div>
         <div class="cal-trust-item">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1376,66 +1507,67 @@ p, li { font-weight: 300; }
   </section>
 
 
-  <!-- ━━━ PAIN POINTS ━━━ -->
+  <!-- ━━━ EL COSTO DE NO SABER ━━━ -->
   <section class="pain">
     <div class="pain-header">
-      <span class="section-label">¿Esto es para ti?</span>
-      <h2 class="section-h2">¿Reconoces alguno<br>de estos síntomas?</h2>
+      <span class="section-label">El costo de no saber</span>
+      <h2 class="section-h2">Lo que no se mide,<br>se normaliza</h2>
       <p class="section-intro">
-        Muchas personas viven con estas señales durante años sin encontrar respuestas reales.
-        Tu cuerpo te está hablando — nosotros te ayudamos a escucharlo.
+        Un chequeo anual mira unos quince marcadores. Con esa foto, un cuerpo puede llevar
+        años deteriorándose y seguir saliendo «normal» en el papel. Mientras tanto tú convives
+        con señales que ya dejaste de nombrar porque nadie supo explicártelas.
       </p>
     </div>
 
     <div class="pain-grid">
       <div class="pain-item">
         <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
-        <span class="pain-text">Fatiga crónica que no mejora aunque descanses</span>
+        <span class="pain-text">Cansancio que ya diste por normal, aunque duermas ocho horas</span>
       </div>
       <div class="pain-item">
         <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
-        <span class="pain-text">Metabolismo lento que no responde a dietas ni ejercicio</span>
+        <span class="pain-text">Un metabolismo que no se mueve por más dieta y ejercicio que hagas</span>
       </div>
       <div class="pain-item">
         <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
-        <span class="pain-text">Inflamación constante, acidez o molestias digestivas</span>
+        <span class="pain-text">Inflamación, acidez o digestión pesada casi todos los días</span>
       </div>
       <div class="pain-item">
         <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
-        <span class="pain-text">Migrañas recurrentes o dolores de cabeza frecuentes</span>
+        <span class="pain-text">Migrañas que resuelves con analgésicos, nunca con respuestas</span>
       </div>
       <div class="pain-item">
         <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
-        <span class="pain-text">Desequilibrios hormonales: tiroides, menopausia, testosterona</span>
+        <span class="pain-text">Hormonas fuera de eje: tiroides, menopausia, testosterona</span>
       </div>
       <div class="pain-item">
         <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
-        <span class="pain-text">Ansiedad, depresión o problemas para dormir</span>
+        <span class="pain-text">Ansiedad, ánimo bajo o un sueño que no repara</span>
       </div>
       <div class="pain-item">
         <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
-        <span class="pain-text">Dependencia de medicamentos que tratan síntomas, no la raíz</span>
+        <span class="pain-text">Medicamentos que controlan el síntoma y jamás tocan la causa</span>
       </div>
       <div class="pain-item">
         <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
-        <span class="pain-text">Quieres optimizar tu salud, rendimiento o envejecimiento</span>
+        <span class="pain-text">Análisis «normales» que no explican cómo te sientes de verdad</span>
       </div>
     </div>
 
     <div class="pain-cta-block">
-      <p>Si marcaste <strong>2 o más</strong>, este análisis inicial fue diseñado para ti. El primer paso siempre es entender <strong>por qué</strong> — y eso es exactamente lo que hacemos juntos.</p>
-      <a href="#calendly" class="btn" style="white-space:nowrap;">Quiero entender mi cuerpo →</a>
+      <p>Si reconociste <strong>dos o más</strong>, no necesitas otra opinión: necesitas datos. Ninguna de estas señales se resuelve adivinando — se resuelve <strong>midiendo</strong>.</p>
+      <a href="#calendly" class="btn" style="white-space:nowrap;">Quiero mis datos →</a>
     </div>
   </section>
 
 
   <!-- ━━━ PROCESO ━━━ -->
   <section class="process">
-    <span class="section-label">Cómo funciona</span>
-    <h2 class="section-h2">El proceso del Método MP</h2>
+    <span class="section-label">De la muestra al protocolo</span>
+    <h2 class="section-h2">Cuatro pasos<br>hasta tener respuestas</h2>
     <p class="section-intro">
-      Un proceso diseñado para ir más allá de los síntomas y entender tu cuerpo en profundidad —
-      para darte la estrategia correcta, no una solución genérica.
+      No empezamos por un tratamiento. Empezamos por saber qué está haciendo tu cuerpo,
+      y solo cuando los datos están sobre la mesa se decide qué hacer con ellos.
     </p>
 
     <div class="process-grid">
@@ -1443,32 +1575,32 @@ p, li { font-weight: 300; }
         <img src="images/paso1-orientacion.jpg" alt="Orientación Inicial" loading="lazy" class="process-step-img">
         <div class="process-step-body">
           <div class="process-num">01</div>
-          <h3 class="process-title">Orientación Inicial</h3>
-          <p class="process-desc">Un análisis inicial gratuito con nuestro equipo clínico para evaluar tu situación y determinar si eres candidato/a para una evaluación integral personalizada.</p>
+          <h3 class="process-title">Análisis Inicial</h3>
+          <p class="process-desc">Veinte minutos sin costo con el equipo clínico. Revisamos tu historia, tus síntomas y qué te han dicho hasta ahora — y definimos qué vale la pena medir en tu caso.</p>
         </div>
       </div>
       <div class="process-step fade-in fade-in-delay-2">
         <img src="images/paso2-michelle-consulta.jpg" alt="Evaluación Integral" loading="lazy" class="process-step-img">
         <div class="process-step-body">
           <div class="process-num">02</div>
-          <h3 class="process-title">Evaluación Integral</h3>
-          <p class="process-desc">Análisis profundo de tu estilo de vida, historial médico, síntomas y objetivos. Incluye estudios epigenéticos de cabello (cientos de biomarcadores) y análisis de sangre.</p>
+          <h3 class="process-title">Tus datos, completos</h3>
+          <p class="process-desc">Estudio epigenético de cabello y análisis de sangre: cientos de biomarcadores que ningún chequeo de rutina mira, cruzados con tu historial, tu estilo de vida y tus objetivos.</p>
         </div>
       </div>
       <div class="process-step fade-in fade-in-delay-3">
         <img src="images/372michelle%20peiret%20oficina%202026%20.jpg" alt="Protocolo Personalizado" loading="lazy" class="process-step-img">
         <div class="process-step-body">
           <div class="process-num">03</div>
-          <h3 class="process-title">Protocolo Personalizado</h3>
-          <p class="process-desc">Desarrollamos tu protocolo integrando tu perfil biológico único con estrategias avanzadas: nutrición, suplementación, IV therapy, estudios y más.</p>
+          <h3 class="process-title">Un protocolo que se explica</h3>
+          <p class="process-desc">Cada indicación — nutrición, suplementación, IV therapy, estudios — sale de un dato tuyo, y te decimos de cuál. Si no puedes explicarle tu protocolo a alguien, no es tuyo.</p>
         </div>
       </div>
       <div class="process-step fade-in fade-in-delay-4">
         <img src="images/pilar3.jpg" alt="Acompañamiento Continuo" loading="lazy" class="process-step-img">
         <div class="process-step-body">
           <div class="process-num">04</div>
-          <h3 class="process-title">Acompañamiento Continuo</h3>
-          <p class="process-desc">Tu especialista asignado te acompaña en todo el proceso, ajustando tu protocolo en tiempo real según la respuesta de tu cuerpo.</p>
+          <h3 class="process-title">Medimos otra vez</h3>
+          <p class="process-desc">Tu especialista ajusta el protocolo según cómo responde tu cuerpo, no según el calendario. Los números vuelven a medirse: así se sabe si algo funciona.</p>
         </div>
       </div>
     </div>
@@ -1478,11 +1610,11 @@ p, li { font-weight: 300; }
   <!-- ━━━ SERVICIOS ━━━ -->
   <section class="services">
     <div style="max-width:600px;">
-      <span class="section-label">Nuestros tratamientos</span>
-      <h2 class="section-h2 section-h2-light">Un ecosistema<br>de salud integral</h2>
+      <span class="section-label">Qué medimos</span>
+      <h2 class="section-h2 section-h2-light">Los datos que<br>casi nadie te da</h2>
       <p class="section-intro section-intro-light">
-        No somos una clínica tradicional. Somos una estrategia biológica
-        personalizada respaldada por ciencia genética real.
+        Tres capas de información sobre el mismo cuerpo: cómo se expresan tus genes,
+        cómo funciona tu fisiología hoy y qué le falta para operar bien.
       </p>
     </div>
 
@@ -1493,7 +1625,7 @@ p, li { font-weight: 300; }
         <div class="service-card-content">
           <span class="service-tag">Nutrigenómica</span>
           <h3 class="service-title">Estudios Epigenéticos</h3>
-          <p class="service-desc">Análisis de cabello que revela cómo tus genes expresan tu estado de salud. Medimos cientos de biomarcadores para diseñar la base de todo protocolo personalizado.</p>
+          <p class="service-desc">Una muestra de cabello revela cómo se están expresando tus genes ahora mismo. Cientos de biomarcadores que son la base de todo lo demás.</p>
         </div>
       </div>
       <div class="service-card fade-in fade-in-delay-2">
@@ -1502,7 +1634,7 @@ p, li { font-weight: 300; }
         <div class="service-card-content">
           <span class="service-tag">Performance</span>
           <h3 class="service-title">Estudios de Salud Integral</h3>
-          <p class="service-desc">VO2MAX, análisis de sangre, evaluación hormonal, metabólica y ecocardiograma. Datos reales para decisiones precisas.</p>
+          <p class="service-desc">VO2MAX, sangre, perfil hormonal y metabólico, ecocardiograma. Cómo rinde tu cuerpo hoy, en números que puedes volver a medir mañana.</p>
         </div>
       </div>
       <div class="service-card fade-in fade-in-delay-3">
@@ -1511,7 +1643,7 @@ p, li { font-weight: 300; }
         <div class="service-card-content">
           <span class="service-tag">Tratamientos</span>
           <h3 class="service-title">IV Therapy & Shots</h3>
-          <p class="service-desc">Terapias intravenosas, vitamina C, B12, vitamina D, minerales y protocolos intramusculares. Resultados desde la primera sesión.</p>
+          <p class="service-desc">Vitamina C, B12, vitamina D, minerales y protocolos intramusculares. Se indica lo que tu analítica pide — no un menú fijo para todos.</p>
         </div>
       </div>
     </div>
@@ -1521,11 +1653,11 @@ p, li { font-weight: 300; }
   <!-- ━━━ GALERÍA DEL CENTRO ━━━ -->
   <section class="gallery">
     <div class="gallery-header">
-      <span class="section-label">Nuestro centro</span>
-      <h2 class="section-h2">Un espacio diseñado<br>para tu transformación</h2>
+      <span class="section-label">Dónde ocurre</span>
+      <h2 class="section-h2">El centro donde<br>se toman tus datos</h2>
       <p class="section-intro" style="margin-bottom:0;">
-        Tecnología de vanguardia, equipo multidisciplinario y un entorno pensado
-        para que tu proceso sea claro, cómodo y efectivo desde el primer día.
+        Consulta, laboratorio y sala de tratamientos en un mismo lugar, en Miami.
+        Si prefieres empezar en línea, también se puede.
       </p>
     </div>
 
@@ -1564,15 +1696,16 @@ p, li { font-weight: 300; }
       <span class="about-label">Nutrigenomic Specialist</span>
       <h2 class="about-name">Michelle Peiret</h2>
       <p class="about-bio">
-        Especialista en nutrigenómica con acreditaciones en
+        Especialista en nutrigenómica, con acreditaciones en
         <strong>EMA, Universidad de Harvard, Instituto de Nutrigenómica</strong> e Instituto de Ciencias de Nutrición y Salud.
         <br><br>
-        Con más de <strong>15 años de experiencia clínica</strong>, Michelle ha acompañado a más de 7,000 personas
-        en la recuperación de su salud — abordando desde la raíz condiciones como síndrome metabólico,
-        obesidad, desequilibrios de microbiota, problemas hormonales y más.
+        En <strong>más de 15 años de práctica clínica</strong> ha leído los datos de más de 7,000 personas:
+        síndrome metabólico, obesidad, microbiota alterada, desequilibrios hormonales. Casos que casi siempre
+        llegan con la misma frase — «me dijeron que todo estaba bien».
         <br><br>
-        Su método integra <strong>regeneración celular, equilibrio intestinal y hábitos sostenibles</strong>,
-        con el objetivo de revertir el avance de enfermedades y alcanzar una longevidad plena y sin limitaciones.
+        Su trabajo consiste en <strong>traducir biología a decisiones</strong>: regeneración celular, equilibrio
+        intestinal y hábitos que se sostienen, para que el paciente entienda su propio cuerpo lo bastante
+        bien como para hacerse cargo de él.
       </p>
       <div class="about-creds">
         <div class="cred"><div class="cred-dot"></div>Formación en Harvard University</div>
@@ -1601,10 +1734,11 @@ p, li { font-weight: 300; }
 
   <!-- ━━━ TESTIMONIALS ━━━ -->
   <section class="testimonials">
-    <span class="section-label">Testimonios reales</span>
-    <h2 class="section-h2">Lo que dicen quienes<br>ya dieron el paso</h2>
+    <span class="section-label">Casos reales</span>
+    <h2 class="section-h2">Personas que dejaron<br>de adivinar</h2>
     <p class="section-intro">
-      Resultados reales de personas que decidieron entender su cuerpo desde la ciencia.
+      Llegaron con años de síntomas y análisis «normales». Lo que cambió no fue el esfuerzo:
+      fue tener por fin los datos correctos delante.
     </p>
 
     <div class="testi-grid">
@@ -1683,9 +1817,9 @@ p, li { font-weight: 300; }
   <script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
   <section class="video-testi">
     <div class="video-testi-header">
-      <span class="section-label">Testimonios en video</span>
-      <h2 class="section-h2 section-h2-light">Resultados reales.<br><em style="font-family:var(--font-serif);font-style:italic;color:var(--teal);">En sus propias palabras.</em></h2>
-      <p class="section-intro section-intro-light" style="margin:0 auto;">Pacientes reales que transformaron su salud con el Método MP.</p>
+      <span class="section-label">Casos reales en video</span>
+      <h2 class="section-h2 section-h2-light">Sin guion.<br><em style="font-family:var(--font-serif);font-style:italic;">En sus propias palabras.</em></h2>
+      <p class="section-intro section-intro-light" style="margin:0 auto;">Nueve pacientes contando qué medían, qué encontraron y qué pasó después.</p>
     </div>
 
     <div class="video-carousel-outer">
@@ -1792,10 +1926,11 @@ p, li { font-weight: 300; }
   <!-- ━━━ TEAM ━━━ -->
   <section class="team">
     <div style="text-align:center; max-width:580px; margin:0 auto;">
-      <span class="section-label" style="text-align:center;">Tu equipo</span>
-      <h2 class="section-h2">No trabajas con una persona.<br>Trabajas con un equipo.</h2>
+      <span class="section-label" style="text-align:center;">Quién lee tus datos</span>
+      <h2 class="section-h2">Siete especialistas<br>sobre el mismo caso</h2>
       <p class="section-intro" style="margin:0 auto;">
-        Cada paciente de MP Health tiene acceso a un equipo multidisciplinario de especialistas trabajando en conjunto.
+        Cientos de biomarcadores no los interpreta una sola persona. Tus resultados pasan por
+        un equipo completo, y cada uno mira la parte que sabe leer.
       </p>
     </div>
     <div class="team-grid">
@@ -1848,12 +1983,12 @@ p, li { font-weight: 300; }
         <h4 class="team-role">Especialista Óseo</h4>
         <p class="team-spec">Salud ósea, densidad mineral y prevención</p>
       </div>
-      <div class="team-card fade-in fade-in-delay-3" style="background:var(--navy); border-color:var(--border);">
+      <div class="team-card team-card-lead fade-in fade-in-delay-3">
         <svg class="team-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
           <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
         </svg>
-        <h4 class="team-role" style="color:var(--teal);">+ Michelle Peiret</h4>
-        <p class="team-spec" style="color:rgba(255,255,255,0.5);">Dirección clínica, protocolo maestro y seguimiento de tu evolución</p>
+        <h4 class="team-role">+ Michelle Peiret</h4>
+        <p class="team-spec">Dirección clínica, lectura final de tus datos y el protocolo que sale de ellos</p>
       </div>
     </div>
   </section>
@@ -1862,8 +1997,8 @@ p, li { font-weight: 300; }
   <!-- ━━━ FAQ ━━━ -->
   <section class="faq">
     <div style="text-align:center;">
-      <span class="section-label">Preguntas frecuentes</span>
-      <h2 class="section-h2" style="max-width:400px; margin:0 auto;">Resolvemos<br>tus dudas</h2>
+      <span class="section-label">Antes de agendar</span>
+      <h2 class="section-h2" style="max-width:440px; margin:0 auto;">Lo que sueles<br>querer preguntar</h2>
     </div>
     <div class="faq-list">
       <div class="faq-item">
@@ -1872,7 +2007,7 @@ p, li { font-weight: 300; }
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-body">
-          <p class="faq-a">Sí, 100%. El análisis inicial no tiene ningún costo y no existe compromiso de compra. Es una conversación real para entender tu situación y ver cómo podemos ayudarte.</p>
+          <p class="faq-a">Sí, sin costo y sin compromiso de compra. Es una conversación real para entender tu situación y decirte con honestidad si tiene sentido medir algo en tu caso — incluso si la respuesta es que todavía no.</p>
         </div>
       </div>
       <div class="faq-item">
@@ -1881,16 +2016,16 @@ p, li { font-weight: 300; }
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-body">
-          <p class="faq-a">Entre 20 y 30 minutos. El tiempo necesario para entender tu historial, síntomas y objetivos — y darte claridad sobre los próximos pasos recomendados para tu caso específico.</p>
+          <p class="faq-a">Entre 20 y 30 minutos: lo que toma repasar tu historial, tus síntomas y tus objetivos, y salir sabiendo qué datos hacen falta para explicar lo que te pasa.</p>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-btn">
-          <span class="faq-q">¿Tengo que comprar algo después?</span>
+          <span class="faq-q">¿Y si no quiero continuar después?</span>
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-body">
-          <p class="faq-a">No. El análisis inicial es sin presión. Si decides continuar con un programa, lo harás porque tiene sentido para ti — nunca porque se lo impusieron. La honestidad es parte de nuestro método.</p>
+          <p class="faq-a">No pasa nada: te vas con la claridad que obtuviste y ahí termina. Si decides continuar con un programa será porque los datos te convencieron a ti, no porque alguien te presionó.</p>
         </div>
       </div>
       <div class="faq-item">
@@ -1899,25 +2034,40 @@ p, li { font-weight: 300; }
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-body">
-          <p class="faq-a">Atendemos en ambas modalidades. El análisis inicial puede realizarse virtualmente. Algunos estudios y tratamientos como IV Therapy o estudios epigenéticos requieren presencia en el centro. Tu especialista te indicará el mejor camino para tu caso.</p>
+          <p class="faq-a">Las dos. El análisis inicial puede ser en línea desde donde estés. Los tratamientos presenciales — IV therapy, algunos estudios — se hacen en el centro de Miami; la muestra de cabello se puede enviar. Tu especialista te dirá qué aplica en tu caso.</p>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-btn">
-          <span class="faq-q">¿Cuánto tiempo tarda en verse resultados?</span>
+          <span class="faq-q">¿En cuánto tiempo se notan cambios?</span>
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-body">
-          <p class="faq-a">La mayoría de pacientes reportan mejoras significativas en energía, sueño e inflamación dentro de las primeras 4 a 8 semanas. Los resultados profundos — como reversión de condiciones crónicas — se consolidan entre los 3 y 6 meses del programa.</p>
+          <p class="faq-a">La mayoría de pacientes reporta mejoras en energía, sueño e inflamación entre las semanas 4 y 8. Los cambios de fondo se consolidan entre los 3 y 6 meses, y se comprueban volviendo a medir — no solo por cómo te sientes.</p>
         </div>
       </div>
     </div>
   </section>
 
 
+  <!-- ━━━ CIERRE ━━━ -->
+  <section class="closing">
+    <div class="closing-inner">
+      <span class="section-label">El primer paso</span>
+      <h2 class="closing-h2">Tu cuerpo lleva años<br>dándote <em>datos</em></h2>
+      <p class="closing-p">
+        Ya sabes lo que se siente vivir sin respuestas. Lo que sigue no es otro diagnóstico
+        ajeno: son tus propios números, explicados, y una decisión que por fin es tuya.
+      </p>
+      <a href="#calendly" class="btn btn-lg">Agendar mi análisis inicial →</a>
+      <p class="closing-note">Sin costo · Sin compromiso · Online o presencial en Miami</p>
+    </div>
+  </section>
+
+
   <!-- ━━━ FOOTER ━━━ -->
   <footer class="footer">
-    <img src="images/LOGO%20%2810%29.png" alt="Michelle Peiret Health" class="footer-logo" style="mix-blend-mode:screen;">
+    <img src="images/LOGO%20%286%29.png" alt="Michelle Peiret Health" class="footer-logo">
     <div class="footer-links">
       <a href="https://michellepeiret.com" class="footer-link" target="_blank">michellepeiret.com</a>
       <a href="https://www.instagram.com/michellepeiret" class="footer-link" target="_blank">Instagram</a>
