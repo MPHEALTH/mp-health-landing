@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="images/LOGO%20%2810%29.png">
+  <link rel="icon" type="image/png" href="images/LOGO%20%286%29.png">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-B7PSHFCHGY"></script>
@@ -331,13 +331,198 @@
   .talk-btns { display: grid; gap: 8px; }
   .talk a.alt { border-color: var(--teal-dk); color: var(--teal-dk); }
   .talk a.alt:hover { background: var(--teal-dk); color: #fff; }
+
+/* ═══════════════════════════════════════════════════════════
+   LOOK LIQUID GLASS · igual que diagnosticos y los paquetes
+   Conversión, no capa encima: se reasignan los tokens que la
+   página ya usa y solo se corrigen los sitios donde el diseño
+   original daba por hecho un fondo oscuro.
+   El contraste va resuelto de origen:
+     --ink-soft #4b5761  → 6.6:1 sobre arena, 5.2:1 bajo mancha
+     --accent   #0a5b4d  → 7.2:1 sobre arena (el teal daba 1.9:1)
+     manchas al 0.26     → el 0.5 tumbaba el texto secundario
+═══════════════════════════════════════════════════════════ */
+:root {
+  --sand:     #f5f1ea;
+  --ink:      #1e2a35;
+  --ink-soft: #4b5761;
+  --accent:   #0a5b4d;
+  --mint:     #7fe3cd;
+  --sage:     #7fa89b;
+  --ochre:    #c39a63;
+  --slate:    #8098b0;
+  --rose:     #b8837c;
+
+  /* Los tokens viejos se reapuntan: todo lo que ya los usaba hereda */
+  --muted:    #4b5761;
+  --teal-dk:  #0a5b4d;
+  --border:   rgba(30,42,53,0.10);
+  --cream2:   rgba(30,42,53,0.10);
+}
+
+body { background: var(--sand); color: var(--ink); }
+
+/* ── Fondo vivo ── */
+.bg { position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
+.blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.26; will-change: transform; }
+.blob.b1 { width: 46vw; height: 46vw; background: var(--sage);  top: -14%; left: -8%;  animation: drift1 26s ease-in-out infinite; }
+.blob.b2 { width: 40vw; height: 40vw; background: var(--ochre); top: -6%;  right: -6%; animation: drift2 32s ease-in-out infinite; }
+.blob.b3 { width: 44vw; height: 44vw; background: var(--rose);  bottom: -16%; left: 28%; animation: drift3 29s ease-in-out infinite; }
+.blob.b4 { width: 34vw; height: 34vw; background: var(--slate); bottom: 6%;  right: 12%; animation: drift4 35s ease-in-out infinite; }
+@keyframes drift1 { 0%,100% { transform: translate(0,0) scale(1); }    50% { transform: translate(9vw,7vh) scale(1.14); } }
+@keyframes drift2 { 0%,100% { transform: translate(0,0) scale(1.08); } 50% { transform: translate(-8vw,9vh) scale(0.94); } }
+@keyframes drift3 { 0%,100% { transform: translate(0,0) scale(1); }    50% { transform: translate(7vw,-8vh) scale(1.16); } }
+@keyframes drift4 { 0%,100% { transform: translate(0,0) scale(1.05); } 50% { transform: translate(-10vw,-6vh) scale(0.92); } }
+.helix { position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.14; }
+.helix .tilt { transform: rotate(-7deg) scale(1.25); transform-origin: 50% 50%; }
+.helix svg { width: 100%; height: 100%; }
+.helix .strand { fill: none; stroke: var(--ink); stroke-width: 1.4; stroke-opacity: 0.55; }
+.helix .layer { animation: slide 34s linear infinite; }
+.helix .layer.slow { animation-duration: 52s; opacity: 0.6; }
+@keyframes slide { from { transform: translateX(0); } to { transform: translateX(-1440px); } }
+@media (max-width: 720px) { .blob { filter: blur(70px); opacity: 0.22; } .helix { opacity: 0.07; } }
+@media (prefers-reduced-motion: reduce) { .blob, .helix .layer { animation: none !important; } }
+
+/* ── Todas las secciones dejan ver el fondo ── */
+.hero, .mp, .final, .incl-sec, .scan, .vids, footer, section {
+  background: transparent !important; border-bottom: none !important;
+}
+
+/* ── Nav de vidrio ── */
+.nav { background: transparent !important; backdrop-filter: none; border-bottom: none !important; padding: 12px 0; }
+.nav-glass {
+  position: absolute; inset: 12px 28px auto; height: calc(100% - 24px);
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(22px) saturate(170%); -webkit-backdrop-filter: blur(22px) saturate(170%);
+  border: 1px solid rgba(255,255,255,0.6); border-radius: 100px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.85), 0 8px 26px rgba(30,42,53,0.07);
+  pointer-events: none;
+}
+.nav-in { position: relative; z-index: 1; padding: 4px 46px; }
+.nav-logo { height: 96px !important; mix-blend-mode: normal; }
+.nav-cta { background: rgba(30,42,53,0.92) !important; color: #fff !important; border-radius: 100px; }
+.nav-cta:hover { background: var(--ink) !important; }
+@media (max-width: 720px) {
+  .nav-glass { inset: 10px 16px auto; height: calc(100% - 20px); }
+  .nav-in { padding: 2px 24px; } .nav-logo { height: 62px !important; }
+}
+
+/* ── Material de vidrio para todo lo que era tarjeta blanca o crema ── */
+.cal-card, .testi, .cons-item, .planner, .after-standalone, .cat, .vid-card, .scan-sample, .timing {
+  background: rgba(255,255,255,0.52) !important;
+  backdrop-filter: blur(24px) saturate(165%); -webkit-backdrop-filter: blur(24px) saturate(165%);
+  border: 1px solid rgba(255,255,255,0.62) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.85), 0 18px 44px rgba(30,42,53,0.08) !important;
+  border-radius: 18px !important;
+}
+.cal-card { border-radius: 22px !important; }
+.cons-grid { background: transparent !important; border: none !important; gap: 16px !important; border-radius: 0 !important; overflow: visible !important; }
+.cal-card-head { border-bottom: 1px solid var(--border); background: transparent; }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .cal-card, .testi, .cons-item, .planner, .after-standalone, .cat, .vid-card, .nav-glass { background: rgba(255,255,255,0.92) !important; }
+}
+
+/* ── Tipografía y color ── */
+h1, h2, h3 { font-weight: 400 !important; color: var(--ink) !important; letter-spacing: -0.012em; }
+h3 { font-weight: 600 !important; }
+.label, .tagline, .cons-item-n, .step-n, .cond-title, .planner .kicker,
+.faq-ico, .stars, .h1-plus, .planner-mark, .scarcity b, .after > b {
+  color: var(--accent) !important;
+}
+.lede, .hero-sub, .cons-intro, .mp p, .step p, .col-list li, .faq-a p,
+.cat span, .scan-top p, .testi-meta, .bk-secure, .btn-line, .meta-k,
+.inc-list span, .cond-col span, .planner p, .after li, .timing, .vids-hint,
+.scan-sample p, .cal-card-head span, .hero-portrait span, .bk-price span,
+.desc-sub, .fld-err, .talk > span, .talk small {
+  color: var(--ink-soft) !important;
+}
+.fld-err { color: #b3261e !important; }
+.meta-v, .mp-stat b, .testi-name, .faq-q, .inc-list b, .cond-col b,
+.bk-price b, .scan-stat b, .cat b, .desc-h, .hero-portrait b {
+  color: var(--ink) !important;
+}
+.hero-sub strong, .mp p strong, .col-list strong, .testi p strong,
+.after li strong, .timing strong, .cons-intro strong { color: var(--ink) !important; font-weight: 600; }
+.testi p { color: var(--ink) !important; }
+
+/* ── La sección BioScan y la de videos eran navy: ahora son claras ── */
+.scan { color: var(--ink-soft) !important; }
+.scan h2, .scan h3 { color: var(--ink) !important; }
+.scan .label, .scan-sample b { color: var(--accent) !important; }
+.scan-stat { border-left-color: var(--accent) !important; }
+.scan-stat span { color: var(--ink-soft) !important; }
+.vids-head h2 { color: var(--ink) !important; }
+.vids-head .label { color: var(--accent) !important; }
+.vids-head p { color: var(--ink-soft) !important; }
+.vid-tag { color: var(--accent) !important; background: rgba(10,91,77,0.08) !important; border-color: rgba(10,91,77,0.22) !important; }
+
+/* ── Puntos y marcas que eran teal claro ── */
+.inc-list > li::before, .col-list li::before {
+  background: var(--accent) !important; box-shadow: 0 0 0 4px rgba(10,91,77,0.12) !important;
+}
+.after li::before { background: var(--ink) !important; color: var(--mint) !important; }
+.avatar { background: var(--ink) !important; color: var(--mint) !important; }
+.scarcity { background: rgba(10,91,77,0.06) !important; border-color: rgba(10,91,77,0.20) !important; }
+.step { border-top-color: rgba(30,42,53,0.12) !important; }
+.after-standalone { border-top: 3px solid var(--accent) !important; }
+.planner { border: 1px solid rgba(255,255,255,0.62) !important; }
+
+/* ── Botones: píldora de tinta, como en las páginas de paquetes ── */
+.btn, .bk-btn {
+  background: rgba(30,42,53,0.94) !important; color: #fff !important;
+  border-radius: 100px !important; text-transform: none !important;
+  letter-spacing: 0.01em !important; font-weight: 600 !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 12px 30px rgba(30,42,53,0.2) !important;
+}
+.btn:hover, .bk-btn:hover:not([disabled]) { background: var(--ink) !important; transform: translateY(-2px); }
+.talk a { border-color: rgba(30,42,53,0.25) !important; color: var(--ink) !important; border-radius: 100px !important; }
+.talk a:hover { background: var(--ink) !important; color: #fff !important; }
+.talk a.alt { border-color: rgba(10,91,77,0.4) !important; color: var(--accent) !important; }
+.talk a.alt:hover { background: var(--accent) !important; color: #fff !important; }
+
+/* ── Campos del checkout: sólidos, para que se lean sobre el vidrio ── */
+.fld input, .fld select, .fld textarea {
+  background: #fff !important; border: 1px solid rgba(30,42,53,0.16) !important; border-radius: 12px !important;
+}
+.fld input:focus, .fld select:focus, .fld textarea:focus {
+  border-color: var(--accent) !important; box-shadow: 0 0 0 3px rgba(10,91,77,0.10);
+}
+.fld label { color: var(--ink) !important; text-transform: none; letter-spacing: 0; font-weight: 600; }
+
+/* ── Footer claro ── */
+footer { color: var(--ink-soft) !important; }
+footer a { color: var(--ink) !important; }
+footer .small { color: var(--ink-soft) !important; opacity: 0.75; }
+footer img { height: 40px; opacity: 0.75; }
+
+/* ── Imágenes ── */
+.mp-img { box-shadow: 0 18px 50px rgba(30,42,53,0.14) !important; border-radius: 18px !important; }
 </style>
 </head>
 <body>
 
+  <div class="bg" aria-hidden="true">
+    <span class="blob b1"></span><span class="blob b2"></span>
+    <span class="blob b3"></span><span class="blob b4"></span>
+  </div>
+
+  <div class="helix" aria-hidden="true">
+    <svg viewBox="0 0 2880 1620" preserveAspectRatio="xMidYMid slice">
+      <g class="tilt">
+        <g class="layer"><path class="strand" d="M0,300 C240,205 480,205 720,300 C960,395 1200,395 1440,300 C1680,205 1920,205 2160,300 C2400,395 2640,395 2880,300 C3120,205 3360,205 3600,300 C3840,395 4080,395 4320,300"/>
+          <path class="strand" d="M0,300 C240,395 480,395 720,300 C960,205 1200,205 1440,300 C1680,395 1920,395 2160,300 C2400,205 2640,205 2880,300 C3120,395 3360,395 3600,300 C3840,205 4080,205 4320,300"/></g>
+        <g class="layer slow"><path class="strand" d="M0,880 C240,1010 480,1010 720,880 C960,750 1200,750 1440,880 C1680,1010 1920,1010 2160,880 C2400,750 2640,750 2880,880 C3120,1010 3360,1010 3600,880 C3840,750 4080,750 4320,880"/>
+          <path class="strand" d="M0,880 C240,750 480,750 720,880 C960,1010 1200,1010 1440,880 C1680,750 1920,750 2160,880 C2400,1010 2640,1010 2880,880 C3120,750 3360,750 3600,880 C3840,1010 4080,1010 4320,880"/></g>
+        <g class="layer"><path class="strand" d="M0,1420 C240,1315 480,1315 720,1420 C960,1525 1200,1525 1440,1420 C1680,1315 1920,1315 2160,1420 C2400,1525 2640,1525 2880,1420 C3120,1315 3360,1315 3600,1420 C3840,1525 4080,1525 4320,1420"/>
+          <path class="strand" d="M0,1420 C240,1525 480,1525 720,1420 C960,1315 1200,1315 1440,1420 C1680,1525 1920,1525 2160,1420 C2400,1315 2640,1315 2880,1420 C3120,1525 3360,1525 3600,1420 C3840,1315 4080,1315 4320,1420"/></g>
+      </g>
+    </svg>
+  </div>
+
   <nav class="nav">
+    <div class="nav-glass"></div>
     <div class="nav-in">
-      <img src="images/LOGO%20%2810%29.png" alt="Michelle Peiret Health" class="nav-logo">
+      <img src="images/LOGO%20%286%29.png" alt="Michelle Peiret Health" class="nav-logo">
       <a href="#form" class="nav-cta" onclick="track('cta_click',{position:'nav'})">Reservar consulta</a>
     </div>
   </nav>
@@ -839,7 +1024,7 @@
 
   <footer>
     <div class="wrap">
-      <img src="images/logo-mp-white.png" alt="Michelle Peiret Health">
+      <img src="images/LOGO%20%286%29.png" alt="Michelle Peiret Health">
       <p class="fline">760 NW 107th Ave, Suite #340, Miami FL 33172</p>
       <p class="fline">WhatsApp <a href="https://wa.me/17864848729" onclick="track('whatsapp_click',{position:'footer'})">+1 (786) 484-8729</a> · <a href="https://www.michellepeiret.com">michellepeiret.com</a></p>
       <p class="small">© 2026 Michelle Peiret Health · Energy MP LLC · Miami, FL</p>
