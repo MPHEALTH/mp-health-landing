@@ -2121,15 +2121,31 @@ p, li { font-weight: 300; }
        Michelle, que hoy vive en su propia página, consulta-michelle.html.
        Las tres claves se conservan para no romper las llamadas existentes
        ni las etiquetas de tracking; todas apuntan al mismo destino. */
-    var CALENDLY_URL = 'https://calendly.com/nutrigenomica-michellepeiret/analisis-inicial-mp';
-    var CALENDLY_URLS = { reps: CALENDLY_URL, closer: CALENDLY_URL, michelle: CALENDLY_URL };
+    var CALENDLY_URL     = 'https://calendly.com/nutrigenomica-michellepeiret/analisis-inicial-mp';
+    var CALENDLY_SAUTERI = 'https://calendly.com/sauteri-michellepeiret/30min';
+    // Las claves 'closer' y 'reps' se conservan para no romper el histórico de tracking
+    // ni las etiquetas que ya viajan al Sheet y a los correos.
+    var CALENDLY_URLS = { closer: CALENDLY_URL, reps: CALENDLY_SAUTERI, michelle: CALENDLY_URL };
     var activeBookingContext = null; // qué calendario está abierto (para etiquetar los eventos de Calendly)
-    var CLOSER_SPLIT = 100; // % de leads asignados al calendario "closer" (Genesis = principal desde 2026-07-30)
-    var CAL_LABELS = { reps: 'Samantha/Fauzi', closer: 'Genesis', michelle: 'Consulta directa Michelle ($700)' };
+
+    // Split 50/50 reactivado el 2026-08-19: dos vendedores llamando en simultáneo.
+    var CLOSER_SPLIT = 50; // % de leads al calendario A
+    var CAL_LABELS = {
+      closer:   'Calendario A · analisis-inicial-mp',
+      reps:     'Calendario B · Sauteri',
+      michelle: 'Consulta directa Michelle ($700)'
+    };
     function calVariant() {
-      // Un solo calendario: se ignora cualquier variante guardada en sesiones previas.
-      try { sessionStorage.setItem('mp_cal_variant', 'closer'); } catch (e) {}
-      return 'closer';
+      // Pegajoso por sesión: si la persona recarga o vuelve atrás, cae en el mismo calendario.
+      try {
+        var v = sessionStorage.getItem('mp_cal_variant');
+        if (v === 'closer' || v === 'reps') return v;
+        v = (Math.random() * 100 < CLOSER_SPLIT) ? 'closer' : 'reps';
+        sessionStorage.setItem('mp_cal_variant', v);
+        return v;
+      } catch (e) {
+        return (Math.random() * 100 < CLOSER_SPLIT) ? 'closer' : 'reps';
+      }
     }
 
     // Split test paso 4 (desde 2026-08-06): ¿mostrar la consulta directa de $700 junto al análisis?
