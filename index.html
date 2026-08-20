@@ -2148,19 +2148,16 @@ p, li { font-weight: 300; }
       }
     }
 
-    // Split test paso 4 (desde 2026-08-06): ¿mostrar la consulta directa de $700 junto al análisis?
-    // "ambas" = paso 4 actual (análisis + consulta Michelle) · "solo_analisis" = solo análisis.
-    // La consulta con Michelle salió de este formulario: ahora tiene su propia página
-    // (consulta-michelle.html), así que aquí solo se compara el layout del paso 4.
-    var AB_STEP4_SPLIT = 50; // % de visitantes que ven AMBAS opciones
+    // Split test paso 4 — CERRADO el 2026-08-19. Ganó "ambas" (un solo botón) sobre
+    // "solo_analisis" (cuatro tarjetas de selección de programa): 33 envíos contra 17
+    // y 27 aperturas de Calendly contra 14, entre el 6 y el 19 de agosto. p ≈ 0.02.
+    // Lectura: cada decisión extra en el último paso cuesta conversiones.
+    // Se deja el 100% en "ambas". La función se conserva para no romper el tracking
+    // ni la dimensión ab_step4 de GA4, y para poder reabrir un test aquí más adelante.
+    var AB_STEP4_SPLIT = 100; // % de visitantes que ven la variante ganadora
     function abStep4() {
-      var v = null;
-      try { v = localStorage.getItem('mp_ab_step4'); } catch (e) {}
-      if (v !== 'ambas' && v !== 'solo_analisis' && v !== 'ambas_forzada') {
-        v = (Math.random() * 100 < AB_STEP4_SPLIT) ? 'ambas' : 'solo_analisis';
-      }
-      try { localStorage.setItem('mp_ab_step4', v); } catch (e) {}
-      return v;
+      try { localStorage.setItem('mp_ab_step4', 'ambas'); } catch (e) {}
+      return 'ambas';
     }
     (function() {
       if (abStep4() !== 'solo_analisis') return;
