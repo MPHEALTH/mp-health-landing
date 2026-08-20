@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diagnósticos MP — Elige el estudio que necesitas | Michelle Peiret Health</title>
-  <meta name="description" content="BioScan, Análisis Metabólico, InBody, Paneles de Sangre y los paquetes MP. Todos con interpretación de un especialista.">
+  <title>Diagnósticos MP — Empieza por lo que quieres averiguar | Michelle Peiret Health</title>
+  <meta name="description" content="Tres paquetes según lo que buscas resolver: Punto de Partida, Atleta MP y Mapa Biológico. Combinan varios diagnósticos y su interpretación con un especialista. También disponibles por separado.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -214,6 +214,104 @@
     .d-img .d-dot { position: absolute; left: 20px; bottom: 16px; margin: 0; z-index: 2;
       box-shadow: 0 0 0 5px rgba(255,255,255,0.45), 0 2px 8px rgba(30,42,53,0.25); }
     @media (max-width: 860px) { .d-img { margin: -32px -30px 20px; aspect-ratio: 16/8; } }
+    /* ═══ PAQUETES · la oferta principal ═══
+       Van arriba y con más peso visual que los estudios sueltos: lo que
+       diferencia a MP no es medir una cosa, es el cruce entre varias y
+       su lectura. Se corrigen aquí los dos fallos de contraste que la
+       página arrastraba: --ink-soft daba 3.9:1 sobre la arena y bajaba
+       a ~3.1:1 bajo una mancha, y las manchas iban al 0.5. */
+    :root {
+      --ink-soft: #4b5761; --accent: #0a5b4d;
+      /* versión legible de cada acento, para texto y fondo de botón */
+      --sage-ink: #35604f; --ochre-ink: #7a5620; --slate-ink: #3f566d;
+      --rose-ink: #7d443c; --deep-ink: #2f4552;
+    }
+    .blob { opacity: 0.26 !important; }
+    @media (max-width: 720px) { .blob { opacity: 0.22 !important; } }
+
+    /* Los acentos pastel identifican al producto, pero como TEXTO rendían
+       entre 2.3:1 y 2.9:1 sobre el vidrio, y en los botones el blanco encima
+       daba 2.6:1. Se separa el color: --c sigue pintando el punto y la foto,
+       --c-ink es la versión legible para texto y fondo de botón. */
+    .dcard.bioscan { --c-ink: var(--sage-ink); }
+    .dcard.metab   { --c-ink: #7a5620; }
+    .dcard.inbody  { --c-ink: #3f566d; }
+    .dcard.sangre  { --c-ink: #7d443c; }
+    .dcard.paquete { --c-ink: var(--deep-ink); }
+    .dcard h3 { color: var(--c-ink, var(--c)) !important; }
+    .d-cta {
+      background: var(--c-ink, var(--c)) !important;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 8px 22px rgba(30,42,53,0.18) !important;
+    }
+    .d-cta:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,0.26), 0 14px 30px rgba(30,42,53,0.24) !important; }
+    .d-cta.ghost { background: rgba(255,255,255,0.5) !important; color: var(--c-ink, var(--c)) !important; border-color: rgba(30,42,53,0.2); }
+    .f-rec b, .f-rec .go { color: var(--c-ink, var(--c)); }
+    .f-tagbest { background: var(--c-ink, var(--c)); }
+
+    .paq-sec { padding-top: 54px; }
+    .paq-head { max-width: 700px; margin-bottom: 44px; }
+    .paq-head h2 { font-size: clamp(2rem, 4vw, 3.1rem); }
+    .paq-head .lede { margin-top: 18px; }
+
+    .paq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
+    @media (max-width: 980px) { .paq-grid { grid-template-columns: 1fr; gap: 18px; } }
+
+    .paq {
+      position: relative; display: flex; flex-direction: column;
+      text-decoration: none; overflow: hidden; padding: 0;
+      transition: transform 0.3s cubic-bezier(.2,.8,.2,1), box-shadow 0.3s;
+    }
+    .paq:hover { transform: translateY(-6px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 34px 70px rgba(30,42,53,0.14); }
+    .paq-img { aspect-ratio: 16/10; overflow: hidden; background: rgba(255,255,255,0.4); }
+    .paq-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(.2,.8,.2,1); }
+    .paq:hover .paq-img img { transform: scale(1.05); }
+    .paq-body { padding: 26px 26px 28px; display: flex; flex-direction: column; flex: 1; }
+    .paq-kicker {
+      font-size: 0.63rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 9px;
+    }
+    .paq h3 { font-size: 1.65rem; line-height: 1.16; margin-bottom: 10px; }
+    .paq-for { font-size: 0.9rem; color: var(--ink); font-weight: 500; line-height: 1.6; margin-bottom: 18px; }
+
+    .paq-list { list-style: none; margin-bottom: 22px; }
+    .paq-list li {
+      position: relative; padding: 8px 0 8px 24px;
+      font-size: 0.88rem; color: var(--ink-soft); line-height: 1.6; font-weight: 300;
+      border-bottom: 1px solid var(--line);
+    }
+    .paq-list li:last-child { border-bottom: none; }
+    .paq-list li::before {
+      content: ''; position: absolute; left: 2px; top: 16px;
+      width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(10,91,77,0.12);
+    }
+
+    .paq-foot {
+      margin-top: auto; display: flex; align-items: baseline; justify-content: space-between;
+      gap: 12px; padding-top: 16px; border-top: 1px solid var(--line);
+    }
+    .paq-inc { font-size: 0.74rem; color: var(--ink-soft); font-weight: 500; line-height: 1.4; }
+    .paq-price { font-family: var(--font-serif); font-size: 1.8rem; color: var(--ink); white-space: nowrap; line-height: 1; }
+    .paq-go { display: inline-block; margin-top: 16px; font-size: 0.79rem; font-weight: 600; color: var(--accent); }
+
+    .paq-top { border: 1px solid rgba(10,91,77,0.28); }
+    .paq-badge {
+      position: absolute; top: 14px; right: 14px; z-index: 3;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #fff; background: var(--accent); padding: 5px 12px; border-radius: 100px;
+      box-shadow: 0 4px 14px rgba(10,91,77,0.35);
+    }
+    .paq-note {
+      margin-top: 26px; font-size: 0.85rem; color: var(--ink-soft);
+      font-weight: 300; line-height: 1.75; max-width: 720px;
+    }
+    .paq-note strong { color: var(--ink); font-weight: 600; }
+
+    /* Los estudios sueltos pasan a segundo plano: misma tarjeta, menos peso */
+    #estudios { padding-top: 20px; }
+    #estudios .dcard { --shrink: 1; }
+    #estudios .d-price { font-size: 1.45rem; }
+
     /* ── Guía ── */
     .guide-card { padding: 46px 44px; }
     @media (max-width: 720px) { .guide-card { padding: 30px 22px; } }
@@ -223,6 +321,9 @@
     .g-row b { font-size: 0.95rem; color: var(--ink); font-weight: 500; line-height: 1.5; }
     .g-row span { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.7; font-weight: 300; }
     .g-row span em { font-style: normal; color: var(--ink); font-weight: 500; }
+    .g-row a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(10,91,77,0.3); }
+    .g-row a em { color: inherit; }
+    .g-row a:hover { border-bottom-color: var(--accent); }
     @media (max-width: 720px) { .g-row { grid-template-columns: 1fr; gap: 5px; padding: 15px 0; } }
 
     /* ── Cierre ── */
@@ -292,18 +393,19 @@
     <div class="nav-glass"></div>
     <div class="nav-row">
       <img src="images/LOGO%20%286%29.png" alt="Michelle Peiret Health" class="nav-logo">
-      <a href="#estudios" class="nav-cta">Ver los estudios</a>
+      <a href="#paquetes" class="nav-cta">Ver los paquetes</a>
     </div>
   </nav>
 
   <header class="hub-hero">
     <div class="wrap">
       <span class="label">Diagnósticos MP</span>
-      <h1>Elige el estudio que necesitas</h1>
+      <h1>Empieza por lo que<br>quieres <em>averiguar</em></h1>
       <p>
-        Todos nuestros diagnósticos incluyen <strong>la interpretación de tus resultados con un
-        especialista MP</strong>. Porque el dato sin lectura no cambia nada — lo que cambia las cosas
-        es saber qué significa en tu caso y qué hacer con eso.
+        Nadie se hace un estudio por hacérselo: se lo hace porque quiere una respuesta.
+        Por eso agrupamos los diagnósticos en paquetes según lo que buscas resolver, y
+        cada uno cierra con <strong>la interpretación de tus resultados con un especialista MP</strong>.
+        Medir es la mitad; la otra mitad es que alguien te explique qué significa en tu caso.
       </p>
     </div>
   </header>
@@ -330,11 +432,108 @@
     </div>
   </section>
 
+  <!-- ━━━ PAQUETES · la oferta principal ━━━ -->
+  <section id="paquetes" class="paq-sec">
+    <div class="wrap">
+      <div class="paq-head fade">
+        <span class="label">Los paquetes MP</span>
+        <h2>Tres objetivos,<br>tres combinaciones</h2>
+        <p class="lede">
+          Un estudio suelto te da un dato. Un paquete te da el cruce entre varios y
+          la lectura de un especialista — que es donde aparecen las respuestas que
+          un marcador aislado no puede darte. Los tres se acreditan íntegros a tu
+          tratamiento si decides iniciarlo en los 60 días siguientes.
+        </p>
+      </div>
+
+      <div class="paq-grid">
+
+        <a class="paq glass fade" href="paquete-punto-de-partida.html">
+          <div class="paq-img">
+            <img src="images/bioscan-muestra.jpg" alt="Toma de la muestra de cabello del BioScan" loading="lazy">
+          </div>
+          <div class="paq-body">
+            <span class="paq-kicker">Diagnóstico inicial</span>
+            <h3>Punto de Partida MP</h3>
+            <p class="paq-for">Para quien quiere cuidarse en serio y no sabe por dónde empezar.</p>
+            <ul class="paq-list">
+              <li>Qué te falta: vitaminas, minerales y micronutrientes</li>
+              <li>Qué alimentos te están inflamando</li>
+              <li>Si lo que pierdes es grasa o músculo</li>
+              <li>Qué suplementos necesitas de verdad</li>
+            </ul>
+            <div class="paq-foot">
+              <span class="paq-inc">BioScan + InBody + consulta</span>
+              <span class="paq-price">$540</span>
+            </div>
+            <span class="paq-go">Ver el paquete →</span>
+          </div>
+        </a>
+
+        <a class="paq glass fade" href="paquete-atleta.html">
+          <div class="paq-img">
+            <img src="images/centro-vo2max.jpg" alt="Prueba de VO2 max con mascarilla PNOĒ" loading="lazy">
+          </div>
+          <div class="paq-body">
+            <span class="paq-kicker">Diagnóstico para atletas</span>
+            <h3>Atleta MP</h3>
+            <p class="paq-for">Para quien ya entrena en serio y lleva tiempo sin subir el techo.</p>
+            <ul class="paq-list">
+              <li>Tus zonas de entrenamiento medidas, no estimadas</li>
+              <li>Tu VO2 max real y tus calorías exactas</li>
+              <li>Si la fatiga viene del hierro, la tiroides o el cortisol</li>
+              <li>Si estás construyendo músculo o perdiéndolo</li>
+            </ul>
+            <div class="paq-foot">
+              <span class="paq-inc">Metabólico + sangre + InBody + IV</span>
+              <span class="paq-price">$895</span>
+            </div>
+            <span class="paq-go">Ver el paquete →</span>
+          </div>
+        </a>
+
+        <a class="paq glass fade paq-top" href="paquete-mapa-biologico.html">
+          <span class="paq-badge">El más completo</span>
+          <div class="paq-img">
+            <img src="images/239michelle%20peiret%20oficina%202026%20-Edit.jpg" alt="Especialista preparando una muestra de sangre" loading="lazy">
+          </div>
+          <div class="paq-body">
+            <span class="paq-kicker">Diagnóstico completo</span>
+            <h3>Mapa Biológico MP</h3>
+            <p class="paq-for">Para quien lleva años sin que nadie le explique qué le pasa.</p>
+            <ul class="paq-list">
+              <li>Las cuatro capas: celular, clínica, metabólica y estructural</li>
+              <li>Tu edad biológica y qué la está empujando</li>
+              <li>Por qué tus análisis «salen bien» y tú no te sientes bien</li>
+              <li>Una línea base contra la que medir todo lo que hagas</li>
+            </ul>
+            <div class="paq-foot">
+              <span class="paq-inc">Los cuatro estudios, una visita</span>
+              <span class="paq-price">$1,200</span>
+            </div>
+            <span class="paq-go">Ver el paquete →</span>
+          </div>
+        </a>
+
+      </div>
+
+      <p class="paq-note fade">
+        Los montos indicados son el precio del paquete. <strong>Se acreditan íntegros</strong> a tu
+        tratamiento nutricional personalizado si lo inicias dentro de los 60 días siguientes.
+      </p>
+    </div>
+  </section>
+
   <section id="estudios">
     <div class="wrap">
       <div style="max-width:640px" class="fade">
-        <span class="label">Estudios individuales</span>
-        <h2>Mide una cosa a la vez</h2>
+        <span class="label">¿Prefieres medir una sola cosa?</span>
+        <h2>Los estudios, uno por uno</h2>
+        <p class="lede" style="margin-top:15px;">
+          Si ya sabes exactamente qué quieres medir, o quieres ver el detalle y el precio
+          individual de cada diagnóstico antes de decidir, aquí los tienes por separado.
+          Todos incluyen igualmente su consulta de interpretación.
+        </p>
       </div>
 
       <div class="dgrid">
@@ -377,48 +576,6 @@
     </div>
   </section>
 
-  <section style="padding-top:0;">
-    <div class="wrap">
-      <div style="max-width:640px" class="fade">
-        <span class="label">Paquetes</span>
-        <h2>O mídelo todo en un solo día</h2>
-        <p class="lede" style="margin-top:15px;">
-          El monto que pagas por cualquiera de los tres se acredita a tu tratamiento nutricional
-          personalizado si decides iniciarlo en los próximos 60 días.
-        </p>
-      </div>
-
-      <div class="dgrid">
-        <div class="dcard paquete glass fade">
-          <div class="d-dot"></div>
-          <div class="d-top"><h3>Punto de Partida MP</h3><span class="d-price">$540</span></div>
-          <p class="d-tl">Entiende qué está pasando en tu cuerpo.</p>
-          <p>Para quien quiere empezar a cuidarse de verdad pero no sabe por dónde. Incluye tu BioScan y tu InBody, con la consulta de interpretación.</p>
-          <div class="d-meta"><span>Miami u online</span><span>Se acredita íntegro</span></div>
-          <a class="d-cta" href="paquete-punto-de-partida.html">Ver el Punto de Partida →</a>
-        </div>
-
-        <div class="dcard paquete glass fade">
-          <div class="d-dot"></div>
-          <div class="d-top"><h3>Atleta MP</h3><span class="d-price">$895</span></div>
-          <p class="d-tl">Tu rendimiento, medido y optimizado.</p>
-          <p>Análisis Metabólico con VO2 Max, panel de sangre completo, InBody y una sesión de IV Therapy de recuperación deportiva, con tu consulta de interpretación.</p>
-          <div class="d-meta"><span>Presencial en Miami</span><span>Se acredita íntegro</span></div>
-          <a class="d-cta" href="paquete-atleta.html">Ver el Atleta MP →</a>
-        </div>
-
-        <div class="dcard paquete glass fade" style="grid-column:1/-1;">
-          <div class="d-dot"></div>
-          <div class="d-top"><h3>Mapa Biológico MP · el más completo</h3><span class="d-price">$1,200</span></div>
-          <p class="d-tl">La fotografía completa de tu biología.</p>
-          <p>BioScan, panel de sangre completo, Análisis Metabólico e InBody, todo en una sola visita, con tu consulta de interpretación y recomendaciones personalizadas. Lo que pasa a nivel celular, metabólico, hormonal y de composición corporal.</p>
-          <div class="d-meta"><span>Presencial en Miami</span><span>Visita de 3 a 3.5 h</span><span>Se acredita íntegro</span></div>
-          <a class="d-cta" href="paquete-mapa-biologico.html">Ver el Mapa Biológico →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section>
     <div class="wrap">
       <div class="guide-card glass fade">
@@ -432,8 +589,8 @@
         <div class="g-row"><b>Sospecho algo hormonal o de tiroides</b><span>El <em>Panel de Sangre Hormonal MP</em>, y el <em>BioScan</em> si además quieres ver microbiota y toxinas</span></div>
         <div class="g-row"><b>Estoy cansado todo el tiempo</b><span>El <em>Panel de Sangre Nutricional MP</em> o el <em>BioScan</em>, según si prefieres sangre o hacerlo desde casa</span></div>
         <div class="g-row"><b>No sé qué suplementos tomar</b><span>El <em>BioScan</em>: te dice qué te falta y qué alimentos te inflaman</span></div>
-        <div class="g-row"><b>Entreno en serio y quiero rendir más</b><span>El paquete <em>Atleta MP</em>, que junta metabólico, sangre, InBody y recuperación</span></div>
-        <div class="g-row"><b>Quiero verlo todo de una vez</b><span>El <em>Mapa Biológico MP</em>, los cuatro estudios en una sola visita</span></div>
+        <div class="g-row"><b>Entreno en serio y quiero rendir más</b><span>El paquete <a href="paquete-atleta.html"><em>Atleta MP</em></a>, que junta metabólico, sangre, InBody y recuperación</span></div>
+        <div class="g-row"><b>Quiero verlo todo de una vez</b><span>El <a href="paquete-mapa-biologico.html"><em>Mapa Biológico MP</em></a>, los cuatro estudios en una sola visita</span></div>
         <div class="g-row"><b>Sigo sin saber</b><span>Escríbenos por WhatsApp o llámanos al <em>+1 (786) 930-2544</em> y te orientamos</span></div>
       </div>
       </div>
@@ -477,13 +634,13 @@
        La gente rara vez sabe qué estudio necesita — sabe qué quiere resolver.
        Esto traduce lo segundo en lo primero. */
     var P = {
-      bioscan:  { n: 'BioScan',              p: '$447',        u: 'https://bioscan.michellepeiret.com/', c: 'var(--sage)' },
-      metab:    { n: 'Análisis Metabólico',  p: '$350',        u: 'metabolico.html',      c: 'var(--ochre)' },
-      inbody:   { n: 'InBody 970S',          p: '$95',         u: 'inbody.html',          c: 'var(--slate)' },
-      sangre:   { n: 'Paneles de Sangre',    p: '$250–$600',   u: 'paneles-sangre.html',  c: 'var(--rose)' },
-      partida:  { n: 'Punto de Partida MP',  p: '$540',        u: 'https://wa.me/17869302544?text=Hola%2C%20quiero%20informaci%C3%B3n%20del%20Punto%20de%20Partida%20MP', c: 'var(--deep)' },
-      atleta:   { n: 'Atleta MP',            p: '$895',        u: 'https://wa.me/17869302544?text=Hola%2C%20quiero%20informaci%C3%B3n%20del%20paquete%20Atleta%20MP',    c: 'var(--deep)' },
-      mapa:     { n: 'Mapa Biológico MP',    p: '$1,200',      u: 'https://wa.me/17869302544?text=Hola%2C%20quiero%20informaci%C3%B3n%20del%20Mapa%20Biol%C3%B3gico%20MP', c: 'var(--deep)' }
+      bioscan:  { n: 'BioScan',              p: '$447',        u: 'https://bioscan.michellepeiret.com/', c: 'var(--sage-ink)' },
+      metab:    { n: 'Análisis Metabólico',  p: '$350',        u: 'metabolico.html',      c: 'var(--ochre-ink)' },
+      inbody:   { n: 'InBody 970S',          p: '$95',         u: 'inbody.html',          c: 'var(--slate-ink)' },
+      sangre:   { n: 'Paneles de Sangre',    p: '$250–$600',   u: 'paneles-sangre.html',  c: 'var(--rose-ink)' },
+      partida:  { n: 'Punto de Partida MP',  p: '$540',        u: 'paquete-punto-de-partida.html', c: 'var(--deep-ink)' },
+      atleta:   { n: 'Atleta MP',            p: '$895',        u: 'paquete-atleta.html',           c: 'var(--deep-ink)' },
+      mapa:     { n: 'Mapa Biológico MP',    p: '$1,200',      u: 'paquete-mapa-biologico.html',   c: 'var(--deep-ink)' }
     };
 
     var OPCIONES = {
