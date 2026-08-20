@@ -121,6 +121,14 @@ h2 { font-size: clamp(1.8rem, 3.6vw, 2.75rem); }
 .pk-eyebrow span { font-size: 0.66rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
 .pk-eyebrow::before { content: ''; width: 26px; height: 1px; background: var(--accent); }
 .pk-hero h1 em { font-style: italic; color: var(--accent); }
+/* Nombre comercial del paquete, bajo el titular */
+.pk-name {
+  margin-top: 14px; font-size: 0.74rem; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink);
+  display: inline-block; padding: 7px 15px; border-radius: 100px;
+  background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.75);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+}
 .pk-hero .lede { margin-top: 22px; max-width: 620px; font-size: 1.08rem; }
 .pk-hero .lede strong { font-weight: 500; color: var(--ink); }
 
@@ -168,6 +176,24 @@ h2 { font-size: clamp(1.8rem, 3.6vw, 2.75rem); }
 .inc.iv      { --c: var(--deep); }
 .inc.consulta{ --c: var(--accent); }
 .inc-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--c); margin-bottom: 15px; box-shadow: 0 0 0 5px color-mix(in srgb, var(--c) 18%, transparent); }
+
+/* Foto del estudio, sangrada hasta los bordes del vidrio */
+.inc-img {
+  position: relative; margin: -28px -28px 20px; border-radius: 18px 18px 0 0;
+  overflow: hidden; aspect-ratio: 16/9; background: rgba(255,255,255,0.4);
+}
+.inc-img img { width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.6s cubic-bezier(.2,.8,.2,1); }
+.inc:hover .inc-img img { transform: scale(1.04); }
+.inc-img::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, transparent 52%, rgba(245,241,234,0.55) 100%);
+}
+.inc-img .inc-dot {
+  position: absolute; left: 20px; bottom: 14px; margin: 0; z-index: 2;
+  box-shadow: 0 0 0 5px rgba(255,255,255,0.45), 0 2px 8px rgba(30,42,53,0.25);
+}
+@media (max-width: 860px) { .inc-img { aspect-ratio: 16/8; } }
 .inc-top { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; }
 .inc h3 { font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--c); }
 .inc-val { font-size: 0.86rem; color: var(--ink-soft); white-space: nowrap; font-weight: 500; }
