@@ -2112,6 +2112,7 @@ p, li { font-weight: 300; }
     };
     function calVariant() {
       // Pegajoso por sesión: si la persona recarga o vuelve atrás, cae en el mismo calendario.
+      // El valor lo asigna el servidor (alternado). El azar es solo el respaldo.
       try {
         var v = sessionStorage.getItem('mp_cal_variant');
         if (v === 'closer' || v === 'reps') return v;
@@ -2122,6 +2123,24 @@ p, li { font-weight: 300; }
         return (Math.random() * 100 < CLOSER_SPLIT) ? 'closer' : 'reps';
       }
     }
+
+    /* Se pide el turno al servidor apenas carga la página, mucho antes de que la persona
+       termine el formulario. Así el reparto entre Fauzi y Samantha es uno y uno, sin rachas.
+       Si el servidor no responde, calVariant() cae al azar y nada se rompe. */
+    (function () {
+      try { if (sessionStorage.getItem('mp_cal_variant')) return; } catch (e) { return; }
+      fetch('https://bioscan.michellepeiret.com/api/next-calendar')
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          if (!j || (j.calendar !== 'closer' && j.calendar !== 'reps')) return;
+          try {
+            if (!sessionStorage.getItem('mp_cal_variant')) {
+              sessionStorage.setItem('mp_cal_variant', j.calendar);
+            }
+          } catch (e) {}
+        })
+        .catch(function () {});
+    })();
 
     // Texto legible del origen, para los emails de lead
     function attributionLabel() {
@@ -2457,7 +2476,7 @@ p, li { font-weight: 300; }
       cal.style.display = 'block';
       cal.scrollIntoView({ behavior: 'smooth', block: 'start' });
       Calendly.initInlineWidget({
-        url: CALENDLY_URLS[variant] || CALENDLY_URLS.reps,
+        url: CALENDLY_URLS[variant] || CALENDLY_FAUZI,
         parentElement: document.getElementById('calendlyInline'),
         prefill: { name: pendingCalName, email: pendingCalEmail }
       });
