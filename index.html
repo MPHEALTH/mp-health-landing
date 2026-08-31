@@ -2033,44 +2033,21 @@ p, li { font-weight: 300; }
     var CALENDLY_URLS = { closer: CALENDLY_FAUZI, reps: CALENDLY_SAMANTHA, michelle: CALENDLY_FAUZI };
     var activeBookingContext = null; // qué calendario está abierto (para etiquetar los eventos de Calendly)
 
-    // Split 50/50 reactivado el 2026-08-19: dos vendedores llamando en simultáneo.
-    var CLOSER_SPLIT = 50; // % de leads al calendario de Fauzi; el resto va al de Samantha
+    // Split cerrado el 2026-08-31: todo va al calendario de Fauzi, para que coincida con el
+    // enlace directo que Vanessa manda por WhatsApp y no se parta el flujo en dos.
+    var CLOSER_SPLIT = 100; // % de leads al calendario de Fauzi
     var CAL_LABELS = {
       closer:   'Fauzi',
       reps:     'Samantha',
       michelle: 'Consulta directa Michelle ($700)'
     };
     function calVariant() {
-      // Pegajoso por sesión: si la persona recarga o vuelve atrás, cae en el mismo calendario.
-      // El valor lo asigna el servidor (alternado). El azar es solo el respaldo.
-      try {
-        var v = sessionStorage.getItem('mp_cal_variant');
-        if (v === 'closer' || v === 'reps') return v;
-        v = (Math.random() * 100 < CLOSER_SPLIT) ? 'closer' : 'reps';
-        sessionStorage.setItem('mp_cal_variant', v);
-        return v;
-      } catch (e) {
-        return (Math.random() * 100 < CLOSER_SPLIT) ? 'closer' : 'reps';
-      }
+      // Un solo calendario. Se conserva la función y la clave 'closer' para no romper el
+      // tracking ni las etiquetas que ya viajan al Sheet y a los correos.
+      try { sessionStorage.setItem('mp_cal_variant', 'closer'); } catch (e) {}
+      return 'closer';
     }
 
-    /* Se pide el turno al servidor apenas carga la página, mucho antes de que la persona
-       termine el formulario. Así el reparto entre Fauzi y Samantha es uno y uno, sin rachas.
-       Si el servidor no responde, calVariant() cae al azar y nada se rompe. */
-    (function () {
-      try { if (sessionStorage.getItem('mp_cal_variant')) return; } catch (e) { return; }
-      fetch('https://bioscan.michellepeiret.com/api/next-calendar')
-        .then(function (r) { return r.json(); })
-        .then(function (j) {
-          if (!j || (j.calendar !== 'closer' && j.calendar !== 'reps')) return;
-          try {
-            if (!sessionStorage.getItem('mp_cal_variant')) {
-              sessionStorage.setItem('mp_cal_variant', j.calendar);
-            }
-          } catch (e) {}
-        })
-        .catch(function () {});
-    })();
 
     // Texto legible del origen, para los emails de lead
     function attributionLabel() {
