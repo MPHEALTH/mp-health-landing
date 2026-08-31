@@ -508,6 +508,10 @@ footer img { height: 40px; opacity: 0.75; }
     .tipo-nom { font-size: 0.93rem; font-weight: 700; color: var(--navy); }
     .tipo-precio { font-size: 1.4rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; white-space: nowrap; }
     .tipo-desc { font-size: 0.81rem; color: var(--muted); line-height: 1.6; margin: 5px 0 0; }
+
+    .tipos-label { font-size: 0.74rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--navy); margin-bottom: 10px; }
+    .tipos-label::after { content: ' ·'; color: var(--teal); }
 </style>
 </head>
 <body>
@@ -589,6 +593,7 @@ footer img { height: 40px; opacity: 0.75; }
             <span>Consulta de evaluación + estudio BioScan</span>
           </div>
           <div class="cal-card-body">
+            <p class="tipos-label">Elige tu modalidad de consulta</p>
             <div class="tipos">
               <div class="tipo sel" data-tipo="completa">
                 <div class="tipo-top">
