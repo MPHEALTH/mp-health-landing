@@ -662,7 +662,7 @@ footer img { height: 40px; opacity: 0.75; }
                 <textarea id="bkNotes" placeholder="Cuéntanos brevemente tu caso"></textarea>
               </div>
 
-              <button type="submit" class="btn bk-btn" id="bkBtn">Reservar mi consulta →</button>
+              <button type="submit" class="btn bk-btn" id="bkBtn">Reservar mi consulta · $700 →</button>
               <p class="bk-secure">Pago seguro con Stripe. Tarjeta, Apple&nbsp;Pay y Google&nbsp;Pay.<br>Usamos tu teléfono solo para coordinar tu cita.</p>
 
               <div class="talk">
@@ -1057,6 +1057,23 @@ footer img { height: 40px; opacity: 0.75; }
 
   <script>
     var CHECKOUT_ENDPOINT = 'https://bioscan.michellepeiret.com/api/consulta-checkout';
+
+    /* ── Selección de modalidad de consulta ── */
+    (function () {
+      var tipos = document.querySelectorAll('.tipo');
+      var precios = { completa: '$700', basica: '$400' };
+      if (!tipos.length) return;
+      tipos.forEach(function (c) {
+        c.addEventListener('click', function () {
+          tipos.forEach(function (x) { x.classList.remove('sel'); });
+          c.classList.add('sel');
+          var btn = document.getElementById('bkBtn');
+          if (btn) btn.textContent = 'Reservar mi consulta · ' + precios[c.dataset.tipo] + ' →';
+          try { if (window.gtag) gtag('event', 'select_item', { item_name: 'Consulta ' + c.dataset.tipo }); } catch (e) {}
+        });
+      });
+    })();
+
     var UTM_KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
     var attribution = {};
     (function () {
