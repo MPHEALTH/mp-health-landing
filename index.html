@@ -1163,6 +1163,15 @@ p, li { font-weight: 300; }
 .ver-testi a:hover { background: var(--sage); color: #fff; transform: translateY(-2px);
   box-shadow: 0 10px 26px rgba(127,168,155,0.4); }
 @media (max-width: 620px) { .ver-testi a { font-size: 0.94rem; padding: 13px 22px; } }
+
+/* ── Dos modalidades de consulta ── */
+.dos-tipos { margin-bottom: 24px; }
+.dt { border-top: 1px solid rgba(30,42,53,0.12); padding: 14px 0; }
+.dt:last-child { border-bottom: 1px solid rgba(30,42,53,0.12); }
+.dt-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.dt-top b { font-size: 0.94rem; font-weight: 600; color: var(--ink); }
+.dt-top i { font-style: normal; font-family: var(--font-serif); font-size: 1.5rem; color: var(--ink); }
+.dt p { font-size: 0.84rem; color: var(--inks); line-height: 1.65; font-weight: 300; margin-top: 5px; }
 </style>
 </head>
 <body>
@@ -1296,17 +1305,21 @@ p, li { font-weight: 300; }
       <div class="start-card glass">
         <span class="start-tag">Reserva directa</span>
         <h3 class="start-title">Consulta con Michelle Peiret</h3>
-        <div class="start-price">$700 <span>USD · incluye tus dos estudios</span></div>
         <p class="start-desc">
-          Michelle evalúa tu caso, revisa tu historial médico y personal, interpreta tus estudios
-          contigo y define qué tratamiento te corresponde y en cuánto tiempo. Presencial en Miami
-          u online.
+          Michelle evalúa tu caso, revisa tu historial médico y personal, y define qué tratamiento
+          te corresponde y en cuánto tiempo. Presencial en Miami u online.
         </p>
-        <ul class="start-list">
-          <li>Incluye tu BioScan de 900+ biomarcadores</li>
-          <li>Incluye tu InBody de composición corporal</li>
-          <li>Sales con tu diagnóstico y tu ruta definida</li>
-        </ul>
+        <div class="dos-tipos">
+          <div class="dt">
+            <div class="dt-top"><b>Consulta + estudios</b><i>$700</i></div>
+            <p>Incluye tu BioScan de 900+ biomarcadores y tu InBody. Michelle interpreta tus
+            resultados contigo.</p>
+          </div>
+          <div class="dt">
+            <div class="dt-top"><b>Solo la consulta</b><i>$400</i></div>
+            <p>Sin estudios incluidos. Si ya tienes estudios recientes, los revisa contigo.</p>
+          </div>
+        </div>
         <a href="consulta-michelle.html" class="btn start-btn">Reservar mi consulta →</a>
       </div>
 
