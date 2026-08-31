@@ -1151,6 +1151,11 @@ p, li { font-weight: 300; }
 .r-ok { display: none; font-size: 0.95rem; color: var(--ink); font-weight: 500; }
 .r-ok.on { display: block; }
 .rescate-card form.hide { display: none; }
+
+.ver-testi { text-align: center; margin-top: 26px; }
+.ver-testi a { font-size: 0.9rem; font-weight: 500; color: var(--inks); text-decoration: none;
+  border-bottom: 1px solid rgba(30,42,53,0.22); padding-bottom: 3px; transition: color 0.2s, border-color 0.2s; }
+.ver-testi a:hover { color: var(--ink); border-color: var(--ink); }
 </style>
 </head>
 <body>
@@ -1312,6 +1317,10 @@ p, li { font-weight: 300; }
         </ul>
         <button class="btn start-btn start-btn-alt" onclick="openCalendly()">Agendar mi llamada →</button>
       </div>
+    </div>
+
+    <div class="ver-testi">
+      <a href="#testimonios">Ve lo que dicen quienes ya lo hicieron →</a>
     </div>
 
     <!-- Calendario de la llamada (se revela al pulsar) -->
@@ -1585,7 +1594,7 @@ p, li { font-weight: 300; }
 
 
   <!-- ━━━ TESTIMONIALS ━━━ -->
-  <section class="testimonials">
+  <section class="testimonials" id="testimonios">
     <span class="section-label">Casos reales</span>
     <h2 class="section-h2">Personas que dejaron<br>de adivinar</h2>
     <p class="section-intro">
