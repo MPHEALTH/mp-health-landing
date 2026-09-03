@@ -503,15 +503,14 @@ footer img { height: 40px; opacity: 0.75; }
     .tipo { border: 1.5px solid var(--cream2); border-radius: 10px; padding: 14px 16px; margin-bottom: 9px;
       cursor: pointer; transition: border-color 0.18s, background 0.18s; }
     .tipo:hover { border-color: rgba(0,201,167,0.5); }
+    .tipo.solo { cursor: default; }
+    .tipo.solo:hover { border-color: var(--teal); }
     .tipo.sel { border-color: var(--teal); background: rgba(0,201,167,0.06); }
     .tipo-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
     .tipo-nom { font-size: 0.93rem; font-weight: 700; color: var(--navy); }
     .tipo-precio { font-size: 1.4rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; white-space: nowrap; }
     .tipo-desc { font-size: 0.81rem; color: var(--muted); line-height: 1.6; margin: 5px 0 0; }
 
-    .tipos-label { font-size: 0.74rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--navy); margin-bottom: 10px; }
-    .tipos-label::after { content: ' ·'; color: var(--teal); }
 </style>
 </head>
 <body>
@@ -593,21 +592,13 @@ footer img { height: 40px; opacity: 0.75; }
             <span>Consulta de evaluación + estudio BioScan</span>
           </div>
           <div class="cal-card-body">
-            <p class="tipos-label">Elige tu modalidad de consulta</p>
             <div class="tipos">
-              <div class="tipo sel" data-tipo="completa">
+              <div class="tipo sel solo">
                 <div class="tipo-top">
                   <span class="tipo-nom">Consulta + estudios</span>
                   <span class="tipo-precio">$700</span>
                 </div>
                 <p class="tipo-desc">Incluye tu BioScan de 900+ biomarcadores y tu InBody. Michelle interpreta tus resultados contigo en la consulta.</p>
-              </div>
-              <div class="tipo" data-tipo="basica">
-                <div class="tipo-top">
-                  <span class="tipo-nom">Solo la consulta</span>
-                  <span class="tipo-precio">$400</span>
-                </div>
-                <p class="tipo-desc">La consulta con Michelle, sin estudios incluidos. Si ya tienes estudios recientes, tráelos y los revisa contigo.</p>
               </div>
             </div>
 
@@ -1063,22 +1054,6 @@ footer img { height: 40px; opacity: 0.75; }
   <script>
     var CHECKOUT_ENDPOINT = 'https://bioscan.michellepeiret.com/api/consulta-checkout';
 
-    /* ── Selección de modalidad de consulta ── */
-    (function () {
-      var tipos = document.querySelectorAll('.tipo');
-      var precios = { completa: '$700', basica: '$400' };
-      if (!tipos.length) return;
-      tipos.forEach(function (c) {
-        c.addEventListener('click', function () {
-          tipos.forEach(function (x) { x.classList.remove('sel'); });
-          c.classList.add('sel');
-          var btn = document.getElementById('bkBtn');
-          if (btn) btn.textContent = 'Reservar mi consulta · ' + precios[c.dataset.tipo] + ' →';
-          try { if (window.gtag) gtag('event', 'select_item', { item_name: 'Consulta ' + c.dataset.tipo }); } catch (e) {}
-        });
-      });
-    })();
-
     var UTM_KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
     var attribution = {};
     (function () {
@@ -1118,7 +1093,7 @@ footer img { height: 40px; opacity: 0.75; }
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         var name = val('bkName'), email = val('bkEmail'), phone = val('bkPhone'), country = val('bkCountry'), mes = val('bkMes');
-      var tipo = (document.querySelector('.tipo.sel') || {}).dataset ? document.querySelector('.tipo.sel').dataset.tipo : 'completa';
+        var tipo = 'completa';
         var ok = true;
         if (name.length < 3)                                   { err('errName', true);    ok = false; } else err('errName', false);
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))        { err('errEmail', true);   ok = false; } else err('errEmail', false);
