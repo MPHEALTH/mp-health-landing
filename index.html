@@ -1332,7 +1332,10 @@ p, li { font-weight: 300; }
           <li>Te explicamos costos y financiamiento</li>
           <li>Te agendamos la consulta con Michelle</li>
         </ul>
-        <button class="btn start-btn start-btn-alt" onclick="openCalendly()">Agendar mi llamada →</button>
+        <a class="btn start-btn start-btn-alt"
+           href="https://wa.me/17864848729?text=Quiero%20agendar%20una%20llamada%20informativa"
+           target="_blank" rel="noopener"
+           onclick="track('whatsapp_llamada_click', { origen: 'tarjeta_llamada' })">Agendar mi llamada →</a>
       </div>
     </div>
 
