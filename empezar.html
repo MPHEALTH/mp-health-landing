@@ -641,19 +641,40 @@ function computeScore() {
   }, 0);
 }
 
-/* Descalificación dura: quien solo busca información gratuita no va a la llamada,
-   aunque el resto de sus respuestas sumen. */
+/* ── Las dos reglas de dinero, que mandan sobre el score ──
+   El score ordena por temperatura, pero no decide solo: la pregunta del
+   presupuesto tiene la última palabra en los dos extremos. */
+
+// Abajo: quien solo busca información gratuita no va a la llamada, aunque el
+// resto de sus respuestas sumen.
 function hardDisqualified() {
   return answers.presupuesto && answers.presupuesto.v === 'gratis';
 }
 
-function tierFor(score) {
-  if (hardDisqualified()) return TIERS[TIERS.length - 1];
-  for (var i = 0; i < TIERS.length; i++) if (score >= TIERS[i].min) return TIERS[i];
-  return TIERS[TIERS.length - 1];
+// Arriba: quien AFIRMA que tiene con qué pagar entra a llamada aunque su caso
+// sea flojo. No es lo mismo el condicional 'si es lo que necesito, puedo cubrir
+// los $700' — ese sigue pasando por el score — que decir de frente que puede
+// con el programa. A quien lo dice de frente se le llama, punto.
+function pagaSinProblema() {
+  var p = answers.presupuesto && answers.presupuesto.v;
+  return p === 'programa' || p === 'completo';
 }
 
-function qualifies(score) { return !hardDisqualified() && score >= QUALIFY_MIN; }
+function qualifies(score) {
+  if (hardDisqualified()) return false;
+  if (pagaSinProblema()) return true;
+  return score >= QUALIFY_MIN;
+}
+
+/* La temperatura nunca puede contradecir la ruta: si a la persona se le va a
+   llamar, Fauzi no puede leer 'NO CALIFICA' en el asunto del correo. Quien
+   entra por la regla de dinero con un score bajo aterriza en WARM — el número
+   sigue diciéndole que el caso es flojo, sin negarle que la llamada va. */
+function tierFor(score) {
+  if (!qualifies(score)) return TIERS[TIERS.length - 1];
+  for (var i = 0; i < TIERS.length - 1; i++) if (score >= TIERS[i].min) return TIERS[i];
+  return TIERS[TIERS.length - 2]; // piso: WARM
+}
 
 /* ═══ RENDER ═══ */
 function esc(s) { return String(s).replace(/[<>&]/g, function (c) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]; }); }
@@ -780,6 +801,9 @@ function submitLead() {
     temperature:         tier.key,
     temperature_label:   tier.label,
     lead_route:          pasa ? 'llamada' : 'michelle_ai',
+    // Entró por la regla de dinero, no por el score: se lo decimos a quien llama
+    // para que un WARM de 13 no se lea igual que un WARM de 20.
+    entro_por_dinero:    pasa && pagaSinProblema() && score < QUALIFY_MIN,
     inversion_previa:    answers.inversion   ? answers.inversion.t   : '',
     presupuesto:         answers.presupuesto ? answers.presupuesto.t : '',
     presupuesto_key:     answers.presupuesto ? answers.presupuesto.v : '',
