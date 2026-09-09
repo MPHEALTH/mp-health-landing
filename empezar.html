@@ -414,16 +414,17 @@ body {
    Score 0–30. Todo lo que se puede querer ajustar vive en este bloque.
    ═══════════════════════════════════════════════════════════════════ */
 
-/* Puntaje mínimo para que el lead pase a llamada del equipo.
-   Por debajo, va a Michelle.AI sin llamada.
-   En 17 porque ahí es donde cae el que puede pagar sin problema aunque su caso
-   sea flojo: con 18 se iba al downsell, y ese es justo el lead que sí interesa. */
+/* Puntaje mínimo para que el lead pase a llamada. Por debajo, va a Michelle.AI.
+   Las tres respuestas de pago valen 14, 16 y 18, y lo mínimo que puede sumar el
+   resto del formulario es 1. Así que quien dice que puede pagar llega a 15 haga
+   lo que haga con las otras siete preguntas: la llamada le queda garantizada por
+   aritmética, sin ninguna regla que se salte el score. */
 var QUALIFY_MIN = 15;
 
 /* Franjas de temperatura, de mayor a menor. */
 var TIERS = [
-  { min: 20, key: 'very_hot', label: 'VERY HOT', emoji: '🔥🔥' },
-  { min: 17, key: 'hot',      label: 'HOT',      emoji: '🔥'   },
+  { min: 32, key: 'very_hot', label: 'VERY HOT', emoji: '🔥🔥' },
+  { min: 26, key: 'hot',      label: 'HOT',      emoji: '🔥'   },
   { min: 15, key: 'warm',     label: 'WARM',     emoji: '🌡️'   },
   { min: 0,  key: 'nurture',  label: 'NO CALIFICA', emoji: '❄️' }
 ];
@@ -525,9 +526,9 @@ var QUESTIONS = [
     help: 'Después de la evaluación, los programas se pagan por partes y se pueden financiar.',
     options: [
       { v: 'gratis',    t: 'Por ahora solo busco información gratuita.',                          p: 0, i: I.card },
-      { v: 'consulta',  t: 'Si es lo que necesito, puedo cubrir los $700 de la evaluación.',      p: 2, i: I.card },
-      { v: 'programa',  t: 'Puedo cubrir la evaluación y un plan mensual desde $400.',            p: 3, i: I.card },
-      { v: 'completo',  t: 'Tengo con qué resolver esto completo, sin financiar.',                p: 4, i: I.card }
+      { v: 'consulta',  t: 'Si es lo que necesito, puedo cubrir los $700 de la evaluación.',      p: 14, i: I.card },
+      { v: 'programa',  t: 'Puedo cubrir la evaluación y un plan mensual desde $400.',            p: 16, i: I.card },
+      { v: 'completo',  t: 'Tengo con qué resolver esto completo, sin financiar.',                p: 18, i: I.card }
     ]
   },
   {
