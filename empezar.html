@@ -418,13 +418,13 @@ body {
    Por debajo, va a Michelle.AI sin llamada.
    En 17 porque ahí es donde cae el que puede pagar sin problema aunque su caso
    sea flojo: con 18 se iba al downsell, y ese es justo el lead que sí interesa. */
-var QUALIFY_MIN = 17;
+var QUALIFY_MIN = 15;
 
 /* Franjas de temperatura, de mayor a menor. */
 var TIERS = [
-  { min: 25, key: 'very_hot', label: 'VERY HOT', emoji: '🔥🔥' },
-  { min: 21, key: 'hot',      label: 'HOT',      emoji: '🔥'   },
-  { min: 17, key: 'warm',     label: 'WARM',     emoji: '🌡️'   },
+  { min: 20, key: 'very_hot', label: 'VERY HOT', emoji: '🔥🔥' },
+  { min: 17, key: 'hot',      label: 'HOT',      emoji: '🔥'   },
+  { min: 15, key: 'warm',     label: 'WARM',     emoji: '🌡️'   },
   { min: 0,  key: 'nurture',  label: 'NO CALIFICA', emoji: '❄️' }
 ];
 
@@ -458,13 +458,13 @@ var QUESTIONS = [
     title: '¿Qué es lo que más quieres resolver?',
     help: 'Elige lo que más pesa hoy. En la consulta se revisa todo lo demás.',
     options: [
-      { v: 'peso',       t: 'Peso, metabolismo o grasa que no baja',       p: 3, i: I.target },
-      { v: 'hormonal',   t: 'Hormonas, fertilidad, tiroides o SOP',        p: 4, i: I.spark  },
-      { v: 'digestivo',  t: 'Digestión, inflamación o intestino',          p: 4, i: I.heart  },
-      { v: 'autoinmune', t: 'Autoinmune, dolor crónico o fatiga',          p: 4, i: I.heart  },
-      { v: 'glucosa',    t: 'Diabetes, prediabetes o glucosa alta',        p: 4, i: I.target },
-      { v: 'energia',    t: 'Energía, sueño, ansiedad o niebla mental',    p: 3, i: I.bolt   },
-      { v: 'prevenir',   t: 'Nada malo — quiero prevenir y optimizar',     p: 2, i: I.spark  }
+      { v: 'peso',       t: 'Peso, metabolismo o grasa que no baja',       p: 2, i: I.target },
+      { v: 'hormonal',   t: 'Hormonas, fertilidad, tiroides o SOP',        p: 3, i: I.spark  },
+      { v: 'digestivo',  t: 'Digestión, inflamación o intestino',          p: 3, i: I.heart  },
+      { v: 'autoinmune', t: 'Autoinmune, dolor crónico o fatiga',          p: 3, i: I.heart  },
+      { v: 'glucosa',    t: 'Diabetes, prediabetes o glucosa alta',        p: 3, i: I.target },
+      { v: 'energia',    t: 'Energía, sueño, ansiedad o niebla mental',    p: 2, i: I.bolt   },
+      { v: 'prevenir',   t: 'Nada malo — quiero prevenir y optimizar',     p: 1, i: I.spark  }
     ]
   },
   {
@@ -481,11 +481,11 @@ var QUESTIONS = [
     key: 'intentos',
     title: '¿Qué has intentado hasta ahora?',
     options: [
-      { v: 'nada',      t: 'Nada todavía — no sé por dónde empezar',        p: 1, i: I.path },
-      { v: 'cuenta',    t: 'Dietas, ayunos o suplementos por mi cuenta',    p: 2, i: I.path },
-      { v: 'nutri',     t: 'Nutricionistas, entrenadores o coaches',        p: 3, i: I.path },
-      { v: 'medicos',   t: 'Varios médicos, y sigo sin una respuesta clara', p: 4, i: I.path },
-      { v: 'medicado',  t: 'Estoy medicado/a y quiero otra vía',            p: 4, i: I.path }
+      { v: 'nada',      t: 'Nada todavía — no sé por dónde empezar',        p: 0, i: I.path },
+      { v: 'cuenta',    t: 'Dietas, ayunos o suplementos por mi cuenta',    p: 1, i: I.path },
+      { v: 'nutri',     t: 'Nutricionistas, entrenadores o coaches',        p: 2, i: I.path },
+      { v: 'medicos',   t: 'Varios médicos, y sigo sin una respuesta clara', p: 3, i: I.path },
+      { v: 'medicado',  t: 'Estoy medicado/a y quiero otra vía',            p: 3, i: I.path }
     ]
   },
   {
@@ -494,8 +494,8 @@ var QUESTIONS = [
     options: [
       { v: 'leve',     t: 'Me molesta, pero funciono bien',   p: 0, i: I.heart },
       { v: 'algunos',  t: 'Me limita algunos días',           p: 1, i: I.heart },
-      { v: 'casi',     t: 'Me afecta casi todos los días',    p: 3, i: I.heart },
-      { v: 'controla', t: 'Está controlando mi vida',         p: 4, i: I.heart }
+      { v: 'casi',     t: 'Me afecta casi todos los días',    p: 2, i: I.heart },
+      { v: 'controla', t: 'Está controlando mi vida',         p: 3, i: I.heart }
     ]
   },
   {
@@ -506,7 +506,7 @@ var QUESTIONS = [
       { v: 'nada',  t: 'Casi nada — apenas empiezo a buscar', p: 0, i: I.wallet },
       { v: 'bajo',  t: 'Menos de $1,000',                     p: 1, i: I.wallet },
       { v: 'medio', t: 'Entre $1,000 y $5,000',               p: 2, i: I.wallet },
-      { v: 'alto',  t: 'Más de $5,000, y sigo igual',         p: 3, i: I.wallet }
+      { v: 'alto',  t: 'Más de $5,000, y sigo igual',         p: 2, i: I.wallet }
     ]
   },
   {
@@ -525,9 +525,9 @@ var QUESTIONS = [
     help: 'Después de la evaluación, los programas se pagan por partes y se pueden financiar.',
     options: [
       { v: 'gratis',    t: 'Por ahora solo busco información gratuita.',                          p: 0, i: I.card },
-      { v: 'consulta',  t: 'Si es lo que necesito, puedo cubrir los $700 de la evaluación.',      p: 4, i: I.card },
-      { v: 'programa',  t: 'Puedo cubrir la evaluación y un plan mensual desde $400.',            p: 7, i: I.card },
-      { v: 'completo',  t: 'Tengo con qué resolver esto completo, sin financiar.',                p: 8, i: I.card }
+      { v: 'consulta',  t: 'Si es lo que necesito, puedo cubrir los $700 de la evaluación.',      p: 2, i: I.card },
+      { v: 'programa',  t: 'Puedo cubrir la evaluación y un plan mensual desde $400.',            p: 3, i: I.card },
+      { v: 'completo',  t: 'Tengo con qué resolver esto completo, sin financiar.',                p: 4, i: I.card }
     ]
   },
   {
@@ -641,39 +641,20 @@ function computeScore() {
   }, 0);
 }
 
-/* ── Las dos reglas de dinero, que mandan sobre el score ──
-   El score ordena por temperatura, pero no decide solo: la pregunta del
-   presupuesto tiene la última palabra en los dos extremos. */
-
-// Abajo: quien solo busca información gratuita no va a la llamada, aunque el
-// resto de sus respuestas sumen.
+/* Única excepción a la suma: quien solo busca información gratuita no va a la
+   llamada aunque sus respuestas sumen. Todo lo demás lo decide el score. */
 function hardDisqualified() {
   return answers.presupuesto && answers.presupuesto.v === 'gratis';
 }
 
-// Arriba: quien AFIRMA que tiene con qué pagar entra a llamada aunque su caso
-// sea flojo. No es lo mismo el condicional 'si es lo que necesito, puedo cubrir
-// los $700' — ese sigue pasando por el score — que decir de frente que puede
-// con el programa. A quien lo dice de frente se le llama, punto.
-function pagaSinProblema() {
-  var p = answers.presupuesto && answers.presupuesto.v;
-  return p === 'programa' || p === 'completo';
-}
-
 function qualifies(score) {
-  if (hardDisqualified()) return false;
-  if (pagaSinProblema()) return true;
-  return score >= QUALIFY_MIN;
+  return !hardDisqualified() && score >= QUALIFY_MIN;
 }
 
-/* La temperatura nunca puede contradecir la ruta: si a la persona se le va a
-   llamar, Fauzi no puede leer 'NO CALIFICA' en el asunto del correo. Quien
-   entra por la regla de dinero con un score bajo aterriza en WARM — el número
-   sigue diciéndole que el caso es flojo, sin negarle que la llamada va. */
 function tierFor(score) {
   if (!qualifies(score)) return TIERS[TIERS.length - 1];
   for (var i = 0; i < TIERS.length - 1; i++) if (score >= TIERS[i].min) return TIERS[i];
-  return TIERS[TIERS.length - 2]; // piso: WARM
+  return TIERS[TIERS.length - 2];
 }
 
 /* ═══ RENDER ═══ */
@@ -801,9 +782,6 @@ function submitLead() {
     temperature:         tier.key,
     temperature_label:   tier.label,
     lead_route:          pasa ? 'llamada' : 'michelle_ai',
-    // Entró por la regla de dinero, no por el score: se lo decimos a quien llama
-    // para que un WARM de 13 no se lea igual que un WARM de 20.
-    entro_por_dinero:    pasa && pagaSinProblema() && score < QUALIFY_MIN,
     inversion_previa:    answers.inversion   ? answers.inversion.t   : '',
     presupuesto:         answers.presupuesto ? answers.presupuesto.t : '',
     presupuesto_key:     answers.presupuesto ? answers.presupuesto.v : '',
