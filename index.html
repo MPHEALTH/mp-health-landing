@@ -12,22 +12,24 @@
   <script>
     window.TRACKING = {
       GA4_ID: 'G-B7PSHFCHGY',  // Google Analytics 4
-      META_PIXEL_ID: ''  // Meta Pixel, ej. '1234567890123456'
+      META_PIXEL_ID: '',       // Meta Pixel, ej. '1234567890123456'
+      GADS_ID: ''              // Google Ads, ej. 'AW-1234567890'
     };
   </script>
 
-  <!-- GA4 (solo carga si hay ID) -->
+  <!-- GA4 + Google Ads (una sola librería gtag; carga solo si hay algún ID) -->
   <script>
     (function() {
-      if (!window.TRACKING.GA4_ID) return;
+      var ids = [window.TRACKING.GA4_ID, window.TRACKING.GADS_ID].filter(Boolean);
+      if (!ids.length) return;
       var s = document.createElement('script');
       s.async = true;
-      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.TRACKING.GA4_ID;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ids[0];
       document.head.appendChild(s);
       window.dataLayer = window.dataLayer || [];
       window.gtag = function() { dataLayer.push(arguments); };
       gtag('js', new Date());
-      gtag('config', window.TRACKING.GA4_ID);
+      ids.forEach(function(id) { gtag('config', id); });
     })();
   </script>
 
@@ -1197,7 +1199,7 @@ p, li { font-weight: 300; }
     <span class="nav-center">Nutrigenómica · Epigenética · Personalización</span>
     <div class="nav-right">
       <a href="tel:+17864848729" class="nav-phone">+1 (786) 484 8729</a>
-      <a href="#calendly" class="btn nav-cta">Agenda tu llamada →</a>
+      <a href="empezar.html" class="btn nav-cta">Quiero empezar →</a>
     </div>
   </nav>
 
@@ -1232,7 +1234,7 @@ p, li { font-weight: 300; }
         </div>
       </div>
 
-      <a href="#calendly" class="btn btn-lg">Quiero resolver mi salud →</a>
+      <a href="empezar.html" class="btn btn-lg">Quiero empezar →</a>
 
       <div class="hero-trust">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -1296,8 +1298,8 @@ p, li { font-weight: 300; }
         <em style="font-family:var(--font-serif); font-style:italic;">dar el primer paso</em>
       </h2>
       <p class="cal-intro" style="max-width:560px;margin:18px auto 0;">
-        Todo empieza con tu consulta con Michelle. Puedes reservarla tú directamente,
-        o hablar antes con nuestro equipo y que ellos te la agenden.
+        Todo empieza con tu evaluación con Michelle. Puedes reservarla tú directamente,
+        o contarnos tu caso primero y que el equipo te llame a revisarlo contigo.
       </p>
     </div>
 
@@ -1321,21 +1323,24 @@ p, li { font-weight: 300; }
 
       <div class="start-card glass">
         <span class="start-tag">Con ayuda del equipo</span>
-        <h3 class="start-title">Llamada informativa</h3>
-        <div class="start-price">15 min <span>por teléfono, con nuestro equipo</span></div>
+        <h3 class="start-title">Cuéntanos tu caso primero</h3>
+        <div class="start-price">2 min <span>· nueve preguntas, sin costo</span></div>
         <p class="start-desc">
-          Si prefieres resolver tus dudas antes de reservar, agenda una llamada corta. El equipo
-          te explica cómo trabajaríamos tu caso, responde lo que necesites y te agenda la consulta.
+          Si prefieres que revisemos tu situación antes de que reserves nada, respóndenos unas
+          preguntas rápidas. El equipo lee tu caso y te llama para decirte qué te corresponde.
         </p>
         <ul class="start-list">
-          <li>Resolvemos tus dudas sobre el proceso</li>
+          <li>Nos dices qué te pasa y desde cuándo</li>
+          <li>Un especialista te llama a revisar tu caso</li>
           <li>Te explicamos costos y financiamiento</li>
-          <li>Te agendamos la consulta con Michelle</li>
         </ul>
-        <a class="btn start-btn start-btn-alt"
-           href="https://wa.me/17864848729?text=Quiero%20agendar%20una%20llamada%20informativa"
-           target="_blank" rel="noopener"
-           onclick="track('whatsapp_llamada_click', { origen: 'tarjeta_llamada' })">Agendar mi llamada →</a>
+        <a class="btn start-btn start-btn-alt" href="empezar.html"
+           onclick="track('cta_click', { cta_text: 'Quiero empezar — tarjeta equipo' })">Quiero empezar →</a>
+        <p style="margin-top:14px;text-align:center;font-size:0.82rem;">
+          <a href="https://wa.me/17864848729?text=Quiero%20informaci%C3%B3n%20sobre%20la%20consulta"
+             target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none;"
+             onclick="track('whatsapp_llamada_click', { origen: 'tarjeta_llamada' })">o escríbenos por WhatsApp →</a>
+        </p>
       </div>
     </div>
 
@@ -1437,7 +1442,7 @@ p, li { font-weight: 300; }
 
     <div class="pain-cta-block">
       <p>Si reconociste <strong>dos o más</strong>, no necesitas otra opinión: necesitas datos. Ninguna de estas señales se resuelve adivinando — se resuelve <strong>midiendo</strong>.</p>
-      <a href="#calendly" class="btn" style="white-space:nowrap;">Agenda tu llamada →</a>
+      <a href="empezar.html" class="btn" style="white-space:nowrap;">Quiero empezar →</a>
     </div>
   </section>
 
@@ -1946,7 +1951,7 @@ p, li { font-weight: 300; }
         Ya sabes lo que se siente vivir sin respuestas. Lo que sigue no es otro diagnóstico
         ajeno: son tus propios números, explicados, y una decisión que por fin es tuya.
       </p>
-      <a href="#calendly" class="btn btn-lg">Quiero resolver mi salud →</a>
+      <a href="empezar.html" class="btn btn-lg">Quiero empezar →</a>
       <p class="closing-note">Online o presencial en Miami · Financiamiento disponible</p>
     </div>
   </section>
@@ -2019,30 +2024,21 @@ p, li { font-weight: 300; }
       return stored;
     })();
 
-    /* ── Reparto entre dos vendedores (desde 2026-08-19) ──
-       El 18/08 esto quedó en un solo calendario; al día siguiente se reactivó
-       el 50/50 porque hay dos personas llamando en simultáneo: Fauzi, que es el
-       calendario de siempre, y Samantha, que se sumó después. Ambos destinos son
-       de análisis inicial — el de la consulta directa de Michelle ya no vive
-       aquí, sino en consulta-michelle.html.
-       Las claves 'closer' y 'reps' se conservan tal cual para no partir en dos
-       el histórico de tracking que ya viaja al Sheet, a Zoho y a los correos. */
-    var CALENDLY_FAUZI    = 'https://calendly.com/nutrigenomica-michellepeiret/analisis-inicial-mp';
-    var CALENDLY_SAMANTHA = 'https://calendly.com/sauteri-michellepeiret/30min';
-    var CALENDLY_URLS = { closer: CALENDLY_FAUZI, reps: CALENDLY_SAMANTHA, michelle: CALENDLY_FAUZI };
+    /* ── Calendario de las llamadas ──
+       Hubo un reparto 50/50 entre Fauzi y Samantha desde el 19/08; se cerró el
+       31/08 hacia Fauzi y Samantha salió del flujo el 09/09, así que su
+       calendario ya no vive aquí. Queda un solo destino.
+       La clave 'closer' se conserva tal cual para no partir en dos el histórico
+       de tracking que ya viaja al Sheet, a Zoho y a los correos. */
+    var CALENDLY_FAUZI = 'https://calendly.com/nutrigenomica-michellepeiret/analisis-inicial-mp';
+    var CALENDLY_URLS = { closer: CALENDLY_FAUZI, michelle: CALENDLY_FAUZI };
     var activeBookingContext = null; // qué calendario está abierto (para etiquetar los eventos de Calendly)
 
-    // Split cerrado el 2026-08-31: todo va al calendario de Fauzi, para que coincida con el
-    // enlace directo que Vanessa manda por WhatsApp y no se parta el flujo en dos.
-    var CLOSER_SPLIT = 100; // % de leads al calendario de Fauzi
     var CAL_LABELS = {
       closer:   'Fauzi',
-      reps:     'Samantha',
       michelle: 'Consulta directa Michelle ($700)'
     };
     function calVariant() {
-      // Un solo calendario. Se conserva la función y la clave 'closer' para no romper el
-      // tracking ni las etiquetas que ya viajan al Sheet y a los correos.
       try { sessionStorage.setItem('mp_cal_variant', 'closer'); } catch (e) {}
       return 'closer';
     }
@@ -2073,18 +2069,6 @@ p, li { font-weight: 300; }
         }
       } catch (e) {}
     }
-
-    // Inicio del formulario: primera interacción con un campo
-    (function() {
-      var fired = false;
-      var formEl = document.getElementById('intakeForm');
-      if (!formEl) return;
-      formEl.addEventListener('focusin', function() {
-        if (fired) return;
-        fired = true;
-        track('form_start');
-      });
-    })();
 
     // Clic en el botón flotante de WhatsApp
     (function() {
@@ -2161,8 +2145,7 @@ p, li { font-weight: 300; }
       a.addEventListener('click', function(e) {
         e.preventDefault();
         track('cta_click', { cta_text: (a.textContent || '').trim().slice(0, 60) });
-        var target = document.getElementById('intakeForm');
-        if (!target) target = document.getElementById('calendly');
+        var target = document.getElementById('calendly');
         var nav = document.querySelector('.nav');
         if (!target) return;
         var navH = nav ? nav.getBoundingClientRect().height : 0;
@@ -2171,285 +2154,14 @@ p, li { font-weight: 300; }
       });
     });
 
-    /* ── INTAKE FORM LOGIC ── */
-    var currentStep = 1;
-    var selectedImpact = null;
-    var pendingCalName = '';
+    /* ── Formulario de calificación ──
+       El formulario de 4 pasos que vivía aquí se mudó a empezar.html (2026-09-09).
+       Solo quedan las tres variables que el código de abajo sigue usando: el
+       endpoint de leads (formulario de rescate + aviso de cita) y los datos que
+       el listener de Calendly manda en el aviso de reserva. */
+    var LEAD_ENDPOINT   = 'https://bioscan.michellepeiret.com/api/lead';
+    var pendingCalName  = '';
     var pendingCalEmail = '';
-
-    // Build impact score buttons
-    (function() {
-      var wrap = document.getElementById('impactButtons');
-      if (!wrap) return;
-      for (var i = 1; i <= 10; i++) {
-        var btn = document.createElement('button');
-        btn.type = 'button'; btn.className = 'impact-btn';
-        btn.textContent = i; btn.dataset.val = i;
-        btn.onclick = (function(b, v) {
-          return function() {
-            selectedImpact = v;
-            document.querySelectorAll('.impact-btn').forEach(function(x) { x.classList.remove('selected'); });
-            b.classList.add('selected');
-            document.getElementById('errImpact').classList.remove('show');
-          };
-        })(btn, i);
-        wrap.appendChild(btn);
-      }
-    })();
-
-    function updateProgress(step) {
-      document.getElementById('progressBar').style.width = (step / 4 * 100) + '%';
-      document.getElementById('stepLabel').textContent = 'Paso ' + step + ' de 4';
-    }
-
-    function showStep(step) {
-      for (var i = 1; i <= 4; i++) {
-        var el = document.getElementById('step' + i);
-        if (el) el.classList.toggle('active', i === step);
-      }
-      currentStep = step;
-      updateProgress(step);
-      // Only scroll if the form top has drifted above the visible area
-      var form = document.getElementById('intakeForm');
-      var nav  = document.querySelector('.nav');
-      var navH = nav ? nav.getBoundingClientRect().height : 0;
-      if (form && form.getBoundingClientRect().top < navH + 8) {
-        window.scrollTo({ top: form.getBoundingClientRect().top + window.pageYOffset - navH - 12, behavior: 'smooth' });
-      }
-    }
-
-    function validateStep(step) {
-      var valid = true;
-      function err(id, show) { document.getElementById(id).classList.toggle('show', show); }
-
-      if (step === 1) {
-        var goal = document.getElementById('fieldGoal').value;
-        var tl = document.getElementById('fieldTimeline').value;
-        if (!goal) { err('errGoal', true); valid = false; } else err('errGoal', false);
-        if (goal === 'other') {
-          var goalOther = document.getElementById('fieldGoalOther').value.trim();
-          if (!goalOther) { err('errGoalOther', true); valid = false; } else err('errGoalOther', false);
-        } else { err('errGoalOther', false); }
-        if (!tl) { err('errTimeline', true); valid = false; } else err('errTimeline', false);
-      }
-      if (step === 2) {
-        var dur = document.getElementById('fieldDuration').value;
-        if (!dur) { err('errDuration', true); valid = false; } else err('errDuration', false);
-        if (!selectedImpact) { err('errImpact', true); valid = false; } else err('errImpact', false);
-        if (!selectedSpend) { err('errSpend', true); valid = false; } else err('errSpend', false);
-      }
-      if (step === 3) {
-        var name = document.getElementById('fieldName').value.trim();
-        var email = document.getElementById('fieldEmail').value.trim();
-        var country = document.getElementById('fieldCountry').value;
-        if (!name) { err('errName', true); valid = false; } else err('errName', false);
-        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err('errEmail', true); valid = false; } else err('errEmail', false);
-        if (!country) { err('errCountry', true); valid = false; } else err('errCountry', false);
-        var showFinancing = country === 'us';
-        document.querySelectorAll('.financing-badge').forEach(function(b) {
-          b.classList.toggle('visible', showFinancing);
-        });
-      }
-      return valid;
-    }
-
-    function nextStep(from) {
-      if (!validateStep(from)) {
-        track('form_validation_error', { step: from });
-        return;
-      }
-      track('form_step_completed', { step: from });
-      if (from < 4) showStep(from + 1);
-    }
-
-    function prevStep(from) {
-      if (from > 1) showStep(from - 1);
-    }
-
-    // Web3Forms access key — kept as an independent fallback notification
-    var WEB3FORMS_KEY = '202609ed-09f2-420d-8a56-88f5d63060a3';
-
-    // Primary: our own server endpoint (Resend). Sends the team notification + lead confirmation.
-    // Served by the bioscan-mp Express app.
-    var LEAD_ENDPOINT = 'https://bioscan.michellepeiret.com/api/lead';
-
-    function toggleGoalOther(val) {
-      var otherInput = document.getElementById('fieldGoalOther');
-      otherInput.style.display = val === 'other' ? 'block' : 'none';
-      if (val !== 'other') document.getElementById('errGoalOther').classList.remove('show');
-    }
-
-    // Inversión previa en salud: califica sin poner un precio delante.
-    var selectedSpend = null;
-    function selectSpend(el) {
-      selectedSpend = el.getAttribute('data-v');
-      var opts = document.querySelectorAll('.spend-opt');
-      for (var i = 0; i < opts.length; i++) opts[i].classList.remove('selected');
-      el.classList.add('selected');
-      document.getElementById('errSpend').classList.remove('show');
-      track('inversion_previa', { rango: selectedSpend, step: 2 });
-    }
-
-    var PROGRAM_LABELS = {
-      michelle: 'Consulta directa con Michelle ($700)',
-      analisis: 'Análisis Inicial (sin costo)'
-    };
-
-    function submitForm(camino) {
-      var caminoKey = camino === 'michelle' ? 'consulta_michelle' : 'analisis_inicial';
-
-      var nameVal     = document.getElementById('fieldName').value.trim();
-      var emailVal    = document.getElementById('fieldEmail').value.trim();
-      var countryEl   = document.getElementById('fieldCountry');
-      var countryVal  = countryEl.options[countryEl.selectedIndex].text;
-      var occEl       = document.getElementById('fieldOccupation');
-      var occVal      = occEl.value ? occEl.options[occEl.selectedIndex].text : '';
-      var challengeVal= document.getElementById('fieldChallenge').value.trim();
-      var durEl       = document.getElementById('fieldDuration');
-      var durVal      = durEl.options[durEl.selectedIndex].text;
-      var impactVal   = (selectedImpact || '—') + '/10';
-      var goalEl      = document.getElementById('fieldGoal');
-      var goalVal     = goalEl.value === 'other'
-                          ? document.getElementById('fieldGoalOther').value.trim()
-                          : goalEl.options[goalEl.selectedIndex].text;
-      var tlEl        = document.getElementById('fieldTimeline');
-      var tlVal       = tlEl.options[tlEl.selectedIndex].text;
-      var programVal  = PROGRAM_LABELS[camino] || camino;
-      var programKey  = camino === 'analisis' ? 'analisis_inicial' : camino;
-      var sourceVal   = attributionLabel();
-      var calVal      = camino === 'michelle' ? 'michelle' : calVariant();
-
-      track('camino_elegido', { camino: caminoKey });
-      track('form_submitted', { program: programKey, calendar: calVal, inversion_previa: selectedSpend || '' });
-
-      // Send email notification (non-blocking)
-      if (WEB3FORMS_KEY !== 'YOUR_ACCESS_KEY') {
-        fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          keepalive: true,
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            access_key: WEB3FORMS_KEY,
-            subject: '🔔 Nueva solicitud de Análisis Inicial — ' + nameVal,
-            from_name: 'Formulario MP Health',
-            cc: 'sauteri@michellepeiret.com',
-            message: [
-              'Nombre: ' + nameVal,
-              'Email: ' + emailVal,
-              'País: ' + countryVal,
-              'Ocupación: ' + occVal,
-              '---',
-              'Objetivo: ' + goalVal,
-              'Situación: ' + challengeVal,
-              'Duración: ' + durVal,
-              'Impacto en vida: ' + impactVal,
-              'Urgencia: ' + tlVal,
-              'Camino elegido: ' + programVal,
-              'Ha invertido en su salud: ' + (selectedSpend || '—'),
-              'Origen: ' + sourceVal,
-              'Calendario asignado: ' + (CAL_LABELS[calVal] || calVal)
-            ].join('\n')
-          })
-        }).catch(function() {});
-      }
-
-      // Primary path: send team notification + lead confirmation via our server (Resend, no monthly cap)
-      if (LEAD_ENDPOINT.indexOf('YOUR-DEPLOYMENT-URL') === -1) {
-        fetch(LEAD_ENDPOINT, {
-          method: 'POST',
-          keepalive: true,
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name:       nameVal,
-            email:      emailVal,
-            country:    countryVal,
-            occupation: occVal,
-            challenge:  challengeVal,
-            goal:       goalVal,
-            duration:   durVal,
-            impact:     impactVal,
-            timeline:   tlVal,
-            program:    programVal,
-            program_key: programKey,
-            camino_elegido: caminoKey,
-            inversion_previa: selectedSpend || '',
-            source:     sourceVal,
-            calendar:   calVal
-          })
-        }).then(function(r) {
-          if (!r.ok) console.error('Lead endpoint returned HTTP', r.status);
-        }).catch(function(err) { console.error('Lead endpoint error:', err); });
-      }
-
-      var form = document.getElementById('intakeForm');
-      form.style.display = 'none';
-
-      if (camino === 'michelle') {
-        // Consulta pagada directa con Michelle → Calendly con pago Stripe
-        track('michelle_booking_shown');
-        pendingCalName  = nameVal;
-        pendingCalEmail = emailVal;
-        var mNotice = document.getElementById('michelleNotice');
-        mNotice.style.display = 'block';
-        var navM = document.querySelector('.nav');
-        var navMH = navM ? navM.getBoundingClientRect().height : 0;
-        window.scrollTo({ top: mNotice.getBoundingClientRect().top + window.pageYOffset - navMH - 12, behavior: 'smooth' });
-      } else if (camino === 'budget') {
-        // Presupuesto diferente → escalera de valor: Estudio Epigenético (BioScan)
-        track('bioscan_redirect', { from: 'form_budget' });
-        setTimeout(function() {
-          window.location.href = 'https://bioscan.michellepeiret.com/?utm_source=analisis_landing&utm_medium=form_budget';
-        }, 400);
-      } else {
-        track('booking_notice_shown');
-        pendingCalName  = nameVal;
-        pendingCalEmail = emailVal;
-        var notice = document.getElementById('bookingNotice');
-        notice.style.display = 'block';
-        var nav2 = document.querySelector('.nav');
-        var navH2 = nav2 ? nav2.getBoundingClientRect().height : 0;
-        window.scrollTo({ top: notice.getBoundingClientRect().top + window.pageYOffset - navH2 - 12, behavior: 'smooth' });
-      }
-    }
-
-    function openCalendly() {
-      var variant = calVariant();
-      activeBookingContext = variant;
-      track('calendly_opened', { calendar: variant });
-      var bn = document.getElementById('bookingNotice');
-      if (bn) bn.style.display = 'none';
-      var cal = document.getElementById('calendlyWidget');
-      cal.style.display = 'block';
-      cal.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      Calendly.initInlineWidget({
-        url: CALENDLY_URLS[variant] || CALENDLY_FAUZI,
-        parentElement: document.getElementById('calendlyInline'),
-        prefill: { name: pendingCalName, email: pendingCalEmail }
-      });
-    }
-
-    function openMichelleBooking() {
-      track('michelle_widget_opened');
-      activeBookingContext = 'michelle';
-      document.getElementById('michelleNotice').style.display = 'none';
-      var w = document.getElementById('michelleWidget');
-      w.style.display = 'block';
-      Calendly.initInlineWidget({
-        url: CALENDLY_URLS.michelle,
-        parentElement: document.getElementById('michelleInline'),
-        prefill: { name: pendingCalName, email: pendingCalEmail }
-      });
-      w.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function showIntakeForm() {
-      activeBookingContext = null;
-      document.getElementById('bookingNotice').style.display = 'none';
-      document.getElementById('michelleNotice').style.display = 'none';
-      document.getElementById('michelleWidget').style.display = 'none';
-      document.getElementById('calendlyWidget').style.display = 'none';
-      document.getElementById('intakeForm').style.display = 'block';
-    }
 
     /* ── FAQ accordion ── */
     document.querySelectorAll('.faq-btn').forEach(function(btn) {
