@@ -415,14 +415,16 @@ body {
    ═══════════════════════════════════════════════════════════════════ */
 
 /* Puntaje mínimo para que el lead pase a llamada del equipo.
-   Por debajo, va a la oferta de entrada (primer-paso.html) sin llamada. */
-var QUALIFY_MIN = 18;
+   Por debajo, va a Michelle.AI sin llamada.
+   En 17 porque ahí es donde cae el que puede pagar sin problema aunque su caso
+   sea flojo: con 18 se iba al downsell, y ese es justo el lead que sí interesa. */
+var QUALIFY_MIN = 17;
 
 /* Franjas de temperatura, de mayor a menor. */
 var TIERS = [
   { min: 25, key: 'very_hot', label: 'VERY HOT', emoji: '🔥🔥' },
   { min: 21, key: 'hot',      label: 'HOT',      emoji: '🔥'   },
-  { min: 18, key: 'warm',     label: 'WARM',     emoji: '🌡️'   },
+  { min: 17, key: 'warm',     label: 'WARM',     emoji: '🌡️'   },
   { min: 0,  key: 'nurture',  label: 'NO CALIFICA', emoji: '❄️' }
 ];
 
@@ -492,8 +494,8 @@ var QUESTIONS = [
     options: [
       { v: 'leve',     t: 'Me molesta, pero funciono bien',   p: 0, i: I.heart },
       { v: 'algunos',  t: 'Me limita algunos días',           p: 1, i: I.heart },
-      { v: 'casi',     t: 'Me afecta casi todos los días',    p: 2, i: I.heart },
-      { v: 'controla', t: 'Está controlando mi vida',         p: 3, i: I.heart }
+      { v: 'casi',     t: 'Me afecta casi todos los días',    p: 3, i: I.heart },
+      { v: 'controla', t: 'Está controlando mi vida',         p: 4, i: I.heart }
     ]
   },
   {
@@ -512,9 +514,9 @@ var QUESTIONS = [
     title: '¿Cuándo quieres empezar?',
     options: [
       { v: 'explorando', t: 'Solo estoy explorando',        p: 0, i: I.clock },
-      { v: 'trimestre',  t: 'En los próximos 3 meses',      p: 2, i: I.clock },
-      { v: 'mes',        t: 'Este mes',                     p: 4, i: I.bolt  },
-      { v: 'ya',         t: 'Lo antes posible',             p: 5, i: I.bolt  }
+      { v: 'trimestre',  t: 'En los próximos 3 meses',      p: 1, i: I.clock },
+      { v: 'mes',        t: 'Este mes',                     p: 2, i: I.bolt  },
+      { v: 'ya',         t: 'Lo antes posible',             p: 3, i: I.bolt  }
     ]
   },
   {
@@ -523,19 +525,19 @@ var QUESTIONS = [
     help: 'Después de la evaluación, los programas se pagan por partes y se pueden financiar.',
     options: [
       { v: 'gratis',    t: 'Por ahora solo busco información gratuita.',                          p: 0, i: I.card },
-      { v: 'consulta',  t: 'Si es lo que necesito, puedo cubrir los $700 de la evaluación.',      p: 3, i: I.card },
-      { v: 'programa',  t: 'Puedo cubrir la evaluación y un plan mensual desde $400.',            p: 5, i: I.card },
-      { v: 'completo',  t: 'Tengo con qué resolver esto completo, sin financiar.',                p: 6, i: I.card }
+      { v: 'consulta',  t: 'Si es lo que necesito, puedo cubrir los $700 de la evaluación.',      p: 4, i: I.card },
+      { v: 'programa',  t: 'Puedo cubrir la evaluación y un plan mensual desde $400.',            p: 7, i: I.card },
+      { v: 'completo',  t: 'Tengo con qué resolver esto completo, sin financiar.',                p: 8, i: I.card }
     ]
   },
   {
     key: 'decision',
     title: '¿Para quién es esto?',
     options: [
-      { v: 'yo',        t: 'Solo para mí — yo decido',                                       p: 3, i: I.person },
-      { v: 'pareja',    t: 'Para mí y para alguien más', s: 'Mi pareja, un hijo/a, mi papá o mi mamá', p: 3, i: I.people },
-      { v: 'otro',      t: 'Es para otra persona y yo lo gestiono',                          p: 2, i: I.people },
-      { v: 'consultar', t: 'Tengo que consultarlo con alguien antes',                        p: 1, i: I.person }
+      { v: 'yo',        t: 'Solo para mí — yo decido',                                       p: 2, i: I.person },
+      { v: 'pareja',    t: 'Para mí y para alguien más', s: 'Mi pareja, un hijo/a, mi papá o mi mamá', p: 2, i: I.people },
+      { v: 'otro',      t: 'Es para otra persona y yo lo gestiono',                          p: 1, i: I.people },
+      { v: 'consultar', t: 'Tengo que consultarlo con alguien antes',                        p: 0, i: I.person }
     ]
   }
 ];
