@@ -7,6 +7,16 @@
 <title>Empieza tu proceso | Michelle Peiret Health</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+<script>
+  /* El landing precarga esta página oculta dentro de su modal, para que abrir
+     sea instantáneo. Precargada NO debe contar como visita: el page_view y el
+     form_start esperan a que el modal la muestre de verdad. */
+  window.MP_EMBED = (function () {
+    try { if (window.self !== window.top) return true; } catch (e) { return true; }
+    return new URLSearchParams(window.location.search).get('embed') === '1';
+  })();
+</script>
+
 <!-- ━━━ TRACKING CONFIG — mismos IDs que index.html ━━━ -->
 <script>
   window.TRACKING = {
@@ -27,7 +37,9 @@
     window.dataLayer = window.dataLayer || [];
     window.gtag = function () { dataLayer.push(arguments); };
     gtag('js', new Date());
-    ids.forEach(function (id) { gtag('config', id); });
+    ids.forEach(function (id) {
+      gtag('config', id, window.MP_EMBED ? { send_page_view: false } : {});
+    });
   })();
 </script>
 <script>
@@ -39,7 +51,7 @@
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
     document,'script','https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', window.TRACKING.META_PIXEL_ID);
-    fbq('track', 'PageView');
+    if (!window.MP_EMBED) fbq('track', 'PageView');
   })();
 </script>
 
@@ -455,10 +467,7 @@ var DOWNSELL_URL = 'https://health.michellepeiret.com/michelleai';
 /* La página se sirve suelta y también dentro del modal del landing. Cuando va
    embebida, una redirección normal cargaría el destino dentro del iframe: hay
    que sacarla a la ventana de arriba. */
-var EMBED = (function () {
-  try { if (window.self !== window.top) return true; } catch (e) { return true; }
-  return new URLSearchParams(window.location.search).get('embed') === '1';
-})();
+var EMBED = window.MP_EMBED;
 if (EMBED) document.documentElement.classList.add('embed');
 
 function irA(url) {
@@ -944,7 +953,25 @@ function showQualified(name, score, tier) {
 }
 
 /* ═══ ARRANQUE ═══ */
-track('form_start', { pagina: 'empezar' });
+/* Suelta, la visita cuenta al cargar. Embebida cuenta cuando el modal la
+   muestra: si no, cada visitante del landing figuraría como que empezó el
+   formulario y el embudo dejaría de medir nada. */
+var yaContada = false;
+function contarVisita() {
+  if (yaContada) return;
+  yaContada = true;
+  try { if (window.gtag) gtag('event', 'page_view'); } catch (e) {}
+  try { if (window.fbq) fbq('track', 'PageView'); } catch (e) {}
+  track('form_start', { pagina: 'empezar' });
+}
+if (EMBED) {
+  window.addEventListener('message', function (e) {
+    if (e.data && e.data.mp === 'mostrar') { contarVisita(); avisarAltura(); }
+  });
+  avisarAlModal('listo');
+} else {
+  contarVisita();
+}
 render();
 </script>
 </body>

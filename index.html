@@ -2213,16 +2213,28 @@ body.mp-locked { overflow: hidden; }
       if (!modal) return;
       var cargado = false, scrollPrevio = 0;
 
+      /* Se precarga en cuanto la pagina queda quieta, no al hacer clic: crear el
+         iframe en el momento del clic obliga a esperar el HTML, las fuentes y el
+         gtag con la persona mirando un spinner. Precargado, abrir es instantaneo.
+         Dentro no se cuenta la visita hasta que el modal manda 'mostrar', asi que
+         precargar no ensucia el embudo. */
+      function precargar() {
+        if (cargado) return;
+        cargado = true;
+        // Le pasamos los UTM de la visita para que la atribucion no se corte
+        frame.src = 'empezar.html?embed=1' + window.location.search.replace(/^\?/, '&');
+        frame.addEventListener('load', function () { load.classList.add('gone'); });
+      }
+      if ('requestIdleCallback' in window) requestIdleCallback(precargar, { timeout: 3000 });
+      else setTimeout(precargar, 1600);
+
       function abrir(origen) {
         scrollPrevio = window.pageYOffset;
-        if (!cargado) {
-          // Le pasamos los UTM de la visita para que la atribucion no se corte
-          frame.src = 'empezar.html?embed=1' + window.location.search.replace(/^\?/, '&');
-          frame.addEventListener('load', function () { load.classList.add('gone'); });
-          cargado = true;
-        }
+        precargar();
         modal.classList.add('open');
         document.body.classList.add('mp-locked');
+        // Recien ahora cuenta como visita al formulario
+        try { frame.contentWindow.postMessage({ mp: 'mostrar' }, '*'); } catch (e) {}
         track('form_modal_abierto', { origen: origen || '' });
       }
       function cerrar() {
@@ -2254,6 +2266,9 @@ body.mp-locked { overflow: hidden; }
         if (!e.data || !e.data.mp) return;
         if (e.data.mp === 'alto' && window.innerWidth > 900) {
           frame.style.height = Math.max(520, Math.min(e.data.alto, window.innerHeight - 36)) + 'px';
+        }
+        if (e.data.mp === 'listo' && modal.classList.contains('open')) {
+          try { frame.contentWindow.postMessage({ mp: 'mostrar' }, '*'); } catch (err) {}
         }
         if (e.data.mp === 'calificado') track('lead_qualified_modal', {});
       });
