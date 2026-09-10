@@ -1174,6 +1174,33 @@ p, li { font-weight: 300; }
 .dt-top b { font-size: 0.94rem; font-weight: 600; color: var(--ink); }
 .dt-top i { font-style: normal; font-family: var(--font-serif); font-size: 1.5rem; color: var(--ink); }
 .dt p { font-size: 0.84rem; color: var(--inks); line-height: 1.65; font-weight: 300; margin-top: 5px; }
+
+/* ━━━ MODAL DEL FORMULARIO ━━━
+   El formulario vive en empezar.html y aquí se muestra flotando encima del
+   landing, para que nadie pierda la página al empezar. El iframe se carga solo
+   al abrir: sin abrirlo, no cuesta nada. */
+.mp-modal { position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center; padding: 18px 20px; }
+.mp-modal.open { display: flex; }
+.mp-modal-bg { position: absolute; inset: 0; background: rgba(8,17,30,0.72); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); opacity: 0; transition: opacity .28s ease; }
+.mp-modal.open .mp-modal-bg { opacity: 1; }
+.mp-modal-card { position: relative; width: 100%; max-width: 1080px; max-height: calc(100vh - 36px); background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 30px 90px rgba(0,0,0,0.42); opacity: 0; transform: translateY(14px) scale(.985); transition: opacity .3s ease, transform .3s cubic-bezier(.2,.8,.3,1); display: flex; flex-direction: column; }
+.mp-modal.open .mp-modal-card { opacity: 1; transform: none; }
+.mp-modal-close { position: absolute; top: 14px; right: 14px; z-index: 3; width: 34px; height: 34px; border-radius: 50%; border: none; cursor: pointer; background: rgba(13,27,46,0.06); color: #0d1b2e; display: grid; place-items: center; transition: background .18s, transform .18s; }
+.mp-modal-close:hover { background: rgba(13,27,46,0.13); transform: rotate(90deg); }
+.mp-modal-close svg { width: 17px; height: 17px; }
+.mp-modal-frame { border: 0; width: 100%; display: block; height: 640px; transition: height .28s ease; }
+.mp-modal-load { position: absolute; inset: 0; display: grid; place-items: center; background: #fff; z-index: 2; transition: opacity .25s; text-align: center; }
+.mp-modal-load.gone { opacity: 0; pointer-events: none; }
+.mp-modal-spin { width: 30px; height: 30px; border-radius: 50%; margin: 0 auto 14px; border: 3px solid rgba(0,201,167,.22); border-top-color: #00c9a7; animation: mpspin .8s linear infinite; }
+@keyframes mpspin { to { transform: rotate(360deg); } }
+.mp-modal-load p { font-size: .88rem; color: #6b7a8d; }
+body.mp-locked { overflow: hidden; }
+@media (max-width: 900px) {
+  .mp-modal { padding: 0; }
+  .mp-modal-card { max-width: none; max-height: 100vh; height: 100vh; border-radius: 0; }
+  .mp-modal-frame { height: 100vh !important; }
+  .mp-modal-close { top: 10px; right: 10px; background: rgba(13,27,46,0.09); }
+}
 </style>
 </head>
 <body>
@@ -2000,6 +2027,21 @@ p, li { font-weight: 300; }
   </a>
 
 
+  <!-- ━━━ MODAL DEL FORMULARIO ━━━ -->
+  <div class="mp-modal" id="mpModal" role="dialog" aria-modal="true" aria-label="Empieza tu proceso">
+    <div class="mp-modal-bg" data-mp-close></div>
+    <div class="mp-modal-card">
+      <button class="mp-modal-close" type="button" data-mp-close aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="mp-modal-load" id="mpModalLoad">
+        <div><div class="mp-modal-spin"></div><p>Preparando tus preguntas…</p></div>
+      </div>
+      <iframe class="mp-modal-frame" id="mpModalFrame" title="Formulario de evaluacion"></iframe>
+    </div>
+  </div>
+
+
   <script>
     /* ━━━ TRACKING LAYER ━━━ */
 
@@ -2162,6 +2204,60 @@ p, li { font-weight: 300; }
     var LEAD_ENDPOINT   = 'https://bioscan.michellepeiret.com/api/lead';
     var pendingCalName  = '';
     var pendingCalEmail = '';
+
+    /* ── MODAL DEL FORMULARIO ── */
+    (function () {
+      var modal = document.getElementById('mpModal');
+      var frame = document.getElementById('mpModalFrame');
+      var load  = document.getElementById('mpModalLoad');
+      if (!modal) return;
+      var cargado = false, scrollPrevio = 0;
+
+      function abrir(origen) {
+        scrollPrevio = window.pageYOffset;
+        if (!cargado) {
+          // Le pasamos los UTM de la visita para que la atribucion no se corte
+          frame.src = 'empezar.html?embed=1' + window.location.search.replace(/^\?/, '&');
+          frame.addEventListener('load', function () { load.classList.add('gone'); });
+          cargado = true;
+        }
+        modal.classList.add('open');
+        document.body.classList.add('mp-locked');
+        track('form_modal_abierto', { origen: origen || '' });
+      }
+      function cerrar() {
+        modal.classList.remove('open');
+        document.body.classList.remove('mp-locked');
+        window.scrollTo(0, scrollPrevio);
+        track('form_modal_cerrado');
+      }
+
+      // Los CTA conservan su href: asi el clic con rueda o "abrir en pestana
+      // nueva" sigue funcionando, y sin JS el formulario sigue siendo alcanzable.
+      document.querySelectorAll('a[href="empezar.html"]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+          e.preventDefault();
+          abrir((a.textContent || '').trim().slice(0, 40));
+        });
+      });
+
+      modal.querySelectorAll('[data-mp-close]').forEach(function (el) {
+        el.addEventListener('click', cerrar);
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('open')) cerrar();
+      });
+
+      // El formulario de dentro dice cuanto mide, para que la tarjeta crezca con el
+      window.addEventListener('message', function (e) {
+        if (!e.data || !e.data.mp) return;
+        if (e.data.mp === 'alto' && window.innerWidth > 900) {
+          frame.style.height = Math.max(520, Math.min(e.data.alto, window.innerHeight - 36)) + 'px';
+        }
+        if (e.data.mp === 'calificado') track('lead_qualified_modal', {});
+      });
+    })();
 
     /* ── FAQ accordion ── */
     document.querySelectorAll('.faq-btn').forEach(function(btn) {

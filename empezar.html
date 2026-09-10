@@ -57,6 +57,20 @@
 }
 
 html, body { height: 100%; }
+
+/* Dentro del modal del landing la página no manda sobre la ventana: se ajusta
+   a la altura de la tarjeta y cede el logo y el fondo a la tarjeta misma. */
+html.embed, html.embed body { height: auto; background: transparent; }
+html.embed .shell { min-height: 0; }
+html.embed .top-logo { display: none; }
+html.embed .left-inner { padding: 26px 40px 34px; }
+html.embed .right { padding-block: 40px; }
+/* Dentro del modal el contexto ya lo da la tarjeta: la línea de intro sobra y
+   los 44px que ocupa son justo los que le faltan a la pregunta más larga
+   (la primera, con siete opciones) para entrar sin scroll. */
+html.embed .eyebrow-sub { display: none; }
+html.embed .q-title { margin-top: 16px; }
+html.embed .progress-wrap { margin: 20px 0 24px; }
 body {
   font-family: var(--font-body); color: var(--text);
   background: var(--cream); -webkit-font-smoothing: antialiased;
@@ -438,6 +452,31 @@ var LEAD_ENDPOINT = 'https://bioscan.michellepeiret.com/api/lead';
    oferta que sí encaja con alguien que acaba de decir que hoy no puede invertir. */
 var DOWNSELL_URL = 'https://health.michellepeiret.com/michelleai';
 
+/* La página se sirve suelta y también dentro del modal del landing. Cuando va
+   embebida, una redirección normal cargaría el destino dentro del iframe: hay
+   que sacarla a la ventana de arriba. */
+var EMBED = (function () {
+  try { if (window.self !== window.top) return true; } catch (e) { return true; }
+  return new URLSearchParams(window.location.search).get('embed') === '1';
+})();
+if (EMBED) document.documentElement.classList.add('embed');
+
+function irA(url) {
+  try { (EMBED && window.top ? window.top : window).location.href = url; }
+  catch (e) { window.location.href = url; }
+}
+
+/* El modal necesita saber cuánto mide el contenido para crecer con él, y
+   cuándo cerrarse. Sin iframe estos avisos no van a ninguna parte. */
+function avisarAlModal(tipo, extra) {
+  if (!EMBED) return;
+  try { window.parent.postMessage(Object.assign({ mp: tipo }, extra || {}), '*'); } catch (e) {}
+}
+function avisarAltura() {
+  if (!EMBED) return;
+  avisarAlModal('alto', { alto: Math.ceil(document.documentElement.scrollHeight) });
+}
+
 /* Iconos SVG reutilizables (stroke, 24×24) */
 var I = {
   target:  '<path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>',
@@ -707,7 +746,7 @@ function renderQuestion() {
   });
   updateProgress();
   rotateQuote();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (EMBED) avisarAltura(); else window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function renderContact() {
@@ -736,7 +775,7 @@ function renderContact() {
   });
   updateProgress();
   rotateQuote();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (EMBED) avisarAltura(); else window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function render() {
@@ -747,6 +786,14 @@ function render() {
 document.getElementById('backBtn').addEventListener('click', function () {
   if (step > 0) { step--; render(); }
 });
+
+/* Dentro del modal, el logo no lleva a ningún lado (ya estás en el landing) y
+   el acordeón de FAQ cambia de alto, así que hay que volver a medir. */
+if (EMBED) {
+  window.addEventListener('load', avisarAltura);
+  document.addEventListener('click', function () { setTimeout(avisarAltura, 260); });
+  if (window.ResizeObserver) new ResizeObserver(avisarAltura).observe(document.body);
+}
 
 /* ═══ ENVÍO ═══ */
 function submitLead() {
@@ -813,11 +860,11 @@ function submitLead() {
     document.getElementById('sendingOverlay').classList.remove('on');
     if (pasa) return showQualified(name, score, tier);
     track('michelleai_redirect', { score: score, temperatura: tier.key });
-    window.location.href = DOWNSELL_URL
+    irA(DOWNSELL_URL
       + '?utm_source=analisis_landing'
       + '&utm_medium=lead_no_califica'
       + '&utm_campaign=funnel_calificacion'
-      + '&utm_content=score_' + score;
+      + '&utm_content=score_' + score);
   }
 
   fetch(LEAD_ENDPOINT, {
@@ -892,7 +939,8 @@ function showQualified(name, score, tier) {
   askInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') sendQuestion(); });
 
   document.getElementById('doneScreen').classList.add('on');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  avisarAlModal('calificado');
+  if (EMBED) avisarAltura(); else window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 /* ═══ ARRANQUE ═══ */
