@@ -20,6 +20,32 @@ GA4, PIXEL = 'G-B7PSHFCHGY', '1219764922715386'
 TEL, TEL_H = '+1 (786) 484 8729', '+17864848729'
 WA = 'https://wa.me/17864848729?text='
 
+# Las tres que se repiten en todas: precio, ubicacion y pareja. Viven aqui una
+# sola vez para que un cambio de precio no haya que perseguirlo por cinco paginas.
+# Los tres pasos son los mismos siempre. Una condicion puede sobrescribirlos
+# poniendo su propio 'pasos' si necesita otra redaccion.
+PASOS_COMUN = [
+  ('Cuéntanos tu caso', 'Ocho preguntas rápidas sobre qué te pasa, desde cuándo y qué te han '
+   'dicho hasta ahora. Toma dos minutos y no cuesta nada.'),
+  ('Te llama un especialista', 'Revisa tu caso contigo, te dice con franqueza si es para '
+   'nosotros y te explica qué incluye la evaluación y cómo se paga.'),
+  ('Tu evaluación con Michelle', 'Tu BioScan de 900+ biomarcadores y tu InBody, leídos '
+   'contigo. Sales con un plan escrito, no con una lista de suplementos.'),
+]
+
+FAQ_COMUN = [
+  ('¿Qué incluye la evaluación de $700?',
+   'Tu <b>BioScan</b> de más de 900 biomarcadores desde una muestra de cabello, tu <b>InBody</b> '
+   'de composición corporal, y la consulta en la que Michelle interpreta ambos contigo. Los '
+   'estudios van dentro del precio.'),
+  ('¿Tengo que ir a Miami?',
+   'No es obligatorio. La consulta puede ser online y el kit del BioScan llega a tu casa, estés '
+   'donde estés. Si estás en Miami puedes hacerlo presencial y añadir el InBody ahí mismo.'),
+  ('¿Y si somos dos los que queremos hacerlo?',
+   'Si vienen dos, el equipo aplica un precio de pareja sobre las dos evaluaciones. Menciónalo '
+   'en la llamada.'),
+]
+
 # ─────────────────────────────────────────────────────────────────────────
 #  DATOS POR CONDICION  — lo unico que cambia entre paginas
 # ─────────────────────────────────────────────────────────────────────────
@@ -83,7 +109,7 @@ CONDICIONES = {
     ('Tu evaluación con Michelle', 'Tu BioScan de 900+ biomarcadores y tu InBody, leídos '
      'contigo. Sales con un plan escrito, no con una lista de suplementos.'),
   ],
-  'faq': [
+  'faq_extra': [
     ('¿Esto reemplaza mi tratamiento de fertilidad?',
      'No, y no debería. Trabajamos <b>junto</b> a tu ginecólogo o tu especialista, no en su '
      'lugar. Lo que hacemos es leer la parte de tu biología que su estudio no cubre, para que '
@@ -97,15 +123,7 @@ CONDICIONES = {
      'probable es que falte medir algo — no que hayas hecho algo mal.'),
     ('¿Y si mi pareja también quiere revisarse?',
      'Tiene sentido: cerca de la mitad de los factores son masculinos y se miden distinto. Si '
-     'vienen los dos, el equipo aplica un precio de pareja sobre las dos evaluaciones. '
-     'Menciónalo en la llamada.'),
-    ('¿Qué incluye la evaluación de $700?',
-     'Tu <b>BioScan</b> de más de 900 biomarcadores desde una muestra de cabello, tu <b>InBody</b> '
-     'de composición corporal, y la consulta en la que Michelle interpreta ambos contigo. Los '
-     'estudios van dentro del precio.'),
-    ('¿Tengo que ir a Miami?',
-     'No es obligatorio. La consulta puede ser online y el kit del BioScan llega a tu casa, estés '
-     'donde estés. Si estás en Miami puedes hacerlo presencial y añadir el InBody ahí mismo.'),
+     'vienen los dos, hay precio de pareja sobre las dos evaluaciones.'),
   ],
   'cierre_h': 'Antes de otro intento,<br>ten los datos completos',
   'cierre_p': 'No te vamos a prometer un resultado. Te vamos a dar lo que hoy no tienes: la '
@@ -113,6 +131,268 @@ CONDICIONES = {
   'cta': 'Quiero empezar',
   'wa_msg': 'Hola, vengo de la página de fertilidad y quiero información.',
  },
+
+ 'diabetes': {
+  'slug': 'diabetes',
+  'objetivo': 'glucosa',
+  'acc': 'ochre', 'acc2': 'sage', 'acc3': 'slate', 'acc_ink': '#7a5620',
+  'title': 'Diabetes y resistencia a la insulina | Michelle Peiret Health',
+  'desc': 'Leemos lo que un control de glucosa no mira: microbiota, inflamación, '
+          'micronutrientes y genética metabólica. Junto a tu médico. Miami u online.',
+  'eyebrow': 'Método MP · Glucosa y metabolismo',
+  'h1a': 'Tu glucosa es',
+  'h1b': 'una consecuencia',
+  'h1c': 'no el punto de partida',
+  'sub': 'Medir azúcar te dice cómo estás hoy. No te dice por qué llegaste ahí, ni qué '
+         'hacer distinto mañana. Eso está en tu microbiota, tu inflamación y tus '
+         'micronutrientes — y casi nunca se miden.',
+  'hero_imgs': [
+    ('images/michelle-fertilidad.jpg', 'Michelle Peiret, especialista en nutrigenómica', 'center 22%'),
+    ('images/glucosa-condicion.jpg',   'Medición de glucosa',                            'center center'),
+  ],
+  'trust': 'Online o presencial en Miami · Trabajamos junto a tu médico tratante, nunca en su lugar',
+  'dato_label': 'Lo que casi nunca se mide',
+  'dato_h': 'El origen casi nunca fue el páncreas',
+  'dato_p': [
+    'Cuando la microbiota intestinal se daña, ciertas bacterias producen sustancias que '
+    '<b>interfieren con los receptores de insulina</b>. Las células dejan de responder bien a la '
+    'señal, y el páncreas compensa fabricando más insulina.',
+    'Por eso hay personas que hacen todo lo que les dijeron y su glucosa apenas se mueve: se '
+    'está tratando el resultado y no lo que lo sostiene. <b>Mientras la insulina está elevada, el '
+    'cuerpo no quema grasa aunque comas poco</b>, y eso alimenta el mismo ciclo.',
+    'Nada de esto se ve en una glucosa en ayunas ni en una hemoglobina glicosilada. Son otros '
+    'marcadores, y se pueden medir.',
+  ],
+  'dato_nota': 'Esto no sustituye tu tratamiento ni tu medicación. Ningún cambio en lo que tomas se '
+               'hace sin tu médico: lo que aportamos es la lectura que hoy no tienes.',
+  'medimos_label': 'Qué revisamos en tu caso',
+  'medimos_h': 'Los cuatro frentes que un control<br>de glucosa no cruza',
+  'medimos': [
+    ('Microbiota e inflamación',
+     'El estado del intestino y la carga inflamatoria que mantiene a las células sordas a la insulina.'),
+    ('Genética metabólica',
+     'Cómo procesa tu cuerpo los carbohidratos y las grasas. Define qué plan tiene sentido para ti '
+     'y cuál llevas años intentando en contra de tu biología.'),
+    ('Micronutrientes que faltan',
+     'Cromo, magnesio, zinc, vitamina D y omega 3. Su déficit empeora la sensibilidad a la insulina '
+     'y no sale en un panel de rutina.'),
+    ('Composición corporal real',
+     'Tu InBody: cuánta grasa visceral tienes, cuánto músculo y cuánta agua. El peso en la balanza '
+     'no distingue nada de eso.'),
+  ],
+  'faq_extra': [
+    ('¿Esto reemplaza mi medicación?',
+     'No, y no debería. <b>Ningún cambio en tu medicación se hace sin tu médico tratante.</b> '
+     'Nosotros leemos tu biología y construimos el plan nutricional; lo que se ajuste o no de tu '
+     'tratamiento lo decide quien te lo recetó.'),
+    ('Ya controlo mi glucosa con dieta. ¿Me sirve?',
+     'Probablemente más que a nadie. Si ya haces el esfuerzo, la pregunta deja de ser si te esfuerzas '
+     'y pasa a ser si te estás esforzando en lo correcto para tu biología. Eso es lo que se mide.'),
+  ],
+  'cierre_h': 'Deja de medir el resultado.<br>Mide lo que lo causa.',
+  'cierre_p': 'Tu glucosa la puedes ver todos los días. Lo que la mantiene ahí, no — hasta que '
+              'alguien lo mide.',
+  'cta': 'Quiero empezar',
+  'wa_msg': 'Hola, vengo de la página de glucosa y quiero información.',
+ },
+
+ 'peso': {
+  'slug': 'peso',
+  'objetivo': 'peso',
+  'acc': 'sage', 'acc2': 'ochre', 'acc3': 'slate', 'acc_ink': '#35604f',
+  'title': 'Pérdida de peso | Michelle Peiret Health',
+  'desc': 'Por qué dos personas comen lo mismo y no adelgazan igual: insulina, microbiota, '
+          'tiroides y genética metabólica. Miami u online.',
+  'eyebrow': 'Método MP · Peso y metabolismo',
+  'h1a': 'No es falta',
+  'h1b': 'de voluntad',
+  'h1c': 'es falta de datos',
+  'sub': 'Dos personas comen lo mismo y absorben cantidades distintas. Tu insulina, tu microbiota '
+         'y tu tiroides deciden qué pasa con cada comida — y ninguna de las tres se mide antes de '
+         'mandarte una dieta.',
+  'hero_imgs': [
+    ('images/michelle-fertilidad.jpg', 'Michelle Peiret, especialista en nutrigenómica', 'center 22%'),
+    ('images/peso-condicion.jpg',      'Medición de composición corporal InBody',        'center center'),
+  ],
+  'trust': 'Online o presencial en Miami · Sin dietas genéricas: tu plan sale de tus propios marcadores',
+  'dato_label': 'Lo que casi nunca se mide',
+  'dato_h': 'Con la insulina alta, el cuerpo no suelta grasa',
+  'dato_p': [
+    '<b>Mientras la insulina está elevada, el cuerpo no puede quemar grasa aunque comas poco.</b> '
+    'Esa es la razón por la que se puede pasar hambre durante meses y ver muy poco movimiento en '
+    'la balanza.',
+    'A eso se suma la microbiota: <b>dos personas comen exactamente lo mismo y absorben cantidades '
+    'distintas</b>, porque las bacterias que procesan esa comida no son las mismas. Comparar tu '
+    'resultado con el de otra persona no dice nada.',
+    'Y encima está la tiroides. El examen estándar mide TSH, que es la orden que manda la '
+    'pituitaria — no la hormona que da energía a la célula. Se puede tener TSH normal y T3 libre '
+    'baja al mismo tiempo.',
+  ],
+  'dato_nota': 'Ninguna de estas tres cosas se arregla con más fuerza de voluntad. Se miden, y con el '
+               'número delante el plan cambia.',
+  'medimos_label': 'Qué revisamos en tu caso',
+  'medimos_h': 'Los cuatro frentes que una dieta<br>nunca mira antes de empezar',
+  'medimos': [
+    ('Insulina y respuesta glucémica',
+     'No solo glucosa: cómo responde tu cuerpo a lo que comes, que es lo que decide si la grasa '
+     'se guarda o se usa.'),
+    ('Microbiota y absorción',
+     'Qué bacterias procesan tu comida y cuánto extraen de ella. Explica por qué tu resultado no '
+     'se parece al de nadie más.'),
+    ('Tiroides completa',
+     'TSH, T3 y T4 libres y anticuerpos. No solo la orden que se manda, sino la hormona que '
+     'de verdad llega a la célula.'),
+    ('Composición corporal, no peso',
+     'Tu InBody: grasa visceral, músculo y agua por separado. Bajar de peso perdiendo músculo '
+     'no es ganar, aunque la balanza diga que sí.'),
+  ],
+  'faq_extra': [
+    ('¿Me van a poner otra dieta?',
+     'No una genérica. El plan sale de tus marcadores, no de una plantilla — por eso primero se '
+     'mide y después se decide, y no al revés.'),
+    ('¿Y si ya probé de todo?',
+     'Es el caso más común que vemos, y normalmente significa que se probó mucho sin haber medido '
+     'nada. No es que no funcionen las cosas: es que no sabías cuál te tocaba a ti.'),
+  ],
+  'cierre_h': 'Antes de otra dieta,<br>ten los números delante',
+  'cierre_p': 'No te vamos a mandar a comer menos. Te vamos a decir qué está pasando en tu cuerpo '
+              'con lo que ya comes, y qué cambia cuando lo sabes.',
+  'cta': 'Quiero empezar',
+  'wa_msg': 'Hola, vengo de la página de peso y quiero información.',
+ },
+
+ 'digestivo': {
+  'slug': 'digestivo',
+  'objetivo': 'digestivo',
+  'acc': 'slate', 'acc2': 'sage', 'acc3': 'rose', 'acc_ink': '#3f566d',
+  'title': 'Acidez, reflujo y digestión | Michelle Peiret Health',
+  'desc': 'Reflujo, hinchazón, estreñimiento y colon irritable: leemos la microbiota, la '
+          'inflamación y las sensibilidades que un antiácido no toca. Miami u online.',
+  'eyebrow': 'Método MP · Digestión',
+  'h1a': 'El reflujo casi nunca',
+  'h1b': 'es por exceso',
+  'h1c': 'de ácido',
+  'sub': 'Hinchazón, acidez, estreñimiento, digestiones pesadas. Se tratan con lo que apaga el '
+         'síntoma, casi nunca con lo que lo produce — y el intestino termina siendo la raíz de '
+         'muchas cosas que ni parecen digestivas.',
+  'hero_imgs': [
+    ('images/michelle-fertilidad.jpg', 'Michelle Peiret, especialista en nutrigenómica', 'center 22%'),
+    ('images/digestivo-condicion.jpg', 'Alimentación antiinflamatoria',                  'center center'),
+  ],
+  'trust': 'Online o presencial en Miami · Trabajamos junto a tu gastroenterólogo cuando lo hay',
+  'dato_label': 'Lo que casi nunca se mide',
+  'dato_h': 'El esfínter necesita ácido para cerrarse',
+  'dato_p': [
+    'El reflujo casi nunca viene de tener demasiado ácido: <b>viene de tener muy poco</b>. El '
+    'esfínter que separa el esófago del estómago necesita esa señal de acidez para cerrarse. Sin '
+    'ella queda abierto, y lo poco que hay sube.',
+    'Por eso hay quien toma antiácidos durante años y el reflujo vuelve en cuanto los deja: se '
+    'está bajando aún más lo que ya estaba bajo. Y con menos ácido <b>se absorben peor el hierro, '
+    'la B12, el calcio y el magnesio</b>, que es como empiezan deficiencias que nadie conecta.',
+    'El estreñimiento tiene su propia versión: el colon necesita bacterias específicas para '
+    'producir el combustible que lo mueve. Agregar fibra sin reconstruir la microbiota suele '
+    'empeorar los gases.',
+  ],
+  'dato_nota': 'Nada de esto sustituye una endoscopia ni el criterio de tu gastroenterólogo. Si hay algo '
+               'que estudiar, se estudia. Lo que aportamos es la capa que casi nunca se mira.',
+  'medimos_label': 'Qué revisamos en tu caso',
+  'medimos_h': 'Los cuatro frentes que un antiácido<br>no toca',
+  'medimos': [
+    ('Microbiota intestinal',
+     'Qué bacterias tienes y cuáles te faltan. Es lo que decide desde tu digestión hasta cuánta '
+     'serotonina produces.'),
+    ('Sensibilidades alimentarias',
+     'Qué alimentos te están inflamando hoy, con nombre y apellido, en vez de eliminar por '
+     'sospecha y vivir a prueba y error.'),
+    ('Inflamación intestinal',
+     'La permeabilidad y la carga inflamatoria, que es donde empiezan muchas condiciones que ni '
+     'parecen digestivas.'),
+    ('Lo que no estás absorbiendo',
+     'Hierro, B12, calcio, magnesio y zinc. Con la digestión alterada puedes comer bien y aun '
+     'así estar en déficit.'),
+  ],
+  'faq_extra': [
+    ('Llevo años con omeprazol. ¿Lo dejo?',
+     'Eso <b>no se decide aquí ni se decide solo</b>: se habla con quien te lo recetó. Lo que sí '
+     'podemos hacer es medir qué está pasando debajo, para que esa conversación tenga datos.'),
+    ('Me dijeron que es colon irritable y ya.',
+     '«Colon irritable» describe lo que sientes, no la causa. Es un diagnóstico por descarte, y '
+     'muy a menudo debajo hay microbiota alterada o sensibilidades que nunca se midieron.'),
+  ],
+  'cierre_h': 'Apagar el síntoma<br>no es resolverlo',
+  'cierre_p': 'Llevas tiempo tratando la señal. Vamos a medir qué la está produciendo, y a decidir '
+              'desde ahí.',
+  'cta': 'Quiero empezar',
+  'wa_msg': 'Hola, vengo de la página de digestión y quiero información.',
+ },
+
+ 'oncologico': {
+  'slug': 'acompanamiento-oncologico',
+  'objetivo': 'oncologico',
+  'acc': 'deep', 'acc2': 'sage', 'acc3': 'slate', 'acc_ink': '#2f4552',
+  'title': 'Acompañamiento nutricional durante el tratamiento oncológico | Michelle Peiret Health',
+  'desc': 'Soporte nutricional junto a tu oncólogo, nunca en su lugar. Preparamos el cuerpo '
+          'para tolerar mejor el tratamiento que ya estás haciendo.',
+  'eyebrow': 'Método MP · Acompañamiento oncológico',
+  'h1a': 'Tu oncólogo trata',
+  'h1b': 'la enfermedad',
+  'h1c': 'nosotros acompañamos al cuerpo',
+  'sub': 'No tratamos el cáncer. Eso es del oncólogo y de nadie más. Lo que hacemos es leer tu '
+         'estado nutricional e inflamatorio para que el cuerpo llegue al tratamiento en las '
+         'mejores condiciones posibles.',
+  'hero_imgs': [
+    ('images/michelle-fertilidad.jpg', 'Michelle Peiret, especialista en nutrigenómica', 'center 22%'),
+    ('images/oncologico-condicion.jpg', 'Consulta de acompañamiento nutricional',        'center center'),
+  ],
+  'trust': 'Siempre junto a tu equipo oncológico · Nunca sustituimos ni retrasamos un tratamiento médico',
+  'dato_label': 'Dónde sí podemos aportar',
+  'dato_h': 'El cuerpo con el que llegas al tratamiento importa',
+  'dato_p': [
+    'Un tratamiento oncológico exige mucho del cuerpo. La masa muscular, el estado nutricional y '
+    'la inflamación con la que se llega <b>influyen en cómo se tolera</b> — y son cosas que se '
+    'pueden medir y trabajar.',
+    'La investigación sobre microbiota lo viene mostrando: publicaciones en <b>Nature</b> han '
+    'descrito asociaciones entre la composición de la microbiota intestinal y la respuesta a la '
+    'inmunoterapia. Es un campo abierto, no una certeza, y así lo tratamos.',
+    'Lo concreto que sí podemos hacer hoy: medir deficiencias, leer tu composición corporal y '
+    'sostener tu nutrición durante el proceso, coordinados con tu equipo médico.',
+  ],
+  'dato_nota': 'Esto es acompañamiento nutricional complementario. No trata, no cura y no retrasa ningún '
+               'tratamiento oncológico. Cualquier decisión sobre tu tratamiento es de tu oncólogo.',
+  'medimos_label': 'Qué revisamos en tu caso',
+  'medimos_h': 'Lo que sostiene al cuerpo<br>mientras el tratamiento hace lo suyo',
+  'medimos': [
+    ('Estado nutricional real',
+     'Deficiencias de vitaminas, minerales y aminoácidos. Durante el tratamiento es cuando más '
+     'pesan y cuando menos se miden.'),
+    ('Masa muscular y composición',
+     'Tu InBody. Perder músculo durante el proceso tiene consecuencias, y es algo que se puede '
+     'vigilar mes a mes.'),
+    ('Inflamación y microbiota',
+     'El terreno intestinal, que influye en cómo digieres, cómo absorbes y cómo toleras.'),
+    ('Coordinación con tu equipo',
+     'Todo lo que se proponga se comparte con tu oncólogo. Nada entra en tu plan sin que él lo '
+     'sepa, incluidos los suplementos.'),
+  ],
+  'faq_extra': [
+    ('¿Ustedes tratan el cáncer?',
+     '<b>No.</b> El cáncer lo trata tu oncólogo. Nosotros hacemos acompañamiento nutricional '
+     'complementario, junto a él y nunca en su lugar. Si alguien te ofrece tratar un cáncer con '
+     'nutrición, aléjate.'),
+    ('¿Puedo dejar mi tratamiento?',
+     'No. Y si alguna vez te lo llegaras a plantear, háblalo con tu oncólogo, no con nosotros. '
+     'Nuestro trabajo solo tiene sentido mientras haces el tratamiento que te corresponde.'),
+    ('¿Los suplementos no interfieren?',
+     'Pueden hacerlo, y por eso nada se indica a ciegas. Todo lo que se proponga se coordina con '
+     'tu equipo médico para descartar interacciones con lo que estás recibiendo.'),
+  ],
+  'cierre_h': 'Que el cuerpo llegue<br>lo mejor posible',
+  'cierre_p': 'Tu tratamiento lo dirige tu oncólogo. Nosotros nos ocupamos de lo que lo acompaña: '
+              'tu nutrición, tu músculo y tu inflamación, medidos y seguidos.',
+  'cta': 'Quiero empezar',
+  'wa_msg': 'Hola, quiero información sobre el acompañamiento nutricional durante un tratamiento.',
+ },
+
 }
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -324,7 +604,7 @@ def build(c):
 
     pasos = '\n'.join(
         '        <div class="paso glass"><div class="paso-n">%d</div><h3>%s</h3><p>%s</p></div>'
-        % (i + 1, h, p) for i, (h, p) in enumerate(c['pasos']))
+        % (i + 1, h, p) for i, (h, p) in enumerate(c.get('pasos', PASOS_COMUN)))
 
     faq = '\n'.join(
         '        <div class="faq-i"><button class="faq-q" type="button">'
@@ -332,7 +612,8 @@ def build(c):
         '<svg class="faq-ico" viewBox="0 0 24 24" width="18" height="18" fill="none" '
         'stroke="currentColor" stroke-width="2.2" stroke-linecap="round">'
         '<path d="M12 5v14M5 12h14"/></svg></button>'
-        '<div class="faq-a">%s</div></div>' % (q, a) for q, a in c['faq'])
+        '<div class="faq-a">%s</div></div>' % (q, a)
+        for q, a in list(c.get('faq_extra', [])) + FAQ_COMUN)
 
     dato = '\n'.join('        <p>%s</p>' % p for p in c['dato_p'])
 
