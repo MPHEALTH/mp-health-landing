@@ -2037,7 +2037,7 @@ body.mp-locked { overflow: hidden; }
       <div class="mp-modal-load" id="mpModalLoad">
         <div><div class="mp-modal-spin"></div><p>Preparando tus preguntas…</p></div>
       </div>
-      <iframe class="mp-modal-frame" id="mpModalFrame" title="Formulario de evaluacion"></iframe>
+      <iframe class="mp-modal-frame" id="mpModalFrame" title="Formulario de evaluación"></iframe>
     </div>
   </div>
 
@@ -2222,7 +2222,9 @@ body.mp-locked { overflow: hidden; }
         if (cargado) return;
         cargado = true;
         // Le pasamos los UTM de la visita para que la atribucion no se corte
-        frame.src = 'empezar.html?embed=1' + window.location.search.replace(/^\?/, '&');
+        frame.src = 'empezar.html?embed=1'
+          + (window.MP_OBJETIVO ? '&objetivo=' + encodeURIComponent(window.MP_OBJETIVO) : '')
+          + window.location.search.replace(/^\?/, '&');
         frame.addEventListener('load', function () { load.classList.add('gone'); });
       }
       if ('requestIdleCallback' in window) requestIdleCallback(precargar, { timeout: 3000 });
@@ -2246,7 +2248,7 @@ body.mp-locked { overflow: hidden; }
 
       // Los CTA conservan su href: asi el clic con rueda o "abrir en pestana
       // nueva" sigue funcionando, y sin JS el formulario sigue siendo alcanzable.
-      document.querySelectorAll('a[href="empezar.html"]').forEach(function (a) {
+      document.querySelectorAll('a[href^="empezar.html"]').forEach(function (a) {
         a.addEventListener('click', function (e) {
           if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
           e.preventDefault();

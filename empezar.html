@@ -591,6 +591,22 @@ var QUESTIONS = [
   }
 ];
 
+/* Las páginas de patología (fertilidad, diabetes…) ya saben a qué vino la
+   persona, y se lo pasan al formulario en ?objetivo=. Preguntárselo otra vez
+   seria hacerle repetir lo que acaba de leer en el titular, así que ese paso se
+   da por respondido —con sus puntos— y el formulario arranca en el siguiente. */
+var answers = {};         // key -> { v, t, p }  (puede venir ya con la condición)
+var PRESET = 0;
+(function () {
+  var v = new URLSearchParams(window.location.search).get('objetivo');
+  if (!v) return;
+  var q = QUESTIONS[0];
+  var o = q.options.filter(function (x) { return x.v === v; })[0];
+  if (!o) return;
+  answers[q.key] = { v: o.v, t: o.t, p: o.p };
+  PRESET = 1;
+})();
+
 var TOTAL_STEPS = QUESTIONS.length + 1; // + contacto
 var MAX_SCORE = QUESTIONS.reduce(function (sum, q) {
   return sum + Math.max.apply(null, q.options.map(function (o) { return o.p; }));
@@ -621,8 +637,7 @@ var FAQ = [
 ];
 
 /* ═══ ESTADO ═══ */
-var step = 0;             // 0..QUESTIONS.length  (el último es contacto)
-var answers = {};         // key -> { v, t, p }
+var step = PRESET;        // PRESET..QUESTIONS.length  (el último es contacto)
 var contact = {};
 var slot = document.getElementById('questionSlot');
 
@@ -710,9 +725,10 @@ function tierFor(score) {
 function esc(s) { return String(s).replace(/[<>&]/g, function (c) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]; }); }
 
 function updateProgress() {
-  document.getElementById('stepLabel').textContent = 'Paso ' + (step + 1) + ' de ' + TOTAL_STEPS;
-  document.getElementById('progressFill').style.width = ((step + 1) / TOTAL_STEPS * 100) + '%';
-  document.getElementById('backBtn').hidden = step === 0;
+  var n = step + 1 - PRESET, total = TOTAL_STEPS - PRESET;
+  document.getElementById('stepLabel').textContent = 'Paso ' + n + ' de ' + total;
+  document.getElementById('progressFill').style.width = (n / total * 100) + '%';
+  document.getElementById('backBtn').hidden = step === PRESET;
 }
 
 function rotateQuote() {
@@ -793,7 +809,7 @@ function render() {
 }
 
 document.getElementById('backBtn').addEventListener('click', function () {
-  if (step > 0) { step--; render(); }
+  if (step > PRESET) { step--; render(); }
 });
 
 /* Dentro del modal, el logo no lleva a ningún lado (ya estás en el landing) y
