@@ -33,14 +33,19 @@ CONDICIONES = {
   'desc': 'Leemos los marcadores que un estudio de fertilidad convencional no mira: '
           'MTHFR, tiroides completa, inflamación y micronutrientes. Miami u online.',
   'eyebrow': 'Método MP · Fertilidad',
-  'h1a': 'Que no te digan',
-  'h1b': '«sin causa»',
-  'h1c': 'cuando nadie la ha buscado',
+  'h1a': 'Tu fertilidad es más',
+  'h1b': 'que hormonas',
+  'h1c': 'y anatomía',
   'sub': 'Un estudio de fertilidad mide hormonas y anatomía. Casi nunca mira la genética '
          'de tus vitaminas, tu tiroides completa, tu inflamación ni tus micronutrientes — '
          'y ahí es donde suele quedar algo por revisar.',
-  'hero_img': 'images/paso2-michelle-consulta.jpg',
-  'hero_alt': 'Consulta de evaluación con Michelle Peiret',
+  # Dos fotos: la consulta real y el porque. La de consulta es del centro de
+  # Miami — NO es Michelle, es una especialista del equipo, asi que el alt no
+  # dice que lo sea.
+  'hero_imgs': [
+    ('images/consulta-fertilidad.jpg', 'Consulta de evaluación en el centro de Miami', 'center center'),
+    ('images/bebe-fertilidad.jpg',   'Recién nacido',                                '50% 42%'),
+  ],
   'trust': 'Online o presencial en Miami · Trabajamos junto a tu ginecólogo o tu especialista en fertilidad',
   'dato_label': 'Lo que casi nunca se mide',
   'dato_h': 'MTHFR: el gen que decide si tu ácido fólico te sirve',
@@ -213,14 +218,17 @@ h2{font-size:clamp(1.8rem,3.6vw,2.75rem)}
 .hero-in{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center}
 .hero h1 em{font-style:italic;color:var(--acc-ink)}
 .hero .lede{margin:26px 0 32px;max-width:520px}
-.hero-img{border-radius:22px;overflow:hidden;box-shadow:0 26px 60px rgba(30,42,53,.14);
- aspect-ratio:4/5;background:var(--sand2)}
-.hero-img img{width:100%;height:100%;object-fit:cover}
+.hero-imgs{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+.hero-imgs figure{margin:0;border-radius:20px;overflow:hidden;aspect-ratio:4/5;
+ background:var(--sand2);box-shadow:0 22px 52px rgba(30,42,53,.15)}
+.hero-imgs figure:last-child{margin-top:42px}
+.hero-imgs img{width:100%;height:100%;object-fit:cover}
 .trust{display:flex;align-items:flex-start;gap:9px;margin-top:24px;font-size:.82rem;
  color:var(--ink-soft);line-height:1.6;max-width:480px}
 .trust svg{flex:0 0 15px;color:var(--acc-ink);margin-top:3px}
 @media(max-width:880px){.hero-in{grid-template-columns:1fr;gap:34px}
- .hero-img{aspect-ratio:16/11;order:-1}.hero{padding:34px 0 20px}}
+ .hero-imgs{order:-1;gap:11px}.hero-imgs figure{aspect-ratio:3/4}
+ .hero-imgs figure:last-child{margin-top:26px}.hero{padding:34px 0 20px}}
 
 /* ── Banda de datos ── */
 .proof{padding:0 0 20px}
@@ -330,12 +338,17 @@ def build(c):
 
     dato = '\n'.join('        <p>%s</p>' % p for p in c['dato_p'])
 
+    hero_imgs = '\n'.join(
+        '      <figure><img src="%s" alt="%s" style="object-position:%s" '
+        'width="1000" height="1250" %s></figure>' % (src, alt, pos, 'fetchpriority="high"' if i == 0 else 'loading="lazy"')
+        for i, (src, alt, pos) in enumerate(c['hero_imgs']))
+
     return TEMPLATE.format(
         ga4=GA4, pixel=PIXEL, tel=TEL, tel_h=TEL_H,
         wa=WA + c['wa_msg'].replace(' ', '%20'),
         title=esc(c['title']), desc=esc(c['desc']),
         eyebrow=c['eyebrow'], h1a=c['h1a'], h1b=c['h1b'], h1c=c['h1c'],
-        sub=c['sub'], hero_img=c['hero_img'], hero_alt=c['hero_alt'],
+        sub=c['sub'], hero_imgs=hero_imgs,
         trust=c['trust'], objetivo=c['objetivo'], cta=c['cta'],
         acc=c['acc'], acc2=c['acc2'], acc3=c['acc3'], acc_ink=c['acc_ink'],
         dato_label=c['dato_label'], dato_h=c['dato_h'], dato=dato, dato_nota=c['dato_nota'],
@@ -422,7 +435,9 @@ TEMPLATE = """<!DOCTYPE html>
         {trust}
       </p>
     </div>
-    <div class="hero-img"><img src="{hero_img}" alt="{hero_alt}"></div>
+    <div class="hero-imgs">
+{hero_imgs}
+    </div>
   </div>
 </section>
 
