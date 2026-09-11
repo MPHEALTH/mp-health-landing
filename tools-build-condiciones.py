@@ -39,12 +39,10 @@ CONDICIONES = {
   'sub': 'Un estudio de fertilidad mide hormonas y anatomía. Casi nunca mira la genética '
          'de tus vitaminas, tu tiroides completa, tu inflamación ni tus micronutrientes — '
          'y ahí es donde suele quedar algo por revisar.',
-  # Dos fotos: la consulta real y el porque. La de consulta es del centro de
-  # Miami — NO es Michelle, es una especialista del equipo, asi que el alt no
-  # dice que lo sea.
+  # Dos fotos: quien lee tu caso, y el porque.
   'hero_imgs': [
-    ('images/consulta-fertilidad.jpg', 'Consulta de evaluación en el centro de Miami', 'center center'),
-    ('images/bebe-fertilidad.jpg',   'Recién nacido',                                '50% 42%'),
+    ('images/michelle-fertilidad.jpg', 'Michelle Peiret, especialista en nutrigenómica', 'center 22%'),
+    ('images/bebe-fertilidad.jpg',     'Recién nacido',                                  '50% 42%'),
   ],
   'trust': 'Online o presencial en Miami · Trabajamos junto a tu ginecólogo o tu especialista en fertilidad',
   'dato_label': 'Lo que casi nunca se mide',
