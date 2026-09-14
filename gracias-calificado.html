@@ -277,10 +277,15 @@ var TEMP_EVENT = { very_hot: 'LeadVeryHot', hot: 'LeadHot', warm: 'LeadWarm' };
   var score = Number(LEAD.score || 0);
   try {
     if (window.fbq) {
+      /* El mismo event_id que mando el servidor: Meta une los dos y cuenta uno.
+         Sin esto, cada lead calificado contaria doble. */
+      var eid = LEAD.event_id || '';
       fbq('track', 'Lead', { value: score, currency: 'USD',
-        content_name: LEAD.objetivo || '', content_category: LEAD.temperature || '' });
+        content_name: LEAD.objetivo || '', content_category: LEAD.temperature || '' },
+        eid ? { eventID: eid } : undefined);
       var ev = TEMP_EVENT[LEAD.temperature];
-      if (ev) fbq('trackCustom', ev, { value: score, currency: 'USD', objetivo: LEAD.objetivo || '' });
+      if (ev) fbq('trackCustom', ev, { value: score, currency: 'USD', objetivo: LEAD.objetivo || '' },
+        eid ? { eventID: eid + '-' + ev } : undefined);
     }
   } catch (e) {}
   try {

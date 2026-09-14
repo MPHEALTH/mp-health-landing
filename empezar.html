@@ -701,6 +701,23 @@ function trackGoogleAdsLead(value) {
   });
 }
 
+/* ═══ META: DEDUPLICACIÓN Y EMPAREJAMIENTO ═══
+   El mismo evento se manda dos veces, desde el navegador y desde el servidor,
+   porque el del navegador se pierde mucho (iOS, bloqueadores, Safari). Meta los
+   une por `event_id` y se queda con uno solo, así que no se cuenta doble.
+   Las cookies _fbp y _fbc las pone el propio píxel; reenviárselas al servidor es
+   lo que le permite emparejar la conversión con la persona real. */
+function cookie(nombre) {
+  var m = document.cookie.match('(^|;)\\s*' + nombre + '\\s*=\\s*([^;]+)');
+  return m ? m.pop() : '';
+}
+function nuevoEventId() {
+  try {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  } catch (e) {}
+  return 'ev-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
+}
+
 /* ═══ SCORE ═══ */
 function computeScore() {
   return QUESTIONS.reduce(function (sum, q) {
@@ -845,8 +862,16 @@ function submitLead() {
 
   document.getElementById('sendingOverlay').classList.add('on');
 
+  var eventId = nuevoEventId();
+  try { sessionStorage.setItem('mp_event_id', eventId); } catch (e) {}
+
   var payload = {
     name: name, email: email, phone: phone,
+    /* Para que el servidor pueda mandar el mismo evento a Meta y que lo deduplique */
+    event_id: eventId,
+    fbp: cookie('_fbp'),
+    fbc: cookie('_fbc'),
+    objetivo_key: answers.objetivo ? answers.objetivo.v : '',
     /* Campos que el backend ya conocía, mapeados a las respuestas nuevas */
     goal:      answers.objetivo    ? answers.objetivo.t    : '',
     duration:  answers.tiempo      ? answers.tiempo.t      : '',
@@ -888,8 +913,9 @@ function submitLead() {
     // presupuesto, y a esa gente se le puede ofrecer Michelle.AI o excluirla de
     // las campanas caras.
     track('lead_nurture', { score: score, destino: 'michelle_ai' });
-    try { if (window.fbq) fbq('trackCustom', 'LeadNoCalifica', { value: score, currency: 'USD',
-      objetivo: answers.objetivo ? answers.objetivo.v : '' }); } catch (e) {}
+    try { if (window.fbq) fbq('trackCustom', 'LeadNoCalifica',
+      { value: score, currency: 'USD', objetivo: answers.objetivo ? answers.objetivo.v : '' },
+      { eventID: eventId + '-nc' }); } catch (e) {}
   }
 
   var done = false;
@@ -905,7 +931,7 @@ function submitLead() {
       try {
         sessionStorage.setItem('mp_lead', JSON.stringify({
           name: name, email: email, phone: phone,
-          score: score, temperature: tier.key,
+          score: score, temperature: tier.key, event_id: eventId,
           objetivo: answers.objetivo ? answers.objetivo.t : '',
           pareja: !!(answers.decision && answers.decision.v === 'pareja')
         }));
