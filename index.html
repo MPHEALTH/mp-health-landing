@@ -1222,10 +1222,41 @@ body.mp-locked { overflow: hidden; }
     .caso-tab.on { background: var(--navy); border-color: var(--navy); color: #fff; }
     .caso-tab small { opacity: .5; font-weight: 500; margin-left: 5px; }
 
+    /* Carrusel en vez de rejilla: apilados, trece casos hacían la página
+       interminable en el teléfono. En horizontal ocupan una sola altura y se
+       recorren deslizando, que en móvil es el gesto natural. */
+    .casos-wrap { position: relative; max-width: 1240px; margin: 0 auto; }
     .casos-grid {
-      display: grid; gap: 18px; padding: 0 clamp(20px, 5vw, 48px);
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-      max-width: 1240px; margin: 0 auto;
+      display: flex; gap: 16px;
+      padding: 4px clamp(20px, 5vw, 48px);
+      overflow-x: auto; overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .casos-grid::-webkit-scrollbar { display: none; }
+    .casos-grid > * { flex: 0 0 236px; scroll-snap-align: start; }
+    .caso-txt { min-height: 300px; }
+
+    .casos-nav {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
+      width: 42px; height: 42px; border-radius: 50%; border: none; cursor: pointer;
+      background: var(--white); color: var(--navy);
+      box-shadow: 0 6px 24px rgba(13,27,46,.22);
+      display: grid; place-items: center;
+      transition: opacity .2s, transform .18s, background .18s;
+    }
+    .casos-nav:hover { background: var(--navy); color: #fff; }
+    .casos-nav svg { width: 17px; height: 17px; }
+    .casos-nav[disabled] { opacity: 0; pointer-events: none; }
+    .casos-nav-prev { left: 6px; }
+    .casos-nav-next { right: 6px; }
+    @media (max-width: 600px) {
+      .casos-grid { gap: 12px; padding: 4px 18px; }
+      .casos-grid > * { flex: 0 0 68vw; max-width: 290px; }
+      .casos-nav { width: 34px; height: 34px; background: rgba(255,255,255,.88);
+        backdrop-filter: blur(8px); }
+      .casos-nav-prev { left: 2px; } .casos-nav-next { right: 2px; }
     }
     .caso-card {
       background: var(--navy2); border-radius: 14px; overflow: hidden;
@@ -1390,7 +1421,15 @@ body.mp-locked { overflow: hidden; }
       </p>
     </div>
     <div class="casos-tabs" id="casosTabs"></div>
-    <div class="casos-grid" id="casosGrid"></div>
+    <div class="casos-wrap">
+      <button class="casos-nav casos-nav-prev" id="casosPrev" type="button" aria-label="Anterior" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="casos-grid" id="casosGrid"></div>
+      <button class="casos-nav casos-nav-next" id="casosNext" type="button" aria-label="Siguiente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
     <div class="casos-cta">
       <a href="empezar.html" class="btn btn-lg">Quiero empezar →</a>
     </div>
@@ -2246,9 +2285,66 @@ body.mp-locked { overflow: hidden; }
         }).join('') : '<p class="casos-vacio">Todavía no tenemos un caso grabado de esta condición.<br>Pregúntanos en la llamada y te contamos casos parecidos al tuyo.</p>';
 
         tabsEl.querySelectorAll('.caso-tab').forEach(function (b) { b.classList.toggle('on', b.dataset.cat === cat); });
-        try { if (window._wq) window._wq.push({ revoke: {} }); } catch (e) {}
+        gridEl.scrollLeft = 0;      // cada categoría empieza por su primer caso
+        actualizarFlechas();
         track('casos_filtro', { categoria: cat });
       }
+
+      /* ── Carrusel ──
+         Se mueve con scroll nativo, no con transform: así el deslizar del dedo
+         en el teléfono conserva su inercia y su rebote, que es lo que la gente
+         espera. Las flechas solo empujan ese mismo scroll. */
+      var prevBtn = document.getElementById('casosPrev');
+      var nextBtn = document.getElementById('casosNext');
+
+      function pasoScroll() {
+        var card = gridEl.firstElementChild;
+        if (!card) return gridEl.clientWidth;
+        var ancho = card.getBoundingClientRect().width + 16;   // + gap
+        // En pantalla ancha avanza de tanda; en el teléfono, de uno en uno
+        var porTanda = Math.max(1, Math.floor(gridEl.clientWidth / ancho) - 1);
+        return ancho * (window.innerWidth > 600 ? porTanda : 1);
+      }
+
+      /* El scroll-snap alinea con el padding del carril, así que en el inicio
+         scrollLeft no vale 0 sino ese padding. Comparar contra 0 dejaba la
+         flecha de atrás activa nada más cargar. */
+      function margen() {
+        return parseFloat(getComputedStyle(gridEl).paddingLeft || 0) + 8;
+      }
+
+      function actualizarFlechas() {
+        var max = gridEl.scrollWidth - gridEl.clientWidth;
+        var hayQueMover = max > 12;
+        prevBtn.hidden = nextBtn.hidden = !hayQueMover;
+        prevBtn.disabled = gridEl.scrollLeft <= margen();
+        nextBtn.disabled = gridEl.scrollLeft >= max - margen();
+      }
+
+      prevBtn.addEventListener('click', function () {
+        gridEl.scrollBy({ left: -pasoScroll(), behavior: 'smooth' });
+      });
+      nextBtn.addEventListener('click', function () {
+        gridEl.scrollBy({ left: pasoScroll(), behavior: 'smooth' });
+        track('casos_avanzar', {});
+      });
+      /* El último evento de scroll llega antes de que el snap termine de
+         asentar la posición, así que sin este repaso la flecha del final se
+         quedaba activa aunque ya no hubiera a dónde ir. */
+      var repaso;
+      gridEl.addEventListener('scroll', function () {
+        actualizarFlechas();
+        clearTimeout(repaso);
+        repaso = setTimeout(actualizarFlechas, 140);
+      }, { passive: true });
+      window.addEventListener('resize', actualizarFlechas);
+
+      /* Los videos de Wistia cargan después, y hasta que no lo hacen el carril
+         no conoce su ancho real: sin esto las flechas podían quedarse mal en la
+         primera pintada. */
+      if (window.ResizeObserver) new ResizeObserver(actualizarFlechas).observe(gridEl);
+      window.addEventListener('load', actualizarFlechas);
+      setTimeout(actualizarFlechas, 1200);
 
       tabsEl.innerHTML = visibles.map(function (c) {
         return '<button class="caso-tab" type="button" data-cat="' + c.id + '">' + esc(c.nombre)
