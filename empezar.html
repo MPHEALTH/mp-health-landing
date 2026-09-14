@@ -470,7 +470,10 @@ var DOWNSELL_URL = 'https://health.michellepeiret.com/michelleai';
 var EMBED = window.MP_EMBED;
 if (EMBED) document.documentElement.classList.add('embed');
 
-function irA(url) {
+/* `dentro` distingue los dos destinos: la pagina de gracias se queda en el
+   modal, y Michelle.AI tiene que salir a la ventana o cargaria dentro. */
+function irA(url, dentro) {
+  if (dentro) { window.location.href = url; return; }
   try { (EMBED && window.top ? window.top : window).location.href = url; }
   catch (e) { window.location.href = url; }
 }
@@ -876,15 +879,39 @@ function submitLead() {
   };
 
   track('form_submitted', { score: score, temperatura: tier.key, ruta: payload.lead_route });
-  if (pasa) { track('lead_qualified', { score: score, temperatura: tier.key }); trackGoogleAdsLead(700); }
-  else track('lead_nurture', { score: score, destino: 'michelle_ai' });
+  if (pasa) {
+    // 'Lead' y el evento de temperatura los dispara gracias-calificado.html, para
+    // que cuenten una sola vez y queden atados a esa URL.
+    trackGoogleAdsLead(700);
+  } else {
+    // Quien no califica tambien es una audiencia util: sabemos que hoy no tiene
+    // presupuesto, y a esa gente se le puede ofrecer Michelle.AI o excluirla de
+    // las campanas caras.
+    track('lead_nurture', { score: score, destino: 'michelle_ai' });
+    try { if (window.fbq) fbq('trackCustom', 'LeadNoCalifica', { value: score, currency: 'USD',
+      objetivo: answers.objetivo ? answers.objetivo.v : '' }); } catch (e) {}
+  }
 
   var done = false;
   function proceed() {
     if (done) return;
     done = true;
     document.getElementById('sendingOverlay').classList.remove('on');
-    if (pasa) return showQualified(name, score, tier);
+    if (pasa) {
+      /* Los calificados van a una URL real. Eso da una audiencia por URL en
+         Meta, que aguanta mejor que una por evento de JS, y una pagina de
+         confirmacion de verdad. Los datos viajan por sessionStorage: el email
+         y el telefono no deben acabar en el path de GA4. */
+      try {
+        sessionStorage.setItem('mp_lead', JSON.stringify({
+          name: name, email: email, phone: phone,
+          score: score, temperature: tier.key,
+          objetivo: answers.objetivo ? answers.objetivo.t : '',
+          pareja: !!(answers.decision && answers.decision.v === 'pareja')
+        }));
+      } catch (e) {}
+      return irA('gracias-calificado.html' + (EMBED ? '?embed=1' : ''), true);
+    }
     track('michelleai_redirect', { score: score, temperatura: tier.key });
     irA(DOWNSELL_URL
       + '?utm_source=analisis_landing'

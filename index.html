@@ -1201,6 +1201,73 @@ body.mp-locked { overflow: hidden; }
   .mp-modal-frame { height: 100vh !important; }
   .mp-modal-close { top: 10px; right: 10px; background: rgba(13,27,46,0.09); }
 }
+    /* ━━━ CASOS POR CONDICIÓN ━━━
+       Va arriba a propósito: es la prueba, y es lo primero que la gente
+       quiere ver. Las pestañas permiten que quien viene de un anuncio de
+       fertilidad encuentre su caso sin leer toda la página, y el enlace
+       ?caso=… abre ya la pestaña que le toca. */
+    .casos { padding: 76px 0 84px; background: var(--cream); }
+    .casos-head { max-width: 760px; margin: 0 auto 30px; text-align: center; padding: 0 24px; }
+    .casos-tabs {
+      display: flex; gap: 9px; justify-content: center; flex-wrap: wrap;
+      padding: 0 20px; margin-bottom: 34px;
+    }
+    .caso-tab {
+      border: 1px solid var(--border); background: var(--white); cursor: pointer;
+      font-family: var(--font-body); font-size: 0.86rem; font-weight: 600; color: var(--navy);
+      padding: 11px 20px; border-radius: 100px; white-space: nowrap;
+      transition: background .18s, border-color .18s, color .18s, transform .15s;
+    }
+    .caso-tab:hover { border-color: var(--teal); transform: translateY(-1px); }
+    .caso-tab.on { background: var(--navy); border-color: var(--navy); color: #fff; }
+    .caso-tab small { opacity: .5; font-weight: 500; margin-left: 5px; }
+
+    .casos-grid {
+      display: grid; gap: 18px; padding: 0 clamp(20px, 5vw, 48px);
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      max-width: 1240px; margin: 0 auto;
+    }
+    .caso-card {
+      background: var(--navy2); border-radius: 14px; overflow: hidden;
+      border: 1px solid var(--border2);
+    }
+    .caso-card .video-testi-label { padding: 12px 14px 10px; }
+    .caso-txt {
+      background: var(--white); border: 1px solid var(--border); border-radius: 14px;
+      padding: 24px 22px; display: flex; flex-direction: column;
+    }
+    .caso-txt .stars { color: var(--teal); font-size: .8rem; letter-spacing: 2px; margin-bottom: 12px; }
+    .caso-txt p { font-size: .92rem; line-height: 1.75; color: var(--text); font-weight: 300; flex: 1; }
+    .caso-txt p strong { font-weight: 600; }
+    .caso-txt footer { display: flex; align-items: center; gap: 11px; margin-top: 18px;
+      padding-top: 16px; border-top: 1px solid var(--border); }
+    .caso-av { width: 34px; height: 34px; border-radius: 50%; background: var(--teal);
+      color: var(--navy); display: grid; place-items: center; font-weight: 700; font-size: .84rem; }
+    .caso-txt b { display: block; font-size: .86rem; color: var(--navy); }
+    .caso-txt span { display: block; font-size: .74rem; color: var(--muted); }
+    .casos-vacio {
+      grid-column: 1 / -1; text-align: center; padding: 40px 24px;
+      color: var(--muted); font-size: .95rem; line-height: 1.7;
+    }
+    .casos-cta { text-align: center; margin-top: 38px; }
+    @media (max-width: 600px) {
+      .casos { padding: 52px 0 60px; }
+      .casos-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 13px; }
+      .casos-tabs { justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto;
+        -webkit-overflow-scrolling: touch; padding: 2px 20px 8px; scrollbar-width: none; }
+      .casos-tabs::-webkit-scrollbar { display: none; }
+      .caso-tab { font-size: .82rem; padding: 10px 16px; }
+    }
+
+    .hero-ctas { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+    .btn-ver {
+      font-size: 0.92rem; font-weight: 600; color: var(--navy); text-decoration: none;
+      border-bottom: 1.5px solid rgba(13,27,46,.22); padding-bottom: 3px;
+      transition: color .18s, border-color .18s;
+    }
+    .btn-ver:hover { color: var(--teal-dk); border-color: var(--teal); }
+    @media (max-width: 600px) { .hero-ctas { gap: 16px; } .hero-ctas .btn { width: 100%; text-align: center; } }
+
 </style>
 </head>
 <body>
@@ -1261,7 +1328,10 @@ body.mp-locked { overflow: hidden; }
         </div>
       </div>
 
-      <a href="empezar.html" class="btn btn-lg">Quiero empezar →</a>
+      <div class="hero-ctas">
+        <a href="empezar.html" class="btn btn-lg">Quiero empezar →</a>
+        <a href="#casos" class="btn-ver">Ver casos como el mío ↓</a>
+      </div>
 
       <div class="hero-trust">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -1308,6 +1378,23 @@ body.mp-locked { overflow: hidden; }
       <span class="proof-label">Leyendo<br>biología humana</span>
     </div>
   </div>
+
+
+  <!-- ━━━ CASOS POR CONDICIÓN ━━━ -->
+  <section class="casos" id="casos">
+    <div class="casos-head">
+      <span class="section-label">Casos reales</span>
+      <h2 class="section-h2">Busca el tuyo</h2>
+      <p style="font-size:0.98rem;color:var(--muted);line-height:1.75;font-weight:300;margin-top:14px;">
+        Gente que llegó con lo mismo que tú. Elige tu caso y mira qué les pasó.
+      </p>
+    </div>
+    <div class="casos-tabs" id="casosTabs"></div>
+    <div class="casos-grid" id="casosGrid"></div>
+    <div class="casos-cta">
+      <a href="empezar.html" class="btn btn-lg">Quiero empezar →</a>
+    </div>
+  </section>
 
 
   <!-- ━━━ URGENCY ━━━ -->
@@ -1372,7 +1459,7 @@ body.mp-locked { overflow: hidden; }
     </div>
 
     <div class="ver-testi">
-      <a href="#testimonios">Ve lo que dicen quienes ya lo hicieron →</a>
+      <a href="#casos">Ve los casos de gente que llegó como tú →</a>
     </div>
 
     <!-- Calendario de la llamada (se revela al pulsar) -->
@@ -1716,192 +1803,8 @@ body.mp-locked { overflow: hidden; }
   </section>
 
 
-  <section class="video-testi">
-    <div class="video-testi-header">
-      <span class="section-label">Casos reales en video</span>
-      <h2 class="section-h2 section-h2-light">Sin guion.<br><em style="font-family:var(--font-serif);font-style:italic;">En sus propias palabras.</em></h2>
-      <p class="section-intro section-intro-light" style="margin:0 auto;">Nueve pacientes contando qué medían, qué encontraron y qué pasó después.</p>
-    </div>
-
-    <div class="video-carousel-outer">
-      <button class="carousel-btn carousel-btn-prev" id="carouselPrev" disabled aria-label="Anterior">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-      </button>
-
-      <div class="video-carousel-viewport">
-        <div class="video-carousel-track" id="videoCarouselTrack">
-
-          <div class="video-testi-card">
-            <div class="video-testi-label"><span class="video-testi-tag">Inflamación y alergias</span></div>
-            <div class="video-embed-wrap">
-              <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-                <div class="wistia_embed wistia_async_hp1ksw60e9" style="height:100%;position:relative;width:100%">&nbsp;</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="video-testi-card">
-            <div class="video-testi-label"><span class="video-testi-tag">Problemas de estómago y acidez</span></div>
-            <div class="video-embed-wrap">
-              <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-                <div class="wistia_embed wistia_async_yuslvdfjag" style="height:100%;position:relative;width:100%">&nbsp;</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="video-testi-card">
-            <div class="video-testi-label"><span class="video-testi-tag">Inflamación y exceso de peso</span></div>
-            <div class="video-embed-wrap">
-              <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-                <div class="wistia_embed wistia_async_xohfjmh1ca" style="height:100%;position:relative;width:100%">&nbsp;</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="video-testi-card">
-            <div class="video-testi-label"><span class="video-testi-tag">Fibromialgia</span></div>
-            <div class="video-embed-wrap">
-              <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-                <div class="wistia_embed wistia_async_rb1k7l7snh" style="height:100%;position:relative;width:100%">&nbsp;</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="video-testi-card">
-            <div class="video-testi-label"><span class="video-testi-tag">Reflujo y problemas hormonales</span></div>
-            <div class="video-embed-wrap">
-              <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-                <div class="wistia_embed wistia_async_ey6q1ctue2" style="height:100%;position:relative;width:100%">&nbsp;</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="video-testi-card">
-            <div class="video-testi-label"><span class="video-testi-tag">Dolores de articulación y musculares</span></div>
-            <div class="video-embed-wrap">
-              <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-                <div class="wistia_embed wistia_async_jk67r9d527" style="height:100%;position:relative;width:100%">&nbsp;</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="video-testi-card">
-            <div class="video-testi-label"><span class="video-testi-tag">Ataques de ansiedad e inflamación</span></div>
-            <div class="video-embed-wrap">
-              <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-                <div class="wistia_embed wistia_async_6igqx70m1c" style="height:100%;position:relative;width:100%">&nbsp;</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="video-testi-card">
-            <div class="video-testi-label"><span class="video-testi-tag">Osteoporosis</span></div>
-            <div class="video-embed-wrap">
-              <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-                <div class="wistia_embed wistia_async_i9gb0gge3k" style="height:100%;position:relative;width:100%">&nbsp;</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="video-testi-card">
-            <div class="video-testi-label"><span class="video-testi-tag">Migraña y dolores de cabeza</span></div>
-            <div class="video-embed-wrap">
-              <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-                <div class="wistia_embed wistia_async_815i8svyrm" style="height:100%;position:relative;width:100%">&nbsp;</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <button class="carousel-btn carousel-btn-next" id="carouselNext" aria-label="Siguiente">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-      </button>
-    </div>
-
-    <div class="carousel-dots" id="carouselDots"></div>
-  </section>
 
 
-  <section class="testimonials" id="testimonios">
-    <span class="section-label">Casos reales</span>
-    <h2 class="section-h2">Personas que dejaron<br>de adivinar</h2>
-    <p class="section-intro">
-      Llegaron con años de síntomas y análisis «normales». Lo que cambió no fue el esfuerzo:
-      fue tener por fin los datos correctos delante.
-    </p>
-
-    <div class="testi-grid">
-      <div class="testi-card fade-in">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"</div>
-        <p class="testi-text">
-          Comencé el programa con Michelle hace casi ya tres meses, me he sentido demasiado bien,
-          logré quitarme muchísima inflamación. <strong>Bajé de peso, recuperé mi energía completamente
-          y mi sueño es excelente.</strong> Es el mejor programa en el que he estado.
-        </p>
-        <div class="testi-footer">
-          <div class="testi-avatar">R</div>
-          <div>
-            <span class="testi-name">Romina Vicentini</span>
-            <span class="testi-meta">Programa Metabolismo · 3 meses</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card fade-in">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"</div>
-        <p class="testi-text">
-          Llevo dos años en el programa. <strong>Se fueron mis alergias, la inflamación desapareció
-          y recuperé los 20 libras que había perdido.</strong> Fue un esfuerzo del equipo y un compromiso
-          personal que cambió todo para mí.
-        </p>
-        <div class="testi-footer">
-          <div class="testi-avatar">C</div>
-          <div>
-            <span class="testi-name">Carolina Galiache</span>
-            <span class="testi-meta">Programa Integral · 2 años</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card fade-in">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"</div>
-        <p class="testi-text">
-          Tenía migrañas semanales durante años. <strong>Desde el tercer mes en el programa
-          las migrañas desaparecieron completamente.</strong> Nunca había encontrado algo que
-          realmente atacara la causa — no solo los síntomas.
-        </p>
-        <div class="testi-footer">
-          <div class="testi-avatar">C</div>
-          <div>
-            <span class="testi-name">Charles</span>
-            <span class="testi-meta">Protocolo Personalizado · 6 meses</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card fade-in">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"</div>
-        <p class="testi-text">
-          Tenía crisis de ansiedad e inflamación sistémica. También uveítis en los ojos.
-          <strong>Todo desapareció.</strong> Lo que más valoro es que finalmente alguien se tomó
-          el tiempo de entender mi cuerpo completo, no solo un síntoma.
-        </p>
-        <div class="testi-footer">
-          <div class="testi-avatar">J</div>
-          <div>
-            <span class="testi-name">Jorge</span>
-            <span class="testi-meta">Programa Ansiedad & Inflamación</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
 
   <!-- ━━━ VIDEO TESTIMONIALS ━━━ -->
@@ -2274,6 +2177,93 @@ body.mp-locked { overflow: hidden; }
         }
         if (e.data.mp === 'calificado') track('lead_qualified_modal', {});
       });
+    })();
+
+    /* ── CASOS POR CONDICIÓN ── */
+    (function () {
+      /* Para añadir un caso: una línea aquí. Los videos son de Wistia y solo
+         necesitan su id. Las categorías que se quedan sin ningún caso no
+         pintan pestaña, para que nadie se encuentre una vacía. */
+      var CASOS = [
+        { cat: 'estomago',    tag: 'Problemas de estómago y acidez',    video: 'yuslvdfjag' },
+        { cat: 'estomago',    tag: 'Reflujo y problemas hormonales',    video: 'ey6q1ctue2' },
+        { cat: 'peso',        tag: 'Inflamación y exceso de peso',      video: 'xohfjmh1ca' },
+        { cat: 'inflamacion', tag: 'Inflamación y alergias',            video: 'hp1ksw60e9' },
+        { cat: 'inflamacion', tag: 'Ataques de ansiedad e inflamación', video: '6igqx70m1c' },
+        { cat: 'dolor',       tag: 'Fibromialgia',                      video: 'rb1k7l7snh' },
+        { cat: 'dolor',       tag: 'Dolores de articulación y musculares', video: 'jk67r9d527' },
+        { cat: 'dolor',       tag: 'Osteoporosis',                      video: 'i9gb0gge3k' },
+        { cat: 'dolor',       tag: 'Migraña y dolores de cabeza',       video: '815i8svyrm' },
+
+        { cat: 'peso', nombre: 'Romina Vicentini', meta: 'Programa Metabolismo · 3 meses',
+          texto: 'Comencé el programa hace casi tres meses. <strong>Bajé de peso, recuperé mi energía completamente y mi sueño es excelente.</strong> Es el mejor programa en el que he estado.' },
+        { cat: 'inflamacion', nombre: 'Carolina Galiache', meta: 'Programa Integral · 2 años',
+          texto: 'Llevo dos años en el programa. <strong>Se fueron mis alergias, la inflamación desapareció y recuperé las 20 libras que había perdido.</strong>' },
+        { cat: 'dolor', nombre: 'Charles', meta: 'Protocolo Personalizado · 6 meses',
+          texto: 'Tenía migrañas semanales desde hacía años. <strong>Desde el tercer mes desaparecieron por completo.</strong> Nunca había encontrado algo que atacara la causa.' },
+        { cat: 'inflamacion', nombre: 'Jorge', meta: 'Programa Ansiedad & Inflamación',
+          texto: 'Por fin tuve los datos correctos delante. <strong>Nunca había encontrado algo que atacara la causa, no solo los síntomas.</strong>' }
+      ];
+
+      /* El orden manda en las pestañas. Las tres primeras son las campañas que
+         se están corriendo; hoy no tienen casos y por eso no aparecen todavía. */
+      var CATS = [
+        { id: 'todos',       nombre: 'Todos' },
+        { id: 'fertilidad',  nombre: 'Fertilidad' },
+        { id: 'glucosa',     nombre: 'Diabetes y glucosa' },
+        { id: 'estomago',    nombre: 'Estómago y acidez' },
+        { id: 'peso',        nombre: 'Peso' },
+        { id: 'inflamacion', nombre: 'Inflamación' },
+        { id: 'dolor',       nombre: 'Dolor y articulaciones' },
+        { id: 'oncologico',  nombre: 'Acompañamiento oncológico' }
+      ];
+
+      var tabsEl = document.getElementById('casosTabs');
+      var gridEl = document.getElementById('casosGrid');
+      if (!tabsEl || !gridEl) return;
+
+      function cuenta(id) { return id === 'todos' ? CASOS.length : CASOS.filter(function (c) { return c.cat === id; }).length; }
+      var visibles = CATS.filter(function (c) { return cuenta(c.id) > 0; });
+
+      function esc(t) { return String(t).replace(/[<>&]/g, function (m) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;' }[m]; }); }
+
+      function pinta(cat) {
+        var lista = cat === 'todos' ? CASOS : CASOS.filter(function (c) { return c.cat === cat; });
+        gridEl.innerHTML = lista.length ? lista.map(function (c) {
+          if (c.video) {
+            return '<div class="caso-card">'
+                 +   '<div class="video-testi-label"><span class="video-testi-tag">' + esc(c.tag) + '</span></div>'
+                 +   '<div class="video-embed-wrap"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">'
+                 +     '<div class="wistia_embed wistia_async_' + c.video + '" style="height:100%;position:relative;width:100%">&nbsp;</div>'
+                 +   '</div></div></div>';
+          }
+          return '<div class="caso-txt">'
+               +   '<div class="stars">★★★★★</div>'
+               +   '<p>' + c.texto + '</p>'
+               +   '<footer><div class="caso-av">' + esc(c.nombre.charAt(0)) + '</div>'
+               +     '<div><b>' + esc(c.nombre) + '</b><span>' + esc(c.meta) + '</span></div></footer>'
+               + '</div>';
+        }).join('') : '<p class="casos-vacio">Todavía no tenemos un caso grabado de esta condición.<br>Pregúntanos en la llamada y te contamos casos parecidos al tuyo.</p>';
+
+        tabsEl.querySelectorAll('.caso-tab').forEach(function (b) { b.classList.toggle('on', b.dataset.cat === cat); });
+        try { if (window._wq) window._wq.push({ revoke: {} }); } catch (e) {}
+        track('casos_filtro', { categoria: cat });
+      }
+
+      tabsEl.innerHTML = visibles.map(function (c) {
+        return '<button class="caso-tab" type="button" data-cat="' + c.id + '">' + esc(c.nombre)
+             + '<small>' + cuenta(c.id) + '</small></button>';
+      }).join('');
+      tabsEl.querySelectorAll('.caso-tab').forEach(function (b) {
+        b.addEventListener('click', function () { pinta(b.dataset.cat); });
+      });
+
+      /* ?caso=fertilidad abre ya esa pestaña: así un anuncio de fertilidad
+         aterriza en su propia prueba sin tener que partir el tráfico en
+         cinco landings distintas. */
+      var pedido = (new URLSearchParams(location.search).get('caso') || '').toLowerCase();
+      var inicial = visibles.some(function (c) { return c.id === pedido; }) ? pedido : 'todos';
+      pinta(inicial);
     })();
 
     /* ── FAQ accordion ── */
