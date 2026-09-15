@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tu Salud Resuelta | Michelle Peiret Health</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-  <script src="https://assets.calendly.com/assets/external/widget.js" defer></script>
 
   <!-- ━━━ TRACKING CONFIG — pegar aquí los IDs ━━━ -->
   <script>
@@ -1444,70 +1442,6 @@ body.mp-locked { overflow: hidden; }
 
 
   <!-- ━━━ CALENDLY ━━━ -->
-  <section class="calendly-section" id="calendly">
-    <div style="max-width:760px;margin:0 auto;text-align:center;">
-      <span class="section-label">Empieza tu proceso</span>
-      <h2 class="section-h2">Dos maneras de<br>
-        <em style="font-family:var(--font-serif); font-style:italic;">dar el primer paso</em>
-      </h2>
-      <p class="cal-intro" style="max-width:560px;margin:18px auto 0;">
-        Todo empieza con tu evaluación con Michelle. Puedes reservarla tú directamente,
-        o contarnos tu caso primero y que el equipo te llame a revisarlo contigo.
-      </p>
-    </div>
-
-    <div class="start-grid">
-      <div class="start-card glass">
-        <span class="start-tag">Reserva directa</span>
-        <h3 class="start-title">Consulta con Michelle Peiret</h3>
-        <p class="start-desc">
-          Michelle evalúa tu caso, revisa tu historial médico y personal, y define qué tratamiento
-          te corresponde y en cuánto tiempo. Presencial en Miami u online.
-        </p>
-        <div class="dos-tipos">
-          <div class="dt">
-            <div class="dt-top"><b>Consulta + estudios</b><i>$700</i></div>
-            <p>Incluye tu BioScan de 900+ biomarcadores y tu InBody. Michelle interpreta tus
-            resultados contigo.</p>
-          </div>
-        </div>
-        <a href="consulta-michelle.html" class="btn start-btn">Reservar mi consulta →</a>
-      </div>
-
-      <div class="start-card glass">
-        <span class="start-tag">Con ayuda del equipo</span>
-        <h3 class="start-title">Cuéntanos tu caso primero</h3>
-        <div class="start-price">2 min <span>· nueve preguntas, sin costo</span></div>
-        <p class="start-desc">
-          Si prefieres que revisemos tu situación antes de que reserves nada, respóndenos unas
-          preguntas rápidas. El equipo lee tu caso y te llama para decirte qué te corresponde.
-        </p>
-        <ul class="start-list">
-          <li>Nos dices qué te pasa y desde cuándo</li>
-          <li>Un especialista te llama a revisar tu caso</li>
-          <li>Te explicamos costos y financiamiento</li>
-        </ul>
-        <a class="btn start-btn start-btn-alt" href="empezar.html"
-           onclick="track('cta_click', { cta_text: 'Quiero empezar — tarjeta equipo' })">Quiero empezar →</a>
-        <p style="margin-top:14px;text-align:center;font-size:0.82rem;">
-          <a href="https://wa.me/17864848729?text=Quiero%20informaci%C3%B3n%20sobre%20la%20consulta"
-             target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none;"
-             onclick="track('whatsapp_llamada_click', { origen: 'tarjeta_llamada' })">o escríbenos por WhatsApp →</a>
-        </p>
-      </div>
-    </div>
-
-    <div class="ver-testi">
-      <a href="#casos">Ve los casos de gente que llegó como tú →</a>
-    </div>
-
-    <!-- Calendario de la llamada (se revela al pulsar) -->
-    <div id="calendlyWidget" style="display:none">
-      <div class="cal-widget-wrap">
-        <div id="calendlyInline" style="min-width:320px;height:700px;"></div>
-      </div>
-    </div>
-  </section>
 
 
 
@@ -2008,25 +1942,9 @@ body.mp-locked { overflow: hidden; }
       return stored;
     })();
 
-    /* ── Calendario de las llamadas ──
-       Hubo un reparto 50/50 entre Fauzi y Samantha desde el 19/08; se cerró el
-       31/08 hacia Fauzi y Samantha salió del flujo el 09/09, así que su
-       calendario ya no vive aquí. Queda un solo destino.
-       La clave 'closer' se conserva tal cual para no partir en dos el histórico
-       de tracking que ya viaja al Sheet, a Zoho y a los correos. */
-    var CALENDLY_FAUZI = 'https://calendly.com/nutrigenomica-michellepeiret/analisis-inicial-mp';
-    var CALENDLY_URLS = { closer: CALENDLY_FAUZI, michelle: CALENDLY_FAUZI };
-    var activeBookingContext = null; // qué calendario está abierto (para etiquetar los eventos de Calendly)
-
-    var CAL_LABELS = {
-      closer:   'Fauzi',
-      michelle: 'Consulta directa Michelle ($700)'
-    };
-    function calVariant() {
-      try { sessionStorage.setItem('mp_cal_variant', 'closer'); } catch (e) {}
-      return 'closer';
-    }
-
+    /* El formulario y la página de gracias llevan su propio tracking. Aquí solo
+       queda el endpoint, que usa el formulario de rescate de más abajo. */
+    var LEAD_ENDPOINT = 'https://bioscan.michellepeiret.com/api/lead';
 
     // Texto legible del origen, para los emails de lead
     function attributionLabel() {
@@ -2060,30 +1978,6 @@ body.mp-locked { overflow: hidden; }
       if (wa) wa.addEventListener('click', function() { track('whatsapp_click', { position: 'float' }); });
     })();
 
-    // Eventos de Calendly (selección de horario y cita agendada)
-    window.addEventListener('message', function(e) {
-      if (!e.data || typeof e.data.event !== 'string' || e.data.event.indexOf('calendly.') !== 0) return;
-      var ctx = activeBookingContext || calVariant();
-      if (e.data.event === 'calendly.date_and_time_selected') track('booking_time_selected', { calendar: ctx });
-      if (e.data.event === 'calendly.event_scheduled') {
-        track('booking_completed', { calendar: ctx });
-        // Aviso al equipo de que la cita quedó agendada (Calendly solo notifica al dueño
-        // del calendario; así se enteran todos, caiga donde caiga).
-        try {
-          fetch(LEAD_ENDPOINT.replace('/api/lead', '/api/booking-notify'), {
-            method: 'POST', keepalive: true,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              name: pendingCalName, email: pendingCalEmail, calendar: ctx
-            })
-          }).catch(function() {});
-        } catch (err) {}
-        // Página de preparación post-reserva (reduce no-shows):
-        // Análisis → gracias.html · Consulta pagada con Michelle → gracias-consulta.html (formulario de salud)
-        var dest = ctx === 'michelle' ? '/gracias-consulta.html' : '/gracias.html';
-        setTimeout(function() { window.location.href = dest; }, 1200);
-      }
-    });
 
 
     /* ── Rescate de contacto: recupera a quien no agendó ── */
@@ -2110,8 +2004,7 @@ body.mp-locked { overflow: hidden; }
             name: n, email: m, phone: p,
             program: 'Solicita que lo contacten',
             goal: 'Pidió contacto desde el landing',
-            source: attributionLabel(),
-            calendar: calVariant()
+            source: attributionLabel()
           })
         }).then(function () {
           f.classList.add('hide');
@@ -2137,15 +2030,6 @@ body.mp-locked { overflow: hidden; }
         window.scrollTo({ top: top, behavior: 'smooth' });
       });
     });
-
-    /* ── Formulario de calificación ──
-       El formulario de 4 pasos que vivía aquí se mudó a empezar.html (2026-09-09).
-       Solo quedan las tres variables que el código de abajo sigue usando: el
-       endpoint de leads (formulario de rescate + aviso de cita) y los datos que
-       el listener de Calendly manda en el aviso de reserva. */
-    var LEAD_ENDPOINT   = 'https://bioscan.michellepeiret.com/api/lead';
-    var pendingCalName  = '';
-    var pendingCalEmail = '';
 
     /* ── MODAL DEL FORMULARIO ── */
     (function () {
