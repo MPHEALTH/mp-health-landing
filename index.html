@@ -3,6 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fuera de los buscadores. Esta página vive de tráfico pagado, así que no
+       pierde nada, y a cambio los testimonios de pacientes no quedan
+       indexados ni cacheados: una historia de Instagram dura un día, una
+       página indexada se encuentra años después buscando un nombre. -->
+  <meta name="robots" content="noindex, nofollow, noimageindex, noarchive">
   <title>Tu Salud Resuelta | Michelle Peiret Health</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -1288,6 +1294,210 @@ body.mp-locked { overflow: hidden; }
       .caso-tab { font-size: .82rem; padding: 10px 16px; }
     }
 
+    /* ━━━ LO QUE NOS ESCRIBEN ━━━
+       Mensajes de WhatsApp de pacientes, transcritos. Van pegados al CTA
+       porque es el momento en que la persona está decidiendo si esto es
+       real. Se pintan como burbuja de chat, no como tarjeta de reseña: la
+       forma sola ya dice de dónde salió el texto.
+
+       No llevan estrellas. Un tercio de estos mensajes cita al médico que
+       verificó el resultado — nefrólogo, PET scan, panel de laboratorio —
+       y ese sello vale más que cinco estrellas que cualquiera se inventa. */
+    .escriben { padding: 74px 0 80px; background: var(--white); }
+    .escriben-head { max-width: 720px; margin: 0 auto 28px; text-align: center; padding: 0 24px; }
+    .escriben-head p {
+      font-size: .96rem; color: var(--muted); line-height: 1.75;
+      font-weight: 300; margin-top: 14px;
+    }
+    /* Dos tiras que corren solas en sentidos opuestos. Se para al pasar el
+       ratón o al tabular dentro, para que se pueda leer y tocar una tarjeta.
+       Cada tira lleva su contenido duplicado exacto: el bucle salta de -50%
+       a 0 y el corte no se ve. */
+    .tiras {
+      display: flex; flex-direction: column; gap: 14px;
+      overflow: hidden; padding: 6px 0;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+              mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    }
+    .tira {
+      display: flex; gap: 14px; width: max-content;
+      animation: corre var(--dur, 90s) linear infinite;
+      will-change: transform;
+    }
+    .tira--rev { animation-direction: reverse; }
+    .tiras:hover .tira,
+    .tiras:focus-within .tira { animation-play-state: paused; }
+    @keyframes corre { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .tira > * { flex: 0 0 300px; }
+    @media (max-width: 600px) {
+      .tiras { gap: 11px; }
+      .tira { gap: 11px; }
+      .tira > * { flex: 0 0 76vw; max-width: 310px; }
+    }
+    /* Quien pide menos movimiento se queda con un carril que empuja a mano. */
+    @media (prefers-reduced-motion: reduce) {
+      .tira { animation: none; }
+      .tiras { overflow-x: auto; scrollbar-width: none; }
+      .tiras::-webkit-scrollbar { display: none; }
+    }
+
+    .msg { display: flex; flex-direction: column; }
+    .msg-tag {
+      display: inline-block; align-self: flex-start;
+      font-size: .66rem; letter-spacing: 1.6px; text-transform: uppercase;
+      font-weight: 700; color: var(--teal-dk);
+      background: var(--teal-lt); border: 1px solid var(--border);
+      padding: 6px 11px; border-radius: 100px; margin-bottom: 11px;
+    }
+    /* La burbuja: esquina inferior izquierda viva, como la del mensaje
+       entrante en WhatsApp. El pico se dibuja con el ::after. */
+    .msg-bubble {
+      position: relative; flex: 1;
+      background: var(--cream); border: 1px solid rgba(13,27,46,.07);
+      border-radius: 16px 16px 16px 4px;
+      padding: 20px 20px 16px;
+      display: flex; flex-direction: column;
+    }
+    .msg-bubble::after {
+      content: ''; position: absolute; left: -7px; bottom: -1px;
+      width: 14px; height: 14px;
+      background: var(--cream);
+      border-left: 1px solid rgba(13,27,46,.07);
+      border-bottom: 1px solid rgba(13,27,46,.07);
+      border-radius: 0 0 0 4px;
+      clip-path: polygon(0 100%, 100% 100%, 100% 0);
+    }
+    .msg-bubble p {
+      font-size: .92rem; line-height: 1.8; color: var(--text);
+      font-weight: 300; flex: 1;
+    }
+    .msg-bubble p strong { font-weight: 600; color: var(--navy); }
+    .msg-foot {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      margin-top: 15px; padding-top: 13px;
+      border-top: 1px solid rgba(13,27,46,.07);
+    }
+    .msg-verif {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: .72rem; font-weight: 600; color: var(--teal-dk);
+    }
+    .msg-verif svg { width: 13px; height: 13px; flex: none; }
+    .msg-tiempo { font-size: .72rem; color: var(--muted); font-weight: 500; }
+    .msg-foot .msg-verif + .msg-tiempo::before { content: '·'; margin-right: 8px; opacity: .5; }
+
+    /* La tarjeta es el texto legible; el original está a un toque. Casi nadie
+       lo abre, y aun así el botón hace su trabajo: dice que no hay nada
+       escondido. Por eso va visible, no detrás de un hover. */
+    .msg-ver {
+      display: inline-flex; align-items: center; gap: 5px;
+      margin-left: auto; padding: 0; border: none; background: none;
+      font-family: var(--font-body); font-size: .72rem; font-weight: 600;
+      color: var(--muted); cursor: pointer; transition: color .18s;
+    }
+    .msg-ver:hover { color: var(--navy); }
+    .msg-ver svg { width: 12px; height: 12px; flex: none; }
+    .msg-bubble--link { cursor: pointer; transition: border-color .18s, transform .15s; }
+    .msg-bubble--link:hover { border-color: var(--border); transform: translateY(-2px); }
+
+    .lupa {
+      position: fixed; inset: 0; z-index: 120;
+      background: rgba(8,17,30,.86);
+      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+      display: grid; place-items: center; padding: 28px 20px;
+      opacity: 0; pointer-events: none; transition: opacity .2s;
+    }
+    .lupa.on { opacity: 1; pointer-events: auto; }
+    .lupa-caja { position: relative; max-width: 460px; width: 100%; }
+    .lupa img {
+      display: block; width: 100%; height: auto;
+      max-height: calc(100vh - 150px); object-fit: contain;
+      border-radius: 12px; background: var(--cream);
+      box-shadow: 0 24px 70px rgba(0,0,0,.5);
+    }
+    .lupa-pie {
+      margin-top: 12px; text-align: center;
+      font-size: .76rem; color: rgba(255,255,255,.62); line-height: 1.6;
+    }
+    .lupa-x {
+      position: absolute; top: -13px; right: -13px;
+      width: 34px; height: 34px; border-radius: 50%; border: none; cursor: pointer;
+      background: var(--white); color: var(--navy);
+      display: grid; place-items: center;
+      box-shadow: 0 6px 20px rgba(0,0,0,.35);
+    }
+    .lupa-x svg { width: 15px; height: 15px; }
+    @media (max-width: 600px) {
+      .lupa { padding: 20px 16px; }
+      .lupa-x { top: -11px; right: -6px; }
+    }
+
+    .escriben-pie {
+      max-width: 720px; margin: 30px auto 0; padding: 0 24px;
+      text-align: center; font-size: .78rem; color: var(--muted);
+      line-height: 1.7; font-weight: 300;
+    }
+
+    @media (max-width: 720px) {
+      .process-step-img { display: none; }
+      .process-step { border-radius: 12px; }
+      .process-step-body { padding: 18px 18px 20px; }
+      .process-num { margin-bottom: 6px; }
+      .process-desc { font-size: .9rem; line-height: 1.65; }
+    }
+
+    /* ── Lo que incluye el tratamiento ──
+       Lista, no tarjetas: son siete cosas y en el teléfono siete tarjetas
+       son siete pantallazos. Así cabe todo de un vistazo. */
+    .trata-lista {
+      list-style: none; display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0 34px; margin-top: 36px;
+    }
+    .trata-lista li {
+      display: grid; grid-template-columns: 17px 1fr; gap: 13px;
+      align-items: start; padding: 16px 0;
+      border-top: 1px solid rgba(13,27,46,.09);
+    }
+    .trata-lista li::before {
+      content: ''; margin-top: 3px;
+      width: 17px; height: 17px; border-radius: 50%;
+      background: var(--teal-lt); border: 1px solid var(--border);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300a88c' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E");
+      background-size: 11px; background-repeat: no-repeat; background-position: center;
+    }
+    .trata-lista b { display: block; font-size: .95rem; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
+    .trata-lista span { display: block; font-size: .86rem; color: var(--muted); line-height: 1.65; font-weight: 300; }
+
+    .trata-equipo { margin-top: 46px; padding-top: 34px; border-top: 1px solid rgba(13,27,46,.09); }
+    .trata-equipo h3 {
+      font-family: var(--font-serif); font-size: 1.55rem; font-weight: 600;
+      color: var(--navy); margin-bottom: 10px;
+    }
+    .trata-equipo p {
+      font-size: .93rem; color: var(--muted); line-height: 1.75;
+      font-weight: 300; max-width: 560px;
+    }
+    .trata-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .trata-chips span {
+      font-size: .82rem; font-weight: 600; color: var(--navy);
+      background: var(--white); border: 1px solid var(--border);
+      padding: 9px 15px; border-radius: 100px;
+    }
+    .trata-chips .es-mp { background: var(--navy); border-color: var(--navy); color: #fff; }
+
+    @media (max-width: 820px) {
+      .trata-lista { grid-template-columns: 1fr; gap: 0; margin-top: 22px; }
+      .trata-lista li { padding: 11px 0; grid-template-columns: 15px 1fr; gap: 11px; }
+      .trata-lista li::before { width: 15px; height: 15px; background-size: 10px; margin-top: 2px; }
+      .trata-lista b { font-size: .89rem; margin-bottom: 1px; }
+      .trata-lista span { font-size: .79rem; line-height: 1.5; }
+      .trata-equipo { margin-top: 28px; padding-top: 22px; }
+      .trata-equipo h3 { font-size: 1.2rem; margin-bottom: 7px; }
+      .trata-equipo p { font-size: .85rem; line-height: 1.6; }
+      .trata-chips { gap: 6px; margin-top: 15px; }
+      .trata-chips span { font-size: .74rem; padding: 7px 11px; }
+      .incluye .casos-cta { margin-top: 28px; }
+    }
+
     .hero-ctas { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
     .btn-ver {
       font-size: 0.92rem; font-weight: 600; color: var(--navy); text-decoration: none;
@@ -1409,13 +1619,97 @@ body.mp-locked { overflow: hidden; }
   </div>
 
 
+  <!-- ━━━ LO QUE NOS ESCRIBEN ━━━ -->
+  <section class="escriben" id="escriben">
+    <div class="escriben-head">
+      <span class="section-label">Lo que nos escriben</span>
+      <h2 class="section-h2">No te lo decimos<br>nosotros</h2>
+      <p>
+        Mensajes que pacientes le mandaron a Michelle por WhatsApp. Están transcritos tal
+        cual, sin nombres. Cuando el resultado lo confirmó un médico o un examen, lo dice
+        debajo del mensaje.
+      </p>
+    </div>
+    <div class="tiras" id="tiras">
+      <div class="tira" id="tiraA"></div>
+      <div class="tira tira--rev" id="tiraB"></div>
+    </div>
+    <p class="escriben-pie">
+      Cada caso es distinto. Lo que le pasó a una persona no es lo que te va a pasar a ti:
+      depende de tu biología, de tu historia y de lo que estés dispuesto a sostener.
+    </p>
+  </section>
+
+  <!-- Visor del mensaje original -->
+  <div class="lupa" id="lupa" role="dialog" aria-modal="true" aria-label="Mensaje original">
+    <div class="lupa-caja">
+      <button class="lupa-x" id="lupaX" type="button" aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <img id="lupaImg" src="" alt="Mensaje original de WhatsApp">
+      <p class="lupa-pie">Captura original. Se recortaron fotos y nombres.</p>
+    </div>
+  </div>
+
+
+  <!-- ━━━ CÓMO TRABAJAMOS ━━━ -->
+  <section class="process" id="como-trabajamos">
+    <span class="section-label">Cómo trabajamos</span>
+    <h2 class="section-h2">Cuatro pasos,<br>en este orden</h2>
+    <p class="section-intro">
+      No hay sorpresas en el camino. Esto es exactamente lo que pasa desde que agendas
+      hasta que tu cuerpo vuelve a medirse.
+    </p>
+
+    <div class="process-grid">
+      <div class="process-step fade-in fade-in-delay-1">
+        <img src="images/paso2-michelle-consulta.jpg" alt="Consulta con Michelle Peiret" loading="lazy" class="process-step-img">
+        <div class="process-step-body">
+          <div class="process-num">01</div>
+          <h3 class="process-title">Tu consulta y tus estudios</h3>
+          <p class="process-desc">Michelle evalúa tu historial médico y personal, te examina y te da un diagnóstico. Ese mismo día te haces tus estudios. Sales sabiendo qué tienes, por qué lo tienes y cuánto va a durar tu tratamiento.</p>
+        </div>
+      </div>
+      <div class="process-step fade-in fade-in-delay-2">
+        <img src="images/paso1-orientacion.jpg" alt="El equipo construye tu tratamiento" loading="lazy" class="process-step-img">
+        <div class="process-step-body">
+          <div class="process-num">02</div>
+          <h3 class="process-title">Tu tratamiento personalizado</h3>
+          <p class="process-desc">Empiezas a recibir tu tratamiento construido sobre tus estudios, y se te actualiza cada dos semanas según cómo va respondiendo tu cuerpo. Nada es genérico: cada indicación sale de un marcador tuyo.</p>
+        </div>
+      </div>
+      <div class="process-step fade-in fade-in-delay-3">
+        <img src="images/pilar3.jpg" alt="Consulta mensual con especialistas" loading="lazy" class="process-step-img">
+        <div class="process-step-body">
+          <div class="process-num">03</div>
+          <h3 class="process-title">Consulta mensual con especialistas</h3>
+          <p class="process-desc">Todos los meses te ve el especialista que tu caso necesita, y entre consulta y consulta tienes una guía asignada que conoce tu historia y a la que le escribes cuando quieras.</p>
+        </div>
+      </div>
+      <div class="process-step fade-in fade-in-delay-4">
+        <img src="images/372michelle%20peiret%20oficina%202026%20.jpg" alt="Se repiten los estudios" loading="lazy" class="process-step-img">
+        <div class="process-step-body">
+          <div class="process-num">04</div>
+          <h3 class="process-title">Volver a medir y optimizar</h3>
+          <p class="process-desc">Se repiten los estudios para ver si los números se movieron, no para preguntarte cómo te sientes. Con esos datos nuevos se optimiza tu tratamiento.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="casos-cta">
+      <a href="empezar.html" class="btn btn-lg">Quiero empezar →</a>
+    </div>
+  </section>
+
+
   <!-- ━━━ CASOS POR CONDICIÓN ━━━ -->
   <section class="casos" id="casos">
     <div class="casos-head">
-      <span class="section-label">Casos reales</span>
-      <h2 class="section-h2">Busca el tuyo</h2>
+      <span class="section-label">Casos grabados</span>
+      <h2 class="section-h2">Escúchalo<br>de ellos</h2>
       <p style="font-size:0.98rem;color:var(--muted);line-height:1.75;font-weight:300;margin-top:14px;">
-        Gente que llegó con lo mismo que tú. Elige tu caso y mira qué les pasó.
+        Pacientes contando su caso en cámara, con nombre y cara. Elige la condición que
+        se parece a la tuya.
       </p>
     </div>
     <div class="casos-tabs" id="casosTabs"></div>
@@ -1446,227 +1740,14 @@ body.mp-locked { overflow: hidden; }
 
 
   <!-- ━━━ LO QUE INCLUYE TU TRATAMIENTO ━━━ -->
-  <section class="incluye">
-    <div class="wrap-i">
-      <div style="max-width:620px;">
-        <span class="section-label">Lo que incluye</span>
-        <h2 class="section-h2">Un equipo completo<br>
-          <em style="font-family:var(--font-serif);font-style:italic;">detrás de tu proceso</em>
-        </h2>
-      </div>
 
-      <div class="inc-grid">
-        <div class="inc-item glass">
-          <h4>Tu plan, actualizado cada dos semanas</h4>
-          <p>Tu plan de nutrición y suplementación no es un PDF que se entrega una vez. Se ajusta
-          cada dos semanas según cómo va respondiendo tu cuerpo.</p>
-        </div>
-        <div class="inc-item glass">
-          <h4>Una guía que te acompaña</h4>
-          <p>Tienes una persona asignada a tu caso durante todo el proceso: conoce tu historia y le
-          escribes cuando lo necesites.</p>
-        </div>
-        <div class="inc-item glass">
-          <h4>Especialistas que te asesoran</h4>
-          <p>Si tu caso lo requiere, el equipo evalúa terapias de reemplazo hormonal, protocolos de
-          péptidos, sueros intravenosos y shots intramusculares.</p>
-        </div>
-        <div class="inc-item glass">
-          <h4>Los estudios del centro, a tu disposición</h4>
-          <p>BioScan de 900+ biomarcadores, panel de sangre completo, análisis metabólico con
-          tecnología PNOĒ e InBody 970S. Tu plan sale de tus datos reales.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ━━━ EL COSTO DE NO SABER ━━━ -->
-  <section class="pain">
-    <div class="pain-header">
-      <span class="section-label">El costo de no saber</span>
-      <h2 class="section-h2">Lo que no se mide,<br>se normaliza</h2>
-      <p class="section-intro">
-        Un chequeo anual mira unos quince marcadores. Con esa foto, un cuerpo puede llevar
-        años deteriorándose y seguir saliendo «normal» en el papel. Mientras tanto tú convives
-        con señales que ya dejaste de nombrar porque nadie supo explicártelas.
-      </p>
-    </div>
-
-    <div class="pain-grid">
-      <div class="pain-item">
-        <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
-        <span class="pain-text">Cansancio que ya diste por normal, aunque duermas ocho horas</span>
-      </div>
-      <div class="pain-item">
-        <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
-        <span class="pain-text">Un metabolismo que no se mueve por más dieta y ejercicio que hagas</span>
-      </div>
-      <div class="pain-item">
-        <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
-        <span class="pain-text">Inflamación, acidez o digestión pesada casi todos los días</span>
-      </div>
-      <div class="pain-item">
-        <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
-        <span class="pain-text">Migrañas que resuelves con analgésicos, nunca con respuestas</span>
-      </div>
-      <div class="pain-item">
-        <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
-        <span class="pain-text">Hormonas fuera de eje: tiroides, menopausia, testosterona</span>
-      </div>
-      <div class="pain-item">
-        <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
-        <span class="pain-text">Ansiedad, ánimo bajo o un sueño que no repara</span>
-      </div>
-      <div class="pain-item">
-        <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
-        <span class="pain-text">Medicamentos que controlan el síntoma y jamás tocan la causa</span>
-      </div>
-      <div class="pain-item">
-        <div class="pain-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
-        <span class="pain-text">Análisis «normales» que no explican cómo te sientes de verdad</span>
-      </div>
-    </div>
-
-    <div class="pain-cta-block">
-      <p>Si reconociste <strong>dos o más</strong>, no necesitas otra opinión: necesitas datos. Ninguna de estas señales se resuelve adivinando — se resuelve <strong>midiendo</strong>.</p>
-      <a href="empezar.html" class="btn" style="white-space:nowrap;">Quiero empezar →</a>
-    </div>
-  </section>
-
-
-  <!-- ━━━ PROCESO ━━━ -->
-  <section class="process">
-    <span class="section-label">El Método MP · de la muestra al protocolo</span>
-    <h2 class="section-h2">Cuatro pasos<br>hasta tener respuestas</h2>
-    <p class="section-intro">
-      No empezamos por un tratamiento. Empezamos por saber qué está haciendo tu cuerpo,
-      y solo cuando los datos están sobre la mesa se decide qué hacer con ellos.
-    </p>
-
-    <div class="process-grid">
-      <div class="process-step fade-in fade-in-delay-1">
-        <img src="images/paso1-orientacion.jpg" alt="Orientación Inicial" loading="lazy" class="process-step-img">
-        <div class="process-step-body">
-          <div class="process-num">01</div>
-          <h3 class="process-title">Tu consulta con Michelle</h3>
-          <p class="process-desc">Michelle evalúa tu caso, revisa tu historial médico y personal, e interpreta contigo los estudios que van incluidos. Sales sabiendo qué tienes, cómo se trabaja y en cuánto tiempo.</p>
-        </div>
-      </div>
-      <div class="process-step fade-in fade-in-delay-2">
-        <img src="images/paso2-michelle-consulta.jpg" alt="Evaluación Integral" loading="lazy" class="process-step-img">
-        <div class="process-step-body">
-          <div class="process-num">02</div>
-          <h3 class="process-title">Tus datos, completos</h3>
-          <p class="process-desc">Estudio epigenético de cabello y análisis de sangre: cientos de biomarcadores que ningún chequeo de rutina mira, cruzados con tu historial, tu estilo de vida y tus objetivos.</p>
-        </div>
-      </div>
-      <div class="process-step fade-in fade-in-delay-3">
-        <img src="images/372michelle%20peiret%20oficina%202026%20.jpg" alt="Protocolo Personalizado" loading="lazy" class="process-step-img">
-        <div class="process-step-body">
-          <div class="process-num">03</div>
-          <h3 class="process-title">Un protocolo que se explica</h3>
-          <p class="process-desc">Cada indicación — nutrición, suplementación, IV therapy, estudios — sale de un dato tuyo, y te decimos de cuál. Si no puedes explicarle tu protocolo a alguien, no es tuyo.</p>
-        </div>
-      </div>
-      <div class="process-step fade-in fade-in-delay-4">
-        <img src="images/pilar3.jpg" alt="Acompañamiento Continuo" loading="lazy" class="process-step-img">
-        <div class="process-step-body">
-          <div class="process-num">04</div>
-          <h3 class="process-title">Medimos otra vez</h3>
-          <p class="process-desc">Tu especialista ajusta el protocolo según cómo responde tu cuerpo, no según el calendario. Los números vuelven a medirse: así se sabe si algo funciona.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ━━━ SERVICIOS ━━━ -->
-  <section class="services">
-    <div style="max-width:600px;">
-      <span class="section-label">Qué medimos</span>
-      <h2 class="section-h2 section-h2-light">Los datos que<br>casi nadie te da</h2>
-      <p class="section-intro section-intro-light">
-        Tres capas de información sobre el mismo cuerpo: cómo se expresan tus genes,
-        cómo funciona tu fisiología hoy y qué le falta para operar bien.
-      </p>
-    </div>
-
-    <div class="services-grid">
-      <div class="service-card fade-in fade-in-delay-1">
-        <img src="images/372michelle%20peiret%20oficina%202026%20.jpg" alt="Estudios Epigenéticos" loading="lazy" class="service-card-img">
-        <div class="service-card-overlay"></div>
-        <div class="service-card-content">
-          <span class="service-tag">Nutrigenómica</span>
-          <h3 class="service-title">Estudios Epigenéticos</h3>
-          <p class="service-desc">Una muestra de cabello revela cómo se están expresando tus genes ahora mismo. Cientos de biomarcadores que son la base de todo lo demás.</p>
-        </div>
-      </div>
-      <div class="service-card fade-in fade-in-delay-2">
-        <img src="images/pilar1.jpg" alt="Estudios de Salud Integral" loading="lazy" class="service-card-img">
-        <div class="service-card-overlay"></div>
-        <div class="service-card-content">
-          <span class="service-tag">Performance</span>
-          <h3 class="service-title">Estudios de Salud Integral</h3>
-          <p class="service-desc">VO2MAX, sangre, perfil hormonal y metabólico, ecocardiograma. Cómo rinde tu cuerpo hoy, en números que puedes volver a medir mañana.</p>
-        </div>
-      </div>
-      <div class="service-card fade-in fade-in-delay-3">
-        <img src="images/pilar2.jpg" alt="IV Therapy & Shots" loading="lazy" class="service-card-img">
-        <div class="service-card-overlay"></div>
-        <div class="service-card-content">
-          <span class="service-tag">Tratamientos</span>
-          <h3 class="service-title">IV Therapy & Shots</h3>
-          <p class="service-desc">Vitamina C, B12, vitamina D, minerales y protocolos intramusculares. Se indica lo que tu analítica pide — no un menú fijo para todos.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ━━━ GALERÍA DEL CENTRO ━━━ -->
-  <section class="gallery">
-    <div class="gallery-header">
-      <span class="section-label">Dónde ocurre</span>
-      <h2 class="section-h2">El centro donde<br>se toman tus datos</h2>
-      <p class="section-intro" style="margin-bottom:0;">
-        Consulta, laboratorio y sala de tratamientos en un mismo lugar, en Miami.
-        Si prefieres empezar en línea, también se puede.
-      </p>
-    </div>
-
-    <div class="gallery-grid">
-      <div class="gallery-item tall">
-        <img src="images/WhatsApp%20Image%202026-02-28%20at%201.46.17%20PM%20%281%29.jpeg" alt="Consulta con Michelle Peiret" loading="lazy" class="gallery-img">
-        <div class="gallery-caption"><span>Consulta Personalizada</span></div>
-      </div>
-      <div class="gallery-item">
-        <img src="images/abstract_9.jpeg" alt="Sala de consulta Michelle Peiret" loading="lazy" class="gallery-img">
-        <div class="gallery-caption"><span>Sala de Consulta</span></div>
-      </div>
-      <div class="gallery-item">
-        <img src="images/127michelle%20peiret%20oficina%202026%20.jpg" alt="IV Therapy — Centro Michelle Peiret" loading="lazy" class="gallery-img">
-        <div class="gallery-caption"><span>IV Therapy</span></div>
-      </div>
-      <div class="gallery-item">
-        <img src="images/300michelle%20peiret%20oficina%202026%20.jpg" alt="Equipo del centro" loading="lazy" class="gallery-img">
-        <div class="gallery-caption"><span>Nuestro Equipo</span></div>
-      </div>
-      <div class="gallery-item">
-        <img src="images/239michelle%20peiret%20oficina%202026%20-Edit.jpg" alt="Tratamientos clínicos" loading="lazy" class="gallery-img">
-        <div class="gallery-caption"><span>Protocolos de Tratamiento</span></div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ━━━ ABOUT ━━━ -->
   <section class="about">
     <div class="about-img-wrap">
       <img src="images/246MICHELLE%20PEIRET%20CUMPLE%20SUPLEMENTOS-Edit%20%281%29.jpg" alt="Michelle Peiret - Especialista en Nutrigenómica" class="about-img">
       <div class="about-frame"></div>
     </div>
     <div>
-      <span class="about-label">Nutrigenomic Specialist</span>
+      <span class="about-label">Especialista en nutrigenómica y epigenética</span>
       <h2 class="about-name">Michelle Peiret</h2>
       <p class="about-bio">
         Especialista en nutrigenómica, con acreditaciones en
@@ -1705,75 +1786,67 @@ body.mp-locked { overflow: hidden; }
   </section>
 
 
-  <!-- ━━━ TESTIMONIALS ━━━ -->
-  <section class="team">
-    <div style="text-align:center; max-width:580px; margin:0 auto;">
-      <span class="section-label" style="text-align:center;">Quién lee tus datos</span>
-      <h2 class="section-h2">Siete especialistas<br>sobre el mismo caso</h2>
-      <p class="section-intro" style="margin:0 auto;">
-        Cientos de biomarcadores no los interpreta una sola persona. Tus resultados pasan por
-        un equipo completo, y cada uno mira la parte que sabe leer.
-      </p>
-    </div>
-    <div class="team-grid">
-      <div class="team-card fade-in fade-in-delay-1">
-        <svg class="team-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-          <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
-        </svg>
-        <h4 class="team-role">Microbiólogo Clínico</h4>
-        <p class="team-spec">Microbiota, inflamación y análisis del terreno intestinal</p>
+  <!-- ━━━ LO QUE INCLUYE TU TRATAMIENTO ━━━
+       Reemplaza a "Lo que no se mide se normaliza" y absorbe a los siete
+       especialistas: eran dos secciones contando la misma idea. -->
+  <section class="incluye" id="tratamiento">
+    <div class="wrap-i">
+      <div style="max-width:680px;">
+        <span class="section-label">Lo que incluye tu tratamiento</span>
+        <h2 class="section-h2">Todo esto existe.<br>
+          <em style="font-family:var(--font-serif);font-style:italic;">Entra lo que tus datos pidan</em>
+        </h2>
+        <p style="font-size:0.98rem;color:var(--muted);line-height:1.75;font-weight:300;margin-top:14px;">
+          Nada se receta por defecto ni por si acaso. Cada recurso entra en tu tratamiento
+          solo si tus estudios dicen que lo necesitas.
+        </p>
       </div>
-      <div class="team-card fade-in fade-in-delay-2">
-        <svg class="team-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-          <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-        </svg>
-        <h4 class="team-role">Especialista Hormonal</h4>
-        <p class="team-spec">Balance hormonal, envejecimiento saludable y optimización metabólica</p>
+
+      <ul class="trata-lista">
+        <li><b>Plan de nutrición personalizado</b><span>Sale de tus marcadores. Se actualiza cada dos semanas.</span></li>
+        <li><b>Suplementación según tus datos</b><span>Lo que tu cuerpo no produce o no absorbe.</span></li>
+        <li><b>Rutina de ejercicio personalizada</b><span>Para tu composición corporal y tu condición.</span></li>
+        <li><b>Terapia de reemplazo hormonal</b><span>Si tu panel hormonal la pide.</span></li>
+        <li><b>Terapia de péptidos</b><span>Si tu caso la necesita.</span></li>
+        <li><b>Sueros intravenosos e intramusculares</b><span>Cuando la absorción está comprometida.</span></li>
+        <li><b>Consulta mensual con especialistas</b><span>El que tu caso requiera, cada mes.</span></li>
+      </ul>
+
+      <div class="trata-equipo">
+        <h3>Y no lo lee una sola persona</h3>
+        <p>Tus resultados pasan por el equipo completo. Cada quien mira la parte que sabe leer.</p>
+        <div class="trata-chips">
+          <span>Microbiólogo clínico</span>
+          <span>Especialista hormonal</span>
+          <span>Nutricionista funcional</span>
+          <span>Especialista en deporte</span>
+          <span>Psicóloga</span>
+          <span>Enfermería clínica</span>
+          <span>Especialista óseo</span>
+          <span class="es-mp">Michelle Peiret</span>
+        </div>
       </div>
-      <div class="team-card fade-in fade-in-delay-3">
-        <svg class="team-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12h8M12 8v8"/>
-        </svg>
-        <h4 class="team-role">Nutricionista Funcional</h4>
-        <p class="team-spec">Masa muscular, grasa corporal y composición corporal</p>
-      </div>
-      <div class="team-card fade-in fade-in-delay-4">
-        <svg class="team-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-          <circle cx="12" cy="5" r="1"/><path d="M12 6v6l3 3M5.6 10.6A7 7 0 1018.4 10.6"/>
-        </svg>
-        <h4 class="team-role">Especialista en Deporte</h4>
-        <p class="team-spec">Fisiología del ejercicio, biomecánica y optimización de rendimiento</p>
-      </div>
-      <div class="team-card fade-in">
-        <svg class="team-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-          <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-        </svg>
-        <h4 class="team-role">Psicóloga</h4>
-        <p class="team-spec">Apoyo emocional, manejo del estrés y sostenibilidad del cambio</p>
-      </div>
-      <div class="team-card fade-in fade-in-delay-1">
-        <svg class="team-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-          <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
-        </svg>
-        <h4 class="team-role">Enfermería Clínica</h4>
-        <p class="team-spec">Soporte clínico, IV therapy y evaluaciones específicas</p>
-      </div>
-      <div class="team-card fade-in fade-in-delay-2">
-        <svg class="team-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-          <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-        </svg>
-        <h4 class="team-role">Especialista Óseo</h4>
-        <p class="team-spec">Salud ósea, densidad mineral y prevención</p>
-      </div>
-      <div class="team-card team-card-lead fade-in fade-in-delay-3">
-        <svg class="team-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-          <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
-        </svg>
-        <h4 class="team-role">+ Michelle Peiret</h4>
-        <p class="team-spec">Dirección clínica, lectura final de tus datos y el protocolo que sale de ellos</p>
+
+      <div class="casos-cta">
+        <a href="empezar.html" class="btn btn-lg">Quiero empezar →</a>
       </div>
     </div>
   </section>
+
+
+
+
+  <!-- ━━━ PROCESO ━━━ -->
+  <!-- ━━━ SERVICIOS ━━━ -->
+
+
+  <!-- ━━━ GALERÍA DEL CENTRO ━━━ -->
+
+
+  <!-- ━━━ ABOUT ━━━ -->
+
+
+  <!-- ━━━ TESTIMONIALS ━━━ -->
 
 
 
@@ -1790,6 +1863,24 @@ body.mp-locked { overflow: hidden; }
 
 
   <!-- ━━━ FAQ ━━━ -->
+  <section class="rescate">
+    <div class="rescate-card glass">
+      <h3>¿Prefieres que te contactemos?</h3>
+      <p>Déjanos tus datos y el equipo se comunica contigo para resolver tus dudas.</p>
+      <form id="rescateForm" novalidate>
+        <div class="r-row">
+          <input type="text"  id="rName"  placeholder="Nombre y apellido" autocomplete="name">
+          <input type="email" id="rEmail" placeholder="Correo electrónico" autocomplete="email" inputmode="email">
+          <input type="tel"   id="rPhone" placeholder="Teléfono / WhatsApp" autocomplete="tel" inputmode="tel">
+        </div>
+        <span class="r-err" id="rErr">Completa los tres campos con datos válidos</span>
+        <button type="submit" class="btn" id="rBtn">Que me contacten →</button>
+      </form>
+      <p class="r-ok" id="rOk">Listo. El equipo te contactará pronto.</p>
+    </div>
+  </section>
+
+
   <section class="faq">
     <div style="text-align:center;">
       <span class="section-label">Antes de agendar</span>
@@ -1846,39 +1937,11 @@ body.mp-locked { overflow: hidden; }
 
 
   <!-- ━━━ CIERRE ━━━ -->
-  <section class="closing">
-    <div class="closing-inner">
-      <span class="section-label">El primer paso</span>
-      <h2 class="closing-h2">Tu cuerpo lleva años<br>dándote <em>datos</em></h2>
-      <p class="closing-p">
-        Ya sabes lo que se siente vivir sin respuestas. Lo que sigue no es otro diagnóstico
-        ajeno: son tus propios números, explicados, y una decisión que por fin es tuya.
-      </p>
-      <a href="empezar.html" class="btn btn-lg">Quiero empezar →</a>
-      <p class="closing-note">Online o presencial en Miami · Financiamiento disponible</p>
-    </div>
-  </section>
 
 
   <!-- ━━━ FOOTER ━━━ -->
 
   <!-- ━━━ RESCATE ━━━ -->
-  <section class="rescate">
-    <div class="rescate-card glass">
-      <h3>¿Prefieres que te contactemos?</h3>
-      <p>Déjanos tus datos y el equipo se comunica contigo para resolver tus dudas.</p>
-      <form id="rescateForm" novalidate>
-        <div class="r-row">
-          <input type="text"  id="rName"  placeholder="Nombre y apellido" autocomplete="name">
-          <input type="email" id="rEmail" placeholder="Correo electrónico" autocomplete="email" inputmode="email">
-          <input type="tel"   id="rPhone" placeholder="Teléfono / WhatsApp" autocomplete="tel" inputmode="tel">
-        </div>
-        <span class="r-err" id="rErr">Completa los tres campos con datos válidos</span>
-        <button type="submit" class="btn" id="rBtn">Que me contacten →</button>
-      </form>
-      <p class="r-ok" id="rOk">Listo. El equipo te contactará pronto.</p>
-    </div>
-  </section>
 
   <footer class="footer">
     <img src="images/LOGO%20%286%29.png" alt="Michelle Peiret Health" class="footer-logo">
@@ -2017,20 +2080,6 @@ body.mp-locked { overflow: hidden; }
       });
     })();
 
-    /* ── Scroll to form section ── */
-    document.querySelectorAll('a[href="#calendly"]').forEach(function(a) {
-      a.addEventListener('click', function(e) {
-        e.preventDefault();
-        track('cta_click', { cta_text: (a.textContent || '').trim().slice(0, 60) });
-        var target = document.getElementById('calendly');
-        var nav = document.querySelector('.nav');
-        if (!target) return;
-        var navH = nav ? nav.getBoundingClientRect().height : 0;
-        var top = target.getBoundingClientRect().top + window.pageYOffset - navH - 12;
-        window.scrollTo({ top: top, behavior: 'smooth' });
-      });
-    });
-
     /* ── MODAL DEL FORMULARIO ── */
     (function () {
       var modal = document.getElementById('mpModal');
@@ -2102,6 +2151,212 @@ body.mp-locked { overflow: hidden; }
       });
     })();
 
+    /* ── LO QUE NOS ESCRIBEN ──
+       Los originales están en MP HEALTH/TEXT TESTIMONIES (48 capturas) y el
+       catálogo con la clasificación, en catalogo-testimonios.md de esa misma
+       carpeta. Cada `src` apunta a su captura, para poder verificar la
+       transcripción sin tener que releerlas todas.
+
+       Para añadir uno: una línea aquí. `verif` es quién confirmó el
+       resultado desde fuera; se deja vacío si el paciente solo cuenta cómo
+       se siente. `tiempo` solo si el mensaje lo dice. Nada de inventar. */
+    (function () {
+      var MSGS = [
+        /* ── Estómago ── */
+        { cat: 'estomago', tag: 'Colon irritable', src: 'IMG_4286',
+          texto: 'Mudé a mi hija a la universidad en Orlando y no sabes la felicidad que fue hacerlo sin ese miedo a tener un episodio. Hace dos años era impensable haber hecho todo lo que hice ese fin de semana <strong>sin antes tomarme una caja de Imodium</strong>.',
+          tiempo: 'Plan completo, hoy en mantenimiento' },
+        { cat: 'estomago', tag: 'Diarrea crónica', src: 'IMG_4289',
+          texto: 'Tuve que estar en antibióticos por siete días y <strong>no tuve ningún episodio de diarrea</strong>. Un milagro.' },
+        { cat: 'estomago', tag: 'Colon e inflamación', src: 'IMG_4323',
+          texto: 'El sábado fueron los quince años de mi hija. Comí de todo y bebí de todo. <strong>No me sentí inflamada, no me dolió el colon y nada de gases.</strong> Mi cuerpo toleró bien todo.' },
+        { cat: 'estomago', tag: 'Inflamación', src: 'IMG_4320',
+          texto: 'Mi desinflamación es impresionante, <strong>es más allá de kilos</strong>, no sé cómo explicarlo. Y mi energía, muy bien.' },
+        { cat: 'estomago', tag: 'Digestión y ansiedad', src: 'IMG_4325',
+          texto: 'Me desperté asustada de lo relajada que estaba. Mi sueño es otro. <strong>La ansiedad se me había quitado un 70%.</strong> Siento que mi estómago está siendo feliz.',
+          tiempo: 'Día 4' },
+
+        /* ── Metabólico ── */
+        { cat: 'glucosa', tag: 'Colesterol e insulina', src: 'IMG_4296',
+          texto: 'Mis exámenes salieron totalmente perfectos después de año y medio de lucha con colesterol alto. <strong>Insulina controlada: ya hace seis meses que no tomo metformina.</strong> La B12, que siempre estaba baja, la tengo a nivel. Y todos los valores que siempre salían en rojo.',
+          verif: 'Panel de laboratorio' },
+        { cat: 'glucosa', tag: 'Tensión arterial', src: 'IMG_4330',
+          texto: '<strong>Seis días sin pastillas de la tensión.</strong> 126 sobre 76.',
+          verif: 'Medición en casa' },
+        { cat: 'glucosa', tag: 'Cardiovascular', src: 'IMG_4310',
+          texto: 'Mi corazón está fuerte, limpio. El doctor me hizo todo y <strong>mis carótidas no tienen grasa</strong>.',
+          verif: 'Cardiología' },
+        { cat: 'glucosa', tag: 'Tiroides', src: 'IMG_4334',
+          texto: 'Hoy tuve la consulta con mi internista. Está muy contento con los resultados de mis exámenes. <strong>Me ajustó la dosis de levotiroxina hacia abajo.</strong>',
+          verif: 'Internista' },
+
+        /* ── Peso ── */
+        { cat: 'peso', tag: 'Peso sostenido', src: 'IMG_4327',
+          texto: 'Solo seguí las indicaciones de alimentación que me dio por el chat y <strong>bajé de 230 a 170. Ahí me he mantenido hace dos años.</strong>',
+          tiempo: 'Sostenido 2 años' },
+        { cat: 'peso', tag: 'Peso postparto', src: 'IMG_4314',
+          texto: 'Mi hija es tu paciente, desde España. Ya bajó un montón de peso, está más activa, el ánimo le cambió totalmente. <strong>Es nuevamente quien fue una vez, antes del parto.</strong>' },
+
+        /* ── Dolor y movilidad ── */
+        { cat: 'dolor', tag: 'Rodillas', src: 'IMG_4318',
+          texto: '<strong>Ayer, por primera vez en dos años, pude arrodillarme con mis dos rodillas</strong> en la Santa Misa. Y estoy terminando mi segunda semana.',
+          tiempo: '2 semanas' },
+        { cat: 'dolor', tag: 'Dolor crónico', src: 'IMG_4313',
+          texto: 'Mi esposo ayer y hoy pudo salir a caminar al museo con nosotros. Dice que <strong>de 10, el dolor le ha bajado a 6 o 7</strong>. Todavía hay dolor y tiene que tomar descansos, pero eso no era así tres semanas atrás. <strong>Ya no tiene insomnio por el dolor, ya duerme bien.</strong>',
+          tiempo: '2 semanas' },
+        { cat: 'dolor', tag: 'Migrañas', src: 'IMG_4293',
+          texto: 'Gracias a su programa aprendí a hacer ejercicio a diario, tanto que si no lo hago me hace falta. <strong>Sigo libre de migrañas aún en el mantenimiento.</strong>' },
+        { cat: 'dolor', tag: 'Movilidad', src: 'IMG_4297',
+          texto: 'Quería mostrarte mi primer logro: ayer corrí 5K. <strong>Esto es solo el principio.</strong> El próximo año espero correr medio maratón.' },
+        { cat: 'dolor', tag: 'Movilidad', src: 'IMG_4301',
+          texto: 'Estoy muy feliz de compartir contigo <strong>mis primeros 5K, cincuenta minutos</strong>. Gracias por cambiarme la vida.' },
+        { cat: 'dolor', tag: 'Espalda', src: 'IMG_4292',
+          texto: '<strong>Amanecí tan bien de mi espalda</strong> que vinimos a caminar.' },
+
+        /* ── Acompañamiento oncológico ── */
+        { cat: 'oncologico', tag: 'Seguimiento', src: 'IMG_4326',
+          texto: 'Hoy nos dieron los resultados del <strong>PET scan y salió que está limpia completamente y sana</strong>. Agradecidos con todo el equipo que la ha tratado, incluyéndote, que han sido pieza fundamental en su sanación.',
+          verif: 'PET scan' },
+        { cat: 'oncologico', tag: 'Control de mama', src: 'IMG_4328',
+          texto: 'No sabes lo que lloré al recibir estos resultados. <strong>No hay cáncer ni hallazgos sospechosos. BI-RADS 2, benigno.</strong> Las áreas que antes se veían dudosas ahora muestran cambios benignos.',
+          verif: 'Mamografía' },
+        { cat: 'oncologico', tag: 'Tolerancia al tratamiento', src: 'IMG_4290',
+          texto: 'Hoy, que esperaba que fuera el día más crítico según la experiencia anterior, <strong>solo tomó zofran en la mañana y ha podido comer todas sus comidas</strong> como tiene indicado. Feliz de ver la diferencia de un tratamiento a otro.' },
+        { cat: 'oncologico', tag: 'Primera infusión', src: 'IMG_4333',
+          texto: 'Hoy empecé mi primera infusión. Todo bien, <strong>sin ningún tipo de reacción</strong>, gracias a tu ayuda con mi alimentación.' },
+
+        { cat: 'oncologico', tag: 'Punto de partida', src: 'IMG_4304',
+          texto: 'El año pasado me colocaron ocho quimioterapias, quince radioterapias, me hicieron una cirugía, mastectomía parcial, me sacaron ganglios. Tengo diez años haciendo ejercicio, traté de alimentarme bien. <strong>Aquí vamos, a tus consejos.</strong>' },
+
+        /* ── Fertilidad y ginecología ── */
+        { cat: 'fertilidad', tag: 'Reserva ovárica', src: 'IMG_4291',
+          texto: 'Vine a consulta con la ginecóloga y me comentó que <strong>tenía los ovarios más despiertos, y se veían como más óvulos</strong>.',
+          verif: 'Ginecología' },
+        { cat: 'fertilidad', tag: 'Ginecológico', src: 'IMG_4324',
+          texto: 'Ya de regreso a casa. Resulta que <strong>no tenía ni pólipo ni fibroma.</strong> Tenía una adherencia que me la quitaron y la enviaron a patología. Muy contenta porque además <strong>no tengo que tomar antibióticos</strong>.',
+          verif: 'Cirugía y patología' },
+
+        /* ── Otras condiciones ── */
+        { cat: 'otras', tag: 'Asma', src: 'IMG_4306',
+          texto: '<strong>Yo tenía 42 años usando diferentes inhaladores</strong>, pero desde que estoy contigo tengo dos años que los dejé. No podía subir escaleras ni caminar mucho, me ponían oxígeno.' },
+        { cat: 'otras', tag: 'Eccema', src: 'IMG_4303',
+          texto: 'Llevaba un año sufriendo de un eccema que no me dejaba ni dormir: el picor extremo, el ardor. El desespero cada vez era más. <strong>Ya no me pica ni arde y duermo toda la noche.</strong>',
+          tiempo: '1 mes' },
+        { cat: 'otras', tag: 'Función renal', src: 'IMG_4311',
+          texto: 'Fui a mi diálisis y el doctor me preguntó si estaba orinando mucho. Le dije que casi como antes. La enfermera me dice que no me lo está asegurando, pero que <strong>puede que mis riñones estén empezando a funcionar</strong>.',
+          verif: 'Nefrología' },
+        { cat: 'otras', tag: 'Energía', src: 'IMG_4288',
+          texto: 'Algo ha sucedido en mi cuerpo en dos semanas. Es la primera vez que voy a la altura, tres mil metros, y <strong>no me siento mal</strong>. No me lo puedo creer.',
+          tiempo: '2 semanas' },
+        { cat: 'otras', tag: 'Adenoma de pituitaria', src: 'IMG_4338',
+          texto: 'Le escribo con buenas noticias: me indicó el neurocirujano que <strong>el adenoma de la pituitaria ha disminuido, que no necesito cirugía</strong> y que me ve en un año para seguimiento.',
+          verif: 'Neurocirugía' },
+        { cat: 'otras', tag: 'Hematología', src: 'IMG_4285',
+          texto: 'Gracias por ayudarme a encontrar la mejor versión de mí y elegir quedarme en ella. <strong>Hoy tuve cita con el hematólogo y desde que entré hasta que salí literalmente fueron llantos y abrazos</strong> de felicidad, alegría y emoción.' },
+        { cat: 'otras', tag: 'Función renal', src: 'IMG_4295',
+          texto: 'Eres vida, eres salud, y Dios te ha dado ese don. <strong>Yo lo certifico con la mejoría de mi mamá y sus riñones.</strong>' },
+        { cat: 'otras', tag: 'Piel y cabello', src: 'IMG_4307',
+          texto: 'Tengo dos semanas tomando solo el omega que me mandaste y <strong>no sabes el cambio en mi piel. En el pelo.</strong> Yo soy buen paciente, ya sabes, pero el único cambio que he hecho es empezar tus pastillas.',
+          tiempo: '2 semanas' },
+
+        /* ── En sus palabras ──
+           No prueban un marcador, pero son de gente que pasó por el proceso
+           completo y cuentan lo que cambió en su vida. Van al final. */
+        { cat: 'general', tag: 'En sus palabras', src: 'IMG_4287',
+          texto: '<strong>Una de las mejores decisiones de mi larga vida</strong> ha sido la consulta y el seguimiento del plan guiada por Michelle. No ha sido fácil el camino, pero <strong>ha sido el único que me ha proporcionado excelentes resultados</strong> con respecto a mi salud.' },
+        { cat: 'general', tag: 'Su hija', src: 'IMG_4309',
+          texto: '<strong>Fueron años ver a mi hija enferma y ahora verla con salud</strong>, eso me llena más que cualquier cosa. Fueron días de cansancio, pero tu eslogan, «más constancia que perfección», me ayudó mucho. No solo mejoró su salud sino también sus hábitos alimenticios.' },
+        { cat: 'general', tag: 'Su hija', src: 'IMG_4321',
+          texto: '<strong>Por años buscamos una solución y la encontramos contigo.</strong> Gracias por salvar algo de la adolescencia de mi hija.' },
+        { cat: 'general', tag: 'Su hija', src: 'IMG_4336',
+          texto: 'Aquí te comparto un pequeño video que le tomé para ti. <strong>Verla mover, saltar…</strong> quiero solo estar feliz, pero no puedo evitar llorar también de alegría.' },
+        { cat: 'general', tag: 'En sus palabras', src: 'IMG_4331',
+          texto: 'No sabes cuánto te agradezco, en serio. <strong>Siento que volví a nacer.</strong>' },
+        { cat: 'general', tag: 'En sus palabras', src: 'IMG_4317',
+          texto: 'Me encargaré de ser una vocera de esto, porque gracias a ti y a mi entrega <strong>termino el año sintiéndome yo</strong>. En un mundo donde lo normal es sentirse mal, sentirnos bien es una bendición, pero también requiere entrega, decisión y ganas. Sin tu apoyo y el de todo tu lindo equipo nada de esto sería posible.' },
+        { cat: 'general', tag: 'En sus palabras', src: 'IMG_4294',
+          texto: 'Hoy recibí un presente tuyo. Lloré de agradecimiento, de alegría. Dios te colocó en mi camino para que me brindaras tu apoyo. <strong>En mí fuiste un faro de luz con tus conocimientos.</strong> Gracias, eternamente agradecida.' },
+        { cat: 'general', tag: 'En sus palabras', src: 'IMG_4335',
+          texto: '<strong>Así me despierto por las mañanas, porque quiero estar bien.</strong> Y tú eres parte de mi bienestar. Mil, mil gracias por tu valioso apoyo y tu conocimiento.' },
+        { cat: 'general', tag: 'En sus palabras', src: 'IMG_4305',
+          texto: '<strong>Una de las mejores Semanas Santas que he pasado en mi vida.</strong> Gracias, Dios, por permitirme disfrutarla en oración. No me sueltes nunca de tu mano.' }
+      ];
+
+      var tiraA = document.getElementById('tiraA');
+      var tiraB = document.getElementById('tiraB');
+      if (!tiraA || !tiraB) return;
+
+      var CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
+      var LUPA  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.1-4.1"/></svg>';
+
+      /* De IMG_4303 no hay original publicable: el nombre de pila de la
+         paciente está dentro del propio mensaje y no se puede recortar. */
+      var SIN_ORIGINAL = { IMG_4303: 1 };
+
+      function esc(t) { return String(t).replace(/[<>&]/g, function (m) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;' }[m]; }); }
+
+      function tarjeta(m) {
+        var hayOrig = !SIN_ORIGINAL[m.src];
+        var pie = '';
+        if (m.verif)  pie += '<span class="msg-verif">' + CHECK + 'Confirmado por ' + esc(m.verif) + '</span>';
+        if (m.tiempo) pie += '<span class="msg-tiempo">' + esc(m.tiempo) + '</span>';
+        if (hayOrig)  pie += '<button type="button" class="msg-ver">' + LUPA + 'Ver original</button>';
+        return '<figure class="msg" data-src="' + esc(m.src) + '">'
+             +   '<span class="msg-tag">' + esc(m.tag) + '</span>'
+             +   '<blockquote class="msg-bubble' + (hayOrig ? ' msg-bubble--link' : '') + '"><p>' + m.texto + '</p>'
+             +     (pie ? '<figcaption class="msg-foot">' + pie + '</figcaption>' : '')
+             +   '</blockquote>'
+             + '</figure>';
+      }
+
+      /* Se reparten alternando en vez de cortar por la mitad, para que cada
+         tira lleve mezcla de condiciones y no una sola seguida. */
+      var A = MSGS.filter(function (_, i) { return i % 2 === 0; });
+      var B = MSGS.filter(function (_, i) { return i % 2 === 1; });
+
+      function llena(el, lista, segundosPorTarjeta) {
+        var html = lista.map(tarjeta).join('');
+        el.innerHTML = html + html;                       // duplicado exacto: el bucle no se ve
+        el.style.setProperty('--dur', (lista.length * segundosPorTarjeta) + 's');
+      }
+      /* Ritmos distintos a propósito: si las dos tiras corrieran igual se
+         leerían como un bloque y el ojo dejaría de seguirlas. */
+      llena(tiraA, A, 4.6);
+      llena(tiraB, B, 5.4);
+
+      /* ── Visor del original ── */
+      var lupaEl = document.getElementById('lupa');
+      var lupaImg = document.getElementById('lupaImg');
+      var ultimoFoco = null;
+
+      function abrir(src) {
+        lupaImg.src = 'images/testimonios/' + src + '.jpg';
+        lupaEl.classList.add('on');
+        document.body.style.overflow = 'hidden';
+        document.getElementById('lupaX').focus();
+        track('escriben_ver_original', { captura: src });
+      }
+      function cerrar() {
+        lupaEl.classList.remove('on');
+        document.body.style.overflow = '';
+        if (ultimoFoco) { ultimoFoco.focus(); ultimoFoco = null; }
+      }
+
+      document.getElementById('tiras').addEventListener('click', function (e) {
+        var fig = e.target.closest('.msg');
+        if (!fig || !fig.querySelector('.msg-ver')) return;
+        ultimoFoco = e.target.closest('.msg-ver') || null;
+        abrir(fig.dataset.src);
+      });
+
+      document.getElementById('lupaX').addEventListener('click', cerrar);
+      lupaEl.addEventListener('click', function (e) { if (e.target === lupaEl) cerrar(); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && lupaEl.classList.contains('on')) cerrar();
+      });
+    })();
+
+
     /* ── CASOS POR CONDICIÓN ── */
     (function () {
       /* Para añadir un caso: una línea aquí. Los videos son de Wistia y solo
@@ -2116,16 +2371,7 @@ body.mp-locked { overflow: hidden; }
         { cat: 'dolor',       tag: 'Fibromialgia',                      video: 'rb1k7l7snh' },
         { cat: 'dolor',       tag: 'Dolores de articulación y musculares', video: 'jk67r9d527' },
         { cat: 'dolor',       tag: 'Osteoporosis',                      video: 'i9gb0gge3k' },
-        { cat: 'dolor',       tag: 'Migraña y dolores de cabeza',       video: '815i8svyrm' },
-
-        { cat: 'peso', nombre: 'Romina Vicentini', meta: 'Programa Metabolismo · 3 meses',
-          texto: 'Comencé el programa hace casi tres meses. <strong>Bajé de peso, recuperé mi energía completamente y mi sueño es excelente.</strong> Es el mejor programa en el que he estado.' },
-        { cat: 'inflamacion', nombre: 'Carolina Galiache', meta: 'Programa Integral · 2 años',
-          texto: 'Llevo dos años en el programa. <strong>Se fueron mis alergias, la inflamación desapareció y recuperé las 20 libras que había perdido.</strong>' },
-        { cat: 'dolor', nombre: 'Charles', meta: 'Protocolo Personalizado · 6 meses',
-          texto: 'Tenía migrañas semanales desde hacía años. <strong>Desde el tercer mes desaparecieron por completo.</strong> Nunca había encontrado algo que atacara la causa.' },
-        { cat: 'inflamacion', nombre: 'Jorge', meta: 'Programa Ansiedad & Inflamación',
-          texto: 'Por fin tuve los datos correctos delante. <strong>Nunca había encontrado algo que atacara la causa, no solo los síntomas.</strong>' }
+        { cat: 'dolor',       tag: 'Migraña y dolores de cabeza',       video: '815i8svyrm' }
       ];
 
       /* El orden manda en las pestañas. Las tres primeras son las campañas que
