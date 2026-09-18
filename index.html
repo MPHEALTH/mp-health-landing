@@ -1402,16 +1402,19 @@ body.mp-locked { overflow: hidden; }
     }
 
     /* ── Lo que incluye el tratamiento ──
-       Lista, no tarjetas: son siete cosas y en el teléfono siete tarjetas
-       son siete pantallazos. Así cabe todo de un vistazo. */
+       En el teléfono cada punto arranca cerrado: siete títulos se leen de un
+       vistazo, siete títulos con su explicación son media pantalla. Se abre
+       tocándolo. En pantalla ancha sobra el espacio, así que van todos
+       abiertos y el <summary> deja de responder al clic. */
     .trata-lista {
       list-style: none; display: grid; grid-template-columns: 1fr 1fr;
-      gap: 0 34px; margin-top: 36px;
+      column-gap: 40px; margin-top: 34px; max-width: 900px;
+      border-top: 1px solid rgba(13,27,46,.1);
     }
     .trata-lista li {
       display: grid; grid-template-columns: 17px 1fr; gap: 13px;
-      align-items: start; padding: 16px 0;
-      border-top: 1px solid rgba(13,27,46,.09);
+      align-items: start; padding: 15px 0;
+      border-bottom: 1px solid rgba(13,27,46,.1);
     }
     .trata-lista li::before {
       content: ''; margin-top: 3px;
@@ -1420,10 +1423,29 @@ body.mp-locked { overflow: hidden; }
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300a88c' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E");
       background-size: 11px; background-repeat: no-repeat; background-position: center;
     }
-    .trata-lista b { display: block; font-size: .95rem; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
-    .trata-lista span { display: block; font-size: .86rem; color: var(--muted); line-height: 1.65; font-weight: 300; }
+    /* Con siete puntos el último queda solo; que ocupe el ancho evita el
+       hueco raro al final de la rejilla. */
+    .trata-lista li:last-child { grid-column: 1 / -1; }
 
-    .trata-equipo { margin-top: 46px; padding-top: 34px; border-top: 1px solid rgba(13,27,46,.09); }
+    .trata-item summary {
+      list-style: none; cursor: pointer;
+      font-size: .95rem; font-weight: 600; color: var(--navy); line-height: 1.45;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .trata-item summary::-webkit-details-marker { display: none; }
+    .trata-item summary::after {
+      content: ''; flex: none; width: 9px; height: 9px;
+      border-right: 1.8px solid var(--muted); border-bottom: 1.8px solid var(--muted);
+      transform: rotate(45deg) translate(-2px, -2px);
+      transition: transform .2s;
+    }
+    .trata-item[open] summary::after { transform: rotate(-135deg) translate(-2px, -2px); }
+    .trata-item p {
+      font-size: .86rem; color: var(--muted); line-height: 1.65;
+      font-weight: 300; margin-top: 5px;
+    }
+
+    .trata-equipo { margin-top: 44px; padding-top: 32px; border-top: 1px solid rgba(13,27,46,.09); }
     .trata-equipo h3 {
       font-family: var(--font-serif); font-size: 1.55rem; font-weight: 600;
       color: var(--navy); margin-bottom: 10px;
@@ -1440,18 +1462,22 @@ body.mp-locked { overflow: hidden; }
     }
     .trata-chips .es-mp { background: var(--navy); border-color: var(--navy); color: #fff; }
 
+    @media (min-width: 821px) {
+      .trata-item summary { cursor: default; }
+      .trata-item summary::after { display: none; }
+    }
     @media (max-width: 820px) {
-      .trata-lista { grid-template-columns: 1fr; gap: 0; margin-top: 22px; }
-      .trata-lista li { padding: 11px 0; grid-template-columns: 15px 1fr; gap: 11px; }
+      .trata-lista { grid-template-columns: 1fr; column-gap: 0; margin-top: 24px; }
+      .trata-lista li { padding: 13px 0; grid-template-columns: 15px 1fr; gap: 11px; }
       .trata-lista li::before { width: 15px; height: 15px; background-size: 10px; margin-top: 2px; }
-      .trata-lista b { font-size: .89rem; margin-bottom: 1px; }
-      .trata-lista span { font-size: .79rem; line-height: 1.5; }
-      .trata-equipo { margin-top: 28px; padding-top: 22px; }
-      .trata-equipo h3 { font-size: 1.2rem; margin-bottom: 7px; }
+      .trata-item summary { font-size: .9rem; }
+      .trata-item p { font-size: .81rem; line-height: 1.55; }
+      .trata-equipo { margin-top: 30px; padding-top: 24px; }
+      .trata-equipo h3 { font-size: 1.22rem; margin-bottom: 7px; }
       .trata-equipo p { font-size: .85rem; line-height: 1.6; }
       .trata-chips { gap: 6px; margin-top: 15px; }
       .trata-chips span { font-size: .74rem; padding: 7px 11px; }
-      .incluye .casos-cta { margin-top: 28px; }
+      .incluye .casos-cta { margin-top: 26px; }
     }
 
     .hero-ctas { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
@@ -1749,13 +1775,13 @@ body.mp-locked { overflow: hidden; }
       </div>
 
       <ul class="trata-lista">
-        <li><b>Plan de nutrición personalizado</b><span>Sale de tus marcadores. Se actualiza cada dos semanas.</span></li>
-        <li><b>Suplementación según tus datos</b><span>Lo que tu cuerpo no produce o no absorbe.</span></li>
-        <li><b>Rutina de ejercicio personalizada</b><span>Para tu composición corporal y tu condición.</span></li>
-        <li><b>Terapia de reemplazo hormonal</b><span>Si tu panel hormonal la pide.</span></li>
-        <li><b>Terapia de péptidos</b><span>Si tu caso la necesita.</span></li>
-        <li><b>Sueros intravenosos e intramusculares</b><span>Cuando la absorción está comprometida.</span></li>
-        <li><b>Consulta mensual con especialistas</b><span>El que tu caso requiera, cada mes.</span></li>
+        <li><details class="trata-item"><summary>Plan de nutrición personalizado</summary><p>Sale de tus marcadores. Se actualiza cada dos semanas.</p></details></li>
+        <li><details class="trata-item"><summary>Suplementación según tus datos</summary><p>Lo que tu cuerpo no produce o no absorbe.</p></details></li>
+        <li><details class="trata-item"><summary>Rutina de ejercicio personalizada</summary><p>Para tu composición corporal y tu condición.</p></details></li>
+        <li><details class="trata-item"><summary>Terapia de reemplazo hormonal</summary><p>Si tu panel hormonal la pide.</p></details></li>
+        <li><details class="trata-item"><summary>Terapia de péptidos</summary><p>Si tu caso la necesita.</p></details></li>
+        <li><details class="trata-item"><summary>Sueros intravenosos e intramusculares</summary><p>Cuando la absorción está comprometida.</p></details></li>
+        <li><details class="trata-item"><summary>Consulta mensual con especialistas</summary><p>El que tu caso requiera, cada mes.</p></details></li>
       </ul>
 
       <div class="trata-equipo">
@@ -2263,6 +2289,27 @@ body.mp-locked { overflow: hidden; }
       llena(tiraA, A, 9.2);
       llena(tiraB, B, 10.8);
 
+    })();
+
+
+    /* ── Lo que incluye: abrir/cerrar según el ancho ──
+       <details> solo se abre con el atributo, no desde CSS, así que el
+       reparto se hace aquí y se rehace al girar el teléfono. */
+    (function () {
+      var items = document.querySelectorAll('.trata-item');
+      if (!items.length) return;
+      var anchaAntes = null;
+      function reparte() {
+        var ancha = window.innerWidth > 820;
+        if (ancha === anchaAntes) return;      // no pisar lo que el visitante abrió
+        anchaAntes = ancha;
+        items.forEach(function (d) { d.open = ancha; });
+      }
+      reparte();
+      window.addEventListener('resize', reparte);
+      document.querySelector('.trata-lista').addEventListener('toggle', function (e) {
+        if (e.target.open && window.innerWidth <= 820) track('trata_abrir', { punto: (e.target.querySelector('summary').textContent || '').trim() });
+      }, true);
     })();
 
 
