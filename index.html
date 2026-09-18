@@ -1200,12 +1200,14 @@ p, li { font-weight: 300; }
 .mp-modal-load p { font-size: .88rem; color: #6b7a8d; }
 body.mp-locked { overflow: hidden; }
 @media (max-width: 900px) {
-  /* Sigue flotando: a pantalla completa se leia como otra pagina y se perdia
-     la sensacion de estar respondiendo encima del landing. */
-  .mp-modal { padding: 16px 13px; }
-  .mp-modal-card { max-width: none; max-height: calc(100vh - 32px); border-radius: 16px; }
-  .mp-modal-frame { height: calc(100vh - 32px) !important; }
-  .mp-modal-close { top: 10px; right: 10px; background: rgba(13,27,46,0.09); }
+  /* Tiene que verse el landing por encima y por debajo: si la tarjeta ocupa
+     todo el alto se lee como otra pagina y se pierde la sensacion de estar
+     respondiendo aqui mismo. El alto real lo pone el JS con lo que reporta el
+     formulario; esto es solo el techo y el valor de arranque. */
+  .mp-modal { padding: 0 14px; }
+  .mp-modal-card { max-width: none; max-height: 84vh; border-radius: 20px; }
+  .mp-modal-frame { height: 68vh; }
+  .mp-modal-close { top: 9px; right: 9px; background: rgba(13,27,46,0.09); }
 }
     /* ━━━ CASOS POR CONDICIÓN ━━━
        Va arriba a propósito: es la prueba, y es lo primero que la gente
@@ -2113,8 +2115,14 @@ body.mp-locked { overflow: hidden; }
       // El formulario de dentro dice cuanto mide, para que la tarjeta crezca con el
       window.addEventListener('message', function (e) {
         if (!e.data || !e.data.mp) return;
-        if (e.data.mp === 'alto' && window.innerWidth > 900) {
-          frame.style.height = Math.max(520, Math.min(e.data.alto, window.innerHeight - 36)) + 'px';
+        /* Antes esto solo corria por encima de 900px y en el telefono el
+           modal quedaba clavado a pantalla completa. Ahora la tarjeta se
+           ajusta a cada paso del formulario tambien en movil, con tope para
+           que siempre se vea landing detras. */
+        if (e.data.mp === 'alto') {
+          var ancha = window.innerWidth > 820;
+          var tope  = ancha ? window.innerHeight - 36 : window.innerHeight * 0.84;
+          frame.style.height = Math.max(ancha ? 520 : 360, Math.min(e.data.alto, tope)) + 'px';
         }
         if (e.data.mp === 'listo' && modal.classList.contains('open')) {
           try { frame.contentWindow.postMessage({ mp: 'mostrar' }, '*'); } catch (err) {}

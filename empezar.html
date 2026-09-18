@@ -82,6 +82,13 @@ html.embed .right { padding-block: 40px; }
    (la primera, con siete opciones) para entrar sin scroll. */
 html.embed .eyebrow-sub { display: none; }
 html.embed .q-title { margin-top: 16px; }
+/* `html.embed .left-inner` gana por especificidad a las media queries de mas
+   abajo, asi que el ajuste para pantalla estrecha hay que repetirlo aqui: en
+   un modal de movil, 40px de aire a cada lado se comen media pregunta. */
+@media (max-width: 620px) {
+  html.embed .left-inner { padding: 20px 18px 26px; }
+  html.embed .right { padding-block: 26px; }
+}
 html.embed .progress-wrap { margin: 20px 0 24px; }
 body {
   font-family: var(--font-body); color: var(--text);
