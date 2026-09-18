@@ -1187,7 +1187,7 @@ p, li { font-weight: 300; }
 .mp-modal.open { display: flex; }
 .mp-modal-bg { position: absolute; inset: 0; background: rgba(8,17,30,0.72); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); opacity: 0; transition: opacity .28s ease; }
 .mp-modal.open .mp-modal-bg { opacity: 1; }
-.mp-modal-card { position: relative; width: 100%; max-width: 1080px; max-height: calc(100vh - 36px); background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 30px 90px rgba(0,0,0,0.42); opacity: 0; transform: translateY(14px) scale(.985); transition: opacity .3s ease, transform .3s cubic-bezier(.2,.8,.3,1); display: flex; flex-direction: column; }
+.mp-modal-card { position: relative; width: 100%; max-width: 560px; max-height: calc(100vh - 36px); background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 30px 90px rgba(0,0,0,0.42); opacity: 0; transform: translateY(14px) scale(.985); transition: opacity .3s ease, transform .3s cubic-bezier(.2,.8,.3,1); display: flex; flex-direction: column; }
 .mp-modal.open .mp-modal-card { opacity: 1; transform: none; }
 .mp-modal-close { position: absolute; top: 14px; right: 14px; z-index: 3; width: 34px; height: 34px; border-radius: 50%; border: none; cursor: pointer; background: rgba(13,27,46,0.06); color: #0d1b2e; display: grid; place-items: center; transition: background .18s, transform .18s; }
 .mp-modal-close:hover { background: rgba(13,27,46,0.13); transform: rotate(90deg); }
@@ -1200,9 +1200,11 @@ p, li { font-weight: 300; }
 .mp-modal-load p { font-size: .88rem; color: #6b7a8d; }
 body.mp-locked { overflow: hidden; }
 @media (max-width: 900px) {
-  .mp-modal { padding: 0; }
-  .mp-modal-card { max-width: none; max-height: 100vh; height: 100vh; border-radius: 0; }
-  .mp-modal-frame { height: 100vh !important; }
+  /* Sigue flotando: a pantalla completa se leia como otra pagina y se perdia
+     la sensacion de estar respondiendo encima del landing. */
+  .mp-modal { padding: 16px 13px; }
+  .mp-modal-card { max-width: none; max-height: calc(100vh - 32px); border-radius: 16px; }
+  .mp-modal-frame { height: calc(100vh - 32px) !important; }
   .mp-modal-close { top: 10px; right: 10px; background: rgba(13,27,46,0.09); }
 }
     /* ━━━ CASOS POR CONDICIÓN ━━━
@@ -1384,52 +1386,6 @@ body.mp-locked { overflow: hidden; }
     .msg-verif svg { width: 13px; height: 13px; flex: none; }
     .msg-tiempo { font-size: .72rem; color: var(--muted); font-weight: 500; }
     .msg-foot .msg-verif + .msg-tiempo::before { content: '·'; margin-right: 8px; opacity: .5; }
-
-    /* La tarjeta es el texto legible; el original está a un toque. Casi nadie
-       lo abre, y aun así el botón hace su trabajo: dice que no hay nada
-       escondido. Por eso va visible, no detrás de un hover. */
-    .msg-ver {
-      display: inline-flex; align-items: center; gap: 5px;
-      margin-left: auto; padding: 0; border: none; background: none;
-      font-family: var(--font-body); font-size: .72rem; font-weight: 600;
-      color: var(--muted); cursor: pointer; transition: color .18s;
-    }
-    .msg-ver:hover { color: var(--navy); }
-    .msg-ver svg { width: 12px; height: 12px; flex: none; }
-    .msg-bubble--link { cursor: pointer; transition: border-color .18s, transform .15s; }
-    .msg-bubble--link:hover { border-color: var(--border); transform: translateY(-2px); }
-
-    .lupa {
-      position: fixed; inset: 0; z-index: 120;
-      background: rgba(8,17,30,.86);
-      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
-      display: grid; place-items: center; padding: 28px 20px;
-      opacity: 0; pointer-events: none; transition: opacity .2s;
-    }
-    .lupa.on { opacity: 1; pointer-events: auto; }
-    .lupa-caja { position: relative; max-width: 460px; width: 100%; }
-    .lupa img {
-      display: block; width: 100%; height: auto;
-      max-height: calc(100vh - 150px); object-fit: contain;
-      border-radius: 12px; background: var(--cream);
-      box-shadow: 0 24px 70px rgba(0,0,0,.5);
-    }
-    .lupa-pie {
-      margin-top: 12px; text-align: center;
-      font-size: .76rem; color: rgba(255,255,255,.62); line-height: 1.6;
-    }
-    .lupa-x {
-      position: absolute; top: -13px; right: -13px;
-      width: 34px; height: 34px; border-radius: 50%; border: none; cursor: pointer;
-      background: var(--white); color: var(--navy);
-      display: grid; place-items: center;
-      box-shadow: 0 6px 20px rgba(0,0,0,.35);
-    }
-    .lupa-x svg { width: 15px; height: 15px; }
-    @media (max-width: 600px) {
-      .lupa { padding: 20px 16px; }
-      .lupa-x { top: -11px; right: -6px; }
-    }
 
     .escriben-pie {
       max-width: 720px; margin: 30px auto 0; padding: 0 24px;
@@ -1640,16 +1596,6 @@ body.mp-locked { overflow: hidden; }
     </p>
   </section>
 
-  <!-- Visor del mensaje original -->
-  <div class="lupa" id="lupa" role="dialog" aria-modal="true" aria-label="Mensaje original">
-    <div class="lupa-caja">
-      <button class="lupa-x" id="lupaX" type="button" aria-label="Cerrar">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-      <img id="lupaImg" src="" alt="Mensaje original de WhatsApp">
-      <p class="lupa-pie">Captura original. Se recortaron fotos y nombres.</p>
-    </div>
-  </div>
 
 
   <!-- ━━━ CÓMO TRABAJAMOS ━━━ -->
@@ -2287,23 +2233,16 @@ body.mp-locked { overflow: hidden; }
       if (!tiraA || !tiraB) return;
 
       var CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
-      var LUPA  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.1-4.1"/></svg>';
-
-      /* De IMG_4303 no hay original publicable: el nombre de pila de la
-         paciente está dentro del propio mensaje y no se puede recortar. */
-      var SIN_ORIGINAL = { IMG_4303: 1 };
 
       function esc(t) { return String(t).replace(/[<>&]/g, function (m) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;' }[m]; }); }
 
       function tarjeta(m) {
-        var hayOrig = !SIN_ORIGINAL[m.src];
         var pie = '';
         if (m.verif)  pie += '<span class="msg-verif">' + CHECK + 'Confirmado por ' + esc(m.verif) + '</span>';
         if (m.tiempo) pie += '<span class="msg-tiempo">' + esc(m.tiempo) + '</span>';
-        if (hayOrig)  pie += '<button type="button" class="msg-ver">' + LUPA + 'Ver original</button>';
         return '<figure class="msg" data-src="' + esc(m.src) + '">'
              +   '<span class="msg-tag">' + esc(m.tag) + '</span>'
-             +   '<blockquote class="msg-bubble' + (hayOrig ? ' msg-bubble--link' : '') + '"><p>' + m.texto + '</p>'
+             +   '<blockquote class="msg-bubble"><p>' + m.texto + '</p>'
              +     (pie ? '<figcaption class="msg-foot">' + pie + '</figcaption>' : '')
              +   '</blockquote>'
              + '</figure>';
@@ -2321,39 +2260,9 @@ body.mp-locked { overflow: hidden; }
       }
       /* Ritmos distintos a propósito: si las dos tiras corrieran igual se
          leerían como un bloque y el ojo dejaría de seguirlas. */
-      llena(tiraA, A, 4.6);
-      llena(tiraB, B, 5.4);
+      llena(tiraA, A, 9.2);
+      llena(tiraB, B, 10.8);
 
-      /* ── Visor del original ── */
-      var lupaEl = document.getElementById('lupa');
-      var lupaImg = document.getElementById('lupaImg');
-      var ultimoFoco = null;
-
-      function abrir(src) {
-        lupaImg.src = 'images/testimonios/' + src + '.jpg';
-        lupaEl.classList.add('on');
-        document.body.style.overflow = 'hidden';
-        document.getElementById('lupaX').focus();
-        track('escriben_ver_original', { captura: src });
-      }
-      function cerrar() {
-        lupaEl.classList.remove('on');
-        document.body.style.overflow = '';
-        if (ultimoFoco) { ultimoFoco.focus(); ultimoFoco = null; }
-      }
-
-      document.getElementById('tiras').addEventListener('click', function (e) {
-        var fig = e.target.closest('.msg');
-        if (!fig || !fig.querySelector('.msg-ver')) return;
-        ultimoFoco = e.target.closest('.msg-ver') || null;
-        abrir(fig.dataset.src);
-      });
-
-      document.getElementById('lupaX').addEventListener('click', cerrar);
-      lupaEl.addEventListener('click', function (e) { if (e.target === lupaEl) cerrar(); });
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && lupaEl.classList.contains('on')) cerrar();
-      });
     })();
 
 

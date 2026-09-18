@@ -1,9 +1,9 @@
 # analisis.michellepeiret.com — landing de tráfico pagado, no de búsqueda.
 #
-# Las capturas de /images/testimonios/ son mensajes de pacientes. El meta
-# robots del HTML no las cubre: son URLs propias y un buscador puede llegar a
-# ellas directamente. Por eso van bloqueadas aquí también.
+# Va fuera de los buscadores a propósito: los testimonios son mensajes de
+# pacientes hablando de su diagnóstico. Aunque están transcritos sin nombres,
+# varias historias identifican sola a la persona ante quien la conozca, y una
+# página indexada se encuentra años después.
 
 User-agent: *
-Disallow: /images/testimonios/
 Disallow: /
