@@ -1313,8 +1313,9 @@ body.mp-locked { overflow: hidden; }
       font-size: .96rem; color: var(--muted); line-height: 1.75;
       font-weight: 300; margin-top: 14px;
     }
-    /* Dos tiras que corren solas en sentidos opuestos. Se para al pasar el
-       ratón o al tabular dentro, para que se pueda leer y tocar una tarjeta.
+    /* Dos tiras que corren solas en sentidos opuestos y no se paran nunca:
+       la pausa al pasar el ratón cortaba el movimiento sin querer al hacer
+       scroll, y en el teléfono el navegador la disparaba con cada toque.
        Cada tira lleva su contenido duplicado exacto: el bucle salta de -50%
        a 0 y el corte no se ve. */
     .tiras {
@@ -1329,8 +1330,6 @@ body.mp-locked { overflow: hidden; }
       will-change: transform;
     }
     .tira--rev { animation-direction: reverse; }
-    .tiras:hover .tira,
-    .tiras:focus-within .tira { animation-play-state: paused; }
     @keyframes corre { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     .tira > * { flex: 0 0 300px; }
     @media (max-width: 600px) {
