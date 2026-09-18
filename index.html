@@ -1204,9 +1204,9 @@ body.mp-locked { overflow: hidden; }
      todo el alto se lee como otra pagina y se pierde la sensacion de estar
      respondiendo aqui mismo. El alto real lo pone el JS con lo que reporta el
      formulario; esto es solo el techo y el valor de arranque. */
-  .mp-modal { padding: 0 14px; }
-  .mp-modal-card { max-width: none; max-height: 84vh; border-radius: 20px; }
-  .mp-modal-frame { height: 68vh; }
+  .mp-modal { padding: 0 22px; }
+  .mp-modal-card { max-width: none; max-height: 78vh; border-radius: 20px; }
+  .mp-modal-frame { height: 60vh; }
   .mp-modal-close { top: 9px; right: 9px; background: rgba(13,27,46,0.09); }
 }
     /* ━━━ CASOS POR CONDICIÓN ━━━
@@ -2121,7 +2121,7 @@ body.mp-locked { overflow: hidden; }
            que siempre se vea landing detras. */
         if (e.data.mp === 'alto') {
           var ancha = window.innerWidth > 820;
-          var tope  = ancha ? window.innerHeight - 36 : window.innerHeight * 0.84;
+          var tope  = ancha ? window.innerHeight - 36 : window.innerHeight * 0.78;
           frame.style.height = Math.max(ancha ? 520 : 360, Math.min(e.data.alto, tope)) + 'px';
         }
         if (e.data.mp === 'listo' && modal.classList.contains('open')) {
