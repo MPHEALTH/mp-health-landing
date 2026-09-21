@@ -1179,35 +1179,45 @@ p, li { font-weight: 300; }
 .dt-top i { font-style: normal; font-family: var(--font-serif); font-size: 1.5rem; color: var(--ink); }
 .dt p { font-size: 0.84rem; color: var(--inks); line-height: 1.65; font-weight: 300; margin-top: 5px; }
 
-/* ━━━ MODAL DEL FORMULARIO ━━━
-   El formulario vive en empezar.html y aquí se muestra flotando encima del
-   landing, para que nadie pierda la página al empezar. El iframe se carga solo
-   al abrir: sin abrirlo, no cuesta nada. */
+/* ━━━ MODAL DEL FORMULARIO (Virtual Scale + testimonios) ━━━
+   La captura ahora es el flow de Virtual Scale, embebido en un iframe a la
+   izquierda; a la derecha, testimonios reales de pacientes. El iframe se carga
+   al abrir, no antes. En móvil el panel de testimonios se oculta y queda solo
+   el formulario. */
 .mp-modal { position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center; padding: 18px 20px; }
 .mp-modal.open { display: flex; }
 .mp-modal-bg { position: absolute; inset: 0; background: rgba(8,17,30,0.72); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); opacity: 0; transition: opacity .28s ease; }
 .mp-modal.open .mp-modal-bg { opacity: 1; }
-.mp-modal-card { position: relative; width: 100%; max-width: 560px; max-height: calc(100vh - 36px); background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 30px 90px rgba(0,0,0,0.42); opacity: 0; transform: translateY(14px) scale(.985); transition: opacity .3s ease, transform .3s cubic-bezier(.2,.8,.3,1); display: flex; flex-direction: column; }
+.mp-modal-card { position: relative; width: 100%; max-width: 920px; height: min(720px, 90vh); background: #0B1220; border-radius: 18px; overflow: hidden; box-shadow: 0 30px 90px rgba(0,0,0,0.42); opacity: 0; transform: translateY(14px) scale(.985); transition: opacity .3s ease, transform .3s cubic-bezier(.2,.8,.3,1); display: flex; flex-direction: row; }
 .mp-modal.open .mp-modal-card { opacity: 1; transform: none; }
-.mp-modal-close { position: absolute; top: 14px; right: 14px; z-index: 3; width: 34px; height: 34px; border-radius: 50%; border: none; cursor: pointer; background: rgba(13,27,46,0.06); color: #0d1b2e; display: grid; place-items: center; transition: background .18s, transform .18s; }
-.mp-modal-close:hover { background: rgba(13,27,46,0.13); transform: rotate(90deg); }
+.mp-modal-close { position: absolute; top: 14px; right: 14px; z-index: 4; width: 34px; height: 34px; border-radius: 50%; border: none; cursor: pointer; background: rgba(255,255,255,0.14); color: #fff; display: grid; place-items: center; transition: background .18s, transform .18s; }
+.mp-modal-close:hover { background: rgba(255,255,255,0.26); transform: rotate(90deg); }
 .mp-modal-close svg { width: 17px; height: 17px; }
-.mp-modal-frame { border: 0; width: 100%; display: block; height: 640px; transition: height .28s ease; }
-.mp-modal-load { position: absolute; inset: 0; display: grid; place-items: center; background: #fff; z-index: 2; transition: opacity .25s; text-align: center; }
+/* Columna del formulario (iframe de Virtual Scale) */
+.mp-modal-formcol { position: relative; flex: 0 0 540px; max-width: 540px; background: #0B1220; }
+.mp-modal-frame { border: 0; width: 100%; height: 100%; display: block; }
+.mp-modal-load { position: absolute; inset: 0; display: grid; place-items: center; background: #0B1220; z-index: 2; transition: opacity .25s; text-align: center; }
 .mp-modal-load.gone { opacity: 0; pointer-events: none; }
-.mp-modal-spin { width: 30px; height: 30px; border-radius: 50%; margin: 0 auto 14px; border: 3px solid rgba(0,201,167,.22); border-top-color: #00c9a7; animation: mpspin .8s linear infinite; }
+.mp-modal-spin { width: 30px; height: 30px; border-radius: 50%; margin: 0 auto 14px; border: 3px solid rgba(0,201,167,.25); border-top-color: #00c9a7; animation: mpspin .8s linear infinite; }
 @keyframes mpspin { to { transform: rotate(360deg); } }
-.mp-modal-load p { font-size: .88rem; color: #6b7a8d; }
+.mp-modal-load p { font-size: .88rem; color: #93a4b8; }
+/* Panel de testimonios (derecha) */
+.mp-modal-testi { flex: 1 1 auto; min-width: 0; background: #0d1b2e; color: #e7eef6; padding: 30px 28px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; border-left: 1px solid rgba(255,255,255,0.06); }
+.mp-testi-eyebrow { font-size: .68rem; letter-spacing: 2px; text-transform: uppercase; color: #00c9a7; font-weight: 700; }
+.mp-testi-h { font-size: 1.15rem; line-height: 1.3; margin: 2px 0 8px; color: #fff; font-weight: 600; }
+.mp-testi-card { background: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 14px 15px; }
+.mp-testi-tag { display: inline-block; font-size: .66rem; letter-spacing: .5px; text-transform: uppercase; color: #00c9a7; font-weight: 700; margin-bottom: 7px; }
+.mp-testi-q { font-size: .87rem; line-height: 1.55; color: #d8e3ee; margin: 0; }
+.mp-testi-q strong { color: #fff; }
+.mp-testi-foot { margin-top: auto; font-size: .72rem; color: #8ea1b5; display: flex; align-items: center; gap: 7px; padding-top: 6px; }
+.mp-testi-foot svg { width: 14px; height: 14px; flex: none; color: #00c9a7; }
 body.mp-locked { overflow: hidden; }
-@media (max-width: 900px) {
-  /* Tiene que verse el landing por encima y por debajo: si la tarjeta ocupa
-     todo el alto se lee como otra pagina y se pierde la sensacion de estar
-     respondiendo aqui mismo. El alto real lo pone el JS con lo que reporta el
-     formulario; esto es solo el techo y el valor de arranque. */
-  .mp-modal { padding: 0 22px; }
-  .mp-modal-card { max-width: none; max-height: 78vh; border-radius: 20px; }
-  .mp-modal-frame { height: 60vh; }
-  .mp-modal-close { top: 9px; right: 9px; background: rgba(13,27,46,0.09); }
+@media (max-width: 860px) {
+  .mp-modal { padding: 0 16px; }
+  .mp-modal-card { max-width: 560px; height: auto; max-height: 90vh; border-radius: 20px; flex-direction: column; }
+  .mp-modal-formcol { flex: 1 1 auto; max-width: none; width: 100%; height: 82vh; }
+  .mp-modal-testi { display: none; }
+  .mp-modal-close { top: 9px; right: 9px; }
 }
     /* ━━━ CASOS POR CONDICIÓN ━━━
        Va arriba a propósito: es la prueba, y es lo primero que la gente
@@ -1939,17 +1949,43 @@ body.mp-locked { overflow: hidden; }
   </a>
 
 
-  <!-- ━━━ MODAL DEL FORMULARIO ━━━ -->
+  <!-- ━━━ MODAL DEL FORMULARIO (Virtual Scale + testimonios) ━━━ -->
   <div class="mp-modal" id="mpModal" role="dialog" aria-modal="true" aria-label="Empieza tu proceso">
     <div class="mp-modal-bg" data-mp-close></div>
     <div class="mp-modal-card">
       <button class="mp-modal-close" type="button" data-mp-close aria-label="Cerrar">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
-      <div class="mp-modal-load" id="mpModalLoad">
-        <div><div class="mp-modal-spin"></div><p>Preparando tus preguntas…</p></div>
+
+      <!-- Formulario (Virtual Scale) -->
+      <div class="mp-modal-formcol">
+        <div class="mp-modal-load" id="mpModalLoad">
+          <div><div class="mp-modal-spin"></div><p>Cargando…</p></div>
+        </div>
+        <iframe class="mp-modal-frame" id="mpModalFrame" title="Formulario de evaluación"></iframe>
       </div>
-      <iframe class="mp-modal-frame" id="mpModalFrame" title="Formulario de evaluación"></iframe>
+
+      <!-- Testimonios reales de pacientes -->
+      <aside class="mp-modal-testi">
+        <span class="mp-testi-eyebrow">Historias reales</span>
+        <h3 class="mp-testi-h">Lo que empieza a cambiar</h3>
+        <div class="mp-testi-card">
+          <span class="mp-testi-tag">Control de peso</span>
+          <p class="mp-testi-q">Solo seguí las indicaciones de alimentación que me dio por el chat y <strong>bajé de 230 a 170. Ahí me he mantenido hace dos años.</strong></p>
+        </div>
+        <div class="mp-testi-card">
+          <span class="mp-testi-tag">Tensión arterial</span>
+          <p class="mp-testi-q"><strong>Seis días sin pastillas de la tensión.</strong> 126 sobre 76.</p>
+        </div>
+        <div class="mp-testi-card">
+          <span class="mp-testi-tag">Digestión y ansiedad · Día 4</span>
+          <p class="mp-testi-q">Me desperté asustada de lo relajada que estaba. Mi sueño es otro. <strong>La ansiedad se me había quitado un 70%.</strong></p>
+        </div>
+        <p class="mp-testi-foot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Testimonios reales de pacientes MP Health
+        </p>
+      </aside>
     </div>
   </div>
 
@@ -2066,25 +2102,30 @@ body.mp-locked { overflow: hidden; }
          gtag con la persona mirando un spinner. Precargado, abrir es instantaneo.
          Dentro no se cuenta la visita hasta que el modal manda 'mostrar', asi que
          precargar no ensucia el embudo. */
+      // El flow de captura es Virtual Scale, embebido. Se carga al abrir el
+      // modal (no en cada visita) para no inflar las sesiones de VS.
+      var VS_FLOW_URL = 'https://app.virtualscale.com/flow/6aa8b1bd0590cfc5f0feaee4/embed';
+      function cookie(n) { var m = document.cookie.match('(^|;)\\s*' + n + '\\s*=\\s*([^;]+)'); return m ? m.pop() : ''; }
       function precargar() {
         if (cargado) return;
         cargado = true;
-        // Le pasamos los UTM de la visita para que la atribucion no se corte
-        frame.src = 'empezar.html?embed=1'
-          + (window.MP_OBJETIVO ? '&objetivo=' + encodeURIComponent(window.MP_OBJETIVO) : '')
-          + window.location.search.replace(/^\?/, '&');
+        // Pasamos UTMs + cookies de Meta (_fbp/_fbc) + un event_id. Si VS los
+        // reenvía en su webhook, el servidor dispara el 'Lead' de Meta con buen
+        // match y sin duplicar; si no, no cuesta nada.
+        var qs = new URLSearchParams(window.location.search);
+        var fbp = cookie('_fbp'), fbc = cookie('_fbc');
+        if (fbp) qs.set('_fbp', fbp);
+        if (fbc) qs.set('_fbc', fbc);
+        qs.set('mp_evt', 'vs-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8));
+        frame.src = VS_FLOW_URL + '?' + qs.toString();
         frame.addEventListener('load', function () { load.classList.add('gone'); });
       }
-      if ('requestIdleCallback' in window) requestIdleCallback(precargar, { timeout: 3000 });
-      else setTimeout(precargar, 1600);
 
       function abrir(origen) {
         scrollPrevio = window.pageYOffset;
         precargar();
         modal.classList.add('open');
         document.body.classList.add('mp-locked');
-        // Recien ahora cuenta como visita al formulario
-        try { frame.contentWindow.postMessage({ mp: 'mostrar' }, '*'); } catch (e) {}
         track('form_modal_abierto', { origen: origen || '' });
       }
       function cerrar() {
@@ -2113,7 +2154,10 @@ body.mp-locked { overflow: hidden; }
 
       // El formulario de dentro dice cuanto mide, para que la tarjeta crezca con el
       window.addEventListener('message', function (e) {
-        if (!e.data || !e.data.mp) return;
+        if (!e.data) return;
+        // Virtual Scale avisa cuando el usuario cierra el flow → cerramos el modal
+        if (e.data.type === 'virtual-scale-flow-close') { cerrar(); return; }
+        if (!e.data.mp) return;
         /* Antes esto solo corria por encima de 900px y en el telefono el
            modal quedaba clavado a pantalla completa. Ahora la tarjeta se
            ajusta a cada paso del formulario tambien en movil, con tope para
