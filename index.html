@@ -2127,6 +2127,18 @@ body.mp-locked { overflow: hidden; }
         modal.classList.add('open');
         document.body.classList.add('mp-locked');
         track('form_modal_abierto', { origen: origen || '' });
+        // Aviso de intención por email (solo a Elias), una vez por sesión para no
+        // saturar: alguien abrió el formulario aunque todavía no deje sus datos.
+        try {
+          if (!sessionStorage.getItem('mp_cta_notified')) {
+            sessionStorage.setItem('mp_cta_notified', '1');
+            fetch(LEAD_ENDPOINT.replace('/api/lead', '/api/cta-open'), {
+              method: 'POST', keepalive: true,
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ origen: origen || '', source: attributionLabel() })
+            }).catch(function () {});
+          }
+        } catch (e) {}
       }
       function cerrar() {
         modal.classList.remove('open');
