@@ -2055,7 +2055,7 @@ body.mp-locked { overflow: hidden; }
         var alto = h.scrollHeight - window.innerHeight;
         var pct = alto > 0 ? (h.scrollTop / alto) * 100 : 100;
         hitos.forEach(function (m) {
-          if (pct >= m && !vistos[m]) { vistos[m] = 1; track('scroll_depth', { percent: m }); }
+          if (pct >= m && !vistos[m]) { vistos[m] = 1; track('scroll_' + m, { percent: m }); }
         });
         if (vistos[100]) window.removeEventListener('scroll', onScroll);
       }
@@ -2074,7 +2074,7 @@ body.mp-locked { overflow: hidden; }
           ents.forEach(function (e) {
             if (!e.isIntersecting) return;
             var n = e.target.getAttribute('data-sec');
-            if (n && !vistas[n]) { vistas[n] = 1; track('section_view', { section: n }); io.unobserve(e.target); }
+            if (n && !vistas[n]) { vistas[n] = 1; track('sec_' + n, { section: n }); io.unobserve(e.target); }
           });
         }, { threshold: 0.4 });
         secs.forEach(function (s) {
