@@ -2044,6 +2044,46 @@ body.mp-locked { overflow: hidden; }
       } catch (e) {}
     }
 
+    /* ── Instrumentación de engagement (para el dashboard del landing) ──
+       Mide qué tanto consume la gente la página: profundidad de scroll y qué
+       secciones ve. Cada hito se manda una sola vez por sesión de página. */
+    (function () {
+      // Profundidad de scroll: 25 / 50 / 75 / 100 %
+      var hitos = [25, 50, 75, 100], vistos = {};
+      function onScroll() {
+        var h = document.documentElement;
+        var alto = h.scrollHeight - window.innerHeight;
+        var pct = alto > 0 ? (h.scrollTop / alto) * 100 : 100;
+        hitos.forEach(function (m) {
+          if (pct >= m && !vistos[m]) { vistos[m] = 1; track('scroll_depth', { percent: m }); }
+        });
+        if (vistos[100]) window.removeEventListener('scroll', onScroll);
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      // Vista de secciones (una vez cada una)
+      var secs = [
+        ['hero', '.hero'], ['testimonios_chat', '#escriben'], ['proceso', '#como-trabajamos'],
+        ['casos', '#casos'], ['sobre_michelle', '.about'], ['tratamiento', '#tratamiento'],
+        ['rescate', '.rescate'], ['faq', '.faq']
+      ];
+      if ('IntersectionObserver' in window) {
+        var vistas = {};
+        var io = new IntersectionObserver(function (ents) {
+          ents.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            var n = e.target.getAttribute('data-sec');
+            if (n && !vistas[n]) { vistas[n] = 1; track('section_view', { section: n }); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.4 });
+        secs.forEach(function (s) {
+          var el = document.querySelector(s[1]);
+          if (el) { el.setAttribute('data-sec', s[0]); io.observe(el); }
+        });
+      }
+    })();
+
     // Clic en el botón flotante de WhatsApp
     (function() {
       var wa = document.querySelector('.whatsapp-float');
