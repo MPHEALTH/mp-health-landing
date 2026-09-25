@@ -632,43 +632,8 @@ footer img { height: 40px; opacity: 0.75; }
                 <input type="tel" id="bkPhone" autocomplete="tel" inputmode="tel" placeholder="+1 305 555 0123">
                 <span class="fld-err" id="errPhone">Escribe un teléfono válido con código de país</span>
               </div>
-              <div class="fld">
-                <label for="bkCountry">¿Dónde estás ubicado?</label>
-                <select id="bkCountry">
-                  <option value="">Selecciona…</option>
-                  <option value="Miami, FL">Miami, Florida</option>
-                  <option value="Estados Unidos (otro estado)">Estados Unidos — otro estado</option>
-                  <option value="Internacional">Fuera de Estados Unidos</option>
-                </select>
-                <span class="fld-err" id="errCountry">Selecciona tu ubicación</span>
-              </div>
-              <div class="fld">
-                <label for="bkMes">¿Cuándo te gustaría tu consulta?</label>
-                <select id="bkMes">
-                  <option value="">Selecciona…</option>
-                  <option value="cuanto_antes">Lo antes posible</option>
-                  <option value="este_mes">Este mes</option>
-                  <option value="proximo_mes">El próximo mes</option>
-                  <option value="flexible">Soy flexible</option>
-                </select>
-                <span class="fld-err" id="errMes">Selecciona una opción</span>
-              </div>
-              <div class="fld">
-                <label for="bkUrg">¿Qué tan urgente es tu caso?</label>
-                <select id="bkUrg">
-                  <option value="">Selecciona…</option>
-                  <option value="alta">Alta — quiero empezar ya</option>
-                  <option value="media">Media — en las próximas semanas</option>
-                  <option value="baja">Baja — estoy planificando</option>
-                </select>
-              </div>
-              <div class="fld">
-                <label for="bkNotes">Qué te gustaría resolver <span style="text-transform:none;letter-spacing:0;font-weight:400">(opcional)</span></label>
-                <textarea id="bkNotes" placeholder="Cuéntanos brevemente tu caso"></textarea>
-              </div>
-
               <button type="submit" class="btn bk-btn" id="bkBtn">Reservar mi consulta · $700 →</button>
-              <p class="bk-secure">Pago seguro con Stripe. Tarjeta, Apple&nbsp;Pay y Google&nbsp;Pay.<br>Usamos tu teléfono solo para coordinar tu cita.</p>
+              <p class="bk-secure">Pago seguro con Stripe. Tarjeta, Apple&nbsp;Pay, Google&nbsp;Pay y pago en cuotas.<br>Usamos tu teléfono solo para coordinar tu cita.</p>
 
               <div class="talk">
                 <span>¿Prefieres agendar por teléfono?</span>
@@ -679,6 +644,12 @@ footer img { height: 40px; opacity: 0.75; }
                 <small>Llámanos al +1 (786) 930-2544 · lunes a viernes, 9 AM – 6 PM EST</small>
               </div>
             </form>
+
+            <!-- Pago incrustado (Stripe Embedded Checkout) — sin salir de la página -->
+            <div id="mp-pay" style="display:none">
+              <button type="button" id="bkBack" style="background:none;border:none;color:var(--muted);font-size:0.82rem;cursor:pointer;padding:0 0 12px;font-family:inherit;">← Volver</button>
+              <div id="mp-embedded"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -1059,9 +1030,11 @@ footer img { height: 40px; opacity: 0.75; }
   </footer>
 
   <script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+  <script src="https://js.stripe.com/v3/"></script>
 
   <script>
     var CHECKOUT_ENDPOINT = 'https://bioscan.michellepeiret.com/api/consulta-checkout';
+    var STRIPE_PK = 'pk_live_C0iQ1V1kuKi2xs0qaTgrfdV0';
 
     var UTM_KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
     var attribution = {};
@@ -1099,44 +1072,62 @@ footer img { height: 40px; opacity: 0.75; }
         if (started) return; started = true; track('checkout_form_start');
       });
 
+      var checkoutObj = null; // instancia de Stripe Embedded Checkout
+
       form.addEventListener('submit', function (e) {
         e.preventDefault();
-        var name = val('bkName'), email = val('bkEmail'), phone = val('bkPhone'), country = val('bkCountry'), mes = val('bkMes');
+        var name = val('bkName'), email = val('bkEmail'), phone = val('bkPhone');
         var tipo = 'completa';
         var ok = true;
-        if (name.length < 3)                                   { err('errName', true);    ok = false; } else err('errName', false);
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))        { err('errEmail', true);   ok = false; } else err('errEmail', false);
-        if (phone.replace(/\D/g, '').length < 8)                { err('errPhone', true);   ok = false; } else err('errPhone', false);
-        if (!country)                                          { err('errCountry', true); ok = false; } else err('errCountry', false);
-        if (!mes)                                              { err('errMes', true);     ok = false; } else err('errMes', false);
+        if (name.length < 3)                            { err('errName', true);  ok = false; } else err('errName', false);
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err('errEmail', true); ok = false; } else err('errEmail', false);
+        if (phone.replace(/\D/g, '').length < 8)         { err('errPhone', true); ok = false; } else err('errPhone', false);
         if (!ok) { track('checkout_validation_error'); return; }
 
         btn.disabled = true;
-        btn.textContent = 'Abriendo pago seguro…';
-        track('begin_checkout', { value: 700, currency: 'USD', country: country, mes: mes });
+        btn.textContent = 'Preparando tu pago…';
+        track('begin_checkout', { value: 700, currency: 'USD' });
 
         fetch(CHECKOUT_ENDPOINT, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            name: name, email: email, phone: phone, country: country, mes: mes, tipo: tipo,
-            urgencia: val('bkUrg'), notes: val('bkNotes'),
+            name: name, email: email, phone: phone, tipo: tipo, embedded: true,
             source: 'consulta-michelle · ' + (attribution.utm_source || 'directo'),
             origin: location.origin
           })
         })
         .then(function (r) { return r.json(); })
         .then(function (j) {
-          if (j && j.url) { window.location.href = j.url; return; }
-          throw new Error((j && j.error) || 'sin url');
+          if (!j || !j.client_secret) throw new Error((j && j.error) || 'sin client_secret');
+          // Montar el pago incrustado — la persona NO sale de la página
+          var stripe = Stripe(STRIPE_PK);
+          return stripe.initEmbeddedCheckout({ clientSecret: j.client_secret }).then(function (co) {
+            checkoutObj = co;
+            form.style.display = 'none';
+            document.getElementById('mp-pay').style.display = 'block';
+            co.mount('#mp-embedded');
+            track('checkout_embedded_shown');
+            document.getElementById('mp-pay').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          });
         })
         .catch(function (e) {
           console.error('Checkout error:', e);
           btn.disabled = false;
-          btn.textContent = 'Reservar mi consulta →';
+          btn.textContent = 'Reservar mi consulta · $700 →';
           alert('No pudimos abrir el pago. Escríbenos por WhatsApp al +1 (786) 484-8729 y lo resolvemos.');
           track('checkout_error');
         });
+      });
+
+      // Volver del pago al formulario
+      var backBtn = document.getElementById('bkBack');
+      if (backBtn) backBtn.addEventListener('click', function () {
+        if (checkoutObj) { try { checkoutObj.destroy(); } catch (e) {} checkoutObj = null; }
+        document.getElementById('mp-pay').style.display = 'none';
+        form.style.display = '';
+        btn.disabled = false;
+        btn.textContent = 'Reservar mi consulta · $700 →';
       });
     })();
 
