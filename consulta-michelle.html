@@ -274,6 +274,10 @@
     .testi-name { display: block; font-size: 0.84rem; font-weight: 700; color: var(--navy); }
     .testi-meta { font-size: 0.73rem; color: var(--muted); }
     .testi-hint { font-size: 0.76rem; color: var(--muted); margin-top: 2px; }
+    .testi-tag { display: inline-block; align-self: flex-start; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--teal-dk); background: rgba(0,201,167,0.1); border: 1px solid rgba(0,201,167,0.25); padding: 4px 11px; border-radius: 20px; margin-bottom: 13px; }
+    .testi-foot.solo { justify-content: flex-start; }
+    .testi-verif { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--muted); font-weight: 600; }
+    .testi-verif svg { width: 13px; height: 13px; fill: none; stroke: var(--teal-dk); stroke-width: 2.4; flex-shrink: 0; }
     @media (max-width: 980px) { .testi-row { grid-auto-columns: minmax(260px, 80%); } }
 
     /* ── ACORDEÓN "Qué incluye" ── */
@@ -487,7 +491,9 @@ h3 { font-weight: 600 !important; }
 .vids-head h2 { color: var(--ink) !important; }
 .vids-head .label { color: var(--accent) !important; }
 .vids-head p { color: var(--ink-soft) !important; }
-.vid-tag { color: var(--accent) !important; background: rgba(10,91,77,0.08) !important; border-color: rgba(10,91,77,0.22) !important; }
+.vid-tag, .testi-tag { color: var(--accent) !important; background: rgba(10,91,77,0.08) !important; border-color: rgba(10,91,77,0.22) !important; }
+.testi-verif { color: var(--ink-soft) !important; }
+.testi-verif svg { stroke: var(--accent) !important; }
 
 /* ── Puntos y marcas que eran teal claro ── */
 .inc-list > li::before, .col-list li::before {
@@ -700,6 +706,19 @@ footer img { height: 40px; opacity: 0.75; }
             <div><span class="testi-name">Romina Vicentini</span><span class="testi-meta">Programa Metabolismo · 3 meses</span></div>
           </div>
         </div>
+
+        <div class="testi">
+          <span class="testi-tag">Tensión arterial</span>
+          <p><strong>Seis días sin pastillas de la tensión.</strong> 126 sobre 76.</p>
+          <div class="testi-foot solo"><span class="testi-verif"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Confirmado en casa</span></div>
+        </div>
+
+        <div class="testi">
+          <span class="testi-tag">Colesterol e insulina</span>
+          <p>Mis exámenes salieron perfectos después de año y medio de lucha con colesterol alto. <strong>Insulina controlada: ya hace seis meses que no tomo metformina.</strong> Todos los valores que siempre salían en rojo, ahora a nivel.</p>
+          <div class="testi-foot solo"><span class="testi-verif"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Panel de laboratorio</span></div>
+        </div>
+
         <div class="testi">
           <div class="stars">★★★★★</div>
           <p>
@@ -712,6 +731,19 @@ footer img { height: 40px; opacity: 0.75; }
             <div><span class="testi-name">Carolina Galiache</span><span class="testi-meta">Programa Integral · 2 años</span></div>
           </div>
         </div>
+
+        <div class="testi">
+          <span class="testi-tag">Rodillas · movilidad</span>
+          <p><strong>Ayer, por primera vez en dos años, pude arrodillarme con mis dos rodillas</strong> en la Santa Misa. Y estoy terminando apenas mi segunda semana.</p>
+          <div class="testi-foot solo"><span class="testi-verif">En 2 semanas</span></div>
+        </div>
+
+        <div class="testi">
+          <span class="testi-tag">Acompañamiento oncológico</span>
+          <p>Hoy nos dieron los resultados del <strong>PET scan y salió que está limpia completamente y sana.</strong> El equipo ha sido pieza fundamental en su proceso.</p>
+          <div class="testi-foot solo"><span class="testi-verif"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Confirmado por PET scan</span></div>
+        </div>
+
         <div class="testi">
           <div class="stars">★★★★★</div>
           <p>
@@ -724,6 +756,25 @@ footer img { height: 40px; opacity: 0.75; }
             <div><span class="testi-name">Charles</span><span class="testi-meta">Protocolo Personalizado · 6 meses</span></div>
           </div>
         </div>
+
+        <div class="testi">
+          <span class="testi-tag">Asma</span>
+          <p><strong>Tenía 42 años usando distintos inhaladores</strong>, pero desde que estoy contigo llevo dos años que los dejé. No podía subir escaleras ni caminar mucho, me ponían oxígeno.</p>
+          <div class="testi-foot solo"><span class="testi-verif">2 años sin inhaladores</span></div>
+        </div>
+
+        <div class="testi">
+          <span class="testi-tag">Digestión y ansiedad</span>
+          <p>Me desperté asustada de lo relajada que estaba. Mi sueño es otro. <strong>La ansiedad se me había quitado un 70%.</strong> Siento que mi estómago está siendo feliz.</p>
+          <div class="testi-foot solo"><span class="testi-verif">Día 4 del plan</span></div>
+        </div>
+
+        <div class="testi">
+          <span class="testi-tag">Peso sostenido</span>
+          <p>Solo seguí las indicaciones de alimentación que me dio, y <strong>bajé de 230 a 170. Ahí me he mantenido hace dos años.</strong></p>
+          <div class="testi-foot solo"><span class="testi-verif">Sostenido 2 años</span></div>
+        </div>
+
         <div class="testi">
           <div class="stars">★★★★★</div>
           <p>
@@ -735,6 +786,12 @@ footer img { height: 40px; opacity: 0.75; }
             <div class="avatar">J</div>
             <div><span class="testi-name">Jorge</span><span class="testi-meta">Programa Ansiedad &amp; Inflamación</span></div>
           </div>
+        </div>
+
+        <div class="testi">
+          <span class="testi-tag">Eccema · piel</span>
+          <p>Llevaba un año con un eccema que no me dejaba dormir: el picor extremo, el ardor. <strong>Ya no me pica ni arde, y duermo toda la noche.</strong></p>
+          <div class="testi-foot solo"><span class="testi-verif">En 1 mes</span></div>
         </div>
       </div>
       <p class="testi-hint">Desliza para ver más →</p>
