@@ -74,19 +74,13 @@
     /* ── HERO + CALENDARIO ── */
     .hero { background: var(--cream); padding: 56px 0 68px; border-bottom: 1px solid var(--cream2); }
     .hero-grid {
-      display: grid; grid-template-columns: 0.9fr 1.1fr; column-gap: 50px; row-gap: 0;
+      display: grid; grid-template-columns: 1fr 1.02fr; column-gap: 48px; row-gap: 0;
       grid-template-areas:
         "title cal"
-        "img   cal"
         "lead  cal";
       align-items: start;
     }
     .hero-title { grid-area: title; }
-    .hero-img   { grid-area: img; margin: 6px 0 24px; }
-    .hero-img img { width: 128px; height: 128px; border-radius: 50%; object-fit: cover; object-position: center 16%; box-shadow: 0 12px 32px rgba(13,27,46,0.18); border: 4px solid var(--white); display: block; }
-    .hero-img figcaption { margin-top: 11px; }
-    .hero-img b { display: block; font-size: 0.95rem; color: var(--navy); font-weight: 700; }
-    .hero-img span { font-size: 0.8rem; color: var(--muted); }
     .hero-lead { grid-area: lead; }
     .cal-col   { grid-area: cal; }
     .hero h1 { margin-bottom: 18px; }
@@ -98,10 +92,10 @@
     .meta-k { font-size: 0.73rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
     .meta-v { font-size: 0.92rem; color: var(--navy); font-weight: 600; text-align: right; }
     .meta-v.price { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; }
-    .hero-portrait { display: flex; align-items: center; gap: 15px; }
-    .hero-portrait img { width: 58px; height: 58px; border-radius: 50%; object-fit: cover; object-position: center 18%; flex-shrink: 0; }
-    .hero-portrait b { display: block; font-size: 0.9rem; color: var(--navy); font-weight: 700; }
-    .hero-portrait span { font-size: 0.78rem; color: var(--muted); }
+    .hero-portrait { display: flex; align-items: center; gap: 14px; margin: 22px 0 2px; }
+    .hero-portrait img { width: 66px; height: 66px; border-radius: 50%; object-fit: cover; object-position: center 16%; flex-shrink: 0; border: 3px solid var(--white); box-shadow: 0 8px 22px rgba(13,27,46,0.16); }
+    .hero-portrait b { display: block; font-size: 0.93rem; color: var(--navy); font-weight: 700; }
+    .hero-portrait span { font-size: 0.8rem; color: var(--muted); }
 
     .cal-col { position: sticky; top: 82px; }
     /* Si la pantalla es baja, el sticky se desactiva: una tarjeta mas alta que el
@@ -116,9 +110,9 @@
     .bk-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; object-position: center 16%; flex-shrink: 0; border: 2px solid var(--white); box-shadow: 0 2px 10px rgba(13,27,46,0.18); }
     .bk-price b { display: block; font-size: 2rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; line-height: 1.05; }
     .bk-price span { font-size: 0.83rem; color: var(--muted); }
-    .scarcity { background: rgba(0,201,167,0.08); border: 1px solid rgba(0,201,167,0.26); border-radius: 8px; padding: 13px 16px; margin-bottom: 20px; }
-    .scarcity b { display: block; font-size: 0.83rem; color: var(--teal-dk); font-weight: 700; margin-bottom: 4px; }
-    .scarcity span { font-size: 0.82rem; color: var(--muted); line-height: 1.62; }
+    .scarcity { background: rgba(0,201,167,0.08); border: 1px solid rgba(0,201,167,0.26); border-radius: 8px; padding: 9px 13px; margin-bottom: 16px; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+    .scarcity b { font-size: 0.79rem; color: var(--teal-dk); font-weight: 700; }
+    .scarcity span { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
     .fld { margin-bottom: 15px; }
     .fld label { display: block; font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 6px; }
     .fld input, .fld select, .fld textarea {
@@ -145,10 +139,8 @@
     .timing { font-size: 0.81rem; color: var(--muted); line-height: 1.7; margin-top: 16px; padding: 14px 16px; background: var(--cream); border-radius: 8px; }
     .timing strong { color: var(--navy); font-weight: 700; }
     @media (max-width: 980px) {
-      /* En movil: titulo → formulario → descripcion (patron de pagina de producto) */
-      .hero-grid { grid-template-columns: 1fr; grid-template-areas: "title" "img" "cal" "lead"; row-gap: 26px; }
-      .hero-img { text-align: center; margin: 2px 0 4px; }
-      .hero-img img { width: 118px; height: 118px; }
+      /* En movil: titulo → checkout → descripcion (patron de pagina de producto) */
+      .hero-grid { grid-template-columns: 1fr; grid-template-areas: "title" "cal" "lead"; row-gap: 26px; }
       .cal-col { position: static; }
       /* 16px evita que iOS haga zoom al enfocar un campo */
       .fld input, .fld select, .fld textarea { font-size: 16px; }
@@ -261,18 +253,38 @@
     .cond-col span { font-size: 0.86rem; color: var(--muted); line-height: 1.74; }
     @media (max-width: 900px) { .mp-grid { grid-template-columns: 1fr; gap: 34px; } .mp-img { max-width: 320px; } .cond-grid { grid-template-columns: 1fr; } }
 
-    /* ── TESTIMONIOS ── */
-    .testi-head { text-align: center; max-width: 560px; margin: 0 auto 44px; }
-    .testi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
-    .testi { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 30px 32px; display: flex; flex-direction: column; }
-    .stars { color: var(--teal-dk); font-size: 0.78rem; letter-spacing: 2px; margin-bottom: 14px; }
-    .testi p { font-size: 0.92rem; line-height: 1.85; color: var(--text); flex: 1; margin-bottom: 22px; }
+    /* ── TESTIMONIOS (carrusel horizontal, debajo del checkout) ── */
+    .testi-strip { padding: 30px 0 10px; }
+    .testi-strip .wrap { max-width: 1180px; }
+    .testi-striphead { display: flex; align-items: baseline; gap: 14px; margin-bottom: 18px; }
+    .testi-striphead .label { margin-bottom: 0; }
+    .testi-striphead b { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 600; color: var(--navy); }
+    .testi-row {
+      display: grid; grid-auto-flow: column; grid-auto-columns: minmax(300px, calc((100% - 3 * 18px) / 3.4));
+      gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory;
+      padding-bottom: 14px; margin: 0 -4px; padding-left: 4px; padding-right: 4px;
+      scrollbar-width: thin;
+    }
+    .testi { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 24px 26px; display: flex; flex-direction: column; scroll-snap-align: start; }
+    .stars { color: var(--teal-dk); font-size: 0.78rem; letter-spacing: 2px; margin-bottom: 12px; }
+    .testi p { font-size: 0.88rem; line-height: 1.78; color: var(--text); flex: 1; margin-bottom: 18px; }
     .testi p strong { color: var(--navy); font-weight: 700; }
-    .testi-foot { display: flex; align-items: center; gap: 13px; border-top: 1px solid var(--border); padding-top: 18px; }
-    .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--navy); color: var(--teal); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.93rem; flex-shrink: 0; }
-    .testi-name { display: block; font-size: 0.86rem; font-weight: 700; color: var(--navy); }
-    .testi-meta { font-size: 0.74rem; color: var(--muted); }
-    @media (max-width: 760px) { .testi-grid { grid-template-columns: 1fr; } }
+    .testi-foot { display: flex; align-items: center; gap: 12px; border-top: 1px solid var(--border); padding-top: 15px; }
+    .avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--navy); color: var(--teal); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; }
+    .testi-name { display: block; font-size: 0.84rem; font-weight: 700; color: var(--navy); }
+    .testi-meta { font-size: 0.73rem; color: var(--muted); }
+    .testi-hint { font-size: 0.76rem; color: var(--muted); margin-top: 2px; }
+    @media (max-width: 980px) { .testi-row { grid-auto-columns: minmax(260px, 80%); } }
+
+    /* ── ACORDEÓN "Qué incluye" ── */
+    .inc-acc { max-width: 860px; }
+    .acc-item { border-bottom: 1px solid var(--border); }
+    .acc-q { width: 100%; background: none; border: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 19px 4px; text-align: left; font-family: var(--font-body); font-size: 0.98rem; font-weight: 700; color: var(--navy); line-height: 1.4; }
+    .acc-ico { color: var(--teal-dk); font-size: 1.3rem; flex-shrink: 0; transition: transform 0.25s; line-height: 1; }
+    .acc-item.open .acc-ico { transform: rotate(45deg); }
+    .acc-a { max-height: 0; overflow: hidden; transition: max-height 0.32s ease; }
+    .acc-a p { font-size: 0.9rem; color: var(--muted); line-height: 1.82; padding: 0 4px 20px; }
+    .acc-item.open .acc-a { max-height: 320px; }
 
     /* ── VIDEOS ── */
     .vids { background: var(--navy3); }
@@ -447,18 +459,18 @@ body { background: var(--sand); color: var(--ink); }
 h1, h2, h3 { font-weight: 400 !important; color: var(--ink) !important; letter-spacing: -0.012em; }
 h3 { font-weight: 600 !important; }
 .label, .tagline, .cons-item-n, .step-n, .cond-title, .planner .kicker,
-.faq-ico, .stars, .h1-plus, .planner-mark, .scarcity b, .after > b {
+.faq-ico, .acc-ico, .stars, .h1-plus, .planner-mark, .scarcity b, .after > b {
   color: var(--accent) !important;
 }
-.lede, .hero-sub, .cons-intro, .mp p, .step p, .col-list li, .faq-a p,
-.cat span, .scan-top p, .testi-meta, .bk-secure, .btn-line, .meta-k,
+.lede, .hero-sub, .cons-intro, .mp p, .step p, .col-list li, .faq-a p, .acc-a p,
+.cat span, .scan-top p, .testi-meta, .testi-hint, .bk-secure, .btn-line, .meta-k,
 .inc-list span, .cond-col span, .planner p, .after li, .timing, .vids-hint,
 .scan-sample p, .cal-card-head span, .hero-portrait span, .bk-price span,
 .desc-sub, .fld-err, .talk > span, .talk small {
   color: var(--ink-soft) !important;
 }
 .fld-err { color: #b3261e !important; }
-.meta-v, .mp-stat b, .testi-name, .faq-q, .inc-list b, .cond-col b,
+.meta-v, .mp-stat b, .testi-name, .faq-q, .acc-q, .testi-striphead b, .inc-list b, .cond-col b,
 .bk-price b, .scan-stat b, .cat b, .desc-h, .hero-portrait b {
   color: var(--ink) !important;
 }
@@ -569,15 +581,14 @@ footer img { height: 40px; opacity: 0.75; }
         <span class="label">Consulta de evaluación</span>
         <h1>Consulta de evaluación con Michelle Peiret <span class="h1-plus">+ estudio BioScan</span></h1>
         <p class="tagline">Tu punto de partida hacia un plan hecho a tu medida.</p>
+        <div class="hero-portrait">
+          <img src="images/michelle-retrato.jpg" alt="Michelle Peiret">
+          <div>
+            <b>Michelle Peiret</b>
+            <span>Especialista en Nutrigenómica y Epigenética</span>
+          </div>
+        </div>
       </div>
-
-      <figure class="hero-img">
-        <img src="images/michelle-retrato.jpg" alt="Michelle Peiret">
-        <figcaption>
-          <b>Michelle Peiret</b>
-          <span>Especialista en Nutrigenómica y Epigenética</span>
-        </figcaption>
-      </figure>
 
       <div class="hero-lead">
         <p class="hero-sub">
@@ -626,7 +637,7 @@ footer img { height: 40px; opacity: 0.75; }
 
             <div class="scarcity">
               <b>Cupos limitados cada mes</b>
-              <span>Michelle atiende un número limitado de consultas nuevas al mes y se asignan por orden de reserva. Al reservar hoy tu cupo queda apartado antes que el de cualquiera que aún no ha reservado.</span>
+              <span>Se asignan por orden de reserva.</span>
             </div>
 
             <form id="bkForm" novalidate>
@@ -669,6 +680,67 @@ footer img { height: 40px; opacity: 0.75; }
     </div>
   </header>
 
+  <!-- ━━━ CASOS REALES · carrusel horizontal, justo debajo del checkout ━━━ -->
+  <section class="testi-strip">
+    <div class="wrap">
+      <div class="testi-striphead fade">
+        <span class="label">Pacientes</span>
+        <b>Casos reales</b>
+      </div>
+      <div class="testi-row">
+        <div class="testi">
+          <div class="stars">★★★★★</div>
+          <p>
+            Comencé el programa con Michelle hace casi ya tres meses, me he sentido demasiado bien,
+            logré quitarme muchísima inflamación. <strong>Bajé de peso, recuperé mi energía completamente
+            y mi sueño es excelente.</strong> Es el mejor programa en el que he estado.
+          </p>
+          <div class="testi-foot">
+            <div class="avatar">R</div>
+            <div><span class="testi-name">Romina Vicentini</span><span class="testi-meta">Programa Metabolismo · 3 meses</span></div>
+          </div>
+        </div>
+        <div class="testi">
+          <div class="stars">★★★★★</div>
+          <p>
+            Llevo dos años en el programa. <strong>Se fueron mis alergias, la inflamación desapareció
+            y recuperé las 20 libras que había perdido.</strong> Fue un esfuerzo del equipo y un compromiso
+            personal que cambió todo para mí.
+          </p>
+          <div class="testi-foot">
+            <div class="avatar">C</div>
+            <div><span class="testi-name">Carolina Galiache</span><span class="testi-meta">Programa Integral · 2 años</span></div>
+          </div>
+        </div>
+        <div class="testi">
+          <div class="stars">★★★★★</div>
+          <p>
+            Tenía migrañas semanales durante años. <strong>Desde el tercer mes en el programa
+            las migrañas desaparecieron completamente.</strong> Nunca había encontrado algo que
+            realmente atacara la causa — no solo los síntomas.
+          </p>
+          <div class="testi-foot">
+            <div class="avatar">C</div>
+            <div><span class="testi-name">Charles</span><span class="testi-meta">Protocolo Personalizado · 6 meses</span></div>
+          </div>
+        </div>
+        <div class="testi">
+          <div class="stars">★★★★★</div>
+          <p>
+            Tenía crisis de ansiedad e inflamación sistémica. También uveítis en los ojos.
+            <strong>Todo desapareció.</strong> Lo que más valoro es que finalmente alguien se tomó
+            el tiempo de entender mi cuerpo completo, no solo un síntoma.
+          </p>
+          <div class="testi-foot">
+            <div class="avatar">J</div>
+            <div><span class="testi-name">Jorge</span><span class="testi-meta">Programa Ansiedad &amp; Inflamación</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="testi-hint">Desliza para ver más →</p>
+    </div>
+  </section>
+
   <!-- ━━━ QUÉ INCLUYE ━━━ -->
   <section class="incl-sec">
     <div class="wrap">
@@ -676,87 +748,35 @@ footer img { height: 40px; opacity: 0.75; }
         <span class="label">Qué incluye</span>
         <h2>Qué incluye esta consulta</h2>
       </div>
-      <ul class="inc-list fade">
-        <li>
-          <b>Evaluación integral de tu historia</b>
-          <span>Tu historial médico, diagnósticos y tratamientos previos, junto a tu historia personal: hábitos, sueño, alimentación, estrés y los objetivos que tienes hoy.</span>
-        </li>
-        <li>
-          <b>Tu estudio BioScan</b>
-          <span>Un estudio epigenético con cuatro hebras de cabello, sin agujas ni sangre. Lee 900+ biomarcadores: vitaminas y minerales, hormonas, microbiota, toxinas, sensibilidades a 115+ alimentos, inflamación y edad biológica. Muestra cómo funciona tu cuerpo hoy, no predisposiciones fijas.</span>
-        </li>
-        <li>
-          <b>Tu InBody</b>
-          <span>El análisis de composición corporal del centro: masa muscular, grasa visceral, densidad ósea e hidratación celular. El dato que le dice a Michelle de qué está hecho tu peso, no solo cuánto pesas.</span>
-        </li>
-        <li>
-          <b>La interpretación de Michelle</b>
-          <span>Revisa tu reporte contigo, categoría por categoría, y traduce cada hallazgo al contexto de tu caso.</span>
-        </li>
-        <li>
-          <b>El origen de lo que te pasa</b>
-          <span>Qué lo originó, por qué tu cuerpo responde así, y cómo se conecta con tu genética y con la forma en que tus genes se expresan hoy.</span>
-        </li>
-        <li>
-          <b>La estructura de tu plan personalizado</b>
-          <span>Qué contempla, por dónde se empieza y en qué fases se ordena. El plan detallado se entrega al iniciar tu programa; aquí queda definido cómo va a funcionar.</span>
-        </li>
-        <li>
-          <b>Los tiempos, con fechas</b>
-          <span>Cuánto tomaría trabajar tu caso uno a uno, cuándo se empiezan a notar los cambios y cuánto suele llevar llegar a tu objetivo.</span>
-        </li>
-      </ul>
-
-      <div class="planner fade">
-        <div class="planner-mark">&#43;</div>
-        <div>
-          <p class="kicker">Como parte de tu experiencia recibirás</p>
-          <h3>El Planner Michelle Peiret</h3>
-          <p>Un complemento para que la estrategia que definas con Michelle sea aplicable en tu día a día: variedad de recetas de jugos y comidas, y un calendario de planificación para organizar tu plan semana a semana.</p>
+      <div class="inc-acc fade">
+        <div class="acc-item">
+          <button class="acc-q" type="button">Evaluación integral de tu historia<span class="acc-ico">+</span></button>
+          <div class="acc-a"><p>Tu historial médico, diagnósticos y tratamientos previos, junto a tu historia personal: hábitos, sueño, alimentación, estrés y los objetivos que tienes hoy.</p></div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ━━━ BIOSCAN ━━━ -->
-  <section class="scan">
-    <div class="wrap">
-      <div class="scan-top fade">
-        <span class="label">Incluido en tu consulta</span>
-        <h2>BioScan</h2>
-        <p>
-          El estudio epigenético que Michelle usa como base de toda su lectura. Tu ADN no cambia; la
-          forma en que se expresa, sí — y eso es lo que el BioScan mide. Con cuatro hebras de cabello
-          analiza más de 900 biomarcadores y muestra cómo está funcionando tu cuerpo hoy, no
-          predisposiciones fijas.
-        </p>
-      </div>
-
-      <div class="scan-stats fade">
-        <div class="scan-stat"><b>900+</b><span>BIOMARCADORES</span></div>
-        <div class="scan-stat"><b>9</b><span>CATEGORÍAS DE SALUD</span></div>
-        <div class="scan-stat"><b>115+</b><span>ALIMENTOS EVALUADOS</span></div>
-        <div class="scan-stat"><b>7–10</b><span>DÍAS DE RESULTADOS</span></div>
-      </div>
-
-      <div class="cats fade">
-        <div class="cat"><b>Vitaminas y minerales</b><span>D3, B12, folato, K2, hierro, zinc, magnesio, selenio y 40+ micronutrientes</span></div>
-        <div class="cat"><b>Hormonas</b><span>Tiroides, cortisol, estrógeno, progesterona, testosterona, insulina, DHEA</span></div>
-        <div class="cat"><b>Microbiota e intestino</b><span>Bacterias beneficiosas y patógenas, permeabilidad intestinal, butirato</span></div>
-        <div class="cat"><b>Toxinas y metales pesados</b><span>Mercurio, plomo, arsénico, cadmio, pesticidas, disruptores endocrinos</span></div>
-        <div class="cat"><b>Sensibilidades alimentarias</b><span>115+ alimentos: gluten, lácteos, huevo, soja, maíz, frutos secos</span></div>
-        <div class="cat"><b>Metabolismo y energía</b><span>Función mitocondrial, resistencia a la insulina, uso de grasas</span></div>
-        <div class="cat"><b>Inflamación e inmunidad</b><span>Marcadores inflamatorios, autoinmunidad, respuesta inmune</span></div>
-        <div class="cat"><b>Cardiovascular</b><span>Colesterol, triglicéridos, homocisteína, ratio Omega-3 / Omega-6</span></div>
-        <div class="cat"><b>Edad biológica</b><span>Telómeros, NAD+, glicación y marcadores de longevidad celular</span></div>
-      </div>
-
-      <div class="scan-sample fade">
-        <b>La muestra</b>
-        <p>
-          Cuatro hebras de cabello. Sin agujas, sin sangre. En Miami se toma en el consultorio; si
-          estás fuera, el kit llega a tu casa en cualquier país, tomas la muestra y la envías de vuelta.
-        </p>
+        <div class="acc-item">
+          <button class="acc-q" type="button">Tu estudio BioScan<span class="acc-ico">+</span></button>
+          <div class="acc-a"><p>Un estudio epigenético con cuatro hebras de cabello, sin agujas ni sangre. Lee 900+ biomarcadores: vitaminas y minerales, hormonas, microbiota, toxinas, sensibilidades a 115+ alimentos, inflamación y edad biológica. Muestra cómo funciona tu cuerpo hoy, no predisposiciones fijas.</p></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-q" type="button">Tu InBody<span class="acc-ico">+</span></button>
+          <div class="acc-a"><p>El análisis de composición corporal del centro: masa muscular, grasa visceral, densidad ósea e hidratación celular. El dato que le dice a Michelle de qué está hecho tu peso, no solo cuánto pesas.</p></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-q" type="button">La interpretación de Michelle<span class="acc-ico">+</span></button>
+          <div class="acc-a"><p>Revisa tu reporte contigo, categoría por categoría, y traduce cada hallazgo al contexto de tu caso.</p></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-q" type="button">El origen de lo que te pasa<span class="acc-ico">+</span></button>
+          <div class="acc-a"><p>Qué lo originó, por qué tu cuerpo responde así, y cómo se conecta con tu genética y con la forma en que tus genes se expresan hoy.</p></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-q" type="button">La estructura de tu plan personalizado<span class="acc-ico">+</span></button>
+          <div class="acc-a"><p>Qué contempla, por dónde se empieza y en qué fases se ordena. El plan detallado se entrega al iniciar tu programa; aquí queda definido cómo va a funcionar.</p></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-q" type="button">Los tiempos, con fechas<span class="acc-ico">+</span></button>
+          <div class="acc-a"><p>Cuánto tomaría trabajar tu caso uno a uno, cuándo se empiezan a notar los cambios y cuánto suele llevar llegar a tu objetivo.</p></div>
+        </div>
       </div>
     </div>
   </section>
@@ -846,66 +866,6 @@ footer img { height: 40px; opacity: 0.75; }
           <div class="cond-col">
             <b>Otras</b>
             <span>Fatiga crónica, alopecia y caída del cabello, osteoporosis, longevidad y edad biológica, rendimiento deportivo</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ━━━ TESTIMONIOS ESCRITOS ━━━ -->
-  <section>
-    <div class="wrap">
-      <div class="testi-head fade">
-        <span class="label">Pacientes</span>
-        <h2>Casos reales</h2>
-      </div>
-      <div class="testi-grid">
-        <div class="testi fade">
-          <div class="stars">★★★★★</div>
-          <p>
-            Comencé el programa con Michelle hace casi ya tres meses, me he sentido demasiado bien,
-            logré quitarme muchísima inflamación. <strong>Bajé de peso, recuperé mi energía completamente
-            y mi sueño es excelente.</strong> Es el mejor programa en el que he estado.
-          </p>
-          <div class="testi-foot">
-            <div class="avatar">R</div>
-            <div><span class="testi-name">Romina Vicentini</span><span class="testi-meta">Programa Metabolismo · 3 meses</span></div>
-          </div>
-        </div>
-        <div class="testi fade">
-          <div class="stars">★★★★★</div>
-          <p>
-            Llevo dos años en el programa. <strong>Se fueron mis alergias, la inflamación desapareció
-            y recuperé las 20 libras que había perdido.</strong> Fue un esfuerzo del equipo y un compromiso
-            personal que cambió todo para mí.
-          </p>
-          <div class="testi-foot">
-            <div class="avatar">C</div>
-            <div><span class="testi-name">Carolina Galiache</span><span class="testi-meta">Programa Integral · 2 años</span></div>
-          </div>
-        </div>
-        <div class="testi fade">
-          <div class="stars">★★★★★</div>
-          <p>
-            Tenía migrañas semanales durante años. <strong>Desde el tercer mes en el programa
-            las migrañas desaparecieron completamente.</strong> Nunca había encontrado algo que
-            realmente atacara la causa — no solo los síntomas.
-          </p>
-          <div class="testi-foot">
-            <div class="avatar">C</div>
-            <div><span class="testi-name">Charles</span><span class="testi-meta">Protocolo Personalizado · 6 meses</span></div>
-          </div>
-        </div>
-        <div class="testi fade">
-          <div class="stars">★★★★★</div>
-          <p>
-            Tenía crisis de ansiedad e inflamación sistémica. También uveítis en los ojos.
-            <strong>Todo desapareció.</strong> Lo que más valoro es que finalmente alguien se tomó
-            el tiempo de entender mi cuerpo completo, no solo un síntoma.
-          </p>
-          <div class="testi-foot">
-            <div class="avatar">J</div>
-            <div><span class="testi-name">Jorge</span><span class="testi-meta">Programa Ansiedad &amp; Inflamación</span></div>
           </div>
         </div>
       </div>
@@ -1149,6 +1109,15 @@ footer img { height: 40px; opacity: 0.75; }
         var item = b.parentElement, open = item.classList.contains('open');
         document.querySelectorAll('.faq-item').forEach(function (i) { i.classList.remove('open'); });
         if (!open) { item.classList.add('open'); track('faq_open', { question: b.textContent.replace('+', '').trim().slice(0, 60) }); }
+      });
+    });
+
+    // Acordeón "Qué incluye" — cada punto se abre/cierra por separado
+    document.querySelectorAll('.acc-q').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var item = b.parentElement, willOpen = !item.classList.contains('open');
+        item.classList.toggle('open');
+        if (willOpen) track('incluye_open', { item: b.textContent.replace('+', '').trim().slice(0, 60) });
       });
     });
 
