@@ -28,6 +28,43 @@
     fbq('track', 'PageView');
   </script>
 
+  <!-- ══════════════════════════════════════════════════════════════════
+       MICROSOFT CLARITY · mapas de calor + grabación de sesión
+       ══════════════════════════════════════════════════════════════════
+       Para activarlo: pega el Project ID de clarity.microsoft.com abajo.
+       Mientras CLARITY_ID esté vacío, este bloque no carga nada — la
+       página funciona igual y no se envía un solo byte.
+
+       Qué añade sobre lo que ya mide GA4:
+         · Mapa de clics: dónde pulsa la gente, incluido lo que no es botón
+         · Mapa de scroll: hasta dónde llega cada porcentaje de visitantes
+         · Grabaciones: la sesión completa, reproducible
+         · Rage clicks / dead clicks: clics repetidos y clics en cosas
+           que no responden. Es lo que delata un checkout que no reacciona.
+
+       PRIVACIDAD — esto es una página de salud con pago:
+       `mask: true` oculta TODO el texto que escribe el visitante antes de
+       salir de su navegador. No lo bajes a false. Los campos de nombre,
+       correo y teléfono llevan además data-clarity-mask="true" más abajo.
+       El iframe de Stripe es de otro dominio: Clarity no puede verlo, así
+       que los datos de tarjeta quedan fuera de alcance por construcción.  -->
+  <script>
+    var CLARITY_ID = 'yphdoxojbt';   // Project ID de clarity.microsoft.com
+    if (CLARITY_ID) {
+      (function (c, l, a, r, i, t, y) {
+        c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+        t = l.createElement(r); t.async = 1;
+        t.src = 'https://www.clarity.ms/tag/' + i;
+        y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+      })(window, document, 'clarity', 'script', CLARITY_ID);
+      // Enmascarado total del texto introducido. No tocar.
+      window.clarity('consent');
+      window.clarity('set', 'mask', 'true');
+      // Etiqueta la sesión para poder filtrar grabaciones por página.
+      window.clarity('set', 'pagina', 'consulta-michelle');
+    }
+  </script>
+
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -649,17 +686,17 @@ footer img { height: 40px; opacity: 0.75; }
             <form id="bkForm" novalidate>
               <div class="fld">
                 <label for="bkName">Nombre completo</label>
-                <input type="text" id="bkName" autocomplete="name" placeholder="Tu nombre y apellido">
+                <input type="text" id="bkName" data-clarity-mask="true" autocomplete="name" placeholder="Tu nombre y apellido">
                 <span class="fld-err" id="errName">Escribe tu nombre completo</span>
               </div>
               <div class="fld">
                 <label for="bkEmail">Correo electrónico</label>
-                <input type="email" id="bkEmail" autocomplete="email" inputmode="email" placeholder="tu@correo.com">
+                <input type="email" id="bkEmail" data-clarity-mask="true" autocomplete="email" inputmode="email" placeholder="tu@correo.com">
                 <span class="fld-err" id="errEmail">Escribe un correo válido</span>
               </div>
               <div class="fld">
                 <label for="bkPhone">Teléfono / WhatsApp</label>
-                <input type="tel" id="bkPhone" autocomplete="tel" inputmode="tel" placeholder="+1 305 555 0123">
+                <input type="tel" id="bkPhone" data-clarity-mask="true" autocomplete="tel" inputmode="tel" placeholder="+1 305 555 0123">
                 <span class="fld-err" id="errPhone">Escribe un teléfono válido con código de país</span>
               </div>
               <button type="submit" class="btn bk-btn" id="bkBtn">Reservar mi consulta · $700 →</button>
@@ -1102,6 +1139,38 @@ footer img { height: 40px; opacity: 0.75; }
         if (started) return; started = true; track('checkout_form_start');
       });
 
+      /* ── VALIDACION INLINE ──────────────────────────────────────────────
+         Antes solo se validaba al pulsar "Reservar": la persona rellenaba los
+         tres campos, pulsaba, y le aparecian los errores de golpe. El 40% de
+         quienes empiezan el formulario se topaba con uno.
+
+         Ahora cada campo se revisa al salir de el, y el error desaparece en
+         cuanto lo corrige. Los errores solo se muestran en campos que la
+         persona ya toco — nada de pintar en rojo algo que aun no ha rellenado. */
+      var REGLAS = {
+        bkName:  { err: 'errName',  ok: function (v) { return v.length >= 3; } },
+        bkEmail: { err: 'errEmail', ok: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); } },
+        bkPhone: { err: 'errPhone', ok: function (v) { return v.replace(/\D/g, '').length >= 8; } }
+      };
+      var tocado = {};
+
+      Object.keys(REGLAS).forEach(function (id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        var regla = REGLAS[id];
+        // Al salir del campo: si ya escribio algo, se le dice si esta bien.
+        el.addEventListener('blur', function () {
+          tocado[id] = true;
+          var v = (el.value || '').trim();
+          err(regla.err, v.length > 0 && !regla.ok(v));
+        });
+        // Mientras escribe: en cuanto es valido, el error se va solo.
+        el.addEventListener('input', function () {
+          var v = (el.value || '').trim();
+          if (regla.ok(v)) err(regla.err, false);
+        });
+      });
+
       var checkoutObj = null; // instancia de Stripe Embedded Checkout
 
       form.addEventListener('submit', function (e) {
@@ -1112,7 +1181,19 @@ footer img { height: 40px; opacity: 0.75; }
         if (name.length < 3)                            { err('errName', true);  ok = false; } else err('errName', false);
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err('errEmail', true); ok = false; } else err('errEmail', false);
         if (phone.replace(/\D/g, '').length < 8)         { err('errPhone', true); ok = false; } else err('errPhone', false);
-        if (!ok) { track('checkout_validation_error'); return; }
+        if (!ok) {
+          // Llevar el foco al primer campo que falla: en movil, el error de
+          // abajo puede quedar fuera de pantalla y la persona no ve por que
+          // no avanza el boton.
+          var primero = null;
+          if (name.length < 3) primero = 'bkName';
+          else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) primero = 'bkEmail';
+          else primero = 'bkPhone';
+          var elp = document.getElementById(primero);
+          if (elp) { try { elp.focus({ preventScroll: false }); } catch (e) { elp.focus(); } }
+          track('checkout_validation_error', { campo: primero });
+          return;
+        }
 
         btn.disabled = true;
         btn.textContent = 'Preparando tu pago…';

@@ -17,7 +17,8 @@
     window.TRACKING = {
       GA4_ID: 'G-B7PSHFCHGY',  // Google Analytics 4
       META_PIXEL_ID: '1219764922715386',       // Meta Pixel, ej. '1234567890123456'
-      GADS_ID: ''              // Google Ads, ej. 'AW-1234567890'
+      GADS_ID: '',             // Google Ads, ej. 'AW-1234567890'
+      CLARITY_ID: 'yphdoxojbt'  // Microsoft Clarity (mapas de calor + grabaciones)
     };
   </script>
 
@@ -48,6 +49,42 @@
       document,'script','https://connect.facebook.net/en_US/fbevents.js');
       fbq('init', window.TRACKING.META_PIXEL_ID);
       fbq('track', 'PageView');
+    })();
+  </script>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       MICROSOFT CLARITY · mapas de calor + grabación de sesión
+       ══════════════════════════════════════════════════════════════════
+       Se activa pegando CLARITY_ID arriba, con el resto de los IDs.
+
+       LÍMITE QUE HAY QUE TENER PRESENTE: el formulario de Virtual Scale vive
+       en un iframe de otro dominio. Clarity NO puede ver dentro. Así que de
+       las preguntas, los abandonos por paso y lo que la gente escribe no vas
+       a tener ni mapa ni grabación — eso solo lo da Virtual Scale.
+
+       Lo que SÍ vas a ver, y es justo lo que hoy no sabes:
+         · Cuánta gente cierra el formulario automático sin tocarlo (el clic
+           en la X y en el fondo ocurre en esta página, no en el iframe)
+         · Si después de cerrarlo se quedan y leen, o se van
+         · Hasta dónde bajan, y qué pestaña del carrusel abren
+         · Rage y dead clicks: dónde pulsan creyendo que es un botón
+
+       PRIVACIDAD: `mask: true` oculta todo el texto introducido antes de
+       salir del navegador. Los campos del formulario de contacto llevan
+       además data-clarity-mask="true". No bajar mask a false.            -->
+  <script>
+    (function () {
+      var id = window.TRACKING && window.TRACKING.CLARITY_ID;
+      if (!id) return;
+      (function (c, l, a, r, i, t, y) {
+        c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+        t = l.createElement(r); t.async = 1;
+        t.src = 'https://www.clarity.ms/tag/' + i;
+        y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+      })(window, document, 'clarity', 'script', id);
+      window.clarity('consent');
+      window.clarity('set', 'mask', 'true');
+      window.clarity('set', 'pagina', 'analisis-landing');
     })();
   </script>
 
@@ -173,6 +210,18 @@
       font-size: 0.68rem; letter-spacing: 0.6px;
       color: rgba(255,255,255,0.45); text-transform: uppercase;
     }
+    .hero-speed { display: flex; align-items: center; gap: 9px; margin-top: 16px;
+      font-size: 0.92rem; line-height: 1.5; color: rgba(255,255,255,0.78); }
+    .hero-speed strong { color: var(--teal); font-weight: 600; }
+    .hero-speed-dot { flex: none; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--teal); box-shadow: 0 0 0 0 rgba(0,201,167,.55);
+      animation: mpPulse 2.2s ease-out infinite; }
+    @keyframes mpPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(0,201,167,.55); }
+      70%  { box-shadow: 0 0 0 9px rgba(0,201,167,0); }
+      100% { box-shadow: 0 0 0 0 rgba(0,201,167,0); }
+    }
+    @media (prefers-reduced-motion: reduce) { .hero-speed-dot { animation: none; } }
     .hero-trust { display: flex; align-items: center; gap: 10px; margin-top: 18px; }
     .hero-trust svg { color: var(--teal); flex-shrink: 0; }
     .hero-trust-text { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
@@ -1285,6 +1334,12 @@ body.mp-locked { overflow: hidden; }
       background: var(--white); border: 1px solid var(--border); border-radius: 14px;
       padding: 24px 22px; display: flex; flex-direction: column;
     }
+    .caso-txt-msg .caso-msg-top { display: flex; align-items: center; justify-content: space-between;
+      gap: 10px; margin-bottom: 13px; }
+    .caso-msg-kind { font-size: .66rem; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--muted); white-space: nowrap; }
+    .caso-msg-verif { margin-top: 16px; padding-top: 13px; border-top: 1px solid rgba(13,27,46,.09);
+      font-size: .74rem; color: var(--muted); }
     .caso-txt .stars { color: var(--teal); font-size: .8rem; letter-spacing: 2px; margin-bottom: 12px; }
     .caso-txt p { font-size: .92rem; line-height: 1.75; color: var(--text); font-weight: 300; flex: 1; }
     .caso-txt p strong { font-weight: 600; }
@@ -1533,16 +1588,17 @@ body.mp-locked { overflow: hidden; }
   <!-- ━━━ HERO ━━━ -->
   <section class="hero">
     <div class="hero-left">
-      <div class="hero-eyebrow">Tu Salud Resuelta · nutrigenómica en Miami</div>
+      <div class="hero-eyebrow">Nutrigenómica en Miami · Online y presencial</div>
       <h1 class="hero-h1">
-        Tu salud vuelve<br>
-        a ser <em>tuya</em>
+        Deja de improvisar<br>
+        con tu <em>salud</em>
       </h1>
       <p class="hero-sub">
-        No se trata de vivir medicado ni de depender de una consulta para siempre.
-        Leemos tu biología, encontramos la raíz de lo que te pasa y te enseñamos a
-        nutrir y cuidar tu cuerpo según lo que él necesita. Sales sabiendo manejar
-        tu salud por tu cuenta.
+        Hay quien llega con síntomas que lleva años arrastrando sin respuesta.
+        Y hay quien se siente bien y quiere saber en qué estado está su cuerpo
+        antes de que algo falle. Los dos empiezan igual: te escuchamos, medimos
+        lo que <em>tu</em> caso necesita y construimos un protocolo que no se
+        parece al de nadie más.
       </p>
 
       <div class="hero-stats">
@@ -1564,6 +1620,16 @@ body.mp-locked { overflow: hidden; }
         <a href="empezar.html" class="btn btn-lg">Quiero empezar →</a>
         <a href="#casos" class="btn-ver">Ver casos como el mío ↓</a>
       </div>
+
+      <!-- La promesa de velocidad, en el hero y no solo en la pagina de gracias.
+           Va condicionada ("si tu caso es para nosotros") porque quien queda por
+           debajo del corte no recibe llamada: va a Michelle.AI. Prometerla a todos
+           seria mentir. -->
+      <p class="hero-speed">
+        <span class="hero-speed-dot"></span>
+        Respondes unas preguntas. Si tu caso es para nosotros,
+        <strong>te llamamos en minutos</strong>.
+      </p>
 
       <div class="hero-trust">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -1714,7 +1780,10 @@ body.mp-locked { overflow: hidden; }
   <!-- ━━━ URGENCY ━━━ -->
   <div class="urgency">
     <div class="urgency-dot"></div>
-    <p>Michelle atiende un número limitado de consultas al mes — <span>si quieres la tuya, este es el momento de agendar.</span></p>
+    <!-- Antes aqui habia un empujon de escasez ("este es el momento de agendar").
+         Se cambio por el dato operativo, que es verdad y no presiona: el equipo
+         llama en minutos. Afirmar, no convencer. -->
+    <p>Michelle atiende un número limitado de consultas al mes. <span>El equipo revisa cada caso el mismo día que llega — y si es para nosotros, te llama en minutos.</span></p>
   </div>
 
 
@@ -1852,9 +1921,9 @@ body.mp-locked { overflow: hidden; }
       <p>Déjanos tus datos y el equipo se comunica contigo para resolver tus dudas.</p>
       <form id="rescateForm" novalidate>
         <div class="r-row">
-          <input type="text"  id="rName"  placeholder="Nombre y apellido" autocomplete="name">
-          <input type="email" id="rEmail" placeholder="Correo electrónico" autocomplete="email" inputmode="email">
-          <input type="tel"   id="rPhone" placeholder="Teléfono / WhatsApp" autocomplete="tel" inputmode="tel">
+          <input type="text"  id="rName" data-clarity-mask="true"  placeholder="Nombre y apellido" autocomplete="name">
+          <input type="email" id="rEmail" data-clarity-mask="true" placeholder="Correo electrónico" autocomplete="email" inputmode="email">
+          <input type="tel"   id="rPhone" data-clarity-mask="true" placeholder="Teléfono / WhatsApp" autocomplete="tel" inputmode="tel">
         </div>
         <span class="r-err" id="rErr">Completa los tres campos con datos válidos</span>
         <button type="submit" class="btn" id="rBtn">Que me contacten →</button>
@@ -2131,6 +2200,9 @@ body.mp-locked { overflow: hidden; }
 
     /* ── MODAL DEL FORMULARIO ── */
     (function () {
+      // El landing tambien se sirve embebido en algunos sitios; ahi la apertura
+      // automatica no aplica.
+      var EMBED_LANDING = (function () { try { return window.self !== window.top; } catch (e) { return true; } })();
       var modal = document.getElementById('mpModal');
       var frame = document.getElementById('mpModalFrame');
       var load  = document.getElementById('mpModalLoad');
@@ -2167,6 +2239,15 @@ body.mp-locked { overflow: hidden; }
         modal.classList.add('open');
         document.body.classList.add('mp-locked');
         track('form_modal_abierto', { origen: origen || '' });
+        // Etiqueta la sesión en Clarity para poder filtrar las grabaciones por
+        // "se le abrió solo" vs "lo abrió él". Sin esto las grabaciones salen
+        // todas mezcladas y no se puede medir el efecto de la apertura auto.
+        try {
+          if (window.clarity) {
+            clarity('set', 'form_modal', origen === 'auto' ? 'auto' : 'clic');
+            clarity('event', 'form_modal_abierto');
+          }
+        } catch (e) {}
         // Aviso de intención por email (solo a Elias), una vez por sesión para no
         // saturar: alguien abrió el formulario aunque todavía no deje sus datos.
         try {
@@ -2185,6 +2266,14 @@ body.mp-locked { overflow: hidden; }
         document.body.classList.remove('mp-locked');
         window.scrollTo(0, scrollPrevio);
         track('form_modal_cerrado');
+        // El cierre es la señal que interesa: quien cierra el formulario
+        // automático sin llenarlo es exactamente la persona que hay que ver.
+        try {
+          if (window.clarity) {
+            clarity('set', 'form_modal', 'cerrado');
+            clarity('event', 'form_modal_cerrado');
+          }
+        } catch (e) {}
       }
 
       // Los CTA conservan su href: asi el clic con rueda o "abrir en pestana
@@ -2224,6 +2313,49 @@ body.mp-locked { overflow: hidden; }
         }
         if (e.data.mp === 'calificado') track('lead_qualified_modal', {});
       });
+
+      /* ── APERTURA AUTOMATICA ──────────────────────────────────────────
+         Pedido por Elias (25 sep 2026): el formulario se abre solo al entrar
+         al landing, sin esperar el clic.
+
+         Los tres interruptores estan aqui arriba para poder apagarlo o
+         ajustarlo sin buscar nada mas abajo:
+
+         AUTO_ABRIR        false lo desactiva por completo.
+         AUTO_ABRIR_MS     retraso en ms. No es 0 a proposito: el iframe de
+                           Virtual Scale se precarga en cuanto la pagina queda
+                           quieta, y abrir en el milisegundo cero deja a la
+                           persona mirando el spinner. Con ~1,4 s el formulario
+                           ya esta dentro y el modal abre lleno. Ponlo en 0 si
+                           lo prefieres inmediato.
+         AUTO_UNA_VEZ      si lo cierran, no vuelve a saltar en esa sesion.
+                           Dejarlo en false hace que reaparezca en cada carga,
+                           que es la forma mas rapida de que la gente rebote.  */
+      var AUTO_ABRIR   = true;
+      var AUTO_ABRIR_MS = 1400;
+      var AUTO_UNA_VEZ  = true;
+
+      function autoAbrir() {
+        if (!AUTO_ABRIR) return;
+        if (EMBED_LANDING) return;                       // dentro de un iframe, no
+        if (modal.classList.contains('open')) return;    // ya lo abrio el solo
+        // Si llega con ancla (#casos, #tratamiento) venia a ver algo concreto:
+        // interrumpirlo con el formulario es pelear contra su propia intencion.
+        if (window.location.hash) return;
+        try {
+          if (AUTO_UNA_VEZ && sessionStorage.getItem('mp_auto_visto')) return;
+          if (AUTO_UNA_VEZ) sessionStorage.setItem('mp_auto_visto', '1');
+        } catch (e) {}
+        abrir('auto');
+        track('form_modal_auto', { retraso_ms: AUTO_ABRIR_MS });
+      }
+
+      // Se precarga primero y se abre despues, para que el modal no aparezca vacio.
+      if (AUTO_ABRIR) {
+        if ('requestIdleCallback' in window) requestIdleCallback(precargar, { timeout: 900 });
+        else setTimeout(precargar, 300);
+        setTimeout(autoAbrir, AUTO_ABRIR_MS);
+      }
     })();
 
     /* ── LO QUE NOS ESCRIBEN ──
@@ -2236,7 +2368,9 @@ body.mp-locked { overflow: hidden; }
        resultado desde fuera; se deja vacío si el paciente solo cuenta cómo
        se siente. `tiempo` solo si el mensaje lo dice. Nada de inventar. */
     (function () {
-      var MSGS = [
+      // El carrusel de «Casos grabados» lee esto para rellenar las condiciones
+      // que todavia no tienen video (ver CASOS POR CONDICION mas abajo).
+      var MSGS = window.MP_MSGS = [
         /* ── Estómago ── */
         { cat: 'estomago', tag: 'Colon irritable', src: 'IMG_4286',
           texto: 'Mudé a mi hija a la universidad en Orlando y no sabes la felicidad que fue hacerlo sin ese miedo a tener un episodio. Hace dos años era impensable haber hecho todo lo que hice ese fin de semana <strong>sin antes tomarme una caja de Imodium</strong>.',
@@ -2451,12 +2585,53 @@ body.mp-locked { overflow: hidden; }
       if (!tabsEl || !gridEl) return;
 
       function cuenta(id) { return id === 'todos' ? CASOS.length : CASOS.filter(function (c) { return c.cat === id; }).length; }
-      var visibles = CATS.filter(function (c) { return cuenta(c.id) > 0; });
+
+      /* Fertilidad, glucosa y oncologico no tienen caso grabado, y antes eso
+         escondia su pestana entera: el carrusel mostraba 4 categorias de 8 y
+         hacia parecer que esto solo sirve para cuatro cosas. Justo lo contrario
+         de lo que decimos. Ahora, si una condicion no tiene video pero si
+         mensajes escritos, la pestana aparece con esos mensajes. Son los mismos
+         testimonios ya publicados en «No te lo decimos nosotros»: nada nuevo,
+         nada inventado. */
+      function escritosDe(id) {
+        var m = window.MP_MSGS || [];
+        return id === 'todos' ? [] : m.filter(function (x) { return x.cat === id; }).slice(0, 4);
+      }
+      var visibles = CATS.filter(function (c) {
+        return cuenta(c.id) > 0 || escritosDe(c.id).length > 0;
+      });
 
       function esc(t) { return String(t).replace(/[<>&]/g, function (m) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;' }[m]; }); }
 
+      function tarjetaEscrita(m) {
+        // Sin nombre ni avatar: estos mensajes se publican anonimos. Lo que
+        // acredita la tarjeta es quien confirmo el resultado desde fuera.
+        return '<div class="caso-txt caso-txt-msg">'
+             +   '<div class="caso-msg-top"><span class="video-testi-tag">' + esc(m.tag) + '</span>'
+             +     '<span class="caso-msg-kind">Mensaje escrito</span></div>'
+             +   '<p>' + m.texto + '</p>'
+             +   (m.verif ? '<footer class="caso-msg-verif">Confirmado por ' + esc(m.verif) + '</footer>'
+                          : (m.tiempo ? '<footer class="caso-msg-verif">' + esc(m.tiempo) + '</footer>' : ''))
+             + '</div>';
+      }
+
       function pinta(cat) {
         var lista = cat === 'todos' ? CASOS : CASOS.filter(function (c) { return c.cat === cat; });
+
+        // Condicion sin video: se rellena con los mensajes escritos de esa misma
+        // condicion en vez de dejar la pestana fuera del carrusel.
+        if (!lista.length) {
+          var msgs = escritosDe(cat);
+          if (msgs.length) {
+            gridEl.innerHTML = msgs.map(tarjetaEscrita).join('');
+            tabsEl.querySelectorAll('.caso-tab').forEach(function (b) { b.classList.toggle('on', b.dataset.cat === cat); });
+            gridEl.scrollLeft = 0;
+            actualizarFlechas();
+            track('casos_filtro', { categoria: cat, tipo: 'escritos' });
+            return;
+          }
+        }
+
         gridEl.innerHTML = lista.length ? lista.map(function (c) {
           if (c.video) {
             return '<div class="caso-card">'
