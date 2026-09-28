@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Catálogo de Energy MP, centro de salud en Miami dirigido por la Dra. Michelle Peiret: suplementos, tés funcionales, estudios, terapias y consultas.">
+<meta property="og:title" content="Catálogo Energy MP">
+<meta property="og:description" content="Suplementos, tés funcionales, estudios, terapias y consultas del centro de la Dra. Michelle Peiret en Miami.">
+<meta property="og:image" content="img/michelle-hero.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%A7%AC</text></svg>">
+<style>
+  :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);}
+  html{-webkit-text-size-adjust:100%;}
+  img{max-width:100%;}
+  [hidden]{display:none!important;}
+</style>
+<title>Catálogo Energy MP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap">
+
+</head>
+<body>
+<style>
+/* ═══════════════════════════════════════════════════════════════════════
+   Capa Liquid Glass — el mismo material de los landing pages de MP Health:
+   fondo arena, blobs a la deriva, hélice de ADN y vidrio blanco translúcido.
+   Es una pieza de marca con un solo mundo visual, así que todos los colores
+   se pintan explícitamente. Diseñada primero para teléfono.
+   ═══════════════════════════════════════════════════════════════════════ */
+:root{
+  --sand:#f5f1ea;
+  --ink:#1e2a35;
+  --inks:#5f6b74;
+  --sage:#7fa89b;
+  --ochre:#c39a63;
+  --slate:#8098b0;
+  --rose:#b8837c;
+  --teal:#00c9a7;
+  --teal-deep:#00a88c;
+  --hair:rgba(30,42,53,.10);
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box;}
+body{
+  margin:0;position:relative;
+  font-family:var(--sans);font-weight:300;
+  color:var(--ink);background:var(--sand);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:6px;}
+
+/* ── Fondo vivo ── */
+.bg{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none;}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.42;will-change:transform;}
+.blob.b1{width:46vw;height:46vw;background:var(--sage);top:-14%;left:-8%;animation:drift1 26s ease-in-out infinite;}
+.blob.b2{width:40vw;height:40vw;background:var(--ochre);top:-6%;right:-6%;animation:drift2 32s ease-in-out infinite;}
+.blob.b3{width:44vw;height:44vw;background:var(--rose);bottom:-16%;left:26%;animation:drift3 29s ease-in-out infinite;}
+.blob.b4{width:34vw;height:34vw;background:var(--slate);bottom:6%;right:10%;animation:drift4 35s ease-in-out infinite;}
+@keyframes drift1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(9vw,7vh) scale(1.14);}}
+@keyframes drift2{0%,100%{transform:translate(0,0) scale(1.08);}50%{transform:translate(-8vw,9vh) scale(.94);}}
+@keyframes drift3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(7vw,-8vh) scale(1.16);}}
+@keyframes drift4{0%,100%{transform:translate(0,0) scale(1.05);}50%{transform:translate(-10vw,-6vh) scale(.92);}}
+.helix{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.14;}
+.helix svg{width:100%;height:100%;}
+.helix .tilt{transform:rotate(-7deg) scale(1.25);transform-origin:50% 50%;}
+.helix .strand{fill:none;stroke:var(--ink);stroke-width:1.4;stroke-opacity:.55;}
+.helix .layer{animation:slide 40s linear infinite;}
+.helix .layer.slow{animation-duration:58s;opacity:.6;}
+@keyframes slide{from{transform:translateX(0);}to{transform:translateX(-1440px);}}
+
+/* ── El material ── */
+.glass{
+  background:rgba(255,255,255,.55);
+  -webkit-backdrop-filter:blur(26px) saturate(165%);backdrop-filter:blur(26px) saturate(165%);
+  border:1px solid rgba(255,255,255,.62);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.85), 0 20px 50px rgba(30,42,53,.08);
+  border-radius:22px;
+}
+.glass-sm{
+  background:rgba(255,255,255,.52);
+  -webkit-backdrop-filter:blur(20px) saturate(160%);backdrop-filter:blur(20px) saturate(160%);
+  border:1px solid rgba(255,255,255,.6);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8), 0 14px 36px rgba(30,42,53,.07);
+  border-radius:18px;
+}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .glass{background:rgba(255,255,255,.92);}
+  .glass-sm{background:rgba(255,255,255,.9);}
+  .nav{background:rgba(255,255,255,.94);}
+  .filters{background:rgba(245,241,234,.97);}
+}
+
+.wrap{max-width:1140px;margin-inline:auto;padding-inline:18px;position:relative;z-index:1;}
+.eyebrow{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--inks);margin:0;}
+h1,h2,h3{font-family:var(--serif);font-weight:400;text-wrap:balance;margin:0;line-height:1.12;color:var(--ink);}
+h1{font-size:clamp(2.1rem,8.5vw,3.6rem);letter-spacing:-.01em;}
+h2{font-size:clamp(1.7rem,6vw,2.5rem);}
+h3{font-size:1.15rem;}
+p{margin:0;line-height:1.68;}
+.lede{color:var(--inks);font-size:.95rem;max-width:62ch;}
+.num{font-variant-numeric:lining-nums tabular-nums;}
+
+/* ── Nav flotante de vidrio ── */
+.nav{
+  position:sticky;top:calc(env(safe-area-inset-top,0px) + 10px);z-index:60;
+  width:calc(100% - 24px);max-width:1180px;margin:10px auto 0;
+  background:rgba(255,255,255,.55);
+  -webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%);
+  border:1px solid rgba(255,255,255,.6);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.85), 0 8px 26px rgba(30,42,53,.07);
+  border-radius:26px;padding:10px 14px 11px;
+}
+.nav-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:9px;}
+.nav-top img{height:40px;width:auto;}
+.nav-top span{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--inks);text-align:right;}
+.jumps{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;}
+.jumps::-webkit-scrollbar{display:none;}
+.jumps a{
+  flex:none;font-size:.65rem;letter-spacing:.11em;text-transform:uppercase;font-weight:600;
+  color:var(--ink);text-decoration:none;padding:8px 14px;border-radius:100px;
+  background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.7);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
+  transition:color .16s,background .16s;
+}
+.jumps a:hover{color:var(--teal-deep);background:#fff;}
+.jumps a .n{color:var(--inks);margin-left:5px;font-variant-numeric:lining-nums tabular-nums;}
+
+/* ── Portada ── */
+.hero{padding-block:30px 26px;}
+.hero h1{margin-block:14px 16px;}
+.hero h1 em{font-style:italic;color:var(--sage);}
+.hero-photo{position:relative;border-radius:22px;overflow:hidden;margin:26px 0 0;
+  border:1px solid rgba(255,255,255,.62);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.85), 0 20px 50px rgba(30,42,53,.1);}
+.hero-photo img{width:100%;aspect-ratio:16/11;object-fit:cover;object-position:center 20%;}
+.hero-photo figcaption{
+  position:absolute;left:0;right:0;bottom:0;padding:34px 16px 14px;
+  background:linear-gradient(to top,rgba(20,30,40,.82),transparent);
+  font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.92);
+}
+.tally{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:24px;}
+.tally div{padding:15px 15px 16px;}
+.tally b{display:block;font-family:var(--serif);font-size:1.8rem;font-weight:400;line-height:1;margin-bottom:5px;color:var(--ink);}
+.tally span{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--inks);}
+
+/* ── Secciones ── */
+.sec{padding-block:38px;scroll-margin-top:118px;}
+.sec.tight{padding-bottom:6px;}
+.sec.tight .sec-head{margin-bottom:0;}
+.sec-head{max-width:62ch;margin-bottom:22px;}
+.sec-head h2{margin-block:10px 12px;}
+
+/* ── Filtros ── */
+.filters{
+  position:sticky;top:calc(env(safe-area-inset-top,0px) + 108px);z-index:50;
+  margin:18px 0;padding:10px;
+  width:100%;
+  background:rgba(255,255,255,.55);
+  -webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%);
+  border:1px solid rgba(255,255,255,.62);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.85), 0 10px 30px rgba(30,42,53,.07);
+  border-radius:22px;
+}
+.filters-in{display:flex;flex-wrap:wrap;gap:7px;align-items:center;}
+.chip{
+  font-family:var(--sans);font-size:.67rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;
+  color:var(--ink);background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.75);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
+  border-radius:100px;padding:9px 15px;cursor:pointer;transition:color .16s,background .16s;
+}
+.chip:hover{background:#fff;}
+.chip[aria-pressed="true"]{
+  color:#0b1a17;background:var(--teal);border-color:rgba(255,255,255,.5);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35), 0 6px 16px rgba(0,201,167,.3);
+}
+.chip .c{color:var(--inks);font-variant-numeric:lining-nums tabular-nums;margin-left:5px;}
+.chip[aria-pressed="true"] .c{color:rgba(11,26,23,.6);}
+.search{
+  display:flex;align-items:center;gap:8px;width:100%;
+  border:1px solid rgba(255,255,255,.75);border-radius:100px;padding:9px 15px;
+  background:rgba(255,255,255,.6);box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
+}
+.search input{font-family:var(--sans);font-size:.85rem;font-weight:400;color:var(--ink);background:transparent;border:0;outline:0;width:100%;}
+.search input::placeholder{color:var(--inks);font-weight:300;}
+.search svg{flex:none;stroke:var(--inks);}
+
+/* ── Productos ── */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;align-items:stretch;}
+.card{display:flex;flex-direction:column;overflow:hidden;}
+.card-img{position:relative;background:rgba(255,255,255,.5);}
+.card-img img{width:100%;aspect-ratio:1/1;object-fit:cover;}
+.tag{
+  position:absolute;top:9px;left:9px;
+  font-size:.52rem;letter-spacing:.13em;text-transform:uppercase;font-weight:700;
+  padding:5px 9px;border-radius:100px;
+  background:rgba(255,255,255,.72);
+  -webkit-backdrop-filter:blur(10px) saturate(160%);backdrop-filter:blur(10px) saturate(160%);
+  border:1px solid rgba(255,255,255,.8);box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
+}
+.tag.sup{color:#4e7d6e;}
+.tag.te{color:#9a7440;}
+.card-body{padding:14px 14px 16px;display:flex;flex-direction:column;gap:7px;flex:1;}
+.card h3{font-size:1.08rem;line-height:1.2;}
+.card .role{font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;color:var(--inks);font-weight:600;}
+.card .line{font-size:.79rem;color:var(--inks);line-height:1.58;}
+.price-row{display:flex;align-items:baseline;gap:6px;margin-top:auto;padding-top:5px;}
+.price{font-family:var(--serif);font-size:1.35rem;color:var(--ink);}
+.per{font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--inks);}
+.more{
+  width:100%;font-family:var(--sans);font-size:.62rem;letter-spacing:.11em;text-transform:uppercase;font-weight:700;
+  color:var(--inks);background:rgba(255,255,255,.35);border:0;border-top:1px solid rgba(255,255,255,.7);
+  padding:13px 6px;cursor:pointer;transition:color .16s,background .16s;
+}
+.more:hover{color:var(--ink);background:rgba(255,255,255,.75);}
+.detail{padding:0 14px 16px;font-size:.78rem;color:var(--inks);line-height:1.62;}
+.detail dl{margin:0;display:grid;gap:10px;}
+.detail dt{font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:3px;}
+.detail dd{margin:0;}
+.detail .plain{color:var(--ink);font-weight:400;border-left:2px solid var(--sage);padding-left:11px;}
+.empty{padding:40px 16px;text-align:center;color:var(--inks);font-size:.88rem;grid-column:1/-1;}
+
+/* ── Estudios ── */
+.svc{display:grid;grid-template-columns:1fr;gap:14px;}
+.svc article{overflow:hidden;}
+.svc img{width:100%;aspect-ratio:16/9;object-fit:cover;}
+.svc .txt{padding:17px 17px 19px;display:flex;flex-direction:column;gap:8px;}
+.svc h3{font-size:1.15rem;}
+.svc p{font-size:.84rem;color:var(--inks);line-height:1.62;}
+.svc .plain{font-size:.84rem;color:var(--ink);border-left:2px solid var(--sage);padding-left:11px;}
+
+/* ── Terapias ── */
+.ther{display:grid;gap:16px;}
+.ther article{overflow:hidden;}
+.ther-img{background:rgba(255,255,255,.5);}
+.ther-img img{width:100%;aspect-ratio:16/9;object-fit:cover;}
+.ther-img.light{background:#fff;}
+.ther .txt{padding:19px 17px 21px;display:flex;flex-direction:column;gap:10px;}
+.ther h3{font-size:1.3rem;}
+.ther .kicker{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ochre);font-weight:700;}
+.ther p{font-size:.86rem;color:var(--inks);line-height:1.65;}
+.ther .plain{font-size:.86rem;color:var(--ink);border-left:2px solid var(--sage);padding-left:11px;}
+.phases{display:grid;margin:2px 0 0;border-top:1px solid var(--hair);}
+.phases div{padding:12px 0;border-bottom:1px solid var(--hair);}
+.phases dt{font-family:var(--serif);font-size:1.05rem;color:var(--ink);margin-bottom:3px;}
+.phases dd{margin:0;font-size:.83rem;color:var(--inks);line-height:1.6;}
+
+/* Menú de IVs */
+.menu-toggle{
+  width:100%;font-family:var(--sans);font-size:.64rem;letter-spacing:.11em;text-transform:uppercase;font-weight:700;
+  color:#0b1a17;background:var(--teal);border:1px solid rgba(255,255,255,.5);
+  border-radius:100px;padding:14px 12px;cursor:pointer;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.3), 0 10px 26px rgba(0,201,167,.26);
+  transition:background .18s,transform .18s;
+}
+.menu-toggle:hover{background:var(--teal-deep);transform:translateY(-2px);}
+.menu{margin-top:14px;display:grid;gap:22px;}
+.menu h4{font-family:var(--sans);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--inks);margin:0 0 9px;}
+.menu ul{margin:0;padding:0;list-style:none;border-top:1px solid var(--hair);}
+.menu li{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--hair);}
+.menu .nm{font-size:.88rem;color:var(--ink);font-weight:500;}
+.menu .ing{display:block;font-size:.73rem;color:var(--inks);line-height:1.5;margin-top:3px;}
+.menu .pz{font-family:var(--serif);font-size:1.1rem;color:var(--ink);font-variant-numeric:lining-nums tabular-nums;white-space:nowrap;}
+.addons{font-size:.78rem;color:var(--inks);line-height:1.7;}
+.addons b{color:var(--ink);font-weight:600;}
+
+/* ── Consultas ── */
+.specs{display:grid;grid-template-columns:1fr;gap:10px;}
+.specs div{padding:17px 17px 19px;}
+.specs h3{font-size:1.08rem;margin-bottom:7px;}
+.specs p{font-size:.84rem;color:var(--inks);line-height:1.62;}
+
+/* ── Contacto ── */
+.contact{display:grid;gap:18px;padding:22px 19px 26px;align-items:center;justify-items:start;}
+.contact img{width:92px;height:92px;object-fit:cover;border-radius:50%;
+  border:1px solid rgba(255,255,255,.8);box-shadow:0 10px 26px rgba(30,42,53,.12);}
+.contact-links{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px;}
+.contact-links a{
+  font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;
+  text-decoration:none;padding:13px 20px;border-radius:100px;background:var(--teal);color:#0b1a17;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.3), 0 10px 26px rgba(0,201,167,.26);
+  transition:background .18s,transform .18s;
+}
+.contact-links a.ghost{
+  background:rgba(255,255,255,.6);color:var(--ink);border:1px solid rgba(255,255,255,.8);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 8px 20px rgba(30,42,53,.06);
+}
+.contact-links a:hover{background:var(--teal-deep);transform:translateY(-2px);}
+.contact-links a.ghost:hover{background:#fff;}
+.addr{font-size:.84rem;color:var(--inks);line-height:1.75;margin-top:14px;}
+.addr b{color:var(--ink);font-weight:600;}
+footer{padding-block:26px 40px;color:var(--inks);font-size:.72rem;line-height:1.75;display:grid;gap:10px;}
+
+/* ── De teléfono hacia arriba ── */
+@media(min-width:600px){
+  .wrap{padding-inline:24px;}
+  .nav{width:calc(100% - 48px);padding:12px 18px 13px;}
+  .nav-top{margin-bottom:11px;}
+  .nav-top img{height:48px;}
+  .tally{grid-template-columns:repeat(4,1fr);}
+  .tally b{font-size:2.1rem;}
+  .grid{grid-template-columns:repeat(3,1fr);gap:16px;}
+  .svc{grid-template-columns:repeat(2,1fr);}
+  .specs{grid-template-columns:repeat(2,1fr);}
+  .menu{grid-template-columns:repeat(2,1fr);gap:26px;}
+  .contact{grid-template-columns:auto 1fr;gap:28px;padding:30px 30px 32px;}
+  .search{width:auto;min-width:230px;margin-left:auto;}
+  .hero-photo img{aspect-ratio:16/9;}
+  .filters{padding:12px 14px;}
+}
+@media(min-width:900px){
+  .sec{padding-block:64px;}
+  .hero{padding-block:48px 40px;}
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:44px;align-items:center;}
+  .hero-photo{margin-top:0;}
+  .hero-photo img{aspect-ratio:4/3;}
+  .grid{grid-template-columns:repeat(4,1fr);gap:18px;}
+  .card h3{font-size:1.15rem;}
+  .card .line{font-size:.84rem;}
+  .svc{grid-template-columns:repeat(3,1fr);}
+  .ther article.wide{display:grid;grid-template-columns:.85fr 1.15fr;align-items:stretch;}
+  .ther article.wide .ther-img img{height:100%;aspect-ratio:auto;min-height:280px;}
+  .ther .txt{padding:28px 28px 30px;}
+  .specs{grid-template-columns:repeat(3,1fr);}
+  h3{font-size:1.25rem;}
+  .lede{font-size:1rem;}
+}
+@media(max-width:720px){
+  .blob{filter:blur(70px);opacity:.34;}
+  .helix{opacity:.07;}
+}
+@media(prefers-reduced-motion:reduce){
+  .blob,.helix .layer{animation:none!important;}
+  *{transition:none!important;}
+}
+</style>
+
+<div class="bg" aria-hidden="true">
+  <span class="blob b1"></span><span class="blob b2"></span>
+  <span class="blob b3"></span><span class="blob b4"></span>
+</div>
+<div class="helix" aria-hidden="true">
+  <svg viewBox="0 0 2880 1620" preserveAspectRatio="xMidYMid slice">
+    <g class="tilt">
+      <g class="layer"><path class="strand" d="M0,300 C240,205 480,205 720,300 C960,395 1200,395 1440,300 C1680,205 1920,205 2160,300 C2400,395 2640,395 2880,300 C3120,205 3360,205 3600,300 C3840,395 4080,395 4320,300"/><path class="strand" d="M0,300 C240,395 480,395 720,300 C960,205 1200,205 1440,300 C1680,395 1920,395 2160,300 C2400,205 2640,205 2880,300 C3120,395 3360,395 3600,300 C3840,205 4080,205 4320,300"/></g>
+      <g class="layer slow"><path class="strand" d="M0,880 C240,750 480,750 720,880 C960,1010 1200,1010 1440,880 C1680,750 1920,750 2160,880 C2400,1010 2640,1010 2880,880 C3120,750 3360,750 3600,880 C3840,1010 4080,1010 4320,880"/><path class="strand" d="M0,880 C240,1010 480,1010 720,880 C960,750 1200,750 1440,880 C1680,1010 1920,1010 2160,880 C2400,750 2640,750 2880,880 C3120,1010 3360,1010 3600,880 C3840,750 4080,750 4320,880"/></g>
+      <g class="layer"><path class="strand" d="M0,1420 C240,1315 480,1315 720,1420 C960,1525 1200,1525 1440,1420 C1680,1315 1920,1315 2160,1420 C2400,1525 2640,1525 2880,1420 C3120,1315 3360,1315 3600,1420 C3840,1525 4080,1525 4320,1420"/><path class="strand" d="M0,1420 C240,1525 480,1525 720,1420 C960,1315 1200,1315 1440,1420 C1680,1525 1920,1525 2160,1420 C2400,1315 2640,1315 2880,1420 C3120,1525 3360,1525 3600,1420 C3840,1315 4080,1315 4320,1420"/></g>
+    </g>
+  </svg>
+</div>
+
+<nav class="nav">
+  <div class="nav-top">
+    <img src="img/logo-mp-ink.png" alt="Michelle Peiret Health">
+    <span>Energy MP · Miami</span>
+  </div>
+  <div class="jumps">
+    <a href="#productos">Productos <span class="n">16</span></a>
+    <a href="#estudios">Estudios <span class="n">6</span></a>
+    <a href="#terapias">Terapias <span class="n">4</span></a>
+    <a href="#consultas">Consultas <span class="n">5</span></a>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <div class="hero-grid">
+    <div>
+      <p class="eyebrow">Catálogo</p>
+      <h1>Todo lo que hacemos, <em>en una sola página</em>.</h1>
+      <p class="lede">Energy MP es un centro de salud en Miami dirigido por la Dra. Michelle Peiret,
+        especializado en nutrigenómica y epigenética. Aquí está la línea completa: los productos que
+        formulamos, los estudios con los que medimos, las terapias que aplicamos y las consultas de
+        nuestro equipo.</p>
+      <div class="tally">
+        <div class="glass-sm"><b class="num">16</b><span>Productos</span></div>
+        <div class="glass-sm"><b class="num">6</b><span>Estudios</span></div>
+        <div class="glass-sm"><b class="num">4</b><span>Terapias</span></div>
+        <div class="glass-sm"><b class="num">5</b><span>Especialidades</span></div>
+      </div>
+    </div>
+    <figure class="hero-photo">
+      <img src="img/michelle-hero.jpg" alt="Dra. Michelle Peiret, directora de Energy MP">
+      <figcaption>Dra. Michelle Peiret · Nutrigenómica y epigenética</figcaption>
+    </figure>
+  </div>
+</header>
+
+<section class="sec wrap" id="quienes">
+  <p class="eyebrow">Cómo trabajamos</p>
+  <h2 style="margin-block:10px 14px">Estudiamos primero. Recetamos después.</h2>
+  <p class="lede">No trabajamos con protocolos genéricos. Primero estudiamos a fondo a cada persona
+    y, con base en sus resultados y sus objetivos, diseñamos un plan a su medida. El enfoque es
+    prevenir enfermedades, mejorar las condiciones generales del cuerpo y trabajar para revertir el
+    envejecimiento prematuro a nivel celular.</p>
+</section>
+
+<section class="sec tight wrap" id="productos">
+  <div class="sec-head">
+    <p class="eyebrow">Productos</p>
+    <h2>Suplementos y tés funcionales</h2>
+    <p class="lede">Dieciséis referencias formuladas por la Dra. Peiret: siete suplementos con dosis
+      clínicas y nueve infusiones funcionales. Abre cualquiera para ver composición, dosis y a quién
+      le sirve.</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="filters">
+    <div class="filters-in">
+      <button class="chip" data-f="all" aria-pressed="true">Todo <span class="c">16</span></button>
+      <button class="chip" data-f="sup" aria-pressed="false">Suplementos <span class="c">7</span></button>
+      <button class="chip" data-f="te" aria-pressed="false">Tés <span class="c">9</span></button>
+      <label class="search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Buscar por nombre o ingrediente…" autocomplete="off">
+      </label>
+    </div>
+  </div>
+  <div class="grid" id="grid"></div>
+</div>
+
+<section class="sec wrap" id="estudios">
+  <div class="sec-head">
+    <p class="eyebrow">Estudios y evaluaciones</p>
+    <h2>Todo plan empieza midiendo</h2>
+    <p class="lede">Seis formas de ver qué está pasando por dentro antes de decidir qué hacer.</p>
+  </div>
+  <div class="svc" id="svc"></div>
+</section>
+
+<section class="sec wrap" id="terapias">
+  <div class="sec-head">
+    <p class="eyebrow">Terapias</p>
+    <h2>Lo que aplicamos en el centro</h2>
+    <p class="lede">Cuatro vías de tratamiento, todas administradas por profesionales licenciados.</p>
+  </div>
+
+  <div class="ther">
+
+    <article class="glass wide">
+      <div class="ther-img"><img src="img/terapia.jpg" alt="Sala de terapia intravenosa del centro Energy MP"></div>
+      <div class="txt">
+        <span class="kicker">Terapia 1</span>
+        <h3>Terapia intravenosa e intramuscular</h3>
+        <p>Nutrición de precisión que entra directo al torrente sanguíneo. Trece infusiones
+          intravenosas y nueve inyecciones intramusculares, cada una formulada para un objetivo
+          concreto: energía, defensas, recuperación deportiva, metabolismo, piel o claridad mental.</p>
+        <p class="plain">Por vía intravenosa la absorción es del 100%: el nutriente no pasa por el
+          sistema digestivo, así que llega completo y actúa en minutos, no en semanas.</p>
+        <button class="menu-toggle" id="ivToggle" aria-expanded="false" aria-controls="ivMenu">
+          Ver el menú completo · 13 IVs y 9 inyecciones
+        </button>
+        <div class="menu" id="ivMenu" hidden>
+          <div>
+            <h4>Infusiones intravenosas</h4>
+            <ul id="ivList"></ul>
+          </div>
+          <div>
+            <h4>Inyecciones intramusculares</h4>
+            <ul id="shotList"></ul>
+            <p class="addons" style="margin-top:14px">
+              <b>Refuerzos para cualquier IV o inyección:</b><br>
+              Glutatión +$30 · Vitamina C extra +$20 · B12 +$20 ·
+              Toradol, para dolor +$25 · Zofran, anti-náusea +$25
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="glass wide">
+      <div class="ther-img light"><img src="img/photon.jpg" alt="Cápsula Photon Platinum, el equipo de la terapia Photon Vital Energy"></div>
+      <div class="txt">
+        <span class="kicker">Terapia 2</span>
+        <h3>Photon Vital Energy · Método DRR</h3>
+        <p>Un sistema natural que trabaja dentro de una cápsula de infrarrojo. Lo usamos como
+          complemento en recuperación muscular, sobrecarga osteoarticular, estrés crónico, fatiga
+          funcional, programas deportivos, protocolos detox supervisados, apoyo a la regeneración de
+          tejidos y bienestar integral. También apoya la salud oral: reduce la inflamación de encías
+          y ayuda a la cicatrización tras procedimientos dentales.</p>
+        <dl class="phases">
+          <div><dt>Depuración</dt><dd>Inducción controlada de sudoración fisiológica.</dd></div>
+          <div><dt>Relajación</dt><dd>Activación del sistema nervioso parasimpático —el que baja las
+            pulsaciones y apaga el modo alerta— mediante calor profundo y cromoterapia.</dd></div>
+          <div><dt>Reequilibrio</dt><dd>Trabajo postural y emocional que integra vibración,
+            respiración consciente y regulación energética.</dd></div>
+        </dl>
+      </div>
+    </article>
+
+    <article class="glass wide">
+      <div class="ther-img"><img src="img/peptidos.jpg" alt="Viales y jeringa preparados para un protocolo de péptidos"></div>
+      <div class="txt">
+        <span class="kicker">Terapia 3</span>
+        <h3>Terapia con péptidos</h3>
+        <p>Protocolos médicos con péptidos para apoyar la recuperación, la regeneración celular, el
+          metabolismo y la longevidad. Se indican tras evaluación médica y se ajustan a los
+          resultados de laboratorio de cada paciente.</p>
+        <p class="plain">Los péptidos son cadenas cortas de aminoácidos: le dan al cuerpo una
+          instrucción concreta —repara este tejido, regula esta hormona— en lugar de un estímulo
+          general.</p>
+      </div>
+    </article>
+
+    <article class="glass wide">
+      <div class="ther-img"><img src="img/consulta.jpg" alt="Consulta médica en el centro Energy MP"></div>
+      <div class="txt">
+        <span class="kicker">Terapia 4</span>
+        <h3>Terapia de reemplazo hormonal</h3>
+        <p>Para hombres y mujeres en las distintas etapas de la vida. Parte siempre de un perfil
+          hormonal completo y de la historia clínica; el esquema, la vía y la dosis los define el
+          médico especialista y se revisan con analítica de seguimiento.</p>
+        <p class="plain">Las hormonas gobiernan energía, sueño, ánimo, masa muscular y composición
+          corporal. Cuando caen, el síntoma rara vez aparece solo: aparecen varios a la vez.</p>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section class="sec wrap" id="consultas">
+  <div class="sec-head">
+    <p class="eyebrow">Consultas</p>
+    <h2>Equipo multidisciplinario</h2>
+    <p class="lede">Cinco especialidades bajo el mismo techo. Un paciente puede entrar por
+      cualquiera de ellas.</p>
+  </div>
+  <div class="specs" id="specs"></div>
+</section>
+
+<section class="sec wrap">
+  <div class="contact glass">
+    <img src="img/michelle-firma.jpg" alt="Dra. Michelle Peiret">
+    <div>
+      <p class="eyebrow">Contacto</p>
+      <h2 style="margin-block:9px 12px;font-size:1.7rem">Energy MP · Miami</h2>
+      <p class="lede" style="font-size:.9rem">Para pedidos, evaluaciones o coordinar una visita al
+        centro, escríbenos y te ponemos con el equipo.</p>
+      <p class="addr">
+        <b>760 NW 107th Ave, Suite 340</b><br>Miami, FL 33172<br>
+        <b>305-746-6200</b> · @michellepeihealth
+      </p>
+      <div class="contact-links">
+        <a href="https://michellepeirethealth.com" target="_blank" rel="noopener">Ver la tienda</a>
+        <a class="ghost" href="https://analisis.michellepeiret.com" target="_blank" rel="noopener">Agendar un estudio</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <p>Energy MP LLC · Miami, FL. Precios de productos vigentes en michellepeirethealth.com;
+    precios de terapias según el menú del centro. Sujetos a cambio.</p>
+  <p>Los suplementos y tés son productos alimenticios, no medicamentos: no diagnostican, tratan ni
+    curan enfermedades. Estudios, terapias y consultas se realizan en el centro bajo supervisión
+    profesional. Toda terapia intravenosa e intramuscular es administrada por personal licenciado.</p>
+</footer>
+
+<script>
+/* ── Productos. Precios PVP de michellepeirethealth.com ─────────────────── */
+const P = [
+  {id:"berberina-complex",cat:"sup",n:"Berberina Complex",role:"Metabolismo y glucosa",price:47,
+   line:"Para quien tiene la glucosa alta, resistencia a la insulina o antojos de dulce a media tarde.",
+   comp:"Berberina HCl 97% 500 mg · Ácido alfa lipoico 250 mg · Extracto de canela 200 mg · Diosmina 20 mg · Zinc 10 mg · Cromo 200 mcg",
+   uso:"2 cápsulas al día con comida. 60 cápsulas = 30 días.",
+   plain:"En lenguaje llano: ayuda a que la célula vuelva a responder a la insulina, de modo que la glucosa entre en vez de quedarse dando vueltas en la sangre."},
+  {id:"magnesium-glycinate-1",cat:"sup",n:"Magnesium Glycinate +",role:"Sueño y sistema nervioso",price:41.90,
+   line:"Para quien duerme mal, se despierta tenso o amanece con los músculos agarrotados.",
+   comp:"Magnesio bisglicinato 200 mg · Taurina 250 mg · NAC 300 mg · Inositol 200 mg · L-teanina 100 mg · Cúrcuma 95% curcuminoides 100 mg · Vitamina B6 10 mg",
+   uso:"2 cápsulas al día. 60 cápsulas = 30 días.",
+   plain:"Bisglicinato, no óxido: es la forma que el intestino sí absorbe, sin el efecto laxante del magnesio barato."},
+  {id:"omega-3",cat:"sup",n:"Omega 3",role:"Cardiovascular y cerebro",price:29,
+   line:"La base antiinflamatoria de casi cualquier protocolo.",
+   comp:"Aceite de pescado 1000 mg · Omega-3 totales 710 mg (EPA 397 mg + DHA 287 mg)",
+   uso:"2 softgels al día con una comida. 60 softgels = 30 días.",
+   plain:"Destilación molecular islandesa: sin mercurio y sin olor a pescado. Ese olor es la señal de que el aceite ya se oxidó — un omega-3 rancio genera el daño que debería prevenir."},
+  {id:"focus",cat:"sup",n:"Focus +",role:"Cognición y enfoque",price:59,
+   line:"Para neblina mental, memoria de trabajo y jornadas largas.",
+   comp:"Magtein® L-treonato de magnesio 1600 mg (aporta 115,2 mg de magnesio) · Fosfatidilserina 200 mg · Vitamina D3 25 mcg · Vitamina B6 como P5P 10 mg · Vitamina C 60 mg",
+   uso:"3 cápsulas al día, preferiblemente 2 horas antes de dormir. 90 cápsulas = 30 días.",
+   plain:"Magtein® es la única forma de magnesio que atraviesa la barrera que protege al cerebro. Es decir: llega al cerebro, no solo al músculo."},
+  {id:"mobility-magnesium",cat:"sup",n:"Mobility Magnesium + Collagen PLUS",role:"Articulaciones y hueso",price:57,
+   line:"Rodillas, caderas y manos. Soporte articular y densidad ósea.",
+   comp:"Colágeno UC-II® tipo II no desnaturalizado 65 mg · Magnesio citrato 280 mg · Ácido hialurónico 50 mg · Vitamina D3 50 mcg · Vitamina C 50 mg · Vitamina B6 6 mg",
+   uso:"2 cápsulas al día, 2 horas antes de dormir. 60 cápsulas = 30 días.",
+   plain:"El UC-II® es la forma de colágeno estudiada para el rango de movimiento articular; la vitamina D3 y el magnesio trabajan sobre la densidad del hueso."},
+  {id:"bm10-max-suplemento",cat:"sup",n:"BM10 Max",role:"Hormonal, cabello, piel y microbioma",price:37,
+   line:"Trabaja de noche: reparación de tejido, minerales y antioxidantes durante el sueño.",
+   comp:"Boro 6 mg · Biotina 10.000 mcg · MSM 500 mg · Extracto de mijo 400 mg · Saw palmetto 320 mg · Cola de caballo 200 mg · Resveratrol 50 mg · Astaxantina 8 mg · Silicio 30 mg · Zinc 10 mg · Piperina 6 mg",
+   uso:"2 cápsulas al día, 2 horas antes de dormir. 60 cápsulas = 30 días.",
+   plain:"El cuerpo repara tejido y regula hormonas mientras duermes. Esta fórmula se toma de noche para acompañar esa ventana."},
+  {id:"boost-c",cat:"sup",n:"Boost C",role:"Defensas y antioxidantes",price:59,
+   line:"Vitamina C en polvo con camu camu amazónico. Envase de 1 kg.",
+   comp:"Ácido ascórbico · Camu camu · Cúrcuma · Té verde · Jugo de granada · Olmo resbaladizo · Pau d'arco. Sin azúcares ni saborizantes artificiales.",
+   uso:"1 scoop (10 g) al día disuelto en agua. Envase de 1 kg = 30 tomas.",
+   plain:"El camu camu es la fruta con mayor concentración natural de vitamina C que se conoce."},
+
+  {id:"adaptogen-matcha-te",cat:"te",n:"Adaptogen Matcha",role:"Energía y equilibrio",price:25,
+   line:"Energía enfocada sin el nerviosismo del café.",
+   comp:"Matcha ceremonial · Rooibos rojo · Ashwagandha · Tribulus · Chlorella",
+   uso:"Infusión funcional. Caja mensual.",
+   plain:"Los adaptógenos como la ashwagandha ayudan al cuerpo a manejar el estrés en vez de estimularlo."},
+  {id:"te-anti-inflamatorio-organic-bloat-and-burn-tea",cat:"te",n:"Bloat & Burn",role:"Metabolismo e inflamación",price:25,
+   line:"Activa el metabolismo sin inflamar. Apoya el confort articular.",
+   comp:"Matcha ceremonial · Cardo mariano · Diente de león · Boswelia · Cúrcuma",
+   uso:"Infusión funcional. Caja mensual.",
+   plain:"La boswelia y la cúrcuma son las dos plantas más estudiadas para molestia articular de fondo."},
+  {id:"te-constipation-digestion-cortisol-levels-te-para-el-estrenimiento",cat:"te",n:"Constipation, Digestion & Cortisol",role:"Tránsito y estrés",price:25,
+   line:"Ordena la digestión y baja el cortisol, la hormona del estrés.",
+   comp:"Matcha ceremonial · Rooibos rojo · Triphala · Psyllium · Linaza",
+   uso:"Infusión funcional. Caja mensual.",
+   plain:"El psyllium y la linaza aportan la fibra que da volumen y regularidad al tránsito."},
+  {id:"te-balsamo-digestivo-te-para-la-acidez",cat:"te",n:"Bálsamo Digestivo",role:"Acidez y pesadez",price:25,
+   line:"Para la acidez y la sensación de pesadez después de comer.",
+   comp:"Rooibos rojo · Caléndula · Manzanilla · Naranja · Aloe vera",
+   uso:"Infusión funcional, sin teína. Caja mensual.",
+   plain:"Plantas demulcentes: forman una capa que calma la mucosa irritada del estómago."},
+  {id:"te-healthy-liver-te-para-el-higado",cat:"te",n:"Healthy Liver",role:"Hígado y metabolismo de grasas",price:25,
+   line:"Apoya la depuración hepática y el metabolismo de las grasas.",
+   comp:"Té Pu Erh · Cúrcuma · Cardo mariano · Diente de león · Cola de caballo",
+   uso:"Infusión funcional. Caja mensual.",
+   plain:"El hígado es el filtro que procesa lo que comes, bebes y respiras. El cardo mariano es la planta clásica para apoyarlo."},
+  {id:"te-inmunologico-immunological-tea",cat:"te",n:"Immunological",role:"Defensas",price:25,
+   line:"Antioxidantes reales para sostener las defensas del día a día.",
+   comp:"Té verde gunpowder · Rooibos verde · Equinácea · Cúrcuma · Jengibre",
+   uso:"Infusión funcional. Caja mensual.",
+   plain:"La equinácea se usa desde hace décadas como apoyo del sistema inmune en temporada fría."},
+  {id:"mens-tea",cat:"te",n:"Men's Tea",role:"Vitalidad masculina",price:25,
+   line:"Energía, circulación y vitalidad para el hombre.",
+   comp:"Té negro Nilgiri · Té Pu Erh · Remolacha · Ashwagandha · Tribulus terrestre",
+   uso:"Infusión funcional. Caja mensual.",
+   plain:"La remolacha aporta nitratos naturales, que el cuerpo usa para dilatar los vasos y mejorar el riego."},
+  {id:"te-dulces-suenos-herbal-tea-sweet-dreams",cat:"te",n:"Sweet Dreams",role:"Sueño",price:25,
+   line:"Concilia el sueño y ayuda a despertar realmente descansado.",
+   comp:"Rooibos verde · Raíz de valeriana · Verbena · Brahmi · Lavanda",
+   uso:"Infusión sin teína. Caja mensual.",
+   plain:"Sin teína: no estimula. Se toma por la noche y se combina bien con el Magnesium Glycinate +."},
+  {id:"women-tea",cat:"te",n:"Women Tea",role:"Equilibrio hormonal",price:25,
+   line:"Equilibrio hormonal y calma para la mujer, todos los días.",
+   comp:"Té verde · Tulsi (albahaca sagrada) · Fenugreek · Shatavari · Hinojo",
+   uso:"Infusión funcional. Caja mensual.",
+   plain:"El shatavari y el fenugreek son las dos plantas tradicionales del equilibrio hormonal femenino."}
+];
+
+/* ── Menú de terapia IV / IM ────────────────────────────────────────────── */
+const IVS = [
+  {n:"Get Up & Go",d:"Energía y fatiga",i:"B-Complex · Amino Blend",p:"$155"},
+  {n:"Immunity Shield",d:"Refuerzo inmune",i:"Vitamina C · B-Complex · Zinc",p:"$165"},
+  {n:"Quench",d:"Hidratación y recuperación",i:"Vitamina C · Vita Complex · Mineral Blend",p:"$165"},
+  {n:"Brainstorm",d:"Foco y claridad mental",i:"Ácido alfa lipoico · L-taurina · B6",p:"$175"},
+  {n:"Reboot",d:"Resaca y náusea",i:"Ondansetrón · Vita Complex · Mineral Blend",p:"$175"},
+  {n:"B-Lean",d:"Metabolismo y peso",i:"Taurina · L-carnitina · B12",p:"$185"},
+  {n:"Inner Beauty",d:"Piel, cabello y uñas",i:"Vitamina C · Vita Complex · Biotina",p:"$185"},
+  {n:"Myers' Cocktail",d:"El más pedido",i:"Magnesio · Gluconato de calcio · B-Complex · Vitamina C · B12",p:"$195"},
+  {n:"Recovery & Performance",d:"Recuperación deportiva",i:"Ácido ascórbico · Vita Complex · Amino Blend · Mineral Blend",p:"$215"},
+  {n:"Snow Bright",d:"Luminosidad y rejuvenecimiento",i:"Ácido alfa lipoico · Glutatión · Ácido ascórbico",p:"$225"},
+  {n:"NAD+ IV",d:"Energía celular y antiedad · infusión de 1 a 3 h",i:"NAD+ 250–500 mg en solución salina",p:"desde $275"},
+  {n:"Superman IV",d:"Rendimiento masculino",i:"Vit C · B-Complex · B12 · L-arginina · Zinc · L-carnitina · Taurina · Amino Blend",p:"$295"},
+  {n:"Super Women IV",d:"Salud y rendimiento femenino",i:"Vit C · B-Complex · B12 · Biotina · L-carnitina · Lisina · Magnesio · Zinc · Glutatión · Mineral Blend",p:"$295"}
+];
+const SHOTS = [
+  {n:"Energy Shot",d:"Energía y claridad mental",i:"B12 metilcobalamina + B-Complex",p:"$35"},
+  {n:"Immunity Shot",d:"Defensas",i:"Vitamina C + Zinc",p:"$35"},
+  {n:"Slim Shot",d:"Quema de grasa y metabolismo",i:"MIC (metionina, inositol, colina) + L-carnitina",p:"$50"},
+  {n:"Calm Shot",d:"Ansiedad y cortisol",i:"Magnesio + Lisina + B-Complex",p:"$55"},
+  {n:"Beauty Boost",d:"Cabello, uñas y piel",i:"Biotina + B12 + B-Complex",p:"$60"},
+  {n:"Power Shot",d:"Circulación y rendimiento",i:"L-arginina + B12 + B-Complex",p:"$65"},
+  {n:"Glow Shot",d:"Antioxidante y detox hepático",i:"Glutatión + Vitamina C",p:"$65"},
+  {n:"Radiance Supreme",d:"La más completa",i:"Amino Blend + L-carnitina + Vitamina C + Biotina",p:"$95"},
+  {n:"Mix & Glow",d:"Personalizada: de 1 a 4 vitaminas",i:"B12 · B-Complex · Vitamina C · Vitamina D3",p:"$30–$95"}
+];
+
+/* ── Estudios ───────────────────────────────────────────────────────────── */
+const ESTUDIOS = [
+  {img:"img/metabolico.jpg",alt:"Estudio metabólico con máscara de intercambio de gases",
+   n:"Estudio metabólico",
+   p:"Evalúa cómo el cuerpo utiliza la energía, cómo procesa los alimentos y cuál es su gasto calórico real.",
+   plain:"Con ese número ajustamos la alimentación y el plan de actividad física con precisión, en vez de estimar."},
+  {img:"img/sangre.jpg",alt:"Toma de muestra de sangre en el centro Energy MP",
+   n:"Estudio molecular suPAR",
+   p:"Mide un biomarcador de inflamación crónica de bajo grado.",
+   plain:"Es un indicador temprano de riesgo de enfermedad y de envejecimiento acelerado — aparece antes que los síntomas."},
+  {img:"img/kit-adn.jpg",alt:"Kit de muestra de ADN de Michelle Peiret Health",
+   n:"Estudio epigenético",
+   p:"Analiza cómo el estilo de vida, la alimentación y el entorno están influyendo en la expresión de los genes.",
+   plain:"Devuelve la edad biológica frente a la edad del documento de identidad, y señala dónde se puede intervenir."},
+  {img:"img/consulta.jpg",alt:"Revisión de resultados de laboratorio en consulta",
+   n:"Exámenes de sangre completos",
+   p:"Perfil hormonal, metabólico, nutricional e inflamatorio.",
+   plain:"Se interpretan desde la medicina funcional: no basta con estar dentro del rango de referencia, buscamos el rango óptimo."},
+  {img:"img/dexa.jpg",alt:"Paciente durante una densitometría ósea DEXA en un equipo Hologic Horizon",
+   n:"Densitometría ósea y composición corporal · DEXA",
+   p:"Mide con alta precisión la densidad ósea, el porcentaje de grasa, la masa muscular y la grasa visceral por zonas del cuerpo.",
+   plain:"Es la referencia para prevenir osteoporosis, detectar pérdida muscular y medir el progreso real de cada paciente."},
+  {img:"img/inbody.jpg",alt:"Análisis de composición corporal InBody",
+   n:"Composición corporal InBody",
+   p:"En pocos minutos y sin molestias mide masa muscular por segmentos, grasa corporal y visceral, agua corporal e índice de masa muscular esquelética.",
+   plain:"Permite detectar sarcopenia —la pérdida de masa y fuerza muscular asociada a la edad— y seguir la evolución con números comparables."}
+];
+
+const SPECS = [
+  {n:"Microbióloga",p:"Evaluación y trabajo sobre la salud intestinal y la microbiota, base de la digestión, la inmunidad y el estado de ánimo."},
+  {n:"Médicos especialistas en hormonas",p:"Equilibrio hormonal en hombres y mujeres en las distintas etapas de la vida."},
+  {n:"Nutricionistas",p:"Planes de alimentación personalizados según los resultados genéticos, metabólicos y clínicos de cada paciente."},
+  {n:"Sistema musculoesquelético y entrenamiento físico",p:"Evaluación y programas de ejercicio para mejorar fuerza, movilidad y funcionalidad."},
+  {n:"Calidad de vida",p:"Acompañamiento integral en sueño, energía, manejo del estrés y hábitos."}
+];
+
+/* ── Render ─────────────────────────────────────────────────────────────── */
+const CATNAME = {sup:"Suplemento", te:"Té funcional"};
+const money = v => "$" + v.toFixed(2);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const grid = document.getElementById("grid");
+
+grid.innerHTML = P.map(x => `
+  <article class="card glass-sm" data-cat="${x.cat}"
+     data-hay="${esc((x.n + " " + x.role + " " + x.line + " " + x.comp).toLowerCase())}">
+    <div class="card-img">
+      <img src="img/p/${x.id}.jpg" alt="${esc(x.n)}" loading="lazy">
+      <span class="tag ${x.cat}">${CATNAME[x.cat]}</span>
+    </div>
+    <div class="card-body">
+      <span class="role">${esc(x.role)}</span>
+      <h3>${esc(x.n)}</h3>
+      <p class="line">${esc(x.line)}</p>
+      <div class="price-row"><span class="price num">${money(x.price)}</span><span class="per">PVP</span></div>
+    </div>
+    <div class="detail" id="d-${x.id}" hidden>
+      <dl>
+        <div><dt>Composición</dt><dd>${esc(x.comp)}</dd></div>
+        <div><dt>Cómo se toma</dt><dd>${esc(x.uso)}</dd></div>
+        <div><dd class="plain">${esc(x.plain)}</dd></div>
+      </dl>
+    </div>
+    <button type="button" class="more" aria-expanded="false" aria-controls="d-${x.id}">Ver ficha</button>
+  </article>`).join("");
+
+document.getElementById("svc").innerHTML = ESTUDIOS.map(s => `
+  <article class="glass-sm">
+    <img src="${s.img}" alt="${esc(s.alt)}" loading="lazy">
+    <div class="txt">
+      <h3>${esc(s.n)}</h3>
+      <p>${esc(s.p)}</p>
+      <p class="plain">${esc(s.plain)}</p>
+    </div>
+  </article>`).join("");
+
+document.getElementById("specs").innerHTML = SPECS.map(s => `
+  <div class="glass-sm"><h3>${esc(s.n)}</h3><p>${esc(s.p)}</p></div>`).join("");
+
+const row = x => `<li><span><span class="nm">${esc(x.n)}</span>
+  <span class="ing">${esc(x.d)} · ${esc(x.i)}</span></span>
+  <span class="pz">${esc(x.p)}</span></li>`;
+document.getElementById("ivList").innerHTML = IVS.map(row).join("");
+document.getElementById("shotList").innerHTML = SHOTS.map(row).join("");
+
+/* ── Filtros y búsqueda ─────────────────────────────────────────────────── */
+const cards = [...grid.querySelectorAll(".card")];
+let filter = "all", query = "";
+
+function apply() {
+  let shown = 0;
+  cards.forEach(c => {
+    const vis = (filter === "all" || c.dataset.cat === filter) &&
+                (!query || c.dataset.hay.includes(query));
+    c.hidden = !vis;
+    if (vis) shown++;
+  });
+  let e = document.getElementById("noRes");
+  if (!shown) {
+    if (!e) {
+      e = document.createElement("p");
+      e.id = "noRes"; e.className = "empty";
+      e.textContent = "Nada coincide con esa búsqueda. Prueba con un ingrediente, por ejemplo “magnesio” o “cúrcuma”.";
+      grid.appendChild(e);
+    }
+    e.hidden = false;
+  } else if (e) { e.hidden = true; }
+}
+
+document.querySelectorAll(".chip").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".chip").forEach(b => b.setAttribute("aria-pressed", String(b === btn)));
+    filter = btn.dataset.f;
+    apply();
+  });
+});
+document.getElementById("q").addEventListener("input", e => {
+  query = e.target.value.trim().toLowerCase();
+  apply();
+});
+
+/* ── Fichas ─────────────────────────────────────────────────────────────── */
+grid.addEventListener("click", e => {
+  const b = e.target.closest(".more");
+  if (!b) return;
+  const panel = b.closest(".card").querySelector(".detail");
+  const open = panel.hidden;
+  panel.hidden = !open;
+  b.setAttribute("aria-expanded", String(open));
+  b.textContent = open ? "Cerrar ficha" : "Ver ficha";
+});
+
+/* ── Menú de IVs ────────────────────────────────────────────────────────── */
+const ivT = document.getElementById("ivToggle");
+const ivM = document.getElementById("ivMenu");
+ivT.addEventListener("click", () => {
+  const open = ivM.hidden;
+  ivM.hidden = !open;
+  ivT.setAttribute("aria-expanded", String(open));
+  ivT.textContent = open ? "Ocultar el menú" : "Ver el menú completo · 13 IVs y 9 inyecciones";
+});
+
+apply();
+</script>
+</body>
+</html>
