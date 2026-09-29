@@ -1199,21 +1199,77 @@ footer img { height: 40px; opacity: 0.75; }
         btn.textContent = 'Preparando tu pago…';
         track('begin_checkout', { value: 700, currency: 'USD' });
 
+        /* ── POR QUE EN MOVIL NO USAMOS EL CHECKOUT EMBEBIDO ────────────────
+           Medido en GA4 sobre 30 dias: 13 personas distintas llegaron aqui y
+           SOLO 2 vieron el formulario de pago. Las 13 fueron movil — cero
+           desktop — y 9 de ellas iOS Safari, de las que vio el pago UNA. Un
+           usuario de Android Webview lo intento cuatro veces sin exito.
+           `checkout_error` no se disparo ni una vez, asi que no fue un fallo de
+           red ni del servidor: la promesa de initEmbeddedCheckout simplemente
+           no resuelve en esos navegadores, y la persona se queda mirando
+           "Preparando tu pago...".
+
+           El checkout alojado de Stripe (redirect) no tiene ese problema: es
+           una pagina propia de Stripe, sin iframe de terceros que Safari pueda
+           bloquear. El servidor ya lo soporta — con `embedded: false` devuelve
+           `url` en vez de `client_secret`.
+
+           Desktop se queda con el embebido, que ahi funciona y es mejor
+           experiencia. Si algun dia Stripe arregla iOS, basta poner
+           FORZAR_EMBEBIDO en true.                                            */
+        var FORZAR_EMBEBIDO = false;
+        var esMovil = !FORZAR_EMBEBIDO && (function () {
+          try { return !window.matchMedia('(min-width: 821px)').matches; }
+          catch (e) { return true; }
+        })();
+        var usarEmbebido = !esMovil;
+        track('checkout_modo', { modo: usarEmbebido ? 'embebido' : 'alojado' });
+
         fetch(CHECKOUT_ENDPOINT, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            name: name, email: email, phone: phone, tipo: tipo, embedded: true,
+            name: name, email: email, phone: phone, tipo: tipo, embedded: usarEmbebido,
             source: 'consulta-michelle · ' + (attribution.utm_source || 'directo'),
             origin: location.origin
           })
         })
         .then(function (r) { return r.json(); })
         .then(function (j) {
+          // Este evento tapa el hueco ciego que teniamos: antes, entre
+          // begin_checkout y checkout_embedded_shown no habia nada, asi que un
+          // fallo silencioso era indistinguible de una persona que se va.
+          track('checkout_sesion_creada');
+
+          // Camino alojado (movil): Stripe cobra en su propia pagina.
+          if (j && j.url) {
+            track('checkout_redirect_hosted');
+            window.location.href = j.url;
+            return;
+          }
+
           if (!j || !j.client_secret) throw new Error((j && j.error) || 'sin client_secret');
+
           // Montar el pago incrustado — la persona NO sale de la página
           var stripe = Stripe(STRIPE_PK);
+
+          /* Red de seguridad: si initEmbeddedCheckout no resuelve en 12 s, se
+             deja de esperar, se mide, y se le da salida por WhatsApp en vez de
+             dejarla mirando el boton. Es exactamente el caso que perdio 11
+             personas sin dejar rastro. */
+          var resuelto = false;
+          setTimeout(function () {
+            if (resuelto) return;
+            track('checkout_stuck', { segundos: 12 });
+            btn.disabled = false;
+            btn.textContent = 'Reservar mi consulta · $700 →';
+            if (confirm('El pago está tardando más de lo normal. ¿Quieres que te ayudemos por WhatsApp?')) {
+              window.open('https://wa.me/17869302544?text=' + encodeURIComponent('Hola, intenté reservar mi consulta y el pago no cargó.'), '_blank');
+            }
+          }, 12000);
+
           return stripe.initEmbeddedCheckout({ clientSecret: j.client_secret }).then(function (co) {
+            resuelto = true;
             checkoutObj = co;
             form.style.display = 'none';
             document.getElementById('mp-pay').style.display = 'block';
@@ -1227,7 +1283,7 @@ footer img { height: 40px; opacity: 0.75; }
           btn.disabled = false;
           btn.textContent = 'Reservar mi consulta · $700 →';
           alert('No pudimos abrir el pago. Escríbenos por WhatsApp al +1 (786) 484-8729 y lo resolvemos.');
-          track('checkout_error');
+          track('checkout_error', { motivo: String((e && e.message) || e).slice(0, 90) });
         });
       });
 

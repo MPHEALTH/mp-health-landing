@@ -2248,10 +2248,12 @@ body.mp-locked { overflow: hidden; }
             clarity('event', 'form_modal_abierto');
           }
         } catch (e) {}
-        // Aviso de intención por email (solo a Elias), una vez por sesión para no
-        // saturar: alguien abrió el formulario aunque todavía no deje sus datos.
+        /* Aviso de intencion por email (solo a Elias), una vez por sesion.
+           SOLO en aperturas manuales: si el modal se abrio solo, abrirlo no es
+           intencion de nadie y el aviso no dice nada. Lo que si es intencion es
+           que empiece a responder, y eso ya lo reporta Virtual Scale. */
         try {
-          if (!sessionStorage.getItem('mp_cta_notified')) {
+          if (origen !== 'auto' && !sessionStorage.getItem('mp_cta_notified')) {
             sessionStorage.setItem('mp_cta_notified', '1');
             fetch(LEAD_ENDPOINT.replace('/api/lead', '/api/cta-open'), {
               method: 'POST', keepalive: true,
@@ -2331,12 +2333,49 @@ body.mp-locked { overflow: hidden; }
          AUTO_UNA_VEZ      si lo cierran, no vuelve a saltar en esa sesion.
                            Dejarlo en false hace que reaparezca en cada carga,
                            que es la forma mas rapida de que la gente rebote.  */
-      var AUTO_ABRIR   = true;
+      /* ── A QUIEN SE LE ABRE SOLO ────────────────────────────────────────
+         Al principio se abria para todo el mundo. Dos problemas medidos:
+
+         1. Rompe la unica metrica de intencion que teniamos. Antes, el 8,3%
+            abria el formulario por su cuenta (95 de 1146 en 14 dias) y el 65%
+            lo cerraba. Ese porcentaje decia algo. Si se abre solo, el 100% lo
+            "abre" y el numero deja de significar nada.
+         2. Llena el inbox. El aviso de /api/cta-open salta una vez por sesion
+            al abrirse el modal: con apertura universal son ~6.800 avisos al mes
+            (sesiones de 30 dias), y un aviso que llega siempre no avisa de nada.
+
+         Quien SI merece que se le abra solo: el que viene de Vanessa por
+         WhatsApp. Ya tuvo una conversacion, ya sabe que es esto, y el
+         formulario es el paso natural — no una interrupcion. Son 94 sesiones
+         en 30 dias (1,4% del trafico), unas 3 al dia: volumen sano para abrir
+         solo y para avisar por correo.
+
+         El trafico frio de Meta (ig/paid + fb/paid + campanas = 84%) llega sin
+         haber leido nada. A ese se le deja el boton, que para eso esta.
+
+         AUTO_ABRIR: 'vanessa' | 'todos' | 'nadie'                            */
+      var AUTO_ABRIR    = 'vanessa';
       var AUTO_ABRIR_MS = 1400;
       var AUTO_UNA_VEZ  = true;
 
+      // ¿Viene de la conversacion de Vanessa? Se mira UTM y referrer, porque
+      // el enlace de WhatsApp no siempre conserva los parametros.
+      function vieneDeVanessa() {
+        var u = (attribution.utm_source || '').toLowerCase();
+        var m = (attribution.utm_medium || '').toLowerCase();
+        var r = (attribution.referrer   || '').toLowerCase();
+        return m === 'vanessa' || u === 'whatsapp' || u === 'vanessa'
+            || r.indexOf('wa.me') >= 0 || r.indexOf('whatsapp') >= 0;
+      }
+
+      function debeAbrirSolo() {
+        if (AUTO_ABRIR === 'nadie') return false;
+        if (AUTO_ABRIR === 'todos') return true;
+        return vieneDeVanessa();
+      }
+
       function autoAbrir() {
-        if (!AUTO_ABRIR) return;
+        if (!debeAbrirSolo()) return;
         if (EMBED_LANDING) return;                       // dentro de un iframe, no
         if (modal.classList.contains('open')) return;    // ya lo abrio el solo
         // Si llega con ancla (#casos, #tratamiento) venia a ver algo concreto:
@@ -2347,11 +2386,11 @@ body.mp-locked { overflow: hidden; }
           if (AUTO_UNA_VEZ) sessionStorage.setItem('mp_auto_visto', '1');
         } catch (e) {}
         abrir('auto');
-        track('form_modal_auto', { retraso_ms: AUTO_ABRIR_MS });
+        track('form_modal_auto', { retraso_ms: AUTO_ABRIR_MS, origen_trafico: attributionLabel() });
       }
 
       // Se precarga primero y se abre despues, para que el modal no aparezca vacio.
-      if (AUTO_ABRIR) {
+      if (debeAbrirSolo()) {
         if ('requestIdleCallback' in window) requestIdleCallback(precargar, { timeout: 900 });
         else setTimeout(precargar, 300);
         setTimeout(autoAbrir, AUTO_ABRIR_MS);
