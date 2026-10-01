@@ -111,7 +111,7 @@
     /* ── HERO + CALENDARIO ── */
     .hero { background: var(--cream); padding: 56px 0 68px; border-bottom: 1px solid var(--cream2); }
     .hero-grid {
-      display: grid; grid-template-columns: 1fr 1.02fr; column-gap: 48px; row-gap: 0;
+      display: grid; grid-template-columns: 1fr 1.28fr; column-gap: 44px; row-gap: 0;
       grid-template-areas:
         "title cal"
         "lead  cal";
@@ -134,7 +134,7 @@
     .hero-portrait b { display: block; font-size: 0.93rem; color: var(--navy); font-weight: 700; }
     .hero-portrait span { font-size: 0.8rem; color: var(--muted); }
 
-    .cal-col { position: sticky; top: 82px; }
+    .cal-col { position: static; }
     /* Si la pantalla es baja, el sticky se desactiva: una tarjeta mas alta que el
        viewport queda clavada y su parte inferior se vuelve inalcanzable. */
     @media (max-height: 860px) { .cal-col { position: static; } }
@@ -403,6 +403,12 @@
   }
 
   .talk-btns { display: grid; gap: 8px; }
+  /* El boton de Setmore usa .btn/.bk-btn; solo su icono necesita medida */
+  /* El calendario de Setmore va a sangre dentro de la tarjeta */
+  .cal-embed { margin: 18px -26px 0; height: 800px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: #fff; }
+  .cal-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
+  @media (max-width: 980px) { .cal-embed { margin: 18px -20px 0; height: 680px; } }
+  @media (max-width: 520px) { .cal-embed { height: 620px; } }
   .talk a.alt { border-color: var(--teal-dk); color: var(--teal-dk); }
   .talk a.alt:hover { background: var(--teal-dk); color: #fff; }
 
@@ -651,7 +657,7 @@ footer img { height: 40px; opacity: 0.75; }
         <div class="after after-standalone">
           <b>Qué pasa después de reservar</b>
           <ol>
-            <li><strong>Te contactamos entre 24 y 48 horas</strong> para coordinar tu muestra y agendar tu consulta. Normalmente es mucho antes; si reservas un fin de semana o fuera del horario de oficina, será el siguiente día hábil.</li>
+            <li><strong>Eliges tu día y tu hora</strong> en el calendario, y pagas en el mismo paso.</li>
             <li><strong>Coordinamos tu muestra de cabello.</strong> En Miami se toma en el consultorio el mismo día de tu consulta. Fuera de Miami, te enviamos el kit a tu casa.</li>
             <li><strong>Michelle te recibe con tus resultados listos.</strong></li>
           </ol>
@@ -683,40 +689,25 @@ footer img { height: 40px; opacity: 0.75; }
               <span>Se asignan por orden de reserva.</span>
             </div>
 
-            <form id="bkForm" novalidate>
-              <div class="fld">
-                <label for="bkName">Nombre completo</label>
-                <input type="text" id="bkName" data-clarity-mask="true" autocomplete="name" placeholder="Tu nombre y apellido">
-                <span class="fld-err" id="errName">Escribe tu nombre completo</span>
-              </div>
-              <div class="fld">
-                <label for="bkEmail">Correo electrónico</label>
-                <input type="email" id="bkEmail" data-clarity-mask="true" autocomplete="email" inputmode="email" placeholder="tu@correo.com">
-                <span class="fld-err" id="errEmail">Escribe un correo válido</span>
-              </div>
-              <div class="fld">
-                <label for="bkPhone">Teléfono / WhatsApp</label>
-                <input type="tel" id="bkPhone" data-clarity-mask="true" autocomplete="tel" inputmode="tel" placeholder="+1 305 555 0123">
-                <span class="fld-err" id="errPhone">Escribe un teléfono válido con código de país</span>
-              </div>
-              <button type="submit" class="btn bk-btn" id="bkBtn">Reservar mi consulta · $700 →</button>
-              <p class="bk-secure">Pago seguro con Stripe. Tarjeta, Apple&nbsp;Pay, Google&nbsp;Pay y pago en cuotas.<br>Usamos tu teléfono solo para coordinar tu cita.</p>
-
-              <div class="talk">
-                <span>¿Prefieres agendar por teléfono?</span>
-                <a href="tel:+17869302544">
-                  <svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
-                  Agendar directo con nuestro equipo
-                </a>
-                <small>Llámanos al +1 (786) 930-2544 · lunes a viernes, 9 AM – 6 PM EST</small>
-              </div>
-            </form>
-
-            <!-- Pago incrustado (Stripe Embedded Checkout) — sin salir de la página -->
-            <div id="mp-pay" style="display:none">
-              <button type="button" id="bkBack" style="background:none;border:none;color:var(--muted);font-size:0.82rem;cursor:pointer;padding:0 0 12px;font-family:inherit;">← Volver</button>
-              <div id="mp-embedded"></div>
+            <div class="cal-embed" id="setmore-embed">
+              <iframe src="https://michellepeiretcitas.setmore.com/book?step=time-slot&amp;products=25e9610c-7860-40ed-ba71-79eb6e4f6325&amp;type=service&amp;staff=r42ea1644514710848&amp;staffSelected=true" title="Calendario de reservas · Michelle Peiret Health"
+                      allow="payment; clipboard-write" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
+            <p class="bk-secure">Eliges tu día y tu hora, y pagas en el mismo paso.</p>
+
+            <div class="talk">
+              <span>¿No ves el calendario, o prefieres agendar por teléfono?</span>
+              <a href="https://michellepeiretcitas.setmore.com/book?step=time-slot&amp;products=25e9610c-7860-40ed-ba71-79eb6e4f6325&amp;type=service&amp;staff=r42ea1644514710848&amp;staffSelected=true" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-8.5 8.5M18 13.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5.5"/></svg>
+                Abrir el calendario en otra pestaña
+              </a>
+              <a href="tel:+17869302544">
+                <svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+                Agendar directo con nuestro equipo
+              </a>
+              <small>Llámanos al +1 (786) 930-2544 · lunes a viernes, 9 AM – 6 PM EST</small>
+            </div>
+
           </div>
         </div>
       </div>
@@ -1097,7 +1088,6 @@ footer img { height: 40px; opacity: 0.75; }
   </footer>
 
   <script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
-  <script src="https://js.stripe.com/v3/"></script>
 
   <script>
     var CHECKOUT_ENDPOINT = 'https://bioscan.michellepeiret.com/api/consulta-checkout';
@@ -1340,5 +1330,17 @@ footer img { height: 40px; opacity: 0.75; }
     <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.4M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2m0 18.2c-1.6 0-3.2-.4-4.5-1.3l-.3-.2-3.1.8.8-3-.2-.3a8.2 8.2 0 1 1 7.3 4"/></svg>
     <span>Escríbenos</span>
   </a>
+<script>
+  (function () {
+    var c = document.getElementById('setmore-embed');
+    if (!c || !('IntersectionObserver' in window) || typeof window.track !== 'function') return;
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { window.track('setmore_visible', { origen: 'checkout' }); io.disconnect(); }
+      });
+    }, { threshold: 0.3 });
+    io.observe(c);
+  })();
+</script>
 </body>
 </html>
