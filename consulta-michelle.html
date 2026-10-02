@@ -111,10 +111,11 @@
     /* ── HERO + CALENDARIO ── */
     .hero { background: var(--cream); padding: 56px 0 68px; border-bottom: 1px solid var(--cream2); }
     .hero-grid {
-      display: grid; grid-template-columns: 1fr 1.28fr; column-gap: 44px; row-gap: 0;
+      display: grid; grid-template-columns: 1fr; column-gap: 0; row-gap: 30px;
       grid-template-areas:
-        "title cal"
-        "lead  cal";
+        "title"
+        "cal"
+        "lead";
       align-items: start;
     }
     .hero-title { grid-area: title; }
@@ -405,10 +406,10 @@
   .talk-btns { display: grid; gap: 8px; }
   /* El boton de Setmore usa .btn/.bk-btn; solo su icono necesita medida */
   /* El calendario de Setmore va a sangre dentro de la tarjeta */
-  .cal-embed { margin: 18px -26px 0; height: 800px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: #fff; }
+  .cal-embed { margin: 18px -26px 0; height: 680px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: #fff; }
   .cal-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
-  @media (max-width: 980px) { .cal-embed { margin: 18px -20px 0; height: 680px; } }
-  @media (max-width: 520px) { .cal-embed { height: 620px; } }
+  /* Por debajo de ~900 px Setmore apila calendario, horas y resumen: hace falta más alto */
+  @media (max-width: 900px) { .cal-embed { margin: 18px -20px 0; height: 860px; } }
   .talk a.alt { border-color: var(--teal-dk); color: var(--teal-dk); }
   .talk a.alt:hover { background: var(--teal-dk); color: #fff; }
 
@@ -1331,15 +1332,66 @@ footer img { height: 40px; opacity: 0.75; }
     <span>Escríbenos</span>
   </a>
 <script>
+  /* ── Setmore: qué se puede medir desde fuera del iframe ──────────────
+     El calendario es de otro dominio. No se ve qué escribe la persona,
+     ni si llegó a pagar, ni quién es: esa captura temprana se perdió al
+     mover el cobro a Setmore. Lo observable desde aquí son dos cosas:
+
+       setmore_visible      el calendario entró en pantalla
+       setmore_interaccion  primer clic DENTRO del calendario
+
+     La segunda se detecta porque, al pulsar dentro de un iframe de otro
+     dominio, la ventana padre pierde el foco y document.activeElement
+     pasa a ser ese iframe. Es anónimo, pero es intención real.
+
+     AVISO_ENDPOINT vacío = solo GA4. Al poner una URL, cada señal se
+     envía también por POST para que dispare un correo o un WhatsApp.
+     El servidor tendría que aceptar: {evento, pagina, ts, utm_*}.      */
+  var AVISO_ENDPOINT = '';
+  if (typeof window.track !== 'function') { window.track = function () {}; }
+
+  function avisar(evento) {
+    if (!AVISO_ENDPOINT) return;
+    try {
+      var datos = { evento: evento, pagina: 'consulta_michelle', ts: new Date().toISOString() };
+      var cuerpo = JSON.stringify(datos);
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(AVISO_ENDPOINT, new Blob([cuerpo], { type: 'application/json' }));
+      } else {
+        fetch(AVISO_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+                                body: cuerpo, keepalive: true });
+      }
+    } catch (e) {}
+  }
+
   (function () {
-    var c = document.getElementById('setmore-embed');
-    if (!c || !('IntersectionObserver' in window) || typeof window.track !== 'function') return;
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        if (e.isIntersecting) { window.track('setmore_visible', { origen: 'checkout' }); io.disconnect(); }
-      });
-    }, { threshold: 0.3 });
-    io.observe(c);
+    var cont = document.getElementById('setmore-embed');
+    if (!cont) return;
+    var ifr = cont.querySelector('iframe');
+
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          window.track('setmore_visible', { origen: 'checkout' });
+          avisar('calendario_visible');
+          io.disconnect();
+        });
+      }, { threshold: 0.3 });
+      io.observe(cont);
+    }
+
+    var yaAvisado = false;
+    function comprobarFoco() {
+      if (yaAvisado || !ifr || document.activeElement !== ifr) return;
+      yaAvisado = true;
+      window.track('setmore_interaccion', { origen: 'checkout' });
+      avisar('empezo_a_reservar');
+    }
+    // El foco salta al iframe justo después del blur, de ahí el timeout.
+    window.addEventListener('blur', function () { setTimeout(comprobarFoco, 0); });
+    document.addEventListener('visibilitychange', comprobarFoco);
+    window.__smComprobar = comprobarFoco; // gancho para la prueba automatizada
   })();
 </script>
 </body>
