@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Consulta de Evaluación con Michelle Peiret + Estudio BioScan</title>
-  <meta name="description" content="Consulta de evaluación de 60 minutos con Michelle Peiret, incluye el estudio BioScan de 900+ biomarcadores. Elige tu día y hora.">
+  <title>Consulta de Evaluación con Michelle Peiret o su Equipo</title>
+  <meta name="description" content="Consulta de evaluación de 60 minutos: con Michelle y tu estudio BioScan ($700), con Michelle sin estudios ($400) o con una especialista de su equipo ($200). Elige tu día y hora.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -200,6 +200,8 @@
     .inc-list > li { padding: 16px 0 16px 28px; position: relative; border-bottom: 1px solid var(--cream2); }
     .inc-list > li:nth-last-child(-n+2) { border-bottom: none; }
     .inc-list > li::before { content: ''; position: absolute; left: 3px; top: 25px; width: 8px; height: 8px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 4px rgba(0,201,167,0.16); }
+    .sec-nota { margin: 12px 0 0; max-width: 62ch; font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+    .acc-q small { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal-dk); margin-left: 9px; white-space: nowrap; }
     .inc-list b { display: block; font-size: 0.95rem; color: var(--navy); font-weight: 700; margin-bottom: 4px; }
     .inc-list span { display: block; font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
     @media (max-width: 860px) {
@@ -593,6 +595,9 @@ footer img { height: 40px; opacity: 0.75; }
     .tipo-nom { font-size: 0.93rem; font-weight: 700; color: var(--navy); }
     .tipo-precio { font-size: 1.4rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; white-space: nowrap; }
     .tipo-desc { font-size: 0.81rem; color: var(--muted); line-height: 1.6; margin: 5px 0 0; }
+    .tipo-nota { font-size: 0.78rem; color: var(--muted); line-height: 1.6; margin: 12px 2px 0; }
+    .tipo-nota--intro { margin: 0 0 4px; font-size: 0.84rem; line-height: 1.65; }
+    .tipo-nota--intro b { color: var(--navy); font-weight: 700; }
 
 </style>
 </head>
@@ -629,7 +634,7 @@ footer img { height: 40px; opacity: 0.75; }
     <div class="wrap hero-grid">
       <div class="hero-title">
         <span class="label">Consulta de evaluación</span>
-        <h1>Consulta de evaluación con Michelle Peiret <span class="h1-plus">+ estudio BioScan</span></h1>
+        <h1>Consulta de evaluación <span class="h1-plus">con Michelle Peiret o con su equipo</span></h1>
         <p class="tagline">Tu punto de partida hacia un plan hecho a tu medida.</p>
         <div class="hero-portrait">
           <img src="images/michelle-retrato.jpg" alt="Michelle Peiret">
@@ -642,28 +647,28 @@ footer img { height: 40px; opacity: 0.75; }
 
       <div class="hero-lead">
         <p class="hero-sub">
-          Sesenta minutos uno a uno con Michelle, con tu BioScan sobre la mesa. Recorre tu historia
-          completa, te explica el origen de lo que estás viviendo y define contigo la estrategia con
-          la que se va a trabajar tu caso: <strong>cómo se corrige, en qué orden y en cuánto tiempo</strong>.
-          Tu plan personalizado nace de esta consulta.
+          Sesenta minutos uno a uno. Se recorre tu historia completa, se te explica el origen de lo
+          que estás viviendo y se define contigo la estrategia con la que se va a trabajar tu caso:
+          <strong>cómo se corrige, en qué orden y en cuánto tiempo</strong>. Tu plan personalizado nace
+          de esta consulta. <strong>El valor de la consulta se acredita al tratamiento que inicies después.</strong>
         </p>
 
         <div class="meta-rows">
           <div class="meta-row"><span class="meta-k">Duración</span><span class="meta-v">60 minutos, uno a uno</span></div>
-          <div class="meta-row"><span class="meta-k">Incluye</span><span class="meta-v">BioScan · 900+ biomarcadores<br>InBody · composición corporal</span></div>
+          <div class="meta-row"><span class="meta-k">Estudios</span><span class="meta-v">En la consulta de $700:<br>BioScan · 900+ biomarcadores<br>InBody · composición corporal</span></div>
           <div class="meta-row"><span class="meta-k">Modalidad</span><span class="meta-v">Presencial en Miami u online</span></div>
-          <div class="meta-row"><span class="meta-k">En Miami</span><span class="meta-v">Muestra y consulta el mismo día</span></div>
+          <div class="meta-row"><span class="meta-k">En Miami</span><span class="meta-v">Muestra y consulta el mismo día, si llevas estudios</span></div>
         </div>
 
         <div class="after after-standalone">
           <b>Qué pasa después de reservar</b>
           <ol>
             <li><strong>Eliges tu día y tu hora</strong> en el calendario, y pagas en el mismo paso.</li>
-            <li><strong>Coordinamos tu muestra de cabello.</strong> En Miami se toma en el consultorio el mismo día de tu consulta. Fuera de Miami, te enviamos el kit a tu casa.</li>
+            <li><strong>Si tu consulta incluye estudios, coordinamos tu muestra de cabello.</strong> En Miami se toma en el consultorio el mismo día de tu consulta. Fuera de Miami, te enviamos el kit a tu casa.</li>
             <li><strong>Michelle te recibe con tus resultados listos.</strong></li>
           </ol>
           <p class="timing">
-            <strong>Tiempos estimados:</strong> normalmente la consulta ocurre entre <strong>15 y 20 días</strong> después de tu reserva. El rango puede variar según dónde estés ubicado — dentro de Estados Unidos o internacionalmente — porque Michelle necesita tus resultados del BioScan antes de la consulta.
+            <strong>Tiempos estimados:</strong> con estudios incluidos, la consulta ocurre entre <strong>15 y 20 días</strong> después de tu reserva, porque Michelle necesita tus resultados del BioScan antes de recibirte, y el rango varía según dónde estés ubicado, dentro de Estados Unidos o internacionalmente. Sin estudios, la cita va según la disponibilidad del calendario.
           </p>
         </div>
       </div>
@@ -672,17 +677,11 @@ footer img { height: 40px; opacity: 0.75; }
         <div class="cal-card">
           <div class="cal-card-head">
             <b>Reserva tu cupo</b>
-            <span>Consulta de evaluación + estudio BioScan</span>
+            <span>Elige la consulta, y después tu día y tu hora</span>
           </div>
           <div class="cal-card-body">
             <div class="tipos">
-              <div class="tipo sel solo">
-                <div class="tipo-top">
-                  <span class="tipo-nom">Consulta + estudios</span>
-                  <span class="tipo-precio">$700</span>
-                </div>
-                <p class="tipo-desc">Incluye tu BioScan de 900+ biomarcadores y tu InBody. Michelle interpreta tus resultados contigo en la consulta.</p>
-              </div>
+              <p class="tipo-nota tipo-nota--intro">Tres consultas disponibles: con Michelle y tus estudios <b>$700</b>, con Michelle sin estudios <b>$400</b>, o con Marcia Alonso, especialista de su equipo, <b>$200</b>. Elige la tuya en el calendario; las tres se acreditan al tratamiento que inicies después.</p>
             </div>
 
             <div class="scarcity">
@@ -691,14 +690,14 @@ footer img { height: 40px; opacity: 0.75; }
             </div>
 
             <div class="cal-embed" id="setmore-embed">
-              <iframe src="https://michellepeiretcitas.setmore.com/book?step=time-slot&amp;products=25e9610c-7860-40ed-ba71-79eb6e4f6325&amp;type=service&amp;staff=r42ea1644514710848&amp;staffSelected=true" title="Calendario de reservas · Michelle Peiret Health"
+              <iframe src="https://michellepeiretcitas.setmore.com/book" title="Calendario de reservas · Michelle Peiret Health"
                       allow="payment; clipboard-write" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
             <p class="bk-secure">Eliges tu día y tu hora, y pagas en el mismo paso.</p>
 
             <div class="talk">
               <span>¿No ves el calendario, o prefieres agendar por teléfono?</span>
-              <a href="https://michellepeiretcitas.setmore.com/book?step=time-slot&amp;products=25e9610c-7860-40ed-ba71-79eb6e4f6325&amp;type=service&amp;staff=r42ea1644514710848&amp;staffSelected=true" target="_blank" rel="noopener">
+              <a href="https://michellepeiretcitas.setmore.com/book" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-8.5 8.5M18 13.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5.5"/></svg>
                 Abrir el calendario en otra pestaña
               </a>
@@ -833,6 +832,7 @@ footer img { height: 40px; opacity: 0.75; }
       <div class="sec-head fade">
         <span class="label">Qué incluye</span>
         <h2>Qué incluye esta consulta</h2>
+        <p class="sec-nota">Así se desarrolla la sesión. Los dos estudios corresponden a la consulta de $700; en las de $400 y $200 el resto se mantiene igual.</p>
       </div>
       <div class="inc-acc fade">
         <div class="acc-item">
@@ -840,11 +840,11 @@ footer img { height: 40px; opacity: 0.75; }
           <div class="acc-a"><p>Tu historial médico, diagnósticos y tratamientos previos, junto a tu historia personal: hábitos, sueño, alimentación, estrés y los objetivos que tienes hoy.</p></div>
         </div>
         <div class="acc-item">
-          <button class="acc-q" type="button">Tu estudio BioScan<span class="acc-ico">+</span></button>
+          <button class="acc-q" type="button">Tu estudio BioScan <small>consulta de $700</small><span class="acc-ico">+</span></button>
           <div class="acc-a"><p>Un estudio epigenético con cuatro hebras de cabello, sin agujas ni sangre. Lee 900+ biomarcadores: vitaminas y minerales, hormonas, microbiota, toxinas, sensibilidades a 115+ alimentos, inflamación y edad biológica. Muestra cómo funciona tu cuerpo hoy, no predisposiciones fijas.</p></div>
         </div>
         <div class="acc-item">
-          <button class="acc-q" type="button">Tu InBody<span class="acc-ico">+</span></button>
+          <button class="acc-q" type="button">Tu InBody <small>consulta de $700</small><span class="acc-ico">+</span></button>
           <div class="acc-a"><p>El análisis de composición corporal del centro: masa muscular, grasa visceral, densidad ósea e hidratación celular. El dato que le dice a Michelle de qué está hecho tu peso, no solo cuánto pesas.</p></div>
         </div>
         <div class="acc-item">
@@ -1038,7 +1038,7 @@ footer img { height: 40px; opacity: 0.75; }
       <div class="faq-list">
         <div class="faq-item">
           <button class="faq-q">¿El BioScan está incluido?<span class="faq-ico">+</span></button>
-          <div class="faq-a"><p>Sí. Los $700 USD cubren tu BioScan completo — 900+ biomarcadores en 9 categorías —, tu InBody de composición corporal y los sesenta minutos con Michelle. No hay costos adicionales por los estudios.</p></div>
+          <div class="faq-a"><p>En la consulta de $700 USD, sí: cubre tu BioScan completo — 900+ biomarcadores en 9 categorías —, tu InBody de composición corporal y los sesenta minutos con Michelle, sin costos adicionales por los estudios. Las consultas de $400 y de $200 son de evaluación; los estudios se solicitan aparte si tu caso los requiere.</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-q">Estoy fuera de Miami. ¿Cómo funciona?<span class="faq-ico">+</span></button>
@@ -1072,9 +1072,9 @@ footer img { height: 40px; opacity: 0.75; }
   <section class="final">
     <div class="wrap fade">
       <h2>Reserva tu consulta</h2>
-      <p class="lede">Sesenta minutos con Michelle y tu biología medida. Elige tu día y hora.</p>
+      <p class="lede">Sesenta minutos de valoración individual, con Michelle o con una especialista de su equipo. Elige la consulta, tu día y tu hora.</p>
       <a href="#form" class="btn" onclick="track('cta_click',{position:'final'})">Reservar mi cupo →</a>
-      <span class="btn-line">$700 USD · BioScan e InBody incluidos</span>
+      <span class="btn-line">Desde $200 USD · se acredita al tratamiento</span>
     </div>
   </section>
 
