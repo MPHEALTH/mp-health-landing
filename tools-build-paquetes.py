@@ -351,12 +351,12 @@ PUNTO = dict(
     sub='La mayoría de la gente que quiere cuidarse no sabe por dónde empezar, así que empieza por lo que vio en redes. Este paquete invierte el orden: primero mides, después decides. <strong>900+ biomarcadores desde tu casa y la composición real de tu cuerpo</strong>, leídos contigo por un especialista.',
     precio='540',
     price_note='· BioScan + InBody + consulta de interpretación',
-    save='',
+    save='<span class="pk-save">Ahorras $55</span>',
     chips=['Miami u online', 'Kit a domicilio', 'Sin agujas', 'Se acredita íntegro'],
     inc_h2='Dos estudios que se complementan',
     inc_p='Uno mira hacia adentro, a nivel celular. El otro mide de qué está hecho tu cuerpo por fuera. Juntos te dan el punto de partida completo, y ninguno requiere una aguja.',
     cards=[
-        ('bioscan', 'BioScan', '$447 por separado',
+        ('bioscan', 'BioScan', '$500 por separado',
          '900+ biomarcadores desde cuatro hebras de cabello',
          'Deficiencias de vitaminas y minerales, hormonas, microbiota, carga de toxinas y sensibilidad a 115+ alimentos. El kit llega a tu casa, envías la muestra y en 7 a 10 días tienes el informe.',
          ('https://bioscan.michellepeiret.com/', 'Ver el BioScan'),
@@ -377,8 +377,8 @@ PUNTO = dict(
          None,
          ('images/centro-equipo.jpg', 'Equipo clínico del centro MP Health')),
     ],
-    sum_l='<b>BioScan $447</b> + <b>InBody $95</b> por separado, con sus consultas',
-    sum_r='<s>$542</s>$540',
+    sum_l='<b>BioScan $500</b> + <b>InBody $95</b> por separado, con sus consultas',
+    sum_r='<s>$595</s>$540',
     dia_label='Cómo funciona',
     dia_h2='De la llamada al informe',
     dia=[
@@ -418,9 +418,9 @@ PUNTO = dict(
          'Escríbenos por WhatsApp y lo vemos según el caso. En la llamada de 15 minutos también podemos revisar las opciones disponibles.'),
     ],
     alts=[
-        ('paquete-atleta.html', 'Atleta MP', '$895', 'Tu rendimiento, medido y optimizado.',
+        ('paquete-atleta.html', 'Atleta MP', '$995', 'Tu rendimiento, medido y optimizado.',
          'Metabólico con VO2 Max, panel de sangre completo, InBody y una sesión de IV Therapy de recuperación.'),
-        ('paquete-mapa-biologico.html', 'Mapa Biológico MP', '$1,200', 'La fotografía completa de tu biología.',
+        ('paquete-mapa-biologico.html', 'Mapa Biológico MP', '$1,295', 'La fotografía completa de tu biología.',
          'Los cuatro estudios en una sola visita: BioScan, sangre, metabólico e InBody.'),
     ],
     wa=WA + 'Hola%2C%20quiero%20informaci%C3%B3n%20del%20Punto%20de%20Partida%20MP',
@@ -428,19 +428,19 @@ PUNTO = dict(
 )
 
 # ══════════════════════════════════════════════════════════════
-#  2 · ATLETA MP — $895
+#  2 · ATLETA MP — $995
 # ══════════════════════════════════════════════════════════════
 ATLETA = dict(
     file='paquete-atleta.html',
     nombre='Atleta MP',
     tipo='Diagnóstico para atletas',
-    title='Atleta MP — $895 | Michelle Peiret Health',
+    title='Atleta MP — $995 | Michelle Peiret Health',
     desc='Análisis Metabólico con VO2 Max, panel de sangre completo, InBody y una sesión de IV Therapy de recuperación. Con interpretación de un especialista.',
     h1='Deja de entrenar<br><em>a ciegas</em>',
     sub='Puedes entrenar duro durante años y estancarte por algo que nunca mediste: una zona de esfuerzo mal calculada, un hierro bajo, un déficit calórico que te está costando músculo. <strong>Este paquete mide tu motor, tu sangre y tu composición</strong>, y cierra con una sesión de recuperación.',
-    precio='895',
+    precio='995',
     price_note='· cuatro servicios con tu consulta de interpretación',
-    save='<span class="pk-save">Ahorras desde $150</span>',
+    save='<span class="pk-save">Ahorras $165</span>',
     chips=['Presencial en Miami', 'VO2 Max real', 'IV Therapy incluida', 'Se acredita íntegro'],
     inc_h2='Tu motor, tu química y tu chasis',
     inc_p='El metabólico mide cómo produces energía. La sangre, con qué materia prima cuentas. El InBody, qué estás construyendo o perdiendo. La IV Therapy cierra el día ayudándote a recuperar.',
@@ -450,7 +450,7 @@ ATLETA = dict(
          'Dos pruebas con tecnología PNOĒ, en reposo y en esfuerzo: tus calorías y macros reales, tu VO2 max, tus zonas de frecuencia cardíaca y tu edad biológica. Respirando por una mascarilla.',
          ('metabolico.html', 'Ver el Análisis Metabólico'),
          ('images/centro-vo2max.jpg', 'Prueba de VO2 max con mascarilla PNOĒ en el centro')),
-        ('sangre', 'Panel de Sangre MP · Completo', '$500 – $600 por separado',
+        ('sangre', 'Panel de Sangre MP · Completo', '$500 por separado',
          'Tu analítica de sangre completa',
          'Una extracción de sangre que mide hierro y ferritina, testosterona, cortisol, tiroides, marcadores de inflamación y perfil metabólico. Lo que explica por qué te falta chispa aunque entrenes bien.',
          ('paneles-sangre.html', 'Ver los Paneles'),
@@ -460,14 +460,14 @@ ATLETA = dict(
          'Si estás ganando músculo o perdiéndolo, dónde tienes asimetrías entre lados y cómo va tu agua celular. La báscula de casa no distingue nada de esto.',
          ('inbody.html', 'Ver el InBody'),
          ('images/inbody-centro.jpg', 'Medición de composición corporal en el InBody 970S')),
-        ('iv', 'IV Therapy de recuperación', 'Incluida',
+        ('iv', 'IV Recovery &amp; Performance', '$215 por separado',
          'Una sesión de recuperación deportiva',
-         'Protocolo intravenoso de recuperación para cerrar el día de mediciones: hidratación, minerales y vitaminas según lo que tu analítica muestre.',
+         'El suero Recovery &amp; Performance del centro para cerrar el día de mediciones: vitamina C, complejo vitamínico, aminoácidos y minerales que apoyan tu recuperación después del esfuerzo.',
          None,
          ('images/127michelle%20peiret%20oficina%202026%20.jpg', 'Sala de IV Therapy del centro')),
     ],
-    sum_l='<b>$945 a $1,045</b> si contratas los cuatro por separado',
-    sum_r='<s>desde $945</s>$895',
+    sum_l='<b>$1,160</b> si contratas los cuatro por separado',
+    sum_r='<s>$1,160</s>$995',
     dia_label='Cómo es el día',
     dia_h2='Todo en una visita',
     dia=[
@@ -511,37 +511,37 @@ ATLETA = dict(
     alts=[
         ('paquete-punto-de-partida.html', 'Punto de Partida MP', '$540', 'Entiende qué está pasando en tu cuerpo.',
          'BioScan e InBody con tu consulta de interpretación. Buena parte desde casa y sin agujas.'),
-        ('paquete-mapa-biologico.html', 'Mapa Biológico MP', '$1,200', 'La fotografía completa de tu biología.',
+        ('paquete-mapa-biologico.html', 'Mapa Biológico MP', '$1,295', 'La fotografía completa de tu biología.',
          'Los cuatro estudios en una sola visita: BioScan, sangre, metabólico e InBody.'),
     ],
     wa=WA + 'Hola%2C%20quiero%20informaci%C3%B3n%20del%20paquete%20Atleta%20MP',
-    cfg="{ nombre: 'Atleta MP', precio: '$895', valor: 895, slug: 'atleta', calendly: '' }",
+    cfg="{ nombre: 'Atleta MP', precio: '$995', valor: 995, slug: 'atleta', calendly: '' }",
 )
 
 # ══════════════════════════════════════════════════════════════
-#  3 · MAPA BIOLÓGICO MP — $1,200
+#  3 · MAPA BIOLÓGICO MP — $1,295
 # ══════════════════════════════════════════════════════════════
 MAPA = dict(
     file='paquete-mapa-biologico.html',
     nombre='Mapa Biológico MP',
     tipo='Diagnóstico completo',
-    title='Mapa Biológico MP — $1,200 · el más completo | Michelle Peiret Health',
+    title='Mapa Biológico MP — $1,295 · el más completo | Michelle Peiret Health',
     desc='BioScan, panel de sangre completo, Análisis Metabólico e InBody en una sola visita, con interpretación de un especialista. El diagnóstico más completo de MP Health.',
     h1='Toda tu biología,<br>en <em>un solo día</em>',
     sub='Cuatro estudios que normalmente se hacen por separado, a lo largo de meses y en sitios distintos. Aquí se hacen en una visita y se leen juntos: <strong>lo celular, lo clínico, lo metabólico y lo estructural</strong>, cruzados por un especialista en una sola conversación.',
-    precio='1,200',
+    precio='1,295',
     price_note='· los cuatro estudios con tu consulta de interpretación',
-    save='<span class="pk-save">Ahorras desde $192</span>',
+    save='<span class="pk-save">Ahorras $150</span>',
     chips=['Presencial en Miami', 'Visita de 3 a 3.5 h', '4 estudios', 'Se acredita íntegro'],
     inc_h2='Las cuatro capas de tu biología',
     inc_p='Cada estudio ve algo que los otros no. Medidos por separado son cuatro informes sueltos; medidos juntos y leídos a la vez, son un mapa.',
     cards=[
-        ('bioscan', 'BioScan', '$447 por separado',
+        ('bioscan', 'BioScan', '$500 por separado',
          'Lo celular: 900+ biomarcadores',
          'Deficiencias, hormonas, microbiota, carga de toxinas y sensibilidad a 115+ alimentos, desde cuatro hebras de cabello. Muestra lo acumulado durante meses.',
          ('https://bioscan.michellepeiret.com/', 'Ver el BioScan'),
          ('images/bioscan-muestra.jpg', 'Toma de la muestra de cabello para el BioScan')),
-        ('sangre', 'Panel de Sangre MP · Completo', '$500 – $600 por separado',
+        ('sangre', 'Panel de Sangre MP · Completo', '$500 por separado',
          'Lo clínico: tu sangre hoy',
          'El panel de sangre más amplio de los cinco: metabólico, hormonal, inflamatorio y nutricional. Los valores que un médico necesita ver, con la interpretación que casi nunca viene incluida.',
          ('paneles-sangre.html', 'Ver los Paneles'),
@@ -557,8 +557,8 @@ MAPA = dict(
          ('inbody.html', 'Ver el InBody'),
          ('images/inbody-centro.jpg', 'Medición de composición corporal en el InBody 970S')),
     ],
-    sum_l='<b>$1,392 a $1,492</b> si contratas los cuatro por separado',
-    sum_r='<s>desde $1,392</s>$1,200',
+    sum_l='<b>$1,445</b> si contratas los cuatro por separado',
+    sum_r='<s>$1,445</s>$1,295',
     dia_label='Cómo es el día',
     dia_h2='Tres horas y media, una sola vez',
     dia=[
@@ -594,7 +594,7 @@ MAPA = dict(
          'Entre 3 y 3.5 horas. Es la parte más exigente del paquete, así que conviene reservar la mañana completa y no encadenarla con compromisos.'),
         ('¿Cuándo tengo todos los resultados?',
          'El InBody y el metabólico salen el mismo día. El panel de sangre y el BioScan tardan entre 7 y 10 días. La consulta de interpretación se agenda cuando está todo, para verlo completo de una vez.'),
-        ('¿Se acreditan los $1,200 completos?',
+        ('¿Se acreditan los $1,295 completos?',
          'Sí. Si inicias un tratamiento nutricional personalizado dentro de los 60 días siguientes, el monto íntegro se descuenta del precio del tratamiento.'),
         ('¿Esto reemplaza a mi médico?',
          'No. Los diagnósticos MP no sustituyen una consulta médica ni constituyen un diagnóstico clínico. Son estudios que te dan datos y su interpretación; muchos pacientes se los llevan a su médico tratante, y nos parece bien que lo hagan.'),
@@ -604,11 +604,11 @@ MAPA = dict(
     alts=[
         ('paquete-punto-de-partida.html', 'Punto de Partida MP', '$540', 'Entiende qué está pasando en tu cuerpo.',
          'BioScan e InBody con tu consulta de interpretación. Buena parte desde casa y sin agujas.'),
-        ('paquete-atleta.html', 'Atleta MP', '$895', 'Tu rendimiento, medido y optimizado.',
+        ('paquete-atleta.html', 'Atleta MP', '$995', 'Tu rendimiento, medido y optimizado.',
          'Metabólico con VO2 Max, panel de sangre completo, InBody y una sesión de IV Therapy de recuperación.'),
     ],
     wa=WA + 'Hola%2C%20quiero%20informaci%C3%B3n%20del%20Mapa%20Biol%C3%B3gico%20MP',
-    cfg="{ nombre: 'Mapa Biológico MP', precio: '$1,200', valor: 1200, slug: 'mapa_biologico', calendly: '' }",
+    cfg="{ nombre: 'Mapa Biológico MP', precio: '$1,295', valor: 1295, slug: 'mapa_biologico', calendly: '' }",
 )
 
 for p in (PUNTO, ATLETA, MAPA):
